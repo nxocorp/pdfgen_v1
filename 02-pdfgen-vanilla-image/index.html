@@ -1,0 +1,1687 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF-gen POC (image) — UH-60R Logbook</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<style>
+  :root {
+    --bg: #f4f5f7; --panel: #ffffff; --border: #d7dae0; --border-strong: #b9bec8;
+    --text: #1d222b; --muted: #6b7280; --accent: #3454d1; --accent-bg: #eaeefc;
+    --danger: #b42318;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text);
+    display: flex; flex-direction: column; }
+
+  header.topbar {
+    height: 52px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px; background: var(--panel); border-bottom: 1px solid var(--border);
+  }
+  header.topbar .brand { font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
+  header.topbar .sub { font-size: 12px; color: var(--muted); margin-left: 10px; }
+
+  .app-body { flex: 1; display: flex; min-height: 0; }
+
+  /* ---------- Sidebar ---------- */
+  aside.sidebar {
+    width: 260px; flex-shrink: 0; display: flex; flex-direction: column;
+    background: #fbfbfc; border-right: 1px solid var(--border);
+  }
+  aside.sidebar.collapsed { width: 44px; align-items: center; }
+  .sidebar-toggle {
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-strong); border-radius: 5px; background: #fff; color: var(--muted);
+    cursor: pointer; flex-shrink: 0;
+  }
+  .sidebar-toggle:hover { background: #f0f1f3; }
+  .sidebar-collapsed-strip { padding: 12px 0; display: flex; justify-content: center; }
+  .sidebar-header-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 0; }
+  .sidebar-section { padding: 12px 14px 4px; }
+  .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .model-pill {
+    display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px;
+    border-radius: 12px; background: var(--accent-bg); color: var(--accent);
+  }
+  .doctype-line { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+  .sidebar-list { flex: 1; overflow-y: auto; padding: 4px 8px 8px; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 8px; padding: 8px 8px; border-radius: 6px; cursor: pointer;
+    font-size: 12.5px;
+  }
+  .sidebar-item:hover { background: #f0f1f3; }
+  .sidebar-item.active { background: var(--accent-bg); }
+  .sidebar-item .tail { font-family: ui-monospace, Menlo, monospace; font-weight: 600; flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sidebar-item .meta { font-size: 10px; color: var(--muted); }
+  .sidebar-item .del { opacity: 0; color: var(--danger); font-size: 15px; line-height: 1; background: none; border: none; cursor: pointer; }
+  .sidebar-item:hover .del { opacity: 1; }
+  .sidebar-empty { padding: 14px 8px; font-size: 12px; color: var(--muted); }
+  .sidebar-footer { padding: 12px 14px; border-top: 1px solid var(--border); }
+  .sidebar-footer .btn { width: 100%; justify-content: center; }
+
+  .form-type-group { margin-bottom: 4px; }
+  .form-type-header {
+    display: flex; align-items: center; gap: 6px; padding: 8px 8px 4px;
+    font-size: 11px; font-weight: 700; color: var(--text);
+  }
+  .form-type-header .form-type-count { color: var(--muted); font-weight: 600; }
+  .form-type-actions { margin-left: auto; display: flex; gap: 4px; }
+  .form-type-gear, .form-type-add {
+    width: 18px; height: 18px; line-height: 1; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-strong); border-radius: 4px; background: #fff; color: var(--muted); font-size: 13px;
+    cursor: pointer; padding: 0;
+  }
+  .form-type-gear:hover, .form-type-add:hover { background: #f0f1f3; color: var(--text); }
+  .form-instance-item { padding-left: 18px; font-size: 12px; }
+
+  /* ---------- Center ---------- */
+  main.center { flex: 1; min-width: 0; overflow-y: auto; padding: 22px 26px 60px; }
+  .placeholder { max-width: 420px; margin: 60px auto 0; text-align: center; color: var(--muted); font-size: 13px; }
+
+  .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+  .toolbar .titles h1 { font-size: 18px; margin: 0 0 2px; }
+  .toolbar .titles .cap { font-size: 12px; color: var(--muted); }
+  .toolbar .actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 13px; font-weight: 600;
+    border-radius: 6px; border: 1px solid var(--border-strong); background: #fff; color: var(--text); cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn:hover { background: #f0f1f3; }
+  .btn-primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #2a44b8; }
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--muted); padding: 14px 16px 8px;
+  }
+  .field-grid { display: grid; gap: 12px; padding: 0 16px 16px; }
+  label { display: block; font-size: 10.5px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 4px; min-height: 1px; }
+  input[type=text], input[type=number], textarea, select {
+    width: 100%; padding: 7px 9px; font-size: 13px; border: 1px solid var(--border-strong); border-radius: 5px;
+    font-family: inherit; background: #fff; color: var(--text);
+  }
+  textarea { resize: vertical; min-height: 60px; }
+
+  table.rows { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.rows th {
+    text-align: left; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+    padding: 6px 6px; border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  table.rows td { padding: 4px 4px; border-bottom: 1px solid #eef0f2; vertical-align: top; }
+  table.rows input[type=text] { font-size: 12px; padding: 5px 6px; }
+  .row-num { font-family: ui-monospace, Menlo, monospace; color: var(--muted); font-size: 11px; padding-top: 8px; }
+  .drag-handle { cursor: grab; color: var(--muted); text-align: center; padding-top: 7px; user-select: none; font-size: 13px; }
+  .drag-handle:active { cursor: grabbing; }
+  table.rows tr.dragging { opacity: .4; }
+  .row-actions { display: flex; gap: 2px; padding-top: 4px; }
+  .row-actions button {
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer; padding: 4px;
+    color: var(--muted); border-radius: 4px;
+  }
+  .row-actions button:hover { background: #f0f1f3; }
+  .row-actions button.danger:hover { color: var(--danger); }
+  .table-wrap { overflow-x: auto; padding: 0 16px 8px; }
+  .table-actions { padding: 4px 16px 16px; }
+
+  .banner-note {
+    font-size: 12px; color: #7a5200; background: #fff6e5; border: 1px solid #f0dca6; border-radius: 6px;
+    padding: 8px 12px; margin-bottom: 14px;
+  }
+
+  /* ---------- Right preview panel ---------- */
+  aside.preview {
+    flex-shrink: 0; display: flex; flex-direction: column;
+    border-left: 1px solid var(--border); background: #fff;
+  }
+  .preview-resizer {
+    width: 6px; flex-shrink: 0; cursor: col-resize; background: transparent;
+    position: relative;
+  }
+  .preview-resizer:hover, .preview-resizer.resizing { background: var(--accent-bg); }
+  .preview-resizer::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 2px; width: 2px; background: var(--border);
+  }
+  .preview-toolbar {
+    height: 46px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 12px; border-bottom: 1px solid var(--border);
+  }
+  .preview-toolbar .label { font-size: 12px; font-weight: 600; color: var(--muted); }
+  .preview-frame-wrap { flex: 1; background: #e9eaec; overflow: auto; }
+  .preview-pages { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .preview-pages canvas { max-width: 100%; height: auto; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+  .preview-empty { height: 100%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px; }
+  .preview-footer { padding: 8px 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); text-align: center; }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(20,22,28,.45); display: flex; align-items: center; justify-content: center; z-index: 50;
+  }
+  .modal {
+    width: 440px; max-width: calc(100vw - 40px); background: #fff; border-radius: 10px; box-shadow: 0 20px 48px rgba(0,0,0,.28);
+    padding: 20px 22px;
+  }
+  .modal h2 { font-size: 15.5px; margin: 0 0 4px; }
+  /* declared after the base .modal rule so its width/height win the cascade */
+  .modal-wide {
+    width: 90vw; max-width: 90vw; height: 88vh; max-height: 88vh;
+    display: flex; flex-direction: column;
+  }
+  .modal .cap { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .modal .field { margin-bottom: 14px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+  .source-option {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--border-strong);
+    border-radius: 6px; margin-bottom: 6px; cursor: pointer; font-size: 12.5px;
+  }
+  .source-option.selected { border-color: var(--accent); background: var(--accent-bg); }
+  .source-option .name { flex: 1; font-weight: 600; }
+  .source-option .del { color: var(--danger); background: none; border: none; cursor: pointer; font-size: 14px; }
+
+  .automate-steps { display: flex; flex-direction: column; gap: 12px; margin: 6px 0 20px; }
+  .automate-step { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .automate-step.active, .automate-step.done { color: var(--text); font-weight: 600; }
+  .automate-step-icon {
+    width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; border: 1px solid var(--border-strong); color: var(--muted);
+  }
+  .automate-step.active .automate-step-icon {
+    border-color: var(--accent); animation: automate-pulse 1s ease-in-out infinite;
+  }
+  .automate-step.done .automate-step-icon { border-color: #1a7f4b; background: #1a7f4b; color: #fff; }
+  @keyframes automate-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  .select-field { margin-bottom: 10px; }
+  .not-supported-note {
+    margin: 8px 8px 0; padding: 10px 10px; font-size: 11.5px; line-height: 1.5; color: #7a5200;
+    background: #fff6e5; border: 1px solid #f0dca6; border-radius: 6px;
+  }
+
+  /* ---------- Form Type Editor (visual field placement) ---------- */
+  .editor-body { flex: 1; display: flex; min-height: 0; gap: 16px; }
+  .editor-canvas-pane { flex: 1.4; min-width: 0; display: flex; flex-direction: column; }
+  .editor-page-tabs { display: flex; gap: 6px; margin-bottom: 8px; flex-shrink: 0; }
+  .editor-page-tabs button {
+    padding: 5px 12px; font-size: 12px; font-weight: 600; border-radius: 6px; border: 1px solid var(--border-strong);
+    background: #fff; color: var(--muted); cursor: pointer;
+  }
+  .editor-page-tabs button.active { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+  .editor-canvas-wrap {
+    flex: 1; position: relative; overflow: auto; background: #e9eaec; border: 1px solid var(--border); border-radius: 6px;
+  }
+  .editor-canvas-wrap canvas { display: block; background: #fff; }
+  .editor-box {
+    position: absolute; border: 1.5px solid rgba(52,84,209,.55); background: rgba(52,84,209,.08);
+    cursor: move; box-sizing: content-box;
+  }
+  .editor-box:hover { border-color: var(--accent); background: rgba(52,84,209,.16); }
+  .editor-box.selected { border-color: var(--accent); background: rgba(52,84,209,.22); box-shadow: 0 0 0 1px var(--accent); }
+  .editor-box-label {
+    position: absolute; top: -16px; left: -1px; font-size: 9px; font-weight: 700; color: var(--accent);
+    background: #fff; padding: 0 3px; border-radius: 3px; white-space: nowrap; pointer-events: none;
+    max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+  }
+  .editor-box-resize {
+    position: absolute; right: -4px; top: 0; bottom: 0; width: 8px; cursor: ew-resize;
+  }
+  .editor-props-pane { width: 320px; flex-shrink: 0; display: flex; flex-direction: column; min-height: 0; }
+  .editor-field-list { max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 12px; flex-shrink: 0; }
+  .editor-field-list-group-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted);
+    padding: 6px 10px 4px; background: #fbfbfc;
+  }
+  .editor-field-list-item {
+    padding: 6px 10px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #f1f2f4;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .editor-field-list-item:hover { background: #f5f6f8; }
+  .editor-field-list-item.selected { background: var(--accent-bg); color: var(--accent); font-weight: 600; }
+  .editor-props-card {
+    border: 1px solid var(--border); border-radius: 6px; padding: 12px; flex: 1; overflow-y: auto;
+  }
+  .editor-props-card h3 { font-size: 12px; margin: 0 0 10px; }
+  .editor-props-empty { color: var(--muted); font-size: 12px; padding: 8px 2px; }
+  .editor-prop-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .editor-prop-row.full { grid-template-columns: 1fr; }
+  .editor-prop-toggles { display: flex; gap: 14px; margin-bottom: 10px; }
+  .editor-check { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text); cursor: pointer; text-transform: none; }
+  .editor-props-divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+</style>
+</head>
+<body x-data="pdfgenApp()">
+
+  <header class="topbar">
+    <div>
+      <span class="brand">PDF-gen</span>
+      <span class="sub">POC (image) &middot; UH-60R &middot; Logbook &middot; coordinate-fill, flat templates</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="btn btn-sm" x-show="current" @click="exportAll()" :disabled="generating">
+        <span x-text="generating ? 'Generating…' : 'Export All'"></span>
+      </button>
+      <span style="font-size:11px;color:#1a7f4b;background:#e7f7ee;padding:4px 10px;border-radius:10px;">Saved to this browser</span>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ============ LEFT SIDEBAR ============ -->
+    <aside class="sidebar" :class="{ collapsed: !sidebarOpen }">
+
+      <template x-if="!sidebarOpen">
+        <div class="sidebar-collapsed-strip">
+          <button class="sidebar-toggle" title="Expand sidebar" @click="sidebarOpen = true">&raquo;</button>
+        </div>
+      </template>
+
+      <template x-if="sidebarOpen">
+        <div style="display:flex; flex-direction:column; min-height:0; flex:1;">
+          <div class="sidebar-header-row">
+            <div class="sidebar-label">Selection</div>
+            <button class="sidebar-toggle" title="Collapse sidebar" @click="sidebarOpen = false">&laquo;</button>
+          </div>
+
+          <div class="sidebar-section" style="padding-top:6px;">
+            <div class="select-field">
+              <label>Aircraft model</label>
+              <select x-model="selectedModel">
+                <template x-for="m in AIRCRAFT_MODELS" :key="m">
+                  <option :value="m" x-text="m"></option>
+                </template>
+              </select>
+            </div>
+            <div class="select-field" style="margin-bottom:0;">
+              <label>Document type</label>
+              <select x-model="selectedDocType">
+                <template x-for="t in DOCUMENT_TYPES" :key="t">
+                  <option :value="t" x-text="t"></option>
+                </template>
+              </select>
+            </div>
+          </div>
+
+          <template x-if="!isSupported">
+            <div class="not-supported-note">
+              This POC only implements <strong>UH-60R &middot; Logbook</strong>.
+              Pick that combination to create or view logbooks — the other options are here
+              for testing the selector only.
+            </div>
+          </template>
+
+          <template x-if="isSupported">
+            <div style="display:flex; flex-direction:column; min-height:0; flex:1;">
+              <div class="sidebar-section" style="padding-top:14px;">
+                <div class="sidebar-label">Logbooks (<span x-text="logbooks.length"></span>)</div>
+              </div>
+              <div class="sidebar-list" style="flex:0 1 auto; max-height:220px;">
+                <template x-if="logbooks.length === 0">
+                  <div class="sidebar-empty">No logbooks yet.</div>
+                </template>
+                <template x-for="lb in sortedLogbooks()" :key="lb.id">
+                  <div class="sidebar-item" :class="{ active: lb.id === currentId }" @click="openLogbook(lb.id)">
+                    <div style="flex:1;min-width:0;">
+                      <div class="tail" x-text="lb.tailNumber"></div>
+                      <div class="meta" x-text="formatDate(lb.updatedAt)"></div>
+                    </div>
+                    <button class="del" title="Delete logbook" @click.stop="deleteLogbook(lb.id)">&times;</button>
+                  </div>
+                </template>
+              </div>
+              <div class="sidebar-footer">
+                <button class="btn btn-primary" @click="openNewModal()">+ New logbook</button>
+              </div>
+
+              <template x-if="current">
+                <div style="display:flex; flex-direction:column; min-height:0; flex:1; border-top:1px solid var(--border);">
+                  <div class="sidebar-section" style="padding-top:12px;">
+                    <div class="sidebar-label">Forms in this document</div>
+                  </div>
+                  <div class="sidebar-list">
+                    <template x-for="ft in FORM_TYPES" :key="ft.type">
+                      <div class="form-type-group">
+                        <div class="form-type-header">
+                          <span x-text="ft.label"></span>
+                          <span class="form-type-count" x-text="'(' + instancesOf(ft.type).length + ')'"></span>
+                          <span class="form-type-actions">
+                            <button class="form-type-gear" title="Form Type Editor — field placement & styling" @click.stop="openEditorModal(ft.type)">
+                              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                            </button>
+                            <button class="form-type-add" :title="'New ' + ft.type" @click="addFormInstance(ft.type)">+</button>
+                          </span>
+                        </div>
+                        <template x-for="(inst, i) in instancesOf(ft.type)" :key="inst.id">
+                          <div class="sidebar-item form-instance-item"
+                               :class="{ active: activeFormType === ft.type && activeInstanceId === inst.id }"
+                               @click="openFormInstance(ft.type, inst.id)">
+                            <div style="flex:1;min-width:0;" x-text="ft.type + ' — Instance ' + (i + 1)"></div>
+                            <button class="del" title="Delete this form instance" @click.stop="deleteFormInstance(ft.type, inst.id)">&times;</button>
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </aside>
+
+    <!-- ============ CENTER ============ -->
+    <main class="center">
+
+      <template x-if="!current">
+        <div class="placeholder">
+          Select a logbook from the sidebar, or create a new one to get started.
+        </div>
+      </template>
+
+      <template x-if="current && activeSchema && activeInstance">
+        <div>
+          <div class="toolbar">
+            <div class="titles">
+              <h1 x-text="'Logbook — ' + current.tailNumber"></h1>
+              <div class="cap" x-text="activeSchema.label + ' — Instance ' + activeInstanceIndex()"></div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-sm" title="Undo (Ctrl+Z)" :disabled="!canUndo()" @click="undo()">↶ Undo</button>
+              <button class="btn btn-sm" title="Redo (Ctrl+Shift+Z)" :disabled="!canRedo()" @click="redo()">↷ Redo</button>
+              <button class="btn" @click="openAutomateModal()">Auto-fill from source</button>
+              <button class="btn" @click="openSaveDefaultModal()">Save as default</button>
+              <button class="btn btn-primary" @click="showPrintPreview()" :disabled="generating">
+                <span x-text="generating ? 'Generating…' : 'Print Preview'"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="banner-note" x-show="activeSchema.bannerNote" x-text="activeSchema.bannerNote"></div>
+
+          <!-- ===== Generic, schema-driven form renderer ===== -->
+          <div class="card">
+            <template x-for="section in activeSchema.sections" :key="section.title">
+              <div>
+
+                <!-- a labeled field group (header-level data) -->
+                <template x-if="section.kind === 'fields'">
+                  <div>
+                    <div class="section-title" x-text="section.title"></div>
+                    <div class="field-grid" :style="'grid-template-columns: repeat(' + (section.columns || 3) + ', 1fr)'">
+                      <template x-for="field in section.fields" :key="field.key">
+                        <div>
+                          <label x-text="field.label"></label>
+                          <template x-if="field.textarea">
+                            <textarea :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                                      @input="activeInstance.header[field.key] = $event.target.value"></textarea>
+                          </template>
+                          <template x-if="!field.textarea">
+                            <input type="text" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                                   @input="activeInstance.header[field.key] = $event.target.value">
+                          </template>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+
+                <!-- a repeating row table (e.g. sample rows, inspection items) -->
+                <template x-if="section.kind === 'table'">
+                  <div>
+                    <div class="section-title" x-text="section.title + ' (' + activeInstance[section.rowsKey].length + ')'"></div>
+                    <div class="table-wrap">
+                      <table class="rows">
+                        <thead>
+                          <tr>
+                            <th style="width:18px"></th>
+                            <th style="width:26px"></th>
+                            <template x-for="col in section.columns" :key="col.key">
+                              <th x-text="col.label"></th>
+                            </template>
+                            <th style="width:44px"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <template x-for="(row, idx) in activeInstance[section.rowsKey]" :key="row.id">
+                            <tr :class="{ dragging: dragIndex === idx }"
+                                @dragover.prevent @drop="dropRow(section, idx)">
+                              <td class="drag-handle" draggable="true"
+                                  @dragstart="dragStart(idx)" @dragend="dragIndex = null" title="Drag to reorder">&#8942;&#8942;</td>
+                              <td class="row-num" x-text="idx + 1"></td>
+                              <template x-for="col in section.columns" :key="col.key">
+                                <td>
+                                  <input type="text" :value="row[col.key]" :maxlength="col.maxLength || null"
+                                         @focus="snapshotBeforeChange()" @input="row[col.key] = $event.target.value">
+                                </td>
+                              </template>
+                              <td class="row-actions">
+                                <button title="Duplicate row" @click="duplicateRow(section, idx)">
+                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="1.5"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/></svg>
+                                </button>
+                                <button class="danger" title="Remove row" @click="removeRow(section, idx)">
+                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                                </button>
+                              </td>
+                            </tr>
+                          </template>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="table-actions">
+                      <button class="btn btn-sm" @click="addRow(section)">+ Add row</button>
+                    </div>
+                  </div>
+                </template>
+
+              </div>
+            </template>
+          </div>
+          <!-- ===== /generic renderer ===== -->
+
+        </div>
+      </template>
+
+    </main>
+
+    <!-- ============ RIGHT PREVIEW PANEL ============ -->
+    <div class="preview-resizer" x-show="current && previewPanelOpen"
+         :class="{ resizing: resizingPreview }" @mousedown="startPreviewResize($event)"
+         title="Drag to resize"></div>
+    <aside class="preview" x-show="current && previewPanelOpen" :style="'width:' + previewWidth + 'px'">
+      <div class="preview-toolbar">
+        <span class="label">PDF preview</span>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-sm" @click="regeneratePreview()" :disabled="generating">Refresh</button>
+          <button class="btn btn-sm" @click="openPreviewPdf()" :disabled="!previewGenerated"
+                  title="Open the rendered PDF in a new tab">Open PDF</button>
+          <button class="btn btn-sm btn-primary" @click="printPreview()" :disabled="!previewGenerated">Print</button>
+          <button class="sidebar-toggle" title="Close preview" @click="previewPanelOpen = false">&times;</button>
+        </div>
+      </div>
+      <div class="preview-frame-wrap">
+        <div class="preview-pages" x-ref="previewPages" x-show="previewGenerated"></div>
+        <template x-if="!previewGenerated">
+          <div class="preview-empty">
+            <span x-text="generating ? 'Generating preview…' : 'Click \'Print Preview\' to render this logbook.'"></span>
+          </div>
+        </template>
+      </div>
+      <div class="preview-footer">Preview reflects unsaved changes as of the last refresh</div>
+    </aside>
+
+  </div>
+
+  <!-- ============ NEW LOGBOOK MODAL ============ -->
+  <template x-if="showNewModal">
+    <div class="modal-backdrop" @click.self="showNewModal = false">
+      <div class="modal">
+        <h2>New logbook</h2>
+        <div class="cap">UH-60R &middot; Logbook</div>
+
+        <div class="field">
+          <label>Aircraft tail number</label>
+          <input type="text" x-model="newTailNumber" placeholder="e.g. 16-04578" x-ref="tailInput">
+        </div>
+
+        <div class="field">
+          <label>Start from</label>
+          <div class="source-option" :class="{ selected: newSource === 'blank' }" @click="newSource = 'blank'">
+            <input type="radio" :checked="newSource === 'blank'" @click.stop="newSource = 'blank'">
+            <span class="name">Blank logbook</span>
+          </div>
+          <template x-for="d in defaults" :key="d.id">
+            <div class="source-option" :class="{ selected: newSource === d.id }" @click="newSource = d.id">
+              <input type="radio" :checked="newSource === d.id" @click.stop="newSource = d.id">
+              <span class="name" x-text="d.name"></span>
+              <span style="font-size:10.5px;color:var(--muted);" x-text="defaultSummary(d)"></span>
+              <button class="del" title="Delete this default" @click.stop="deleteDefault(d.id)">&times;</button>
+            </div>
+          </template>
+          <div class="cap" x-show="defaults.length === 0" style="margin:6px 0 0;">
+            No saved defaults yet — open a logbook and use "Save as default" to create one.
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn" @click="showNewModal = false">Cancel</button>
+          <button class="btn btn-primary" @click="confirmCreateLogbook()" :disabled="!newTailNumber.trim()">Create</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============ SAVE AS DEFAULT MODAL ============ -->
+  <template x-if="showSaveDefaultModal">
+    <div class="modal-backdrop" @click.self="showSaveDefaultModal = false">
+      <div class="modal">
+        <h2>Save as default</h2>
+        <div class="cap">
+          Stores this logbook's forms as a reusable starting point for new logbooks.
+          This logbook stays independent — editing it later won't change the saved default.
+        </div>
+        <div class="field">
+          <label>Default name</label>
+          <input type="text" x-model="newDefaultName" placeholder="e.g. Standard UH-60R logbook" x-ref="defaultNameInput">
+        </div>
+        <div class="modal-actions">
+          <button class="btn" @click="showSaveDefaultModal = false">Cancel</button>
+          <button class="btn btn-primary" @click="confirmSaveDefault()" :disabled="!newDefaultName.trim()">Save</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============ FORM TYPE EDITOR MODAL ============ -->
+  <template x-if="showEditorModal">
+    <div class="modal-backdrop" @click.self="showEditorModal = false">
+      <div class="modal modal-wide">
+        <h2 x-text="'Form Type Editor — ' + (editorSchema ? editorSchema.label : '')"></h2>
+        <div class="cap">
+          Drag a field to reposition it, drag its right edge to resize. Header fields move freely;
+          a table column's box represents that column's first row — dragging it up/down adjusts the
+          whole column grid's starting row for this page (see "Row grid" below once a column is selected).
+        </div>
+
+        <div class="editor-body">
+          <div class="editor-canvas-pane">
+            <div class="editor-page-tabs">
+              <button :class="{ active: editorPageIndex === 0 }" @click="switchEditorPage(0)">Front page</button>
+              <button :class="{ active: editorPageIndex === 1 }" @click="switchEditorPage(1)">Back page</button>
+            </div>
+            <div class="editor-canvas-wrap" x-ref="editorCanvasWrap">
+              <canvas x-ref="editorCanvas"></canvas>
+              <template x-for="box in editorBoxesForCurrentPage()" :key="box.kind + ':' + box.key">
+                <div class="editor-box" :class="{ selected: editorSelectedKind === box.kind && editorSelectedKey === box.key }"
+                     :style="editorBoxStyle(box)"
+                     @mousedown="selectEditorField(box.kind, box.key); startBoxDrag($event, box)">
+                  <span class="editor-box-label" x-text="box.label"></span>
+                  <div class="editor-box-resize" @mousedown.stop="selectEditorField(box.kind, box.key); startBoxResize($event, box)"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <div class="editor-props-pane">
+            <div class="editor-field-list">
+              <div class="editor-field-list-group-label">Header fields</div>
+              <template x-for="f in editorFieldList.filter(f => f.kind === 'header')" :key="f.key">
+                <div class="editor-field-list-item" :class="{ selected: editorSelectedKind === 'header' && editorSelectedKey === f.key }"
+                     @click="selectEditorField('header', f.key)" x-text="f.label"></div>
+              </template>
+              <div class="editor-field-list-group-label">Table columns</div>
+              <template x-for="f in editorFieldList.filter(f => f.kind === 'col')" :key="f.key">
+                <div class="editor-field-list-item" :class="{ selected: editorSelectedKind === 'col' && editorSelectedKey === f.key }"
+                     @click="selectEditorField('col', f.key)" x-text="f.label"></div>
+              </template>
+            </div>
+
+            <div class="editor-props-card">
+              <template x-if="!editorSelectedSpec()">
+                <div class="editor-props-empty">Select a field on the canvas or in the list to edit its position and styling.</div>
+              </template>
+              <template x-if="editorSelectedSpec()">
+                <div>
+                  <h3 x-text="editorSelectedLabel()"></h3>
+
+                  <div class="editor-prop-row">
+                    <div>
+                      <label>X (pt)</label>
+                      <input type="number" step="0.5" :value="editorSelectedSpec().x"
+                             @input="editorSelectedSpec().x = Number($event.target.value)">
+                    </div>
+                    <div x-show="editorSelectedKind === 'header'">
+                      <label>Y (pt)</label>
+                      <input type="number" step="0.5" :value="editorSelectedSpec().y"
+                             @input="editorSelectedSpec().y = Number($event.target.value)">
+                    </div>
+                  </div>
+
+                  <div class="editor-prop-row">
+                    <div>
+                      <label>Width (pt)</label>
+                      <input type="number" step="1" min="8" :value="editorSelectedSpec().width"
+                             @input="editorSelectedSpec().width = Number($event.target.value)">
+                    </div>
+                    <div>
+                      <label>Font size</label>
+                      <input type="number" step="0.5" min="5" max="24" :value="editorSelectedSpec().fontSize"
+                             @input="editorSelectedSpec().fontSize = Number($event.target.value)">
+                    </div>
+                  </div>
+
+                  <div class="editor-prop-row">
+                    <div class="full">
+                      <label>Font</label>
+                      <select :value="editorSelectedSpec().fontFamily || 'Helvetica'"
+                              @change="editorSelectedSpec().fontFamily = $event.target.value">
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="TimesRoman">Times</option>
+                        <option value="Courier">Courier</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="editor-prop-toggles">
+                    <label class="editor-check"><input type="checkbox" :checked="editorSelectedSpec().bold"
+                      @change="editorSelectedSpec().bold = $event.target.checked"> Bold</label>
+                    <label class="editor-check"><input type="checkbox" :checked="editorSelectedSpec().italic"
+                      @change="editorSelectedSpec().italic = $event.target.checked"> Italic</label>
+                    <label class="editor-check"><input type="checkbox" :checked="editorSelectedSpec().allowOverflow"
+                      @change="editorSelectedSpec().allowOverflow = $event.target.checked"> Allow overflow</label>
+                  </div>
+
+                  <template x-if="editorSelectedKind === 'col'">
+                    <div>
+                      <hr class="editor-props-divider">
+                      <h3 x-text="'Row grid — ' + (editorPageIndex === 0 ? 'front page' : 'back page')"></h3>
+                      <div class="editor-prop-row">
+                        <div>
+                          <label>Start Y (pt)</label>
+                          <input type="number" step="0.5" :value="editorCurrentGrid().startY"
+                                 @input="editorCurrentGrid().startY = Number($event.target.value)">
+                        </div>
+                        <div>
+                          <label>Row spacing (pt)</label>
+                          <input type="number" step="0.1" min="4" :value="editorCurrentGrid().spacing"
+                                 @input="editorCurrentGrid().spacing = Number($event.target.value)">
+                        </div>
+                      </div>
+                      <div class="cap" style="margin:0;" x-text="editorCurrentGrid().rows + ' rows on this page (fixed by the physical form layout)'"></div>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn" @click="resetEditorAll()">Reset all to defaults</button>
+          <button class="btn" @click="showEditorModal = false">Cancel</button>
+          <button class="btn btn-primary" @click="confirmSaveEditor()">Save</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============ AUTOMATE FORM ENTRY MODAL ============ -->
+  <template x-if="showAutomateModal">
+    <div class="modal-backdrop" @click.self="automateDone && closeAutomateModal()">
+      <div class="modal">
+        <h2>Automate form entry</h2>
+        <div class="cap">
+          POC scope: this simulates pulling data for
+          <strong x-text="activeSchema && activeSchema.label"></strong> from an external system —
+          no real request is made, but the four stages a real integration would go through are
+          shown below before the form is auto-populated.
+        </div>
+
+        <div class="automate-steps">
+          <template x-for="step in automateSteps" :key="step.key">
+            <div class="automate-step" :class="{ active: step.status === 'active', done: step.status === 'done' }">
+              <span class="automate-step-icon">
+                <span x-show="step.status === 'done'">&#10003;</span>
+                <span x-show="step.status === 'pending'">&#9675;</span>
+              </span>
+              <span x-text="step.label"></span>
+            </div>
+          </template>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" @click="closeAutomateModal()" :disabled="!automateDone">
+            <span x-text="automateDone ? 'Done' : 'Working…'"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+<script src="js/form2408-18.js"></script>
+<script src="js/form2408-20.js"></script>
+
+<script>
+// ---------------------------------------------------------------------------
+// Form-type registry, in numeric order — each entry is a full schema (label,
+// banner note, UI sections, model/fill-engine functions, and a default field
+// layout) supplied by its own js/form-XXXX.js file. This is the single
+// generalization point: index.html renders whatever's in this list,
+// generically, via the "fields"/"table" section renderers and the Form Type
+// Editor below — adding a form type means adding a schema object here, not
+// touching any markup.
+// ---------------------------------------------------------------------------
+const FORM_TYPES = [SCHEMA_2408_18, SCHEMA_2408_20];
+
+const STORAGE_KEY = "pdfgen-vanilla-image-logbooks";
+const DEFAULTS_KEY = "pdfgen-vanilla-image-defaults";
+const LAYOUTS_KEY = "pdfgen-vanilla-image-fieldlayouts";
+
+function formTypeKey(type) {
+  return "forms" + type.replace("-", "_"); // '2408-20' -> 'forms2408_20'
+}
+
+function uid() {
+  return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+}
+
+// A logbook document bundles every form type belonging to it (per the
+// "Document = collection of Forms" model), each as an *array* of instances —
+// a logbook can contain more than one of a given form type. Fully generic
+// over FORM_TYPES, so a new form type needs no changes here.
+function emptyLogbookForms() {
+  const forms = {};
+  for (const ft of FORM_TYPES) forms[formTypeKey(ft.type)] = [ft.empty()];
+  return forms;
+}
+
+function cloneLogbookForms(forms) {
+  const out = {};
+  for (const ft of FORM_TYPES) out[formTypeKey(ft.type)] = forms[formTypeKey(ft.type)].map(ft.clone);
+  return out;
+}
+
+function emptyLogbook(tailNumber, forms) {
+  const now = new Date().toISOString();
+  const f = forms || emptyLogbookForms();
+  const lb = {
+    id: uid(), tailNumber, aircraftModel: "UH-60R", documentType: "Logbook",
+    createdAt: now, updatedAt: now,
+  };
+  for (const ft of FORM_TYPES) lb[formTypeKey(ft.type)] = f[formTypeKey(ft.type)];
+  return lb;
+}
+
+// Merges a form type's default field layout with any saved per-field
+// overrides (Form Type Editor). Overrides are shallow per-field (a saved
+// header/col entry replaces only the properties it sets... in practice the
+// editor always writes a full spec object per field, but merging keeps a
+// partial hand-edited localStorage entry from crashing the fill engine).
+function getLayout(schema, savedLayouts) {
+  const saved = (savedLayouts && savedLayouts[schema.type]) || {};
+  const base = schema.defaultLayout;
+  const header = {};
+  for (const key of Object.keys(base.header)) header[key] = { ...base.header[key], ...((saved.header && saved.header[key]) || {}) };
+  const cols = {};
+  for (const key of Object.keys(base.cols)) cols[key] = { ...base.cols[key], ...((saved.cols && saved.cols[key]) || {}) };
+  const page1 = { ...base.page1, ...(saved.page1 || {}) };
+  const page2 = { ...base.page2, ...(saved.page2 || {}) };
+  return { header, cols, page1, page2, repeatingHeaderExclude: base.repeatingHeaderExclude || [] };
+}
+
+// ---------------------------------------------------------------------------
+// Preview rendering. Mobile browsers (Chrome/Safari on Android/iOS in
+// particular) do not render PDFs inline inside an <iframe> — they show a
+// generic "open externally" card instead, which also breaks
+// iframe.contentWindow.print(). Rendering each page to a <canvas> with
+// pdf.js works identically on every platform, and printing is done by
+// turning those canvases into images in a dedicated print window instead of
+// relying on any browser's native PDF viewer.
+// ---------------------------------------------------------------------------
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+// kept outside Alpine's reactive state — it's a large binary blob, not UI
+// state, so there's no reason to pay for deep-proxying it on every change.
+let lastPreviewBytes = null;
+
+function openBytesInNewWindow(bytes) {
+  const blob = new Blob([bytes], { type: "application/pdf" });
+  const url = URL.createObjectURL(blob);
+  const win = window.open(url, "_blank");
+  if (!win) {
+    alert("Your browser blocked the new window — please allow pop-ups for this page and try again.");
+    URL.revokeObjectURL(url);
+    return;
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+async function renderPreviewPages(container, bytes) {
+  container.innerHTML = "";
+  const loadingTask = pdfjsLib.getDocument({ data: bytes.slice() });
+  const pdf = await loadingTask.promise;
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale: 1.4 });
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    container.appendChild(canvas);
+    await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+  }
+}
+
+function printRenderedPages(container) {
+  const canvases = container.querySelectorAll("canvas");
+  if (!canvases.length) return;
+  const win = window.open("", "_blank");
+  if (!win) {
+    alert("Your browser blocked the print window — please allow pop-ups for this page and try again.");
+    return;
+  }
+  const imagesHtml = Array.from(canvases)
+    .map(c => `<img src="${c.toDataURL("image/png")}">`)
+    .join("");
+  win.document.open();
+  win.document.write(`<!doctype html><html><head><title>Print preview</title><style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; width: 100%; page-break-after: always; }
+    @media print { @page { margin: 0; } }
+  </style></head><body>${imagesHtml}</body></html>`);
+  win.document.close();
+  setTimeout(() => { win.focus(); win.print(); }, 150);
+}
+
+function pdfgenApp() {
+  return {
+    logbooks: [],
+    defaults: [],
+    fieldLayouts: {},
+    currentId: null,
+    generating: false,
+    previewGenerated: false,
+
+    // Undo/redo history, in-memory only (not persisted) — keyed by logbook
+    // id so switching logbooks doesn't mix histories. Each entry is a full
+    // deep-cloned snapshot of that logbook's state just before a change.
+    undoStacks: {},
+    redoStacks: {},
+
+    sidebarOpen: true,
+    previewPanelOpen: false,
+    previewWidth: 380,
+    resizingPreview: false,
+    FORM_TYPES,
+    activeFormType: FORM_TYPES[0].type, // numeric-first, e.g. '2408-18'
+    activeInstanceId: null,             // id of the specific instance being edited
+    dragIndex: null,
+
+    // Fake examples for testing the selectors — only UH-60R / Logbook is
+    // actually implemented in this POC (see isSupported below).
+    AIRCRAFT_MODELS: ["UH-60R", "UH-60M", "MH-60R", "MH-60M", "AH-64D", "AH-64E"],
+    DOCUMENT_TYPES: ["Logbook", "SN Book", "Maintenance Record", "Historical Record"],
+    selectedModel: "UH-60R",
+    selectedDocType: "Logbook",
+
+    showNewModal: false,
+    newTailNumber: "",
+    newSource: "blank",
+
+    showSaveDefaultModal: false,
+    newDefaultName: "",
+
+    showAutomateModal: false,
+    automateSteps: [],
+    automateDone: false,
+
+    // ---- Form Type Editor state ----
+    showEditorModal: false,
+    editorFormType: null,
+    editorPageIndex: 0,
+    editorLabels: { header: {}, col: {} },
+    editorDraft: null,          // deep clone of the layout being edited, per "getLayout" shape
+    editorSelectedKind: null,   // 'header' | 'col'
+    editorSelectedKey: null,
+    editorScale: 1,
+    editorDrag: null,           // { mode: 'move'|'resize', kind, key, startX, startY, origX, origY, origWidth }
+
+    get current() {
+      return this.logbooks.find(l => l.id === this.currentId) || null;
+    },
+
+    get isSupported() {
+      return this.selectedModel === "UH-60R" && this.selectedDocType === "Logbook";
+    },
+
+    get activeSchema() {
+      return FORM_TYPES.find(f => f.type === this.activeFormType) || null;
+    },
+
+    get editorSchema() {
+      return FORM_TYPES.find(f => f.type === this.editorFormType) || null;
+    },
+
+    get editorFieldList() {
+      const list = [];
+      for (const key of Object.keys(this.editorLabels.header)) list.push({ kind: "header", key, label: this.editorLabels.header[key] });
+      for (const key of Object.keys(this.editorLabels.col)) list.push({ kind: "col", key, label: this.editorLabels.col[key] });
+      return list;
+    },
+
+    // the currently-open logbook's instances of a given form type
+    instancesOf(type) {
+      return this.current ? this.current[formTypeKey(type)] : [];
+    },
+
+    get activeInstance() {
+      if (!this.current) return null;
+      const list = this.current[formTypeKey(this.activeFormType)];
+      return list.find(i => i.id === this.activeInstanceId) || null;
+    },
+
+    activeInstanceIndex() {
+      if (!this.current) return "";
+      const list = this.current[formTypeKey(this.activeFormType)];
+      const idx = list.findIndex(i => i.id === this.activeInstanceId);
+      return idx === -1 ? "" : idx + 1;
+    },
+
+    layoutFor(type) {
+      const schema = FORM_TYPES.find(f => f.type === type);
+      return schema ? getLayout(schema, this.fieldLayouts) : null;
+    },
+
+    init() {
+      this.load();
+      this.$watch("logbooks", () => this.persistLogbooks(), { deep: true });
+      this.$watch("defaults", () => this.persistDefaults(), { deep: true });
+      this.$watch("fieldLayouts", () => this.persistFieldLayouts(), { deep: true });
+
+      // Global Ctrl/Cmd+Z (undo) and Ctrl/Cmd+Shift+Z or Ctrl+Y (redo) —
+      // skipped while a text input/textarea/select has focus so it doesn't
+      // fight with the browser's own per-field undo while actively typing.
+      window.addEventListener("keydown", (e) => {
+        const tag = (e.target && e.target.tagName) || "";
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
+        if (!(e.ctrlKey || e.metaKey)) return;
+        const key = e.key.toLowerCase();
+        if (key === "z") {
+          e.preventDefault();
+          if (e.shiftKey) this.redo(); else this.undo();
+        } else if (key === "y") {
+          e.preventDefault();
+          this.redo();
+        }
+      });
+    },
+
+    load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        this.logbooks = raw ? JSON.parse(raw) : [];
+      } catch { this.logbooks = []; }
+      try {
+        const raw = localStorage.getItem(DEFAULTS_KEY);
+        this.defaults = raw ? JSON.parse(raw) : [];
+      } catch { this.defaults = []; }
+      try {
+        const raw = localStorage.getItem(LAYOUTS_KEY);
+        this.fieldLayouts = raw ? JSON.parse(raw) : {};
+      } catch { this.fieldLayouts = {}; }
+    },
+
+    persistLogbooks() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.logbooks)); }
+      catch (e) { console.warn("Could not save logbooks", e); }
+    },
+
+    persistDefaults() {
+      try { localStorage.setItem(DEFAULTS_KEY, JSON.stringify(this.defaults)); }
+      catch (e) { console.warn("Could not save defaults", e); }
+    },
+
+    persistFieldLayouts() {
+      try { localStorage.setItem(LAYOUTS_KEY, JSON.stringify(this.fieldLayouts)); }
+      catch (e) { console.warn("Could not save field layouts", e); }
+    },
+
+    sortedLogbooks() {
+      return this.logbooks.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    },
+
+    formatDate(iso) {
+      try { return new Date(iso).toLocaleString(); } catch { return iso; }
+    },
+
+    defaultSummary(d) {
+      return FORM_TYPES
+        .map(ft => d.forms[formTypeKey(ft.type)].length + ' × ' + ft.type)
+        .join(', ');
+    },
+
+    clearPreview() {
+      lastPreviewBytes = null;
+      this.previewGenerated = false;
+      if (this.$refs.previewPages) this.$refs.previewPages.innerHTML = "";
+    },
+
+    // ---- new logbook modal ----
+    openNewModal() {
+      this.newTailNumber = "";
+      this.newSource = "blank";
+      this.showNewModal = true;
+      this.$nextTick(() => this.$refs.tailInput && this.$refs.tailInput.focus());
+    },
+
+    confirmCreateLogbook() {
+      const tail = this.newTailNumber.trim();
+      if (!tail) return;
+      let forms;
+      if (this.newSource === "blank") {
+        forms = emptyLogbookForms();
+      } else {
+        const d = this.defaults.find(x => x.id === this.newSource);
+        forms = d ? cloneLogbookForms(d.forms) : emptyLogbookForms();
+      }
+      const lb = emptyLogbook(tail, forms);
+      this.logbooks.push(lb);
+      this.showNewModal = false;
+      this.openLogbook(lb.id);
+    },
+
+    // ---- save as default modal ----
+    openSaveDefaultModal() {
+      this.newDefaultName = "";
+      this.showSaveDefaultModal = true;
+      this.$nextTick(() => this.$refs.defaultNameInput && this.$refs.defaultNameInput.focus());
+    },
+
+    confirmSaveDefault() {
+      const name = this.newDefaultName.trim();
+      if (!name || !this.current) return;
+      this.defaults.push({
+        id: uid(),
+        name,
+        createdAt: new Date().toISOString(),
+        forms: cloneLogbookForms(this.current),
+      });
+      this.showSaveDefaultModal = false;
+    },
+
+    // ---- automate form entry modal ----
+    openAutomateModal() {
+      if (!this.activeInstance) return;
+      this.automateSteps = [
+        { key: "request", label: "Sending request to external data source", status: "pending" },
+        { key: "response", label: "Waiting for response", status: "pending" },
+        { key: "parsing", label: "Parsing response data", status: "pending" },
+        { key: "entry", label: "Populating form fields", status: "pending" },
+      ];
+      this.automateDone = false;
+      this.showAutomateModal = true;
+      this.runAutomateWorkflow();
+    },
+
+    async runAutomateWorkflow() {
+      const delays = [650, 550, 500, 450];
+      for (let i = 0; i < this.automateSteps.length; i++) {
+        this.automateSteps[i].status = "active";
+        await new Promise(resolve => setTimeout(resolve, delays[i]));
+        this.automateSteps[i].status = "done";
+      }
+
+      const schema = this.activeSchema;
+      const instance = this.activeInstance;
+      if (schema && instance && schema.sampleData) {
+        this.snapshotBeforeChange();
+        const data = schema.sampleData();
+        Object.assign(instance.header, data.header);
+        const tableSection = schema.sections.find(s => s.kind === "table");
+        if (tableSection) {
+          instance[tableSection.rowsKey] = data.rows.map(r => ({ ...r, id: uid() }));
+        }
+        this.current.updatedAt = new Date().toISOString();
+      }
+      this.automateDone = true;
+    },
+
+    closeAutomateModal() {
+      this.showAutomateModal = false;
+    },
+
+    deleteDefault(id) {
+      if (!confirm("Delete this default? This cannot be undone.")) return;
+      this.defaults = this.defaults.filter(d => d.id !== id);
+      if (this.newSource === id) this.newSource = "blank";
+    },
+
+    // ---- logbook selection ----
+    openLogbook(id) {
+      this.currentId = id;
+      const lb = this.logbooks.find(l => l.id === id);
+      this.activeFormType = FORM_TYPES[0].type;
+      this.activeInstanceId = lb ? lb[formTypeKey(this.activeFormType)][0]?.id ?? null : null;
+      this.previewPanelOpen = false;
+      this.clearPreview();
+    },
+
+    // ---- form instance selection (sidebar "Forms in this document") ----
+    openFormInstance(type, instanceId) {
+      if (this.activeFormType === type && this.activeInstanceId === instanceId) return;
+      this.activeFormType = type;
+      this.activeInstanceId = instanceId;
+      this.previewPanelOpen = false;
+      this.clearPreview();
+    },
+
+    addFormInstance(type) {
+      if (!this.current) return;
+      this.snapshotBeforeChange();
+      const ft = FORM_TYPES.find(f => f.type === type);
+      const list = this.current[formTypeKey(type)];
+      const instance = ft.empty();
+      list.push(instance);
+      this.current.updatedAt = new Date().toISOString();
+      this.openFormInstance(type, instance.id);
+    },
+
+    deleteFormInstance(type, instanceId) {
+      if (!this.current) return;
+      const list = this.current[formTypeKey(type)];
+      if (list.length <= 1) {
+        alert("A logbook needs at least one instance of each form type.");
+        return;
+      }
+      if (!confirm("Delete this form instance? This cannot be undone.")) return;
+      this.snapshotBeforeChange();
+      const idx = list.findIndex(i => i.id === instanceId);
+      if (idx === -1) return;
+      list.splice(idx, 1);
+      this.current.updatedAt = new Date().toISOString();
+      if (this.activeFormType === type && this.activeInstanceId === instanceId) {
+        this.openFormInstance(type, list[0].id);
+      }
+    },
+
+    deleteLogbook(id) {
+      if (!confirm("Delete this logbook? This cannot be undone.")) return;
+      this.logbooks = this.logbooks.filter(l => l.id !== id);
+      delete this.undoStacks[id];
+      delete this.redoStacks[id];
+      if (this.currentId === id) {
+        this.currentId = null;
+        this.previewPanelOpen = false;
+        this.clearPreview();
+      }
+    },
+
+    // ---- undo/redo, scoped to the currently open logbook ----
+    snapshotBeforeChange() {
+      if (!this.current) return;
+      const id = this.currentId;
+      const stack = this.undoStacks[id] || (this.undoStacks[id] = []);
+      stack.push(JSON.parse(JSON.stringify(this.current)));
+      if (stack.length > 100) stack.shift();
+      this.redoStacks[id] = [];
+    },
+
+    canUndo() {
+      const stack = this.undoStacks[this.currentId];
+      return !!(stack && stack.length);
+    },
+
+    canRedo() {
+      const stack = this.redoStacks[this.currentId];
+      return !!(stack && stack.length);
+    },
+
+    undo() {
+      if (!this.canUndo()) return;
+      const id = this.currentId;
+      const prev = this.undoStacks[id].pop();
+      (this.redoStacks[id] || (this.redoStacks[id] = [])).push(JSON.parse(JSON.stringify(this.current)));
+      this.applyRestoredLogbook(prev);
+    },
+
+    redo() {
+      if (!this.canRedo()) return;
+      const id = this.currentId;
+      const next = this.redoStacks[id].pop();
+      (this.undoStacks[id] || (this.undoStacks[id] = [])).push(JSON.parse(JSON.stringify(this.current)));
+      this.applyRestoredLogbook(next);
+    },
+
+    applyRestoredLogbook(snapshot) {
+      const idx = this.logbooks.findIndex(l => l.id === this.currentId);
+      if (idx === -1) return;
+      this.logbooks[idx] = snapshot;
+      const list = snapshot[formTypeKey(this.activeFormType)] || [];
+      if (!list.find(i => i.id === this.activeInstanceId)) {
+        this.activeInstanceId = list[0] ? list[0].id : null;
+      }
+      this.clearPreview();
+    },
+
+    // opens the right-hand panel and (re)generates the preview into it —
+    // the panel is only ever shown via this action, per the "only display
+    // the right panel on Print Preview" requirement.
+    async showPrintPreview() {
+      this.previewPanelOpen = true;
+      await this.regeneratePreview();
+    },
+
+    addRow(section) {
+      const form = this.activeInstance;
+      if (!form) return;
+      this.snapshotBeforeChange();
+      form[section.rowsKey].push(this.activeSchema.newRow());
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    removeRow(section, idx) {
+      const form = this.activeInstance;
+      if (!form) return;
+      this.snapshotBeforeChange();
+      const rows = form[section.rowsKey];
+      rows.splice(idx, 1);
+      if (rows.length === 0) rows.push(this.activeSchema.newRow());
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    duplicateRow(section, idx) {
+      const form = this.activeInstance;
+      if (!form) return;
+      this.snapshotBeforeChange();
+      const rows = form[section.rowsKey];
+      const copy = { ...rows[idx], id: uid() };
+      rows.splice(idx + 1, 0, copy);
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    dragStart(idx) {
+      this.dragIndex = idx;
+    },
+
+    dropRow(section, targetIdx) {
+      if (this.dragIndex === null || this.dragIndex === targetIdx) { this.dragIndex = null; return; }
+      const form = this.activeInstance;
+      if (!form) { this.dragIndex = null; return; }
+      this.snapshotBeforeChange();
+      const rows = form[section.rowsKey];
+      const [moved] = rows.splice(this.dragIndex, 1);
+      rows.splice(targetIdx, 0, moved);
+      this.dragIndex = null;
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    async regeneratePreview() {
+      if (!this.activeInstance) return;
+      this.generating = true;
+      try {
+        const bytes = await this.activeSchema.build(this.activeInstance, this.layoutFor(this.activeFormType));
+        lastPreviewBytes = bytes;
+        await renderPreviewPages(this.$refs.previewPages, bytes);
+        this.previewGenerated = true;
+      } catch (e) {
+        console.error(e);
+        alert("Could not generate the PDF preview — see console for details.");
+      } finally {
+        this.generating = false;
+      }
+    },
+
+    printPreview() {
+      if (!lastPreviewBytes || !this.$refs.previewPages) return;
+      printRenderedPages(this.$refs.previewPages);
+    },
+
+    openPreviewPdf() {
+      if (!lastPreviewBytes) return;
+      openBytesInNewWindow(lastPreviewBytes);
+    },
+
+    // drag-to-resize the preview panel from its left edge — dragging left
+    // (mouse moving toward smaller clientX) widens the panel, since it's
+    // anchored to the right side of the window.
+    startPreviewResize(e) {
+      e.preventDefault();
+      const startX = e.clientX;
+      const startWidth = this.previewWidth;
+      this.resizingPreview = true;
+      const prevUserSelect = document.body.style.userSelect;
+      document.body.style.userSelect = "none";
+
+      const onMove = (ev) => {
+        const delta = startX - ev.clientX;
+        this.previewWidth = Math.min(900, Math.max(260, startWidth + delta));
+      };
+      const onUp = () => {
+        this.resizingPreview = false;
+        document.body.style.userSelect = prevUserSelect;
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+      };
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    },
+
+    // "Export All" — every form instance in this logbook, merged into one
+    // PDF, rendered into the preview panel and then immediately opened in a
+    // new tab (the same action "Open PDF" performs for a single instance),
+    // so exporting the whole document is one click instead of two.
+    async exportAll() {
+      if (!this.current) return;
+      this.previewPanelOpen = true;
+      this.generating = true;
+      try {
+        const bytes = await buildCombinedPdf(this.current, this.fieldLayouts);
+        lastPreviewBytes = bytes;
+        await renderPreviewPages(this.$refs.previewPages, bytes);
+        this.previewGenerated = true;
+        this.openPreviewPdf();
+      } catch (e) {
+        console.error(e);
+        alert("Could not generate the combined PDF — see console for details.");
+      } finally {
+        this.generating = false;
+      }
+    },
+
+    // ================= Form Type Editor =================
+
+    cloneLayout(layout) {
+      return JSON.parse(JSON.stringify(layout));
+    },
+
+    openEditorModal(type) {
+      const schema = FORM_TYPES.find(f => f.type === type);
+      if (!schema) return;
+      this.editorFormType = type;
+      this.editorPageIndex = 0;
+      this.editorLabels = { header: {}, col: {} };
+      for (const section of schema.sections) {
+        if (section.kind === "fields") {
+          for (const f of section.fields) {
+            this.editorLabels.header[f.key] = (section.title ? section.title + " — " : "") + (f.label || f.key);
+          }
+        } else if (section.kind === "table") {
+          for (const c of section.columns) {
+            this.editorLabels.col[c.key] = (section.title ? section.title + " — " : "") + c.label;
+          }
+        }
+      }
+      this.editorDraft = this.cloneLayout(getLayout(schema, this.fieldLayouts));
+      this.editorSelectedKind = null;
+      this.editorSelectedKey = null;
+      this.showEditorModal = true;
+      this.$nextTick(() => this.renderEditorPage());
+    },
+
+    switchEditorPage(idx) {
+      this.editorPageIndex = idx;
+      this.$nextTick(() => this.renderEditorPage());
+    },
+
+    async renderEditorPage() {
+      const schema = this.editorSchema;
+      const canvas = this.$refs.editorCanvas;
+      if (!schema || !canvas) return;
+      const bytes = b64ToBytes(schema.templateB64);
+      const loadingTask = pdfjsLib.getDocument({ data: bytes.slice() });
+      const pdf = await loadingTask.promise;
+      const page = await pdf.getPage(this.editorPageIndex + 1);
+      const viewport = page.getViewport({ scale: this.editorScale });
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+    },
+
+    editorBoxesForCurrentPage() {
+      const draft = this.editorDraft;
+      if (!draft) return [];
+      const boxes = [];
+      for (const key of Object.keys(draft.header)) {
+        const spec = draft.header[key];
+        if (spec.page !== this.editorPageIndex) continue;
+        boxes.push({ kind: "header", key, label: this.editorLabels.header[key] || key, x: spec.x, y: spec.y, width: spec.width, fontSize: spec.fontSize });
+      }
+      const grid = this.editorPageIndex === 0 ? draft.page1 : draft.page2;
+      for (const key of Object.keys(draft.cols)) {
+        const spec = draft.cols[key];
+        boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: grid.startY, width: spec.width, fontSize: spec.fontSize });
+      }
+      return boxes;
+    },
+
+    // Converts a field's PDF-point box into on-canvas CSS pixels. PDF's
+    // origin is bottom-left; the canvas/DOM origin is top-left, so the
+    // vertical axis is flipped here — this is the one piece of math the
+    // whole drag/resize interaction depends on getting right.
+    editorBoxStyle(box) {
+      const scale = this.editorScale;
+      const fontSize = box.fontSize || 8;
+      const boxHeight = fontSize * 1.6;
+      const left = box.x * scale;
+      const top = (792 - box.y - fontSize * 1.2) * scale;
+      const width = (box.width || 40) * scale;
+      const height = boxHeight * scale;
+      return `left:${left}px; top:${top}px; width:${width}px; height:${height}px; font-size:${Math.max(9, fontSize * scale * 0.85)}px;`;
+    },
+
+    selectEditorField(kind, key) {
+      this.editorSelectedKind = kind;
+      this.editorSelectedKey = key;
+      if (kind === "header" && this.editorDraft) {
+        const page = this.editorDraft.header[key].page;
+        if (page !== this.editorPageIndex) this.switchEditorPage(page);
+      }
+    },
+
+    editorSelectedSpec() {
+      if (!this.editorDraft || !this.editorSelectedKind || !this.editorSelectedKey) return null;
+      const bucket = this.editorSelectedKind === "header" ? this.editorDraft.header : this.editorDraft.cols;
+      return bucket[this.editorSelectedKey] || null;
+    },
+
+    editorSelectedLabel() {
+      if (!this.editorSelectedKind || !this.editorSelectedKey) return "";
+      return this.editorLabels[this.editorSelectedKind][this.editorSelectedKey] || this.editorSelectedKey;
+    },
+
+    editorCurrentGrid() {
+      if (!this.editorDraft) return { startY: 0, spacing: 0, rows: 0 };
+      return this.editorPageIndex === 0 ? this.editorDraft.page1 : this.editorDraft.page2;
+    },
+
+    startBoxDrag(e, box) {
+      e.preventDefault();
+      const startX = e.clientX, startY = e.clientY;
+      const origX = box.x, origY = box.y;
+      const scale = this.editorScale;
+      const onMove = (ev) => {
+        const dx = (ev.clientX - startX) / scale;
+        const dy = (ev.clientY - startY) / scale; // canvas-down is positive; PDF-up is positive, so flip below
+        if (box.kind === "header") {
+          const spec = this.editorDraft.header[box.key];
+          spec.x = Math.round((origX + dx) * 10) / 10;
+          spec.y = Math.round((origY - dy) * 10) / 10;
+        } else {
+          const spec = this.editorDraft.cols[box.key];
+          spec.x = Math.round((origX + dx) * 10) / 10;
+          const grid = this.editorPageIndex === 0 ? this.editorDraft.page1 : this.editorDraft.page2;
+          grid.startY = Math.round((origY - dy) * 10) / 10;
+        }
+      };
+      const onUp = () => {
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+      };
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    },
+
+    startBoxResize(e, box) {
+      e.preventDefault();
+      const startX = e.clientX;
+      const origWidth = box.width || 40;
+      const scale = this.editorScale;
+      const bucket = box.kind === "header" ? this.editorDraft.header : this.editorDraft.cols;
+      const onMove = (ev) => {
+        const dx = (ev.clientX - startX) / scale;
+        bucket[box.key].width = Math.max(8, Math.round((origWidth + dx) * 10) / 10);
+      };
+      const onUp = () => {
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+      };
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    },
+
+    resetEditorAll() {
+      const schema = this.editorSchema;
+      if (!schema) return;
+      if (!confirm("Reset every field in this form type back to its default position and styling?")) return;
+      this.editorDraft = this.cloneLayout(schema.defaultLayout);
+    },
+
+    confirmSaveEditor() {
+      if (!this.editorFormType) return;
+      this.fieldLayouts[this.editorFormType] = this.editorDraft;
+      this.showEditorModal = false;
+      if (this.activeFormType === this.editorFormType) this.clearPreview();
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Shared coordinate-fill infrastructure. Every form type in this POC is a
+// flat, fieldless PDF (see "Two POC tracks" / this folder's own scope in
+// PDF-gen/CLAUDE.md), so filling means drawing text at authored (page, x, y)
+// positions rather than setting named AcroForm fields — and merging several
+// filled copies is correspondingly simpler than pdfgen-vanilla-multi's
+// AcroForm path: there are no field names to collide, so copyPages() alone
+// is enough.
+// ---------------------------------------------------------------------------
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+// Resolves a saved field style to the matching pdf-lib StandardFonts value.
+// Helvetica/Times/Courier are the only fonts pdf-lib ships without needing a
+// real font file embedded, each with the same four bold/italic variants.
+function resolveStandardFont(style) {
+  const { StandardFonts } = PDFLib;
+  const table = {
+    Helvetica:  { "": StandardFonts.Helvetica,  bold: StandardFonts.HelveticaBold,  italic: StandardFonts.HelveticaOblique,  boldItalic: StandardFonts.HelveticaBoldOblique },
+    TimesRoman: { "": StandardFonts.TimesRoman, bold: StandardFonts.TimesRomanBold, italic: StandardFonts.TimesRomanItalic,  boldItalic: StandardFonts.TimesRomanBoldItalic },
+    Courier:    { "": StandardFonts.Courier,    bold: StandardFonts.CourierBold,    italic: StandardFonts.CourierOblique,    boldItalic: StandardFonts.CourierBoldOblique },
+  };
+  const family = table[style.fontFamily] || table.Helvetica;
+  const variant = style.bold && style.italic ? "boldItalic" : style.bold ? "bold" : style.italic ? "italic" : "";
+  return family[variant] || family[""];
+}
+
+// One embedded-font cache per physical copy — a copy may use several
+// distinct font/bold/italic combinations across its fields, but each
+// combination only needs embedding once.
+async function getEmbeddedFont(doc, fontCache, standardFontName) {
+  if (!fontCache.has(standardFontName)) fontCache.set(standardFontName, await doc.embedFont(standardFontName));
+  return fontCache.get(standardFontName);
+}
+
+// Draws one field's value at its configured coordinate onto the given page.
+// allowOverflow: true draws a single unclipped line (may run past the box's
+// width, hence "overflow"); false wraps within the box width instead,
+// keeping it contained — exactly what pdfgen-vanilla's original 2408-20
+// "remarks" field already did with wrap+lineHeight.
+async function drawStyledField(doc, pages, fontCache, value, spec) {
+  if (!value) return;
+  const { rgb } = PDFLib;
+  const font = await getEmbeddedFont(doc, fontCache, resolveStandardFont(spec));
+  const page = pages[spec.page];
+  const size = spec.fontSize > 0 ? spec.fontSize : 8;
+  if (spec.allowOverflow) {
+    page.drawText(String(value), { x: spec.x, y: spec.y, size, font, color: rgb(0, 0, 0) });
+  } else {
+    page.drawText(String(value), {
+      x: spec.x, y: spec.y, size, font,
+      maxWidth: spec.width, lineHeight: size + 3, color: rgb(0, 0, 0),
+    });
+  }
+}
+
+// Returns an array of loaded, filled, NOT-yet-merged PDFDocuments — one per
+// physical copy needed to fit all rows. Shared by every form type: each
+// schema's own copies2408_XX() supplies only its template bytes and field
+// layout, not its own copy of this loop.
+async function buildCoordinateCopies(templateB64, form, layout) {
+  const { PDFDocument } = PDFLib;
+  const templateBytes = b64ToBytes(templateB64);
+  const rows = form.rows;
+  const page1 = layout.page1, page2 = layout.page2;
+  const rowsPerCopy = page1.rows + page2.rows;
+  const totalCopies = Math.max(1, Math.ceil(rows.length / rowsPerCopy));
+  const exclude = layout.repeatingHeaderExclude || [];
+  const docs = [];
+
+  for (let copyIndex = 0; copyIndex < totalCopies; copyIndex++) {
+    const templateDoc = await PDFDocument.load(templateBytes);
+    const pages = templateDoc.getPages();
+    const fontCache = new Map();
+
+    await drawStyledField(templateDoc, pages, fontCache, String(copyIndex + 1), layout.header.page);
+    await drawStyledField(templateDoc, pages, fontCache, String(totalCopies), layout.header.pageOf);
+    for (const key of Object.keys(form.header)) {
+      if (exclude.includes(key) && copyIndex > 0) continue; // e.g. remarks: copy 1 only
+      if (layout.header[key]) await drawStyledField(templateDoc, pages, fontCache, form.header[key], layout.header[key]);
+    }
+
+    const start = copyIndex * rowsPerCopy;
+    const chunk = rows.slice(start, start + rowsPerCopy);
+    for (let i = 0; i < chunk.length; i++) {
+      const row = chunk[i];
+      const onPage1 = i < page1.rows;
+      const grid = onPage1 ? page1 : page2;
+      const rowIdx = onPage1 ? i : i - page1.rows;
+      const y = grid.startY - rowIdx * grid.spacing;
+      const pageIndex = onPage1 ? 0 : 1;
+      for (const key of Object.keys(layout.cols)) {
+        const spec = { ...layout.cols[key], page: pageIndex, y };
+        await drawStyledField(templateDoc, pages, fontCache, row[key], spec);
+      }
+    }
+
+    docs.push(templateDoc);
+  }
+
+  return docs;
+}
+
+// Merges several independent, already-filled coordinate-drawn PDFDocuments
+// into one output document. Unlike pdfgen-vanilla-multi's AcroForm merge,
+// there are no field names to collide or re-attach to an /AcroForm here —
+// the text is just drawn directly onto each page, so copyPages() alone is
+// the entire merge.
+async function mergeCoordinateDocs(sourceDocs) {
+  const { PDFDocument } = PDFLib;
+  const outDoc = await PDFDocument.create();
+  for (const src of sourceDocs) {
+    const pages = await outDoc.copyPages(src, src.getPageIndices());
+    pages.forEach(p => outDoc.addPage(p));
+  }
+  return outDoc;
+}
+
+// "Print All" — every form instance in the logbook, merged into one PDF.
+// Grouped by form type in numeric order, each type's own instances in the
+// order they appear in the sidebar.
+async function buildCombinedPdf(logbook, fieldLayouts) {
+  const allDocs = [];
+  for (const ft of FORM_TYPES) {
+    const layout = getLayout(ft, fieldLayouts);
+    for (const instance of logbook[formTypeKey(ft.type)]) {
+      allDocs.push(...await ft.buildCopies(instance, layout));
+    }
+  }
+  const outDoc = await mergeCoordinateDocs(allDocs);
+  return outDoc.save();
+}
+</script>
+</body>
+</html>

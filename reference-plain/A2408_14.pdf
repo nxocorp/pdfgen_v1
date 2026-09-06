@@ -1,0 +1,7766 @@
+%PDF-1.7
+%
+
+4 0 obj
+<<
+/Subtype /XML
+/Type /Metadata
+/Length 5294
+>>
+stream
+<?xpacket begin="ï»¿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.2-c001 63.139439, 2011/06/07-10:39:26        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+         <xmp:MetadataDate>2014-09-29T16:13:37-04:00</xmp:MetadataDate>
+         <xmp:CreatorTool>Adobe LiveCycle Designer 11.0</xmp:CreatorTool>
+         <xmp:ModifyDate>2014-09-29T16:13:37-04:00</xmp:ModifyDate>
+         <xmp:CreateDate>2014-08-23T18:50:23-04:00</xmp:CreateDate>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+         <pdf:Producer>Adobe LiveCycle Designer 11.0</pdf:Producer>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
+         <xmpMM:DocumentID>uuid:26eb1005-759a-48a1-90e7-6df8074a432e</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:f8f5d9e6-8fdc-4876-99b5-df3f8be93d68</xmpMM:InstanceID>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <dc:format>application/pdf</dc:format>
+         <dc:description>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">DA FORM 2408-14, JUN 1994</rdf:li>
+            </rdf:Alt>
+         </dc:description>
+         <dc:creator>
+            <rdf:Seq>
+               <rdf:li>APD</rdf:li>
+            </rdf:Seq>
+         </dc:creator>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">UNCORRECTED FAULT RECORD </rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/">
+         <pdfx:Doc_Num>2408-14</pdfx:Doc_Num>
+         <pdfx:Prefix>DA</pdfx:Prefix>
+         <pdfx:Scope>Army</pdfx:Scope>
+         <pdfx:Suffix/>
+         <pdfx:Form_Month>Jun</pdfx:Form_Month>
+         <pdfx:Form_Year>1994</pdfx:Form_Year>
+         <pdfx:PIN>001401</pdfx:PIN>
+         <pdfx:Pub_ID>8</pdfx:Pub_ID>
+         <pdfx:Pub_Type>PAM</pdfx:Pub_Type>
+         <pdfx:Pub_Series>750</pdfx:Pub_Series>
+         <pdfx:Pre_Dir>PAM 750-8</pdfx:Pre_Dir>
+         <pdfx:Pub_Day>25</pdfx:Pub_Day>
+         <pdfx:Pub_Month>Feb</pdfx:Pub_Month>
+         <pdfx:Pub_Year>2005</pdfx:Pub_Year>
+         <pdfx:Proponent>DCS, G-4</pdfx:Proponent>
+         <pdfx:Form_Version>1.00</pdfx:Form_Version>
+         <pdfx:Unicode>CD</pdfx:Unicode>
+         <pdfx:PA_Code>No</pdfx:PA_Code>
+         <pdfx:Distrubution>Unrestricted</pdfx:Distrubution>
+         <pdfx:OMB_Number/>
+         <pdfx:OMB_Expire/>
+         <pdfx:Security_Class>UC</pdfx:Security_Class>
+         <pdfx:Product_Type>Form</pdfx:Product_Type>
+         <pdfx:Signature>No</pdfx:Signature>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/">
+         <desc:version rdf:parseType="Resource">
+            <rdf:value>1.00</rdf:value>
+            <desc:ref>/template/subform[1]</desc:ref>
+         </desc:version>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?>
+endstream
+endobj
+
+17 0 obj
+<<
+/Type /EmbeddedFile
+/Length 162
+>>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+<xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/" timeStamp="2014-09-29T20:13:37Z" uuid="26eb1005-759a-48a1-90e7-6df8074a432e">
+endstream
+endobj
+
+19 0 obj
+<<
+/Type /EmbeddedFile
+/Length 2890
+>>
+stream
+<config xmlns="http://www.xfa.org/schema/xci/3.0/"
+><agent name="designer"
+><!--  [0..n]  --><destination
+>pdf</destination
+><pdf
+><!--  [0..n]  --><fontInfo
+/></pdf
+></agent
+><present
+><!--  [0..n]  --><pdf
+><!--  [0..n]  --><version
+>1.7</version
+><adobeExtensionLevel
+>8</adobeExtensionLevel
+><creator
+>Adobe LiveCycle Designer 11.0</creator
+><producer
+>Adobe LiveCycle Designer 11.0</producer
+><scriptModel
+>XFA</scriptModel
+><interactive
+>1</interactive
+><tagged
+>1</tagged
+><fontInfo
+><embed
+>0</embed
+></fontInfo
+><encryption
+><encrypt
+>1</encrypt
+><encryptionLevel
+>128bit</encryptionLevel
+><permissions
+><accessibleContent
+>1</accessibleContent
+><contentCopy
+>0</contentCopy
+><documentAssembly
+>0</documentAssembly
+><formFieldFilling
+>1</formFieldFilling
+><modifyAnnots
+>1</modifyAnnots
+><print
+>1</print
+><printHighQuality
+>1</printHighQuality
+><change
+>0</change
+><plaintextMetadata
+>1</plaintextMetadata
+></permissions
+></encryption
+><compression
+><level
+>6</level
+><compressLogicalStructure
+>1</compressLogicalStructure
+><compressObjectStream
+>1</compressObjectStream
+></compression
+><linearized
+>1</linearized
+><silentPrint
+><addSilentPrint
+>0</addSilentPrint
+><printerName
+/></silentPrint
+><viewerPreferences
+><duplexOption
+>duplexFlipLongEdge</duplexOption
+><numberOfCopies
+>0</numberOfCopies
+><printScaling
+>appDefault</printScaling
+><pickTrayByPDFSize
+>1</pickTrayByPDFSize
+><enforce
+>printScaling</enforce
+><ADBE_JSDebugger
+>delegate</ADBE_JSDebugger
+><ADBE_JSConsole
+>delegate</ADBE_JSConsole
+><addViewerPreferences
+>1</addViewerPreferences
+></viewerPreferences
+></pdf
+><common
+><log
+><to
+>memory</to
+><mode
+>overwrite</mode
+></log
+><template
+><base
+>J:\Publishing Division\Forms Publishing Branch\!Forms Conversion files and spreadsheets\!Forms Received by HalfAker\20140825-21 new to Q'c (Wes &amp; Tarek)\!Forms to be RE and ready for archive 18 of 21 completed)\</base
+></template
+></common
+><script
+><runScripts
+>server</runScripts
+></script
+><xdp
+><packets
+>*</packets
+></xdp
+><destination
+>pdf</destination
+><output
+><to
+>uri</to
+><uri
+>J:\Publishing Division\Forms Publishing Branch\!Forms Conversion files and spreadsheets\!Forms Received by HalfAker\20140825-21 new to Q'c (Wes &amp; Tarek)\!Forms to be RE and ready for archive 18 of 21 completed)\A2408_14.pdf</uri
+></output
+></present
+><acrobat
+><acrobat7
+><dynamicRender
+>forbidden</dynamicRender
+></acrobat7
+><common
+><versionControl sourceBelow="maintain"
+/><data
+><adjustData
+/><xsl
+><uri
+/></xsl
+><outputXSL
+><uri
+/></outputXSL
+></data
+><template
+><base
+>J:\Publishing Division\Forms Publishing Branch\!Forms Conversion files and spreadsheets\!Forms Received by HalfAker\20140825-21 new to Q'c (Wes &amp; Tarek)\!Forms to be RE and ready for archive 18 of 21 completed)\</base
+><relevant
+/><uri
+/></template
+></common
+><autoSave
+>enabled</autoSave
+><validate
+>preSubmit</validate
+></acrobat
+></config
+>
+endstream
+endobj
+
+21 0 obj
+<<
+/Type /EmbeddedFile
+/Length 58314
+>>
+stream
+
+<template xmlns="http://www.xfa.org/schema/xfa-template/3.3/"
+><?formServer defaultPDFRenderFormat acrobat10.0dynamic?><?formServer allowRenderCaching 0?><?formServer formModel client?><subform name="form1" layout="tb" locale="en_US" restoreState="auto"
+><pageSet
+><pageArea name="Page1" id="Page1"
+><contentArea w="279.4mm" h="215.9mm" name="ContentArea1"
+/><medium stock="letter" short="215.9mm" long="279.4mm" orientation="landscape"
+/><draw name="T88" x="27.712mm" y="45.424mm" w="0.464in" minH="0.137in"
+><value
+><text
+>STATUS</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T89[0]"
+/></traversal
+></draw
+><draw name="T89" x="27.28mm" y="48.599mm" w="0.506in" minH="0.137in"
+><value
+><exData contentType="text/html"
+><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><p style="text-decoration:none;letter-spacing:0in"
+>SYMBOL</p
+><p style="text-decoration:none;letter-spacing:0in"
+><span style="xfa-spacerun:yes"
+>Â Â Â Â Â  </span
+><span style="font-style:italic"
+>a</span
+></p
+></body
+></exData
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T92[0]"
+/></traversal
+></draw
+><draw name="T92" x="239.143mm" y="178.393mm" w="0.545in" minH="0.111in"
+><value
+><text
+>APD LC v1.00</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="6pt" typeface="Arial"
+/><traversal
+><traverse ref="T93[0]"
+/></traversal
+></draw
+><draw name="T93" x="76.835mm" y="48.599mm" w="0.379in" minH="0.137in"
+><value
+><exData contentType="text/html"
+><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><p style="text-decoration:none;letter-spacing:0in"
+>FAULT</p
+><p style="text-decoration:none;letter-spacing:0in"
+><span style="xfa-spacerun:yes"
+>Â Â Â  </span
+><span style="font-style:italic"
+>b</span
+></p
+></body
+></exData
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T94[0]"
+/></traversal
+></draw
+><draw name="T94" x="135.23mm" y="48.599mm" w="1.148in" minH="0.137in"
+><value
+><exData contentType="text/html"
+><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><p style="text-decoration:none;letter-spacing:0in"
+>REASON FOR DELAY</p
+><p style="text-decoration:none;letter-spacing:0in"
+><span style="xfa-spacerun:yes"
+>Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  </span
+><span style="font-style:italic"
+>c</span
+></p
+></body
+></exData
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T95[0]"
+/></traversal
+></draw
+><draw name="T95" x="184.557mm" y="42.249mm" w="0.33in" minH="0.137in"
+><value
+><text
+>DATE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T96[0]"
+/></traversal
+></draw
+><draw name="T96" x="177.224mm" y="45.424mm" w="0.859in" minH="0.138in"
+><value
+><text
+>(From DA FORM</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T97[0]"
+/></traversal
+></draw
+><draw name="T97" x="184.785mm" y="48.599mm" w="0.317in" minH="0.138in"
+><value
+><text
+>2404)â€©   d</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T98[0]"
+/></traversal
+></draw
+><draw name="T98" x="204.445mm" y="45.424mm" w="1.046in" minH="0.137in"
+><value
+><text
+>ENTRY APPROVED</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T99[0]"
+/></traversal
+></draw
+><draw name="T99" x="240.869mm" y="42.249mm" w="0.33in" minH="0.137in"
+><value
+><text
+>DATE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T100[0]"
+/></traversal
+></draw
+><draw name="T100" x="236.627mm" y="45.424mm" w="0.678in" h="3.575mm"
+><value
+><text
+>(To DA Form</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T101[0]"
+/></traversal
+><?renderCache.bounds 48816 10134 0 0 0 0 0 0?><?renderCache.textRun 11 (To DA Form 0 0 7407 0 0 0 "Arial" 0 1 8000 ISO-8859-1?></draw
+><draw name="T101" x="241.072mm" y="48.599mm" w="0.317in" minH="0.138in"
+><value
+><text
+>2407)â€©    f</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/></draw
+><draw name="T102" x="26.67mm" y="31.023mm" w="1.055in" minH="0.137in"
+><value
+><text
+>1. NOMENCLATURE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T103[0]"
+/></traversal
+></draw
+><draw name="T103" x="122.555mm" y="31.023mm" w="0.552in" minH="0.137in"
+><value
+><text
+>2. MODEL</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T104[0]"
+/></traversal
+></draw
+><draw name="T104" x="177.369mm" y="31.023mm" w="1.054in" minH="0.137in"
+><value
+><text
+>3. SERIAL NUMBER</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T109[0]"
+/></traversal
+></draw
+><draw name="T109" x="209.754mm" y="48.396mm" w="0.636in" minH="0.138in"
+><value
+><text
+>(Signature)â€©         e  </text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/></draw
+><draw name="R112" y="29.82mm" x="25.4mm" w="0in" h="147.066mm"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R113" y="29.82mm" x="25.4mm" w="228.6mm" h="0in"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R114" y="29.82mm" x="254.212mm" w="0in" h="147.066mm"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R115" y="176.929mm" x="25.4mm" w="228.6mm" h="0in"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R116" y="90.145mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R117" y="116.18mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R118" y="133.537mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R119" y="150.894mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R120" y="41.674mm" x="234.527mm" w="0in" h="135.128mm"
+><value
+><line
+/></value
+></draw
+><draw name="R121" y="29.82mm" x="121.92mm" w="0in" h="147.087mm"
+><value
+><line
+/></value
+></draw
+><draw name="R122" y="29.82mm" x="176.53mm" w="0in" h="147.066mm"
+><value
+><line
+/></value
+></draw
+><draw name="R123" y="41.674mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R124" y="168.25mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R125" y="81.467mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R126" y="124.859mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R127" y="41.674mm" x="40.005mm" w="0in" h="135.128mm"
+><value
+><line
+/></value
+></draw
+><draw name="R128" y="55.432mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R129" y="72.789mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R130" y="98.824mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R131" y="142.215mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R132" y="64.11mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R133" y="107.502mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R134" y="41.674mm" x="199.602mm" w="0in" h="135.128mm"
+><value
+><line
+/></value
+></draw
+><draw name="R135" y="159.572mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><?templateDesigner expand 1?></pageArea
+><?templateDesigner expand 1?></pageSet
+><subform w="11in" h="215.9mm" name="Page1"
+><field name="NOMEN_A" y="34.9mm" x="26.434mm" w="269.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>d ay form 24 o 8 dash 14, june 19 94.&#xD;edition of october 91 is obsolete.&#xD;ay p d. l c  version  1.00.&#xD;uncorrected fault record.&#xD;for use of this form, see d ay pamphlet 7 38 dash 7 50, the proponent agency is o d c s l o g.&#xD;1. enter nomenclature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="MODEL_A" y="34.9mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>2. enter model.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SERIALNO_A" y="34.9mm" x="177.14mm" w="217.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>3. enter serial number.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A" y="57.337mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A" y="57.337mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 1. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A" y="57.337mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 1. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A" y="57.337mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A" y="57.337mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B" y="57.337mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_1" y="66.015mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_1" y="66.015mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 2. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_1" y="66.015mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 2. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_1" y="66.015mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_1" y="66.015mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_1" y="66.015mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_2" y="74.693mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_2" y="74.693mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 3. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_2" y="74.693mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 3. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_2" y="74.693mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_2" y="74.693mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_2" y="74.693mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_3" y="83.583mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_3" y="83.583mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 4. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_3" y="83.583mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 4. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_3" y="83.583mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_3" y="83.583mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_3" y="83.583mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_4" y="92.262mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_4" y="92.262mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 5. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_4" y="92.262mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 5. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_4" y="92.262mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_4" y="92.262mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_4" y="92.262mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_5" y="100.94mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_5" y="100.94mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 6. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_5" y="100.94mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 6. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_5" y="100.94mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_5" y="100.94mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_5" y="100.94mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_6" y="109.407mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_6" y="109.407mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 7. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_6" y="109.407mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 7. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_6" y="109.407mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_6" y="109.407mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_6" y="109.407mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_7" y="118.297mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_7" y="118.297mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 8. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_7" y="118.297mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 8. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_7" y="118.297mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_7" y="118.297mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_7" y="118.297mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_8" y="126.975mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_8" y="126.975mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 9. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_8" y="126.975mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 9. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_8" y="126.975mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_8" y="126.975mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_8" y="126.975mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_9" y="135.653mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_9" y="135.653mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 10. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_9" y="135.653mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 10. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_9" y="135.653mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_9" y="135.653mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_9" y="135.653mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_10" y="144.332mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_10" y="144.332mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 11. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_10" y="144.332mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 11. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_10" y="144.332mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_10" y="144.332mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_10" y="144.332mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_11" y="152.798mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_11" y="152.798mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 12. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_11" y="152.798mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 12. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_11" y="152.798mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_11" y="152.798mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_11" y="152.798mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_12" y="161.688mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_12" y="161.688mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 13. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_12" y="161.688mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 13. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_12" y="161.688mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_12" y="161.688mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_12" y="161.688mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_13" y="170.367mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_13" y="170.367mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 14. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_13" y="170.367mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 14. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_13" y="170.367mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_13" y="170.367mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_13" y="170.367mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><draw name="T94" x="146.592mm" y="181.752mm" w="100.752mm" h="3.384mm"
+><value
+><text
+>For use of this form, see DA PAM 738-750; the proponent agency is ODCSLOG</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T95[0]"
+/></traversal
+><?renderCache.bounds 285596 9592 0 0 0 0 0 0?><?renderCache.textRun 73 For use of this form, see DA PAM 738-750; the proponent agency is ODCSLOG 0 0 7112 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw
+><draw name="T93" x="146.591mm" y="177.484mm" w="2.238in" minH="0.176in"
+><value
+><text
+>UNCORRECTED FAULT RECORD</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font weight="bold" typeface="Arial"
+/><traversal
+><traverse ref="T94[0]"
+/></traversal
+></draw
+><draw name="T95" x="26.576mm" y="182.124mm" w="47.624mm" h="3.384mm"
+><value
+><text
+>EDITION OF OCT 91 IS OBSOLETE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><?renderCache.bounds 134997 9592 0 0 0 0 0 0?><?renderCache.textRun 29 EDITION OF OCT 91 IS OBSOLETE 0 0 7112 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw
+><draw name="T90" x="26.805mm" y="177.484mm" w="59.243mm" minH="0.176in"
+><value
+><text
+>DA FORM 2408-14, JUN 1994</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font weight="bold" typeface="Arial"
+/><traversal
+><traverse ref="T93[0]"
+/></traversal
+></draw
+><traversal
+><traverse ref="Page2[0]"
+/><traverse operation="first" ref="NOMEN_A[0]"
+/></traversal
+><?templateDesigner expand 1?></subform
+><subform w="11in" h="215.9mm" name="Page2"
+><field name="NOMEN_A" y="35.42mm" x="26.434mm" w="269.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>reverse of d ay form 24 o 8 dash 14, june 94.&#xD;ay p d. l c  version 1.00.&#xD;1. enter nomenclature.</speak
+></assist
+><font typeface="Times New Roman"
+/><traversal
+><traverse ref="MODEL_A[0]"
+/></traversal
+></field
+><field name="MODEL_A" y="35.16mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>2. enter model.</speak
+></assist
+><font typeface="Times New Roman"
+/><traversal
+><traverse ref="SERIALNO_A[0]"
+/></traversal
+></field
+><field name="SERIALNO_A" y="35.16mm" x="177.14mm" w="217.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>3. enter serial number.</speak
+></assist
+><font typeface="Times New Roman"
+/><traversal
+><traverse ref="SYMBOL_B[0]"
+/></traversal
+></field
+><field name="SYMBOL_B" y="57.597mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B" y="57.597mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 15. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B" y="57.597mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 15. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA" y="57.597mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B" y="57.597mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB" y="57.597mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_1" y="66.275mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_1" y="66.275mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 16. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_1" y="66.275mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 16. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_1" y="66.275mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_1" y="66.275mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_1" y="66.275mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_2" y="74.953mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_2" y="74.953mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 17. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_2" y="74.953mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 17. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_2" y="74.953mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_2" y="74.953mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_2" y="74.953mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_3" y="83.843mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_3" y="83.843mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 18. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_3" y="83.843mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 18. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_3" y="83.843mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_3" y="83.843mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_3" y="83.843mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_4" y="92.522mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_4" y="92.522mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 19. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_4" y="92.522mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 19. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_4" y="92.522mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_4" y="92.522mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_4" y="92.522mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_5" y="101.2mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_5" y="101.2mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 20. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_5" y="101.2mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 20. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_5" y="101.2mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_5" y="101.2mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_5" y="101.2mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_6" y="109.667mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_6" y="109.667mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 21. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_6" y="109.667mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 21. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_6" y="109.667mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_6" y="109.667mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_6" y="109.667mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_7" y="118.557mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_7" y="118.557mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 22. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_7" y="118.557mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 22. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_7" y="118.557mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_7" y="118.557mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_7" y="118.557mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_8" y="127.235mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_8" y="127.235mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 23. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_8" y="127.235mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 23. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_8" y="127.235mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_8" y="127.235mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_8" y="127.235mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_9" y="135.913mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_9" y="135.913mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 24. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_9" y="135.913mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 24. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_9" y="135.913mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_9" y="135.913mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_9" y="135.913mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_10" y="144.592mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_10" y="144.592mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 25. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_10" y="144.592mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 25. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_10" y="144.592mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_10" y="144.592mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_10" y="144.592mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_11" y="153.058mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_11" y="153.058mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 26. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_11" y="153.058mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 26. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_11" y="153.058mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_11" y="153.058mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_11" y="153.058mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_12" y="161.948mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_12" y="161.948mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 27. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_12" y="161.948mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 27. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_12" y="161.948mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_12" y="161.948mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_12" y="161.948mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_13" y="170.627mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_13" y="170.627mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 28. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_13" y="170.627mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 28. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_13" y="170.627mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_13" y="170.627mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_13" y="170.627mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><draw name="T90" x="27mm" y="177.728mm" w="62.442mm" minH="0.151in"
+><value
+><text
+>REVERSE OF DA FORM 2408-14, JUN 1994</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font weight="bold" posture="italic" size="8pt" typeface="Arial"
+/></draw
+><traversal
+><traverse operation="first" ref="NOMEN_A[0]"
+/></traversal
+><?templateDesigner expand 0?></subform
+><proto
+/><desc
+><text name="version"
+>1.00</text
+><text name="description"
+>DA FORM 2408-14, JUN 1994</text
+><text name="title"
+>UNCORRECTED FAULT RECORD </text
+><text name="creator"
+>APD</text
+></desc
+><event activity="docReady" ref="$host" name="event__docReady"
+><script contentType="application/x-javascript"
+>
+app.runtimeHighlight = false;
+xfa.host.setFocus(xfa.form.form1.Page1.NOMEN_A);
+</script
+></event
+><event activity="enter" name="event__enter"
+><script contentType="application/x-javascript"
+>
+app.runtimeHighlight = true;
+</script
+></event
+><?templateDesigner Hyphenation excludeInitialCap:1, excludeAllCaps:1, wordCharCnt:7, remainCharCnt:3, pushCharCnt:3?><?templateDesigner expand 1?><?renderCache.subset "Arial" 0 0 ISO-8859-1 4 196 49 0003000F0010001100130014001500160018001A001B001C001E002400250026002700280029002A002C002F003000310032003300350036003700380039003C0044004600480049004A004B004C005000510052005300550056005700580059005C ,-.01235789;ABCDEFGILMNOPRSTUVYacefghimnoprstuvy?><?renderCache.subset "Arial" 1 0 ISO-8859-1 4 88 22 0003000F00100013001400150017001B001C00240026002700280029002D002F003000310032003500370038 ,-012489ACDEFJLMNORTU?><?renderCache.subset "Arial" 0 1 ISO-8859-1 4 116 29 0003000B000C001300150017001A00240027002900300032003500360037004400450046004700480049004A004C005000510052005500570058 ()0247ADFMORSTabcdefgimnortu?><?renderCache.subset "Arial" 1 1 ISO-8859-1 4 84 21 0003000F00100013001400150017001B001C0024002700280029002D0030003100320035003600380039 ,-012489ADEFJMNORSUV?></subform
+><?templateDesigner DefaultPreviewDynamic 1?><?templateDesigner Grid show:0, snap:0, units:0, color:ff8080, origin:(0,0), interval:(125000,125000), objsnap:0, guidesnap:0, pagecentersnap:0?><?templateDesigner SavePDFWithLog 0?><?templateDesigner WidowOrphanControl 0?><?originalXFAVersion http://www.xfa.org/schema/xfa-template/3.3/?><?templateDesigner SaveTaggedPDF 1?><?templateDesigner SavePDFWithEmbeddedFonts 0?><?templateDesigner Rulers horizontal:1, vertical:1, guidelines:1, crosshairs:0?><?templateDesigner Zoom 100?><?templateDesigner FormTargetVersion 33?><?templateDesigner DefaultLanguage JavaScript?><?templateDesigner DefaultRunAt client?><?acrobat JavaScript strictScoping?><?acrobat allowAutosave enabled?><?PDFPrintOptions embedViewerPrefs 1?><?PDFPrintOptions embedPrintOnFormOpen 0?><?PDFPrintOptions scalingPrefs 0?><?PDFPrintOptions enforceScalingPrefs 1?><?PDFPrintOptions paperSource 1?><?PDFPrintOptions duplexMode 1?><?templateDesigner DefaultPreviewType interactive?><?templateDesigner DefaultPreviewPagination simplex?><?templateDesigner XDPPreviewFormat 20?><?templateDesigner DefaultCaptionFontSettings face:Arial;size:8;weight:normal;style:normal?><?templateDesigner DefaultValueFontSettings face:Times New Roman;size:10;weight:normal;style:normal?></template
+>
+endstream
+endobj
+
+23 0 obj
+<<
+/Type /EmbeddedFile
+/Length 5620
+>>
+stream
+
+<localeSet xmlns="http://www.xfa.org/schema/xfa-locale-set/2.7/"
+><locale name="en_CA" desc="English (Canada)"
+><calendarSymbols name="gregorian"
+><monthNames
+><month
+>January</month
+><month
+>February</month
+><month
+>March</month
+><month
+>April</month
+><month
+>May</month
+><month
+>June</month
+><month
+>July</month
+><month
+>August</month
+><month
+>September</month
+><month
+>October</month
+><month
+>November</month
+><month
+>December</month
+></monthNames
+><monthNames abbr="1"
+><month
+>Jan</month
+><month
+>Feb</month
+><month
+>Mar</month
+><month
+>Apr</month
+><month
+>May</month
+><month
+>Jun</month
+><month
+>Jul</month
+><month
+>Aug</month
+><month
+>Sep</month
+><month
+>Oct</month
+><month
+>Nov</month
+><month
+>Dec</month
+></monthNames
+><dayNames
+><day
+>Sunday</day
+><day
+>Monday</day
+><day
+>Tuesday</day
+><day
+>Wednesday</day
+><day
+>Thursday</day
+><day
+>Friday</day
+><day
+>Saturday</day
+></dayNames
+><dayNames abbr="1"
+><day
+>Sun</day
+><day
+>Mon</day
+><day
+>Tue</day
+><day
+>Wed</day
+><day
+>Thu</day
+><day
+>Fri</day
+><day
+>Sat</day
+></dayNames
+><meridiemNames
+><meridiem
+>AM</meridiem
+><meridiem
+>PM</meridiem
+></meridiemNames
+><eraNames
+><era
+>BC</era
+><era
+>AD</era
+></eraNames
+></calendarSymbols
+><datePatterns
+><datePattern name="full"
+>EEEE, MMMM D, YYYY</datePattern
+><datePattern name="long"
+>MMMM D, YYYY</datePattern
+><datePattern name="med"
+>D-MMM-YY</datePattern
+><datePattern name="short"
+>DD/MM/YY</datePattern
+></datePatterns
+><timePatterns
+><timePattern name="full"
+>h:MM:SS A Z</timePattern
+><timePattern name="long"
+>h:MM:SS A Z</timePattern
+><timePattern name="med"
+>h:MM:SS A</timePattern
+><timePattern name="short"
+>h:MM A</timePattern
+></timePatterns
+><dateTimeSymbols
+>GyMdkHmsSEDFwWahKzZ</dateTimeSymbols
+><numberPatterns
+><numberPattern name="numeric"
+>z,zz9.zzz</numberPattern
+><numberPattern name="currency"
+>$z,zz9.99</numberPattern
+><numberPattern name="percent"
+>z,zz9%</numberPattern
+></numberPatterns
+><numberSymbols
+><numberSymbol name="decimal"
+>.</numberSymbol
+><numberSymbol name="grouping"
+>,</numberSymbol
+><numberSymbol name="percent"
+>%</numberSymbol
+><numberSymbol name="minus"
+>-</numberSymbol
+><numberSymbol name="zero"
+>0</numberSymbol
+></numberSymbols
+><currencySymbols
+><currencySymbol name="symbol"
+>$</currencySymbol
+><currencySymbol name="isoname"
+>CAD</currencySymbol
+><currencySymbol name="decimal"
+>.</currencySymbol
+></currencySymbols
+><typefaces
+><typeface name="Myriad Pro"
+/><typeface name="Minion Pro"
+/><typeface name="Courier Std"
+/><typeface name="Adobe Pi Std"
+/><typeface name="Adobe Hebrew"
+/><typeface name="Adobe Arabic"
+/><typeface name="Adobe Thai"
+/><typeface name="Kozuka Gothic Pro-VI M"
+/><typeface name="Kozuka Mincho Pro-VI R"
+/><typeface name="Adobe Ming Std L"
+/><typeface name="Adobe Song Std L"
+/><typeface name="Adobe Myungjo Std M"
+/></typefaces
+></locale
+><locale name="en_US" desc="English (United States)"
+><calendarSymbols name="gregorian"
+><monthNames
+><month
+>January</month
+><month
+>February</month
+><month
+>March</month
+><month
+>April</month
+><month
+>May</month
+><month
+>June</month
+><month
+>July</month
+><month
+>August</month
+><month
+>September</month
+><month
+>October</month
+><month
+>November</month
+><month
+>December</month
+></monthNames
+><monthNames abbr="1"
+><month
+>Jan</month
+><month
+>Feb</month
+><month
+>Mar</month
+><month
+>Apr</month
+><month
+>May</month
+><month
+>Jun</month
+><month
+>Jul</month
+><month
+>Aug</month
+><month
+>Sep</month
+><month
+>Oct</month
+><month
+>Nov</month
+><month
+>Dec</month
+></monthNames
+><dayNames
+><day
+>Sunday</day
+><day
+>Monday</day
+><day
+>Tuesday</day
+><day
+>Wednesday</day
+><day
+>Thursday</day
+><day
+>Friday</day
+><day
+>Saturday</day
+></dayNames
+><dayNames abbr="1"
+><day
+>Sun</day
+><day
+>Mon</day
+><day
+>Tue</day
+><day
+>Wed</day
+><day
+>Thu</day
+><day
+>Fri</day
+><day
+>Sat</day
+></dayNames
+><meridiemNames
+><meridiem
+>AM</meridiem
+><meridiem
+>PM</meridiem
+></meridiemNames
+><eraNames
+><era
+>BC</era
+><era
+>AD</era
+></eraNames
+></calendarSymbols
+><datePatterns
+><datePattern name="full"
+>EEEE, MMMM D, YYYY</datePattern
+><datePattern name="long"
+>MMMM D, YYYY</datePattern
+><datePattern name="med"
+>MMM D, YYYY</datePattern
+><datePattern name="short"
+>M/D/YY</datePattern
+></datePatterns
+><timePatterns
+><timePattern name="full"
+>h:MM:SS A Z</timePattern
+><timePattern name="long"
+>h:MM:SS A Z</timePattern
+><timePattern name="med"
+>h:MM:SS A</timePattern
+><timePattern name="short"
+>h:MM A</timePattern
+></timePatterns
+><dateTimeSymbols
+>GyMdkHmsSEDFwWahKzZ</dateTimeSymbols
+><numberPatterns
+><numberPattern name="numeric"
+>z,zz9.zzz</numberPattern
+><numberPattern name="currency"
+>$z,zz9.99|($z,zz9.99)</numberPattern
+><numberPattern name="percent"
+>z,zz9%</numberPattern
+></numberPatterns
+><numberSymbols
+><numberSymbol name="decimal"
+>.</numberSymbol
+><numberSymbol name="grouping"
+>,</numberSymbol
+><numberSymbol name="percent"
+>%</numberSymbol
+><numberSymbol name="minus"
+>-</numberSymbol
+><numberSymbol name="zero"
+>0</numberSymbol
+></numberSymbols
+><currencySymbols
+><currencySymbol name="symbol"
+>$</currencySymbol
+><currencySymbol name="isoname"
+>USD</currencySymbol
+><currencySymbol name="decimal"
+>.</currencySymbol
+></currencySymbols
+><typefaces
+><typeface name="Myriad Pro"
+/><typeface name="Minion Pro"
+/><typeface name="Courier Std"
+/><typeface name="Adobe Pi Std"
+/><typeface name="Adobe Hebrew"
+/><typeface name="Adobe Arabic"
+/><typeface name="Adobe Thai"
+/><typeface name="Kozuka Gothic Pro-VI M"
+/><typeface name="Kozuka Mincho Pro-VI R"
+/><typeface name="Adobe Ming Std L"
+/><typeface name="Adobe Song Std L"
+/><typeface name="Adobe Myungjo Std M"
+/></typefaces
+></locale
+></localeSet
+>
+endstream
+endobj
+
+25 0 obj
+<<
+/Type /EmbeddedFile
+/Length 2438
+>>
+stream
+
+<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><xfa:data
+><form1
+><Page1
+><NOMEN_A
+/><MODEL_A
+/><SERIALNO_A
+/><SYMBOL_A
+/><FAULT_A
+/><REASON_A
+/><DATE_A
+/><SIGN_A
+/><DATE_B
+/><SYMBOL_A_1
+/><FAULT_A_1
+/><REASON_A_1
+/><DATE_A_1
+/><SIGN_A_1
+/><DATE_B_1
+/><SYMBOL_A_2
+/><FAULT_A_2
+/><REASON_A_2
+/><DATE_A_2
+/><SIGN_A_2
+/><DATE_B_2
+/><SYMBOL_A_3
+/><FAULT_A_3
+/><REASON_A_3
+/><DATE_A_3
+/><SIGN_A_3
+/><DATE_B_3
+/><SYMBOL_A_4
+/><FAULT_A_4
+/><REASON_A_4
+/><DATE_A_4
+/><SIGN_A_4
+/><DATE_B_4
+/><SYMBOL_A_5
+/><FAULT_A_5
+/><REASON_A_5
+/><DATE_A_5
+/><SIGN_A_5
+/><DATE_B_5
+/><SYMBOL_A_6
+/><FAULT_A_6
+/><REASON_A_6
+/><DATE_A_6
+/><SIGN_A_6
+/><DATE_B_6
+/><SYMBOL_A_7
+/><FAULT_A_7
+/><REASON_A_7
+/><DATE_A_7
+/><SIGN_A_7
+/><DATE_B_7
+/><SYMBOL_A_8
+/><FAULT_A_8
+/><REASON_A_8
+/><DATE_A_8
+/><SIGN_A_8
+/><DATE_B_8
+/><SYMBOL_A_9
+/><FAULT_A_9
+/><REASON_A_9
+/><DATE_A_9
+/><SIGN_A_9
+/><DATE_B_9
+/><SYMBOL_A_10
+/><FAULT_A_10
+/><REASON_A_10
+/><DATE_A_10
+/><SIGN_A_10
+/><DATE_B_10
+/><SYMBOL_A_11
+/><FAULT_A_11
+/><REASON_A_11
+/><DATE_A_11
+/><SIGN_A_11
+/><DATE_B_11
+/><SYMBOL_A_12
+/><FAULT_A_12
+/><REASON_A_12
+/><DATE_A_12
+/><SIGN_A_12
+/><DATE_B_12
+/><SYMBOL_A_13
+/><FAULT_A_13
+/><REASON_A_13
+/><DATE_A_13
+/><SIGN_A_13
+/><DATE_B_13
+/></Page1
+><Page2
+><NOMEN_A
+/><MODEL_A
+/><SERIALNO_A
+/><SYMBOL_B
+/><FAULT_B
+/><REASON_B
+/><DATE_AA
+/><SIGN_B
+/><DATE_BB
+/><SYMBOL_B_1
+/><FAULT_B_1
+/><REASON_B_1
+/><DATE_AA_1
+/><SIGN_B_1
+/><DATE_BB_1
+/><SYMBOL_B_2
+/><FAULT_B_2
+/><REASON_B_2
+/><DATE_AA_2
+/><SIGN_B_2
+/><DATE_BB_2
+/><SYMBOL_B_3
+/><FAULT_B_3
+/><REASON_B_3
+/><DATE_AA_3
+/><SIGN_B_3
+/><DATE_BB_3
+/><SYMBOL_B_4
+/><FAULT_B_4
+/><REASON_B_4
+/><DATE_AA_4
+/><SIGN_B_4
+/><DATE_BB_4
+/><SYMBOL_B_5
+/><FAULT_B_5
+/><REASON_B_5
+/><DATE_AA_5
+/><SIGN_B_5
+/><DATE_BB_5
+/><SYMBOL_B_6
+/><FAULT_B_6
+/><REASON_B_6
+/><DATE_AA_6
+/><SIGN_B_6
+/><DATE_BB_6
+/><SYMBOL_B_7
+/><FAULT_B_7
+/><REASON_B_7
+/><DATE_AA_7
+/><SIGN_B_7
+/><DATE_BB_7
+/><SYMBOL_B_8
+/><FAULT_B_8
+/><REASON_B_8
+/><DATE_AA_8
+/><SIGN_B_8
+/><DATE_BB_8
+/><SYMBOL_B_9
+/><FAULT_B_9
+/><REASON_B_9
+/><DATE_AA_9
+/><SIGN_B_9
+/><DATE_BB_9
+/><SYMBOL_B_10
+/><FAULT_B_10
+/><REASON_B_10
+/><DATE_AA_10
+/><SIGN_B_10
+/><DATE_BB_10
+/><SYMBOL_B_11
+/><FAULT_B_11
+/><REASON_B_11
+/><DATE_AA_11
+/><SIGN_B_11
+/><DATE_BB_11
+/><SYMBOL_B_12
+/><FAULT_B_12
+/><REASON_B_12
+/><DATE_AA_12
+/><SIGN_B_12
+/><DATE_BB_12
+/><SYMBOL_B_13
+/><FAULT_B_13
+/><REASON_B_13
+/><DATE_AA_13
+/><SIGN_B_13
+/><DATE_BB_13
+/></Page2
+></form1
+></xfa:data
+></xfa:datasets
+>
+endstream
+endobj
+
+27 0 obj
+<<
+/Type /EmbeddedFile
+/Length 3191
+>>
+stream
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.2-c001 63.139439, 2011/06/07-10:39:26        "
+><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+      <rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about=""
+>
+         <xmp:MetadataDate
+>2014-09-29T20:13:37Z</xmp:MetadataDate
+>
+         <xmp:CreatorTool
+>Adobe LiveCycle Designer 11.0</xmp:CreatorTool
+>
+         <xmp:ModifyDate
+>2014-08-23T22:35:33-04:00</xmp:ModifyDate
+>
+         <xmp:CreateDate
+>2014-08-23T18:50:23-04:00</xmp:CreateDate
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:pdf="http://ns.adobe.com/pdf/1.3/" rdf:about=""
+>
+         <pdf:Producer
+>Adobe LiveCycle Designer 11.0</pdf:Producer
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" rdf:about=""
+>
+         <xmpMM:DocumentID
+>uuid:26eb1005-759a-48a1-90e7-6df8074a432e</xmpMM:DocumentID
+>
+         <xmpMM:InstanceID
+>uuid:16ee5d12-7982-4ed7-a76b-1d2fe3fe7a68</xmpMM:InstanceID
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about=""
+>
+         <dc:format
+>application/pdf</dc:format
+>
+         <dc:description
+>
+            <rdf:Alt
+>
+               <rdf:li xml:lang="x-default"
+>DA FORM 2408-14, JUN 1994</rdf:li
+>
+            </rdf:Alt
+>
+         </dc:description
+>
+         <dc:creator
+>
+            <rdf:Seq
+>
+               <rdf:li
+>APD</rdf:li
+>
+            </rdf:Seq
+>
+         </dc:creator
+>
+         <dc:title
+>
+            <rdf:Alt
+>
+               <rdf:li xml:lang="x-default"
+>UNCORRECTED FAULT RECORD </rdf:li
+>
+            </rdf:Alt
+>
+         </dc:title
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/" rdf:about=""
+>
+         <pdfx:Doc_Num
+>2408-14</pdfx:Doc_Num
+>
+         <pdfx:Prefix
+>DA</pdfx:Prefix
+>
+         <pdfx:Scope
+>Army</pdfx:Scope
+>
+         <pdfx:Suffix
+/>
+         <pdfx:Form_Month
+>Jun</pdfx:Form_Month
+>
+         <pdfx:Form_Year
+>1994</pdfx:Form_Year
+>
+         <pdfx:PIN
+>001401</pdfx:PIN
+>
+         <pdfx:Pub_ID
+>8</pdfx:Pub_ID
+>
+         <pdfx:Pub_Type
+>PAM</pdfx:Pub_Type
+>
+         <pdfx:Pub_Series
+>750</pdfx:Pub_Series
+>
+         <pdfx:Pre_Dir
+>PAM 750-8</pdfx:Pre_Dir
+>
+         <pdfx:Pub_Day
+>25</pdfx:Pub_Day
+>
+         <pdfx:Pub_Month
+>Feb</pdfx:Pub_Month
+>
+         <pdfx:Pub_Year
+>2005</pdfx:Pub_Year
+>
+         <pdfx:Proponent
+>DCS, G-4</pdfx:Proponent
+>
+         <pdfx:Form_Version
+>1.00</pdfx:Form_Version
+>
+         <pdfx:Unicode
+>CD</pdfx:Unicode
+>
+         <pdfx:PA_Code
+>No</pdfx:PA_Code
+>
+         <pdfx:Distrubution
+>Unrestricted</pdfx:Distrubution
+>
+         <pdfx:OMB_Number
+/>
+         <pdfx:OMB_Expire
+/>
+         <pdfx:Security_Class
+>UC</pdfx:Security_Class
+>
+         <pdfx:Product_Type
+>Form</pdfx:Product_Type
+>
+         <pdfx:Signature
+>No</pdfx:Signature
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/" rdf:about=""
+>
+         <desc:version rdf:parseType="Resource"
+>
+            <rdf:value
+>1.00</rdf:value
+>
+            <desc:ref
+>/template/subform[1]</desc:ref
+>
+         </desc:version
+>
+      </rdf:Description
+>
+   </rdf:RDF
+></x:xmpmeta
+>
+endstream
+endobj
+
+29 0 obj
+<<
+/Type /EmbeddedFile
+/Length 80
+>>
+stream
+<xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve"
+><annots
+/></xfdf
+>
+endstream
+endobj
+
+31 0 obj
+<<
+/Type /EmbeddedFile
+/Length 200
+>>
+stream
+<PDFSecurity xmlns="http://ns.adobe.com/xtd/" print="1" printHighQuality="1" change="0" modifyAnnots="1" formFieldFilling="1" documentAssembly="0" contentCopy="0" accessibleContent="1" metadata="1"
+/>
+endstream
+endobj
+
+33 0 obj
+<<
+/Type /EmbeddedFile
+/Length 56
+>>
+stream
+<form xmlns="http://www.xfa.org/schema/xfa-form/2.8/"
+/>
+endstream
+endobj
+
+35 0 obj
+<<
+/Type /EmbeddedFile
+/Length 10
+>>
+stream
+</xdp:xdp>
+endstream
+endobj
+
+55 0 obj
+<<
+/Length 2952
+>>
+stream
+BT
+/Content <</MCID 0 >>BDC 
+0 0 0 rg
+/RelativeColorimetric ri
+/TT0 1 Tf
+8 0 0 8 78.554 475.991 Tm
+(STATUS)Tj
+EMC 
+/Content <</MCID 1 >>BDC 
+-0.153 -1.008 Td
+(SYMBOL )Tj
+0 -1.203 TD
+(      )Tj
+/TT1 1 Tf
+1.667 0 Td
+(a)Tj
+EMC 
+/Content <</MCID 2 >>BDC 
+/TT0 1 Tf
+6 0 0 6 677.886 100.586 Tm
+(APD LC v1.00)Tj
+EMC 
+/Content <</MCID 3 >>BDC 
+8 0 0 8 217.8 467.923 Tm
+(FAULT )Tj
+T*
+(    )Tj
+/TT1 1 Tf
+1.111 0 Td
+(b)Tj
+EMC 
+/Content <</MCID 4 >>BDC 
+/TT0 1 Tf
+19.58 1.203 Td
+(REASON FOR DELAY )Tj
+T*
+(                 )Tj
+/TT1 1 Tf
+4.723 0 Td
+(c)Tj
+EMC 
+/Content <</MCID 5 >>BDC 
+/TT0 1 Tf
+12.755 3.337 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 6 >>BDC 
+/TT1 1 Tf
+-2.598 -1.133 Td
+(\(From DA FORM)Tj
+EMC 
+/Content <</MCID 7 >>BDC 
+2.679 -1.004 Td
+(2404\) )Tj
+0 -1.2 TD
+(   d)Tj
+EMC 
+/Content <</MCID 8 >>BDC 
+/TT0 1 Tf
+6.966 2.212 Td
+(ENTRY APPROVED)Tj
+EMC 
+/Content <</MCID 9 >>BDC 
+12.906 1.125 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 10 >>BDC 
+/TT1 1 Tf
+-1.503 -1.145 Td
+(\(To DA Form)Tj
+EMC 
+/Content <</MCID 11 >>BDC 
+1.575 -0.992 Td
+(2407\) )Tj
+T*
+(    f)Tj
+EMC 
+/Content <</MCID 12 >>BDC 
+/TT0 1 Tf
+-75.969 7.314 Td
+(1. NOMENCLATURE)Tj
+EMC 
+/Content <</MCID 13 >>BDC 
+33.975 0 Td
+(2. MODEL)Tj
+EMC 
+/Content <</MCID 14 >>BDC 
+19.422 0 Td
+(3. SERIAL NUMBER)Tj
+EMC 
+/Content <</MCID 15 >>BDC 
+/TT1 1 Tf
+11.475 -6.042 Td
+(\(Signature\) )Tj
+T*
+(         e  )Tj
+EMC 
+ET
+0 0 0 RG
+0 i 1.62 w 2 J 
+q 1 0 0 1 72 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 527.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 720.601 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 110.469 cm
+0 0 m
+648 0 l
+S
+Q
+0.5 w 
+q 1 0 0 1 72.601 356.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 282.671 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 233.47 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 184.269 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 664.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 345.6 527.471 cm
+0 0 m
+0 -416.94 l
+S
+Q
+q 1 0 0 1 500.4 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72.601 493.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 135.071 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 381.07 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 258.069 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 113.4 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 454.87 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 405.669 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 331.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 208.871 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 430.271 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 307.27 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 565.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 159.67 cm
+0 0 m
+648 0 l
+S
+Q
+BT
+/Content <</MCID 16 >>BDC 
+1 i 
+/TT0 1 Tf
+8 0 0 8 415.536 89.685 Tm
+(For use of this form, see DA PAM 738-750; the proponent agency is ODCSLOG)
+Tj
+EMC 
+/Content <</MCID 17 >>BDC 
+/TT2 1 Tf
+10 0 0 10 415.534 99.664 Tm
+(UNCORRECTED FAULT RECORD)Tj
+EMC 
+/Content <</MCID 18 >>BDC 
+/TT0 1 Tf
+8 0 0 8 75.334 88.631 Tm
+(EDITION OF OCT 91 IS OBSOLETE)Tj
+EMC 
+/Content <</MCID 19 >>BDC 
+/TT2 1 Tf
+10 0 0 10 75.983 99.664 Tm
+(DA FORM 2408-14, JUN 1994)Tj
+EMC 
+ET
+endstream
+endobj
+
+58 0 obj
+<<
+/Length 2615
+>>
+stream
+BT
+/Content <</MCID 0 >>BDC 
+0 0 0 rg
+/RelativeColorimetric ri
+/TT0 1 Tf
+8 0 0 8 78.554 475.991 Tm
+(STATUS)Tj
+EMC 
+/Content <</MCID 1 >>BDC 
+-0.153 -1.008 Td
+(SYMBOL )Tj
+0 -1.203 TD
+(      )Tj
+/TT1 1 Tf
+1.667 0 Td
+(a)Tj
+EMC 
+/Content <</MCID 2 >>BDC 
+/TT0 1 Tf
+6 0 0 6 677.886 100.586 Tm
+(APD LC v1.00)Tj
+EMC 
+/Content <</MCID 3 >>BDC 
+8 0 0 8 217.8 467.923 Tm
+(FAULT )Tj
+T*
+(    )Tj
+/TT1 1 Tf
+1.111 0 Td
+(b)Tj
+EMC 
+/Content <</MCID 4 >>BDC 
+/TT0 1 Tf
+19.58 1.203 Td
+(REASON FOR DELAY )Tj
+T*
+(                 )Tj
+/TT1 1 Tf
+4.723 0 Td
+(c)Tj
+EMC 
+/Content <</MCID 5 >>BDC 
+/TT0 1 Tf
+12.755 3.337 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 6 >>BDC 
+/TT1 1 Tf
+-2.598 -1.133 Td
+(\(From DA FORM)Tj
+EMC 
+/Content <</MCID 7 >>BDC 
+2.679 -1.004 Td
+(2404\) )Tj
+0 -1.2 TD
+(   d)Tj
+EMC 
+/Content <</MCID 8 >>BDC 
+/TT0 1 Tf
+6.966 2.212 Td
+(ENTRY APPROVED)Tj
+EMC 
+/Content <</MCID 9 >>BDC 
+12.906 1.125 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 10 >>BDC 
+/TT1 1 Tf
+-1.503 -1.145 Td
+(\(To DA Form)Tj
+EMC 
+/Content <</MCID 11 >>BDC 
+1.575 -0.992 Td
+(2407\) )Tj
+T*
+(    f)Tj
+EMC 
+/Content <</MCID 12 >>BDC 
+/TT0 1 Tf
+-75.969 7.314 Td
+(1. NOMENCLATURE)Tj
+EMC 
+/Content <</MCID 13 >>BDC 
+33.975 0 Td
+(2. MODEL)Tj
+EMC 
+/Content <</MCID 14 >>BDC 
+19.422 0 Td
+(3. SERIAL NUMBER)Tj
+EMC 
+/Content <</MCID 15 >>BDC 
+/TT1 1 Tf
+11.475 -6.042 Td
+(\(Signature\) )Tj
+T*
+(         e  )Tj
+EMC 
+ET
+0 0 0 RG
+0 i 1.62 w 2 J 
+q 1 0 0 1 72 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 527.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 720.601 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 110.469 cm
+0 0 m
+648 0 l
+S
+Q
+0.5 w 
+q 1 0 0 1 72.601 356.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 282.671 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 233.47 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 184.269 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 664.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 345.6 527.471 cm
+0 0 m
+0 -416.94 l
+S
+Q
+q 1 0 0 1 500.4 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72.601 493.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 135.071 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 381.07 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 258.069 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 113.4 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 454.87 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 405.669 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 331.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 208.871 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 430.271 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 307.27 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 565.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 159.67 cm
+0 0 m
+648 0 l
+S
+Q
+BT
+/Content <</MCID 16 >>BDC 
+1 i 
+/TT2 1 Tf
+8 0 0 8 76.535 100.452 Tm
+(REVERSE OF DA FORM 2408-14, JUN 1994)Tj
+EMC 
+ET
+endstream
+endobj
+
+241 0 obj
+<<
+/Length 1168
+>>
+stream
+if (typeof(this.ADBE) == "undefined")
+   this.ADBE = new Object();
+ADBE.LANGUAGE = "ENU";
+ADBE.Viewer_string_Title = "Adobe Acrobat";
+ADBE.Viewer_string_Update_Desc = "Adobe Interactive Forms Update";
+ADBE.Reader_string_Need_New_Version_Msg = "This PDF file requires a newer version of Adobe Reader. Press OK to download the latest version or see your system administrator.";
+ADBE.Viewer_string_Need_New_Version_Msg_Old = "This PDF requires a newer version of Acrobat. Copy this URL and paste into your browser or see your sys admin.";
+ADBE.Viewer_string_Need_New_Version_Msg = "This PDF form requires a newer version of Adobe Acrobat. Without a newer version, the form may display, but may not work properly. Some form elements might not be visible at all. Click OK for more information on obtaining the latest version of Adobe Reader.";
+ADBE.Viewer_string_Need_New_Version_Msg_Updater = "This PDF form requires a newer version of Adobe Acrobat. Without a newer version, the form may display, but may not work properly. Some form elements might not be visible at all. If an internet connection is available, clicking OK will download and install the latest version.";
+endstream
+endobj
+
+243 0 obj
+<<
+/Length 901
+>>
+stream
+if (typeof(ADBE.Reader_Value_Asked) == "undefined")
+   ADBE.Reader_Value_Asked = false;
+if (typeof(ADBE.Viewer_Value_Asked) == "undefined")
+   ADBE.Viewer_Value_Asked = false;
+if (typeof(ADBE.Reader_Need_Version) == "undefined" || ADBE.Reader_Need_Version < 9.0)
+{
+   ADBE.Reader_Need_Version = 9.0;
+   ADBE.Reader_Value_New_Version_URL = "http://cgi.adobe.com/special/acrobat/update";
+   ADBE.SYSINFO = "?p=" + app.platform + "&v=" + app.viewerVersion + "&l=" + app.language + "&c=" + app.viewerType + "&r=" + ADBE.Reader_Need_Version;
+}
+if (typeof(ADBE.Viewer_Need_Version) == "undefined" || ADBE.Viewer_Need_Version < 9.0)
+{
+   ADBE.Viewer_Need_Version = 9.0;
+   ADBE.Viewer_Value_New_Version_URL = "http://cgi.adobe.com/special/acrobat/update";
+   ADBE.SYSINFO = "?p=" + app.platform + "&v=" + app.viewerVersion + "&l=" + app.language + "&c=" + app.viewerType + "&r=" + ADBE.Viewer_Need_Version;
+}
+endstream
+endobj
+
+245 0 obj
+<<
+/Length 1362
+>>
+stream
+if (typeof(xfa_installed) == "undefined" || typeof(xfa_version) == "undefined" || xfa_version < 2.8)
+{
+   if (app.viewerType == "Reader")
+   {
+      if (ADBE.Reader_Value_Asked != true)
+      {
+         if (app.viewerVersion < 9.0)
+         {
+            if (app.alert(ADBE.Reader_string_Need_New_Version_Msg, 1, 1) == 1)
+               this.getURL(ADBE.Reader_Value_New_Version_URL + ADBE.SYSINFO, false);
+            ADBE.Reader_Value_Asked = true;
+         }
+         else if (app.alert(ADBE.Viewer_string_Need_New_Version_Msg_Updater, 1, 1) == 1)
+            app.findComponent({cType:"Plugin", cName:"XFA", cVer:"2.8"});
+      }
+   }
+   else
+   {
+      if (ADBE.Viewer_Value_Asked != true)
+      {
+         if (app.viewerVersion < 7.0)
+            app.response({cQuestion: ADBE.Viewer_string_Need_New_Version_Msg_Old, cDefault: ADBE.Viewer_Value_New_Version_URL + ADBE.SYSINFO, cTitle: ADBE.Viewer_string_Title});
+		   else if (app.viewerVersion < 9.0)
+         {
+            if (app.alert(ADBE.Viewer_string_Need_New_Version_Msg, 1, 1) == 1)
+               app.launchURL(ADBE.Viewer_Value_New_Version_URL + ADBE.SYSINFO, true);
+         }
+         else if (app.alert(ADBE.Viewer_string_Need_New_Version_Msg_Updater, 1, 1) == 1)
+            app.findComponent({cType:"Plugin", cName:"XFA", cVer:"2.8"});
+         ADBE.Viewer_Value_Asked = true;
+      }
+   }
+}
+endstream
+endobj
+
+674 0 obj
+<<
+/BBox [ 0 0 269.34000000000003 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 154
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá22³Ô3F5&ZP8*€¬54ÀªÓÃbÕmçÊãÒ©Ppòu†‚SĞ+é\ú©9e©%™É‰@ÓBÒà6T0Ò3¶@2ÆÈÜD!$—ËÆN!$‹Ë5è\W A\ R¨I
+endstream
+endobj
+
+675 0 obj
+<<
+/BBox [ 0 0 151.74 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 151
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá245Ô37Á+g df a Ğ`Cñ†XU€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld Ğ \.;…,.× ³\r şÙ?î
+endstream
+endobj
+
+676 0 obj
+<<
+/BBox [ 0 0 217.14 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 151
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá224×34Á+g df a Ğ`Cñ†XU›MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ‘¹‰BH.—BH—kĞY®@ƒ¹ ø?â
+endstream
+endobj
+
+677 0 obj
+<<
+/BBox [ 0 0 37.14 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 154
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá26×34Á'e de a ĞXCá†Ø›ÍÁ#6'œ+K?¤BÁÉ×è#§ ³Ò¹ô=RsÊRK2“(„¤Á=`h¡gj®`¤gld¦‘¹‰BH.—BH—kĞa®@Ã¹ í?ô
+endstream
+endobj
+
+678 0 obj
+<<
+/BBox [ 0 0 229.14 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 151
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá22²Ô34Á+g df a Ğ`Cñ†XU[€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ‘¹‰BH.—BH—kĞY®@ƒ¹ ÿ?î
+endstream
+endobj
+
+679 0 obj
+<<
+/BBox [ 0 0 151.74 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 151
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá245Ô37Á+g df a Ğ`Cñ†XU€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld Ğ \.;…,.× ³\r şÙ?î
+endstream
+endobj
+
+680 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 161
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá23Ò3F4&V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà66Ô34G2ÅĞLèn$#s…\.;…,.× ë]&r çKn
+endstream
+endobj
+
+681 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 157
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá²4E$V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà61×³4G2ÅXÁHÏØIÀÈÜD!$—ËÆN!$‹Ë5èxW Á\ æZK
+endstream
+endobj
+
+682 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 161
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá25Ô³@4&V™P4Ö*€,54À¦Ñ Ã|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà62Õ³4B2ÅĞLÁHÏØIÄÈÜD!$—ËÆN!$‹Ë5èzW É\ -K€
+endstream
+endobj
+
+683 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+684 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+685 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+686 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+687 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+688 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+689 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+690 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+691 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+692 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+693 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+694 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+695 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+696 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+697 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+698 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+699 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+700 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+701 0 obj
+<<
+/BBox [ 0 0 37.14 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 154
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá26×34Á'e de a ĞXCá†Ø›ÍÁ#6'œ+K?¤BÁÉ×è#§ ³Ò¹ô=RsÊRK2“(„¤Á=`h¡gj®`¤gld¦‘¹‰BH.—BH—kĞa®@Ã¹ í?ô
+endstream
+endobj
+
+702 0 obj
+<<
+/BBox [ 0 0 229.14 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 151
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá22²Ô34Á+g df a Ğ`Cñ†XU[€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ‘¹‰BH.—BH—kĞY®@ƒ¹ ÿ?î
+endstream
+endobj
+
+703 0 obj
+<<
+/BBox [ 0 0 151.74 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 151
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá245Ô37Á+g df a Ğ`Cñ†XU€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld Ğ \.;…,.× ³\r şÙ?î
+endstream
+endobj
+
+704 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 161
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá23Ò3F4&V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà66Ô34G2ÅĞLèn$#s…\.;…,.× ë]&r çKn
+endstream
+endobj
+
+705 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 157
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá²4E$V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà61×³4G2ÅXÁHÏØIÀÈÜD!$—ËÆN!$‹Ë5èxW Á\ æZK
+endstream
+endobj
+
+706 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.940000000000055 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 161
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K05UÈá25Ô³@4&V™P4Ö*€,54À¦Ñ Ã|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà62Õ³4B2ÅĞLÁHÏØIÄÈÜD!$—ËÆN!$‹Ë5èzW É\ -K€
+endstream
+endobj
+
+707 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+708 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+709 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+710 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+711 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+712 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+713 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+714 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+715 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+716 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+717 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+718 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+719 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+720 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+721 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+722 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+723 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+724 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+725 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+726 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+727 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+728 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+729 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+730 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+731 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+732 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+733 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+734 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+735 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+736 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+737 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+738 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+739 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+740 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+741 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+742 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+743 0 obj
+<<
+/BBox [ 0 0 37.14 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 153
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá26×34Á'e de a ĞXCá†Ø›ÍÁ#6'œ+K?¤BÁÉ×è#§ ³Ò¹ô=RsÊRK2“(„¤Á=`h¡gj®`¤gld¦¡±BH.—BH—kĞ]®@³¹ ÀÔ?³
+endstream
+endobj
+
+744 0 obj
+<<
+/BBox [ 0 0 229.14 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 150
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá22²Ô34Á+g df a Ğ`Cñ†XU[€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ¡±BH.—BH—kĞU®@s¹ º?­
+endstream
+endobj
+
+745 0 obj
+<<
+/BBox [ 0 0 151.74 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 150
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá245Ô37Á+g df a Ğ`Cñ†XU€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ¡±BH.—BH—kĞU®@s¹ ¹á?­
+endstream
+endobj
+
+746 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá23Ò3F4&V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà66Ô34G2ÅĞLèndc…\.;…,.× ã]r ²üK-
+endstream
+endobj
+
+747 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 157
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá²4E4%V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà61×³4G2ÅXÁHÏØIÀĞX!$—ËÆN!$‹Ë5èvW ¹\ ”sK@
+endstream
+endobj
+
+748 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá25Ô³@4&V™P4Ö*€,54À¦Ñ Ã|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà62Õ³4B2ÅĞLÁHÏØYÄX!$—ËÆN!$‹Ë5èxW Á\ ½0K?
+endstream
+endobj
+
+749 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+750 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+751 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+752 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+753 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+754 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+755 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+756 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+757 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+758 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+759 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+760 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+761 0 obj
+<<
+/BBox [ 0 0 269.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 153
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedf©glb€ ÆD«3 
+g a ĞBCµ†XuZ`Ø@¬:°á\y\ú!
+N¾ÎÀPp
+z%Kß#5§,µ$39hšBHÜÓ†
+FzÆæÈ†[*„ärÙØ)„dq¹† ]ë
+4' NWJí
+endstream
+endobj
+
+762 0 obj
+<<
+/BBox [ 0 0 151.74 11.93999999999994 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 150
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK0QÈá245Ô37Á'e df a ĞXCá†Ø€ÍÁ#6'œ+K?¤BÁÉ×è#§ ³Ò¹ô=RsÊRK2“(„¤Á=`¨`¤gld¹™BH.—BH—kĞQ®@ƒ¹ ÿA 
+endstream
+endobj
+
+763 0 obj
+<<
+/BBox [ 0 0 217.14 11.93999999999994 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 150
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK0QÈá224×34Á'e df a ĞXCá†Ø›ÍÁ#6'œ+K?¤BÁÉ×è#§ ³Ò¹ô=RsÊRK2“(„¤Á=`¨`¤gld¹™BH.—BH—kĞQ®@ƒ¹ ø\@ô
+endstream
+endobj
+
+764 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+765 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+766 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+767 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+768 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+769 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+770 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+771 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+772 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+773 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+774 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+775 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+776 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+777 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+778 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+779 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+780 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+781 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+782 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+783 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+784 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+785 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+786 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+787 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+788 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+789 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+790 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+791 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+792 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+793 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+794 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+795 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+796 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+797 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+798 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+799 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+800 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+801 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+802 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+803 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+804 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+805 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+806 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+807 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+808 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+809 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+810 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+811 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+812 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+813 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+814 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+815 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+816 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+817 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+818 0 obj
+<<
+/BBox [ 0 0 37.14 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 153
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá26×34Á'e de a ĞXCá†Ø›ÍÁ#6'œ+K?¤BÁÉ×è#§ ³Ò¹ô=RsÊRK2“(„¤Á=`h¡gj®`¤gld¦¡±BH.—BH—kĞ]®@³¹ ÀÔ?³
+endstream
+endobj
+
+819 0 obj
+<<
+/BBox [ 0 0 229.14 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 150
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá22²Ô34Á+g df a Ğ`Cñ†XU[€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ¡±BH.—BH—kĞU®@s¹ º?­
+endstream
+endobj
+
+820 0 obj
+<<
+/BBox [ 0 0 151.74 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 150
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá245Ô37Á+g df a Ğ`Cñ†XU€MÂ'6)œ+K?¤BÁÉ×è+§ ÓÒ¹ô=RsÊRK2“&(„¤Á=a¨`¤gld ¡±BH.—BH—kĞU®@s¹ ¹á?­
+endstream
+endobj
+
+821 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá23Ò3F4&V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà66Ô34G2ÅĞLèndc…\.;…,.× ã]r ²üK-
+endstream
+endobj
+
+822 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 157
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá²4E4%V™P4Ö*€,54À¦ÑÃ|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà61×³4G2ÅXÁHÏØIÀĞX!$—ËÆN!$‹Ë5èvW ¹\ ”sK@
+endstream
+endobj
+
+823 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.940000000000026 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=K02SÈá25Ô³@4&V™P4Ö*€,54À¦Ñ Ã|"•ÍçÊãÒ©Ppòu†€SĞé\ú©9e©%™É‰@ÃBÒà62Õ³4B2ÅĞLÁHÏØYÄX!$—ËÆN!$‹Ë5èxW Á\ ½0K?
+endstream
+endobj
+
+824 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+825 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+826 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+827 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+828 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+829 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+830 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+831 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+832 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+833 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+834 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+835 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+836 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+837 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+838 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+839 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+840 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+841 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+842 0 obj
+<<
+/BBox [ 0 0 37.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 152
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãel®gh‚OÊ ÈÊ Â@ ±†
+ Ã°)6›ƒG
+lN8W—~H…‚“¯3ĞGN!@g¥sé{¤æ”¥–d&'PIƒ{ÀĞBÏÔ\ÁHÏØÙLK…\.;…,.× »\fr ÛéAÏ
+endstream
+endobj
+
+843 0 obj
+<<
+/BBox [ 0 0 229.14 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãedd©gh‚WÎ ÈÌ Â@ Á†
+ ã°ª¶ ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær Ò AÉ
+endstream
+endobj
+
+844 0 obj
+<<
+/BBox [ 0 0 151.74 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 149
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãehj¨gn‚WÎ ÈÌ Â@ Á†
+ ã°ª6 ›„OlR8W—~H…‚“¯3ĞWN!@§¥sé{¤æ”¥–d&'MPIƒ{ÂPÁHÏØÙ@K…\.;…,.× «\ær ÒtAÉ
+endstream
+endobj
+
+845 0 obj
+<<
+/BBox [ 0 0 62.34000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãef¤glb€ ÆÄ*3 Šf a Ğ:C¥†Ø4b˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃÆ†z†æH¦š) İml™¥BH.—BH—kĞñ®@ƒ¹ MI
+endstream
+endobj
+
+846 0 obj
+<<
+/BBox [ 0 0 95.94000000000005 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 159
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãeiªgib€ ¦Ä*3 Šf a Ğ:C¥†Ø4š`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃ&æz–æH¦+é›#Ûe©’Ëec§’Ååt»+ĞÜ@. õÀM\
+endstream
+endobj
+
+847 0 obj
+<<
+/BBox [ 0 0 51.84000000000003 11.939999999999998 ]
+/Matrix [ 1 0 0 1 0 0 ]
+/Resources <<
+/Font <<
+/Helvetica 673 0 R
+>>
+>>
+/Type /XObject
+/Subtype /Form
+/Filter /FlateDecode
+/Length 160
+>>
+stream
+xœ3T0 BC0™œËeˆÊ-B…r®èX ?]?DHCC=KcK$`¡Ãej¨gab€ ÆÄ*3 Šf a Ğ:C¥†Ø4`˜O¤2°ùá\y\ú!
+N¾ÎÀp
+z#Kß#5§,µ$39h˜BHÜÃF¦z–FH¦š)é›#[f©’Ëec§’Ååt¼+Ğà@.  8M[
+endstream
+endobj
+
+848 0 obj
+<<
+/Filter /FlateDecode
+/Length 10
+>>
+stream
+xœ+ä  î |
+endstream
+endobj
+
+849 0 obj
+<<
+/Filter /FlateDecode
+/Length 10
+>>
+stream
+xœä  ® \
+endstream
+endobj
+
+850 0 obj
+<<
+/Filter /FlateDecode
+/Length 1022
+>>
+stream
+xœ™Ëj$GE÷ú
+ı€Ûñ~ì÷^Íz°1Ø˜ù|«İU¥ÒP`„˜Ñ¡:òdÄšooüNøâ÷´G+¿;ñƒñı×¿¯¿9ş\üñç¿¾~ÿòçoüşı‡¤.+Êê÷ŸşyûåíÛõÕò¡Ò3l§I”xÔG¬“<xŠ"*ò®øˆE¸íİ4®wŸÕÉ¢…ò#”ÙŸÏ:¡¦§¸j¬zvB-CİŠx}Ö³®#j ¤É•ëiÅ“6z‰Eˆêˆ)”!«‹qúN –çe¸wVUÕÌº5`‚íl5kÙ^­U’Š»Û±.&ØH‚¬a;F•U÷h«E×Ó	±'óF­z¨ÊÍÓŠ(UµŞJ0ÂŠã¸„l)ë)ÁˆÊ’®"…ßÛH0Âf
+¡ÒËõzI0¢š£)ËÃ¾,Q!––kĞ®h(&Ìİg­hÂPôåÒ^L°	àÑk)Á¥Á+šİªÛq0,‚X7‰¬v½4˜Pı^–´Ó`TYoA; z§ÖıÙ…‰ EK‹½$@#ğÛYè³[&ÔR”€’ê¥À„*êk3<@1\Ğ
+c¹[§ (sÅ‘‡d	•u0b^m›–p0Árª’“Ö~L°Âl~XÛ´=ÂJ‹< ´\­S‚µ— ·¹pDm×Š£,Ô—RêÍãR£cér\§jBæö}.QÑ]…Êt'TÁèNM¶£²¶8“Ûß^L˜Š­ÀÕ¶‘PÂyw-*HXÕòá¯ãPSY$qXÛ(0¡âÃãdèvŒ¨‰g#ß	‡oˆ˜±î°çùO ö¯IèÀhğ¾áH„t±t•Ë€ÖùXã¹¶I`„eÄVL‚Z;ëåÀkö\ùìK‚µû1ëÚ°O&Ô°tt‚\sö©ÎÍogLYè­¾]GX-:r[¯ÑíÒ`‚­VÄ×ÎOŞæœŒ°Xº›×ø~j0¡r+©b=Ü6ƒ	Õ=‰”díÜ/¸éş,7îÈíj8¢¢k·5"ìN‚	CË¼3Ö]ãt`B…¯Â$X6
+L )
+	àwkáÊìŠí¸vy€ÁîÛ¯ˆ@?–Ã­,6-î¶Î®K	VTãxéò?Œ°E†ü*ëwJ0ª¦"Ãòb÷´`BÅ„ÜZß•#jÜ¡Qñ½µ`Bb//Êí4˜=,Áñv]—lKŒ´ØÖ‚	•Y¹0¶o
+gTìñÇÿÆø²Æp"jÜ½È›k~¹,PÃ,˜‰V·.	Ô&E	R×ór`R;ÂüÒcOPCEÌğ^Îê4` ­ã=©V„ÿ ÿAE¶
+endstream
+endobj
+
+851 0 obj
+<<
+/Filter /FlateDecode
+/Length 1032
+>>
+stream
+xœ˜Ë$EE÷ıõá·½±gÅBH 4Òü¿¸ÙTæb\±H«ÕUê×iËyÂøúA…z„>Kè¡UO·xüöÏõ“ãµùãOÿúí—¿~ÿóo?TÊâq|ù÷ãç¯×/‹ÆS¸¶ÖSJïa½tY«}µÅOšbËİÅ×²†E4FÉ=j†ŸŠo};ÂŠ”,I¥Ú¥v„¥HË$a—ÚVs‘š°hÃz<MfT§ qâï©x’cjF¨©hõÔ€øóı5B
+gÁZ¨—*áäZ…ƒ¹³`‚Åw0ñş¸N&XäÔ2‘†­*[dÀ[iÊŒ¨EW×ÆI„\vÓ­t!Õ7çàÔ`„°ò”Ğma]ƒ\vŒ°h&EE;f©¥P5_½×¼4Q)m™RDî4pF§¹IU>â¸°Õ`‚µ>ÒZ­È\Œ¢M3’,i­æÒ`„Å_¸ Òì,˜@)W)-Şj¢Ó¦£ ¶çuZ 1há&¢(†ÑŠ÷eÁë„Ñ ¥››²—,/«…j°¯ª¢n£}YuìË‚	µ,+Í©Zñ>-˜P‰(•‰÷Z¸1`é-ü²`„2œYï‡ö²`‚-·…é`õ¶xi0‹v!`ZÙ*×©Á„Šj¯+‰z·=5¥ Q"*Ù¶ÎÂûİb°P´X¹'öÔ`† e‹BvŒ°ì¾¢Ší4a±×i¡ÌrÇş¯ÁŒêØ0xñ®'Œ¨˜71vª÷MéÔÀåY·‹·…9“ö\L°¬‰IÎªÚI¸4E‹¦èG1ØVƒí[æîšÂˆŠ){f¹]5QÑ½i±+ì4º‘G9<úÂvOaå»TWï`—l`S4Áğ¹½4a‘UN@ûØù²`5EK$Ìß­zŸŒ2€=áM=<- ÅÀqwB6r^xİƒ	Öí€˜úÜyY0Š³,e¾)³—£hÑjğÀ-v£ÁˆŠœÆC³İ„8¢SÜ’X¹Ó ÿò~§AKLR2ßŞ °èYB±Øì4a-W„i;^§#(fçPéıë%Áˆš(³ÁlÛ›£õ˜»±)ïÖœî«ÄÆÛ5a„Å¼‰€Ô¶\L°T¨0ho®xNFÑ[JÔ›yã¥Á„ZÌÇûîyDÕr-^Ş©§º0nÜ½‰¨d”[íĞ^L°Ç´•‹…[b/&Ø
+Ì•Û–0Ã¢Jp¾™7^L¨Ÿ›Úµ„•c,jL¿“;5 Ç¼q·Æ`Ebî»ı%Áª¥‘l+Á‹}ó¼Šõ‹¾S‚	Ö
+ÏƒyØI0¡f©£{¿ò>%˜PgËĞjÏ+ƒÿ ‰Nf
+endstream
+endobj
+
+852 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 411
+/Length 8323
+>>
+stream
+xœíi“ÜF’¦¿×¯ÀÚ|Êf¨ŠûÉÚŒâ1£n‘¢‘”¦ge2 ™«b-+K÷×ïãdV’z§·gI	…#qx¸¿şz ˆÔjLcµml£µNo´eØÛDv.5©ÑN©&³#M«F{íÈß˜ÈeM)±·Wr\Œ%³o‚5ºÑ¡‰^q=±Ü¤dïcØGêw²‘|‰tÉ—Bc%_Ö•|Ù5VòåÔXòÅõ({®“?’IªT‘Ö9iKH©qæ”73hîqVäŠãÀ(òĞç<wÑ’k\ä ëÜĞsCGcã26{úÇ™OÉŞS>Eq]ã)Ùïä€6øPHŠõ 7^Ê	äª g)'Ñƒ@9tŠÊ	6ÛæË/ONïôÛ‹ÛWŒjœœŞÿuWÎ/7ç—Sò½¯î×ƒ¯ÚËò}ÙJJsª?G9¿)?—³&üéOòÿéÃvûÓ×çãE½MNÊĞì¶WeJ,»vhwmã¦êµ¯Ê%ºPO·/8‰óIÙ¾ºD/êÉS
+èwÏ¶¥<¹¸Ø¡&õê³7¯Ksz—âÎ.^œœ~¿)¿”íãmË¶œ÷eêÁ½«×gå×fŞ?8Û¼şæâüÅıáE¡4sÛ—æ‡æôñvs¾{Ú·g›óÍT¿éz¶mß|õæñ½O7ÿ»úÀÿU2W»—ÛæÖÇ÷>;9½»-íYÜkw¥¹uï£ĞçdPt¯Œ½­Ü?+õÏû|õ¶á¢+Í7›ŸËİ7ıYiî•ËÍ‹ó²Eç?Wd¼·¹¤ÂîJ
+mn}w¾-œoú]$ñ¢şèêUsİK·µã’Œáó‡ç»—Í­?_ï¯ì‡ì¥ªıÅÿ,--Ğ9Ë/†ëF£ Yym}¶ú’øíÃ¯ßÿõõfKú|J½Í”ÓÇwß½Hzt!g_?jn)é·–³my~oC¾ÇwŠqŞNÓÅqó+Uİ©'ÃUOQ_>¸ÿàRºB©UJ™{ìï²e6Ã9i&qÌİ¼q-Z¥ìÒL[ˆÓ=’^óúùşûìÉ$Ï½)¯KÓù¡^©ëşT†ùP{òŸöØ=¯jxK$;õêõÅy9ßÑË»Oÿµù·Û"äÇWİó{íÌÏg_ßkn¥ùx¶¥›/<-Ûê{‹æÏW¦:å|>!-‘òö’zgûêœ•şj»Ù½y~÷¬½¤ïîÊE”«İ]m÷ƒõôªû_¥—FŞi|ûäa3kÒ¿6şîQ3«ÆÓ«±‡Ï6;”ôÖwî~ûäÉı»ÏîßkÜùî›g'ß>¹×å»óM_µá.1	¥ß:ı÷rö3ûläÏÉyïIµÌt{™í¦=»ıÕÅÙğ5¦¼é>PMü:I.êã‹×yÍÑe9Ÿ¡¬Ö«g y¶h•_\¼jÏ?•l¾¦Ì¨õ`SÎ†KàÇ*¬gí‹ËÆH’7ÙÕÎü¹ı¹}Úo7¯wâæ{%áîÅ=1'§ÙÔ"lE-ñ²ûqTŞö÷|÷ÄŠ9*å/âLf¿*Ú‰[yëÒ£òëî/åM£c89}rqV¶¯Åé!âM´Ü—/^E¾"oBO°ïô?6çwÀõıÍörw÷%
+§¦A«ªÀ17‹÷›vÎ‚«ªÚµ«-yfJ›ö-“»O¨aØ½A¡ß×ÍD|½e Ä»âLeK)7â`ì”V7®yüö>¿ìeÛßó¡m_”±ßÚœ£¯uo!Äš)¿¶c®§¦q=QNÍËuÉ»Ïw¸o>ÎM½6_ß·ûĞ¹]²—ôã½\—ãP	Øu_e/òÙ§í·*Ÿ£ûj{å‡“<@øA–ù×{æqØçÓÀîÁÕÒ‹Ã‰ÜR«õêp{-BîœÓåî)óş®}y"˜šc.ö ”·M»¿'bğ6Îí’ÆÏ×¼ğ<)êuP)+ŞøºAH«‚Á2÷Û~ÀÖ¶ÚèÃÈmûîî·ÃMrüÖ&ÇyµlÖŒwimšGu!˜·ê[7Ìêõ#mûñ}õG°ÉÂ¦OØô	›>aÓÿlúãÌ)ü££SUNïoŒ‰Œ›Îúo†N‡üGè4™ÌıÌŠò^xš-iÒîßOÇ
+åÂ5œCÈqƒÇÒ6I—}Z±äZº	3q¾ç€X#‘yİ/àIò£Ño„§¹‰‡ñZ‡§ùä£á)üAx²ñ£àémôÙoÿoÀÓÑ`¼Ş«ş3<-®ïËeÿ.xú#¸?áÒ'\ú„KŸpéo‹K2Wv›¾}/2]ãõY”¸˜Òûı˜—şæ­ÒåfüdN]‡RHÓI]k°¤wÈoöÑÍ‘I¿o;(eì7‡åe£o(à>eØ+çs‘â|g˜Øß¿çŞû4±ìƒ‚¿)VÈ›@Ú!ÇÇûCŸÕÍ0Ììé­şíÛx,“cÈ“2ò4r,˜ÓÔ±³L÷ùğ´/øF˜'½ñö£Tk9Â³âå9@µ³·n9ªşÆµ Ê#Áj°¿V›¼<É;çÀsşìäºÅrärİÑ½½í]ï"(?Ñ½÷{Ç&m}gÚŒ7{¡½½Iİk×x÷>Õwùƒ¦qÀ»ù	€Ìù7_e§çG}d0Â 2T¾cÏÀú¡>}ĞÁ˜”Õ‰OV»Œ:1Î¦g9Iœ(ÒÂ‰Öµ’é¡éÍ­ÿ!g¿øBQb}Òw÷åOOw[àîò3y~,OÖò|ßn%ƒ¹™Á\g§zÏÿúàÎİ—¥ÿé3yğ<=ÈØ?ú<?¿ØÍİ¼–óz–&ePê.¹éùGòjÿäîöâõW¿’W.Å,6m$áa6íjÊôàcÿPøI¹¼¸Úîí ={¦O}=Ó‡'BÏ™ıC£?Mìú§eW÷Ş{ ®—_wRÇ_¿†Õ2ÏÚÈş¢ìnG•é’Š¢Ãq~Îq”œ£3! mÑ/’å‘eR>' -†•»½ÀŒÂ8b\$G·6Ô»Ó"99¯€v]ïÎËä@½Q'á“I-’}2.cå¥€¤Éš^{ã4¢Ë¦%¬Zky#$»Ò±lË¡¥¥ĞLTIçœæÓRh!*úl&/]_T­Ù%z–2£»úcÒRf9Ğ\¨j–v/e„&m”€F^ŠL›è­1É¢˜y)²ˆqS¾Éˆ,/Eæ<¥GÀWî^ŠŒNÙämPr÷Rf.Ñ"”Ñ#Ò¼”Y$AF4IáK™À%æl¡®!/…Æm.g%\;ä¥Ğ¼hš‹?òRhÑgƒĞååyOgq7ºb1 ü»Z
+-à	ÈÁ“¼£Eñ*jI^
+ıõËÊ’¼¢hŒ¶F‰áQ-…¦u
+b>òFZ
+L ¢YQ-…¦£µÊ++L\-…f´vAE	¶eË©õRhØ…%ËKGz)µìm
+"tI^JM[dÀäU&½”Z¤åZgyF½”äJN^€Ò+˜†#i'-_JMgãµZõRhLñÖ	¹Ó+ˆFìƒ“·¼¢^Q4«‰4NüşRfŒTb¨Tb)3)|zOKXÃ²[Œ—ÉòjU4K™™"yÌ¬AF 0	ÉÖd¦«u’¦­È»F]ä- bÙrWÑP×ä¥Ô\Êà­¶¢fEÓ\$œuhˆv)5ÚƒKBòïrÀäm³ ]J-e‹yç…Ø¥ÔĞ£$/¥¦³U
+‹ïÕW 1
+C’çÑ®€ZÀøtßíRj]È.cà$¯I>g¸¯tlÅ{böZá"iš[“¬)Ü­xOyº8Öè–RËŠ/ÀHòŠ+ 8¬ñNtÍ­è”@Üˆ´Ü­èZRó6zn)5oé®·âØ£[AµdrQ¹¥Ô°.üf’w,İŠûÄó&[²5(Xá$¢j~)´$°d2®ˆäPÓÖa8Ø&ú¥Ğ¨…/yy}sEhØt5¿Â9œÃ)5½<º2`ÖÈ‹f‚˜~EÕœ˜	 ÂpûUc¬1y¹˜X1¼³…QÔMDõş¯»{º“·ò ¤óJO.êµr"Æ—ráúõ¢eèé-†®ÿ®ıºã¿‘¡gØ…Au‚¼¯»B02/, }+¦ˆ†t)/É+ †¢jÙ$y©UÖ
+‚%‡³Ša…`D¬A^O”»—Zîjp×ˆ›K­
+'ğ!¦VœeÄúuõîg‰™#ñvq…Ê"T6{™h^á„f%êK¡Q©õ•¼RW|¥pú¤Ç•˜ÉñV8S4h%fJ)ÿº*••˜‰[²°B'OğW„æ %8r?Í´/É¨”µ¾bŠÀõA‰.­ÄLò"/Ì¦z»•˜‰PP‰6áFãJÌk2R3VWb&â-‹Ï8£¸49P˜·ÜWb&âÀìÇÄ®ÄL	%MøœÚ²5VFHÄhŠ^	šşûròÆüZĞD€«9e¯M‹Éöq%h"jÉÉ'8Y‚>¨ÑF¾4i¸ ¤ÎŠ¯Mô¢œƒˆt%hÊÁ+qâ¢ˆ+AŒŠ´â´4pÁ¿Å+‘¼i*™€˜ ´• IŞC†HÂG›´4Y¬’à‚ƒä¥Ô ƒŠ&Ó;’W@"Š“–O+ÒJÔæaıA¼YZ‰š°[Ì×I$šV¢¦àñF»Zø
++sIƒ`8ÒJÔDHEP¥d®1­DM¶&JÌ“V¢&LÌÃ)|%jB¥çBVÓJÔ”d<EaäîTC²s
+]KkQp(ä	zŸV¢&ª•™ü{Z	š tphğ!‘¼j€aÇ†Òğ• Àkè%yEhP:.‘¼]2šĞJ†{%lÂÂöd®‰ä¥ĞäC ¬ÓÃçÒZØ„í)K LÓVÂ&Ôaiù'­…MDc@9ØDòŠÔĞ È2[	š¢Ìµ@ŸEÑV‚&‚HMœç­Ô¼”™ ØâéqZ	šàrÈÚSpZ	š0[”EbQ’Wèf<Ğ-O×BMù°œÑ,ÌÓñ&˜ú,q)Ò€Q¡&¯¸ÏœäÓ#¯ä‰äRjb\@t–ä¥Ô2ñ'6ù´4eFÒƒŠ¬Mt€L3­M8~âL„–¯Mà•‘/ºÒJÈä2±ƒË2	”VB&ĞV¢=+7WB&¼ƒÛS>Ék2#Î£HCZ	™ ÷P'3©É^úÿM=¥5†şÕ›]yÒ¿(•P·®/QÒÚş%CeÓ&™ 	cTƒÌ])Ó’RS‰¾àT‡oÁ!cZ*?ëW¢ŞY‚<\R”bÔ0´Vö lİmÀÉcä?úBéÃJ9â®j-~<jƒEÚ(Ã{/ÓNÁÊ×Aû”–”ÁÁÃèqäQf–È¡àŸ
+ùòw‡ü•†7ƒªã»< -¬ÏQäâîx¸ÛŠxd–»]U^»KéÂ=™­LO?Ÿ÷¢ä|[SMMÕBÿç­şçE‚àå{eğ‡úDÅ25q$AİŞ¸d‘{‘é€·šeÉ0Á_Â
+Is´vØîX:ÖÉW‹2ıgƒHß¼%-Z1†b@å9Uá<ôAêà.G=aà?Š´>h®»ZŠ¯­YE-SNUJã;uI†IÉôNªæj‰6ø‹®b¡^' Wwf MƒéÚh]*aÀÃv¹£Õ0g‡Ñ·½Bjcè]éÚ!ğ.c{Óõ*öÙ¶„ÜÛb¸:%Slpjli˜´]|>œİ›~Ô]®_;Û:ä’G tèÚ±KclMWz”m$ŒƒkıÚ±ÅÅ©oÑš»0ô8Da&›À2ª~HºëØ÷SŠ
+ÙhßÁuıØUÚØ>ôO8%vh«ÍêÖ&™q‰ÕVqhHsM=¨Qf#«íFÁ‡½ÍéÁÈXsŞ#É›±ÊÒPš9¯¦z«L–»EÙì4µáQÀqkF3ŠS½)áZ«Î…Á0¤“!G	jŠä¦ı¡é‘¥ÍF‰Êˆ÷åĞbµOåª­i5G7¬ô éHZ;Ö¿Rã¥ÂŒOQPlÒ=İò·'˜	’UÕJÙÎÑXl»C“³ôSì…kô¿\rŠş“*ÖOÖ‰ÎÛÙ
+ÄfÅZ&»­g¤ÄT­XM¶!÷®Õ­Ésùr×[¥#ã(mû>²3;É;V›ƒ‰EÆëRn „Ü-çÔ,´’ĞÍåWû–vp§æ‰Rv …q–S™¬]êÒıª©Â¢å)x[=Ô{ı‡ª:-úm17Êq¾óiè	K¨QMk³=†­°&cÇ®3½-ŞvyÌi¸)Ê|:¶-³Ï©çjß¢Â!äí‚Du±‰Zm_:JçU×‚&u€;z-hƒÉô]ÊC œUëjJØ)†¯Ñ`Ø@L]0.U5ÈT‡Ãíbl‹ÆRƒîÓ8F=ÆÒa× ü€ Áî^FQ•.ƒIC¶= nTëåKT?˜4¶yôv ;=†5Èƒ±‘ ØÎ%öXÊH²`cß–BîâŠëSÁÒÄmà†<4Vû®¥ó9«!)·Èñrl»ş:7„8âÕhŒÔiİèˆÑ£‡ƒ1 pªˆÂ:`Í„Ü)y€Ú
+w¹„ŒSfByĞĞÑÄÒ&—Û8´òxPv££íÚ–0?„Îºä3Dˆƒêò±Äv ½:´ †Ø¦Ü§‰‰´3I7™ˆ³E÷òú	ù}øoçKÿ O¹ÉŠleE7-vœpÉÙ:ÈCQGDøˆ•ğ”¡|›¡ä™Ì©ÿ]¥"ÈaÌ9…èĞX}Œ‰&ÏˆÓ÷šÎwB÷01÷Ä4)€èl}‹5Üš
+HF˜8ñ5WƒÏcÈà"ğb}G™¡o3œ ×øÎ<ö°§nÄ×SS1EI ‡kmÆ5¤X2H—iú` WŠˆ©C _Z±äÊ‘„””b9;ãL«£°‘°>•Â¬V¬5fß
+¥7CŸ!kSêà?c‘ÇDPƒnTøK¯[(M)#Õ˜ÑjlÒçTZaÃØ*íë21ÌtÄ÷i°[Ü—÷½óıˆÓ—N·-ÎÄµ„‘¥(!£¨É÷eÑ¬e1fø\ïÁ§ „ ºFa:%'ºnğ3£êñ?ÙåÇ>zd ÂÄ¾@ç”(ikğâ{Û{ƒÔ¶èƒöJëà ˆí:Š6ÃhÌÀ†ØÙH{'îpÌ¬Ü8éˆCDò®1¿"’´~Òš=ËªëÀPË1wâ<Ô«•“Ç‹…­o]låˆÿ†V¨Üò:¿sòÜ¿—Cs`¨Úâ #"F†P½ÏàıS÷`Ú*÷•7” &I[}¥OÃh“k³m±­PIœæÅ2GjÄá«ÜÂu†CÙE¨Ûo¸ûÏÅáÉz£K¾Æª(›è â¤
+ã–½$ƒk['ûÚ3—ÕG3)3À*pä¾×÷ˆÎ„-z·” ‘rÀ”ˆDJ>G}.¥¸!ù=ƒÂFœºëºb:y•1ÆÁ¸zt¬×–0Ëe Å‰ ¥*3R¤!X‚ºQ´*Œ ›ízĞÖQâHY©PÑ•ÔëĞ!S7´~Õ»^2uT]Û˜ä¤T3šcòÄ~ÖÙ
+;´´$‚ÄÊR); N`‡„ƒ¦UÃ¤JO¬s40§šbt‹ÊƒeFn§|$–¯ ÁAèÑ2¦úBeÑu&,A¬L'úí‘²‰²øTpĞÃ@ä)ó51Owü(x	¹„òduğSÄæ#ÃÔ›–1ëcG]®ÔâL&¾.Eˆ$‘F.t‚µƒƒºZÓÔmgoZZÒI•~bR¦+Lªïÿ?gRnŞ ½Vn’‡œëùÇŸíú£¬©¾0´]L2è˜é©¡³A‘£máHBJ
+¡Pç%ÊÀO¶Šxª„…w±:]ÀL‰©…ú~,¡ï½!¤áPøZˆmîİ·#1É8È¾mc)!"vâó¯ÇËÈs€ìŒò•&$¢ñVp/øLî[ì#öCô8gKx¨úä“7ÉF”±»,ó/º@°gèK!ø6(
+£ïb<ÃÕÇ^@C's@­–7qApY×=qœñ'Øls,ãŠ3‚Ò¢ ƒ/) [t€6¶“Y"äz@BŒÓE@T ä@;„æİĞwÁk{3‹A|ĞÅôİ ŒØSËÀ¨MØÄaÉ
+7Sò%¸^ìq`D‡œÚNÛ=¥ ñ cÇ84‚ÓÀ-¤¶ŞfM­›t¤•ËF-gx$fóÙ4gMx4×ã¼Làç„±­ÏïÀ—²•¹±¸ÃÜÚ]g§bı·>;Ug^pƒ2O:ˆïõ|1ë4c%nKJã.™)dîê·Ì§)››¬°­³ÄìGÂçJA÷?«ÆŞÕÍsiŸØ¥şWsÀAµY¹À1I}”©à`‡¡0Dş¸q,£<SÈïâyJ<o‹İçıV~×ö˜7äÁ}gÑ#™ªìSëÁ ÖV7´hˆ¹ñË¢<bÜ±×]hS€<ÀYêÂi„©43Ëkˆ×ô Î [!Ìjá;Ğ·‘sÆ$´m3QÄr€ œÆˆÒÈĞĞÚŒhZ8Xm6‘h7˜Ex$ëÑ%FÒD™hêz4Ó­*«pMV¦Ó4ğb¸£ğáQ&	ÁäÜBÏœ k8#	`‰e&ë0.M,NP×õÛïŞĞÔz¤‰„™ı"Ë+:Pª‰œ#ÈÖH¤¨ˆÁ`[t':`ÇÑw	4ÉH½©ï”<µ%6…ÏA»4Ğ‹ht$zÇ»'—AQ…ér/„d„]ä%ônŒ¹k=½„£´Z!ğ ´K€³Nô—P¿ë}BãUôöII^&š¦gw:„=ª‹ÿÃó“£§+Ï4ù#-J+V‚ùHÏ×ŸxrO¿zçq~úçj”iê†ÒñPÎ‚¬İ+XXQÁöp¬©#š
+ÁÏ #È åyS'Ã±ÿ ç’Ù±”2¢0®n€i	–DËt¹Í‰u&µİh¡9ï’“Í=Ä…‚b¥vT4_¦zäÍ§ĞºŞ(Â#”â$~?X¨1Z\‘ÉóÔÛè€ô´xş”Ú˜u	PTĞ¡ñÄJ`0®sc!ÌÔpç;yÚ%¼„øÓÀ™N~¤,³æDE8B†‡³ë$üSX q‘¡·¦ëhµ¨Oÿ>ıûôïÓ¿Oÿ>ıû»ı«kÃíÊ¶9­k6şøñ_¾ÙìÊÉéÃÃBÏ¹~"f|¼^èY¾Ñnnİyr¿	Ÿëf^*XVbşe³{Ù|{~¶9/Íİ‹W¯äÛ‰ö|h_÷/ï¶Ûa^DøùWW›³aZ÷õëi)ëºN35ÚÛŠÿÃ3¥¿ğêcÿEº¯tjæ?uX\šã'¥Ê–ƒëõ½åä©;9}ÒèyÜÚËıæs9ï=uoŸ]\œı´Ù]wşñ¶<)g¥½,ÍØ])G^…Û/Áİü°oxÛÌoı=Û¶ç—ãÅöÕÃ²{y14²îÑÕÇí¶}5¯=¾ÿˆeZ5›İ£FÙ?¼6ã®_¼æï×¯^_lwÍéı_§ı,Üë:ÙWUÀ”ñàêììiûs½~ÿÁZ©ûræÒ<©«e×{7gg_Ÿ/kzzÕ½Úìî¿öì‚:÷u#»áP°|=sùbZ1{/¬ëõ˜8®ğÙ¼ŞÈaœœ~ßœšÏëbÄû~7/1êrÅWİ^CÛ}ıS?Ê®í_–áè–ë•†h¦¯špøòçñ~Uõ§ÍAno­j0}CÓLßÊ4Ó71ÍôíK3}ãr½FÀ½mûm~>™–VåHyr»«í–N6²bõ¡ª;—½D8œŞm_ÿ{Ù¼x¹“¯Q)³L‰·­¬}ü .ÑœÃô•ÑWÓ·I·!Ë5½Ñ6«ZÌ4ç»í«ÍÙY&{Ó}6]›}e=dI}ºÛ–]ÿ²9}D3Û³éâÌRêätÊ~çüÅYink#o~–WßËO/s½ĞÌÉé_çşx?Øã°Şcknö8˜4õXDşæÿ®¾ªCOmøí=%"zOGçĞêXÓYŸ^JùØ~~ü¨º÷Œj6¿gPUø¨¾.³ª}U…ììïêåa<¯ßUşM}ŒÇ}Á÷Qç>º·M5ÕôCãÛ}¬+<5Ê/M]ãéFoWVúış Á:—–k¼ÌŸ>î¿ê8,ù"!|ĞóÏøÕ%_~gAfµ ??•ß9À÷õBõ72ØeğïÈ M4ÙÛé  Ã{/b¦wâÙ§y?}Qjæ5_Ìüe©™›1óR2fúLWÖÙš÷aŞÏåÍ_¨?—7»+3û+3»"ìµÿ:’@}Ó1ŞªşFvìùÌì¸Ìì¹ÌìºL˜ësİa®;ÎuÇ¹î8×ç¾Ä¹¼8—çòâ\^œË‹syI}D›Í¡Íßlà—ÓgZîztõj:5Ó‡ˆü ÍÜ&¦VY¦v9¦–&Ó‚¬ <µëKó×ÀM-Ì™¾æ“OsM+¡–é+=ùx×L_äÉ7½fúúN~iÁL_ÚÉO+˜é«:Qi3}A× ßfúZN~¨ÇL_Æ5zZuª¶^Ÿš…¬9œûd8œE-«PÍÒvî•‡Ãı6VíÅŞX5K>q8?×5¬ª„DSmÈÕN_…]˜ƒØeÉ{$w;ıšQ½öLßƒÉOÙéã¯ÆÒÉ’å‡„ìôQ—üd„ÕóCĞéc-ù;}˜%¿a§°D+ìôÁ•ü „>®’y°fSj›>š’UÎíô‰”,)l§Ï¡dO;}ú$‹ÛÙé3§¦.i8ÕV›jó²×T›ŸVj«‡¶®ëXe±°Y…¨mú´¨©k™MµyYñği¹øÛµn¦™Ô6©º0Nëf"ImÎî9¥>Ş™Fàÿ ¡±Ï
+endstream
+endobj
+
+853 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 442
+/Length 1468
+>>
+stream
+xœ—A5…ïó+úlÛ®ª¶¥(„8DPÂ-Ê¡ E Hü{^¿ÎÎ
+-ÃDoO½ê²ß×»aÛ¾…o­Ç±õ½lÕêV¬4	KÑ%B¢V‰#Å!¡ÕÒSŒ­Öü/ß%\+®uäŠ>-7»jµÈ“¹âúfË•Èê¹’Ÿ=Wz~!¹ª•Øó£•På°\ÉÏ‘+ª|”üI•Ë=‹u-ëišgóªŞ<[ˆ.Ñselj'¿ºK¤áQ$F®Ô­5WšÄµ¼IŒ\É)µ\‰W®¨òØsE•GËUújíûfû®•^$,Wêf5ŸBÍY~µvÛ¬eÏİ7³’"$rªú˜çHÔ®EÎ°‰İPåCÏôâÅåá»Ÿ>~şs{·éñ‡oï/ßÿõ‰Ÿ›¹öÍõpu~W©Æåw•GiJ5¯S¼Jµ¯sL™£ÑI^¥†£³¼JG£¼JÈmJË	O)7Ÿn9&Ÿn9(Ÿn9*Ÿn9¬˜n=bºõ<Šé¦‘µ˜nZ‹é¦±éĞ¦”[L7®ÅtÓğZL7Oç:¥Üé¦¶cº’ç=eıtyøÓmäñO7MXWâ*ß_^¾¼<9¡ˆèœ@í˜éØÚ1ÒEÒmšRõÙPÙÕQ/hµÔ+ºæC«©nhuÕ=Ó;u^Í-×ŞÑ²íwß"ßo‘ïÀW‘Ò…FËwà[ä;ğ-òø–È{ÎTà[2ø–‘‘˜ºf<ğ­™|ÛñU@•´¢²ã[•–ßªÀìøjú¶÷g§(Óå¸H®ØNoU½zkê­Ğ[So…Ş„«¤âÔê­Ğ[So…Şšz+ôÖÔ[¡7ñ,A:µ|¾m$¦6ùV|M¾_KpàkÉ|Eg«ø*ëVñUØÑSË·â«¸[ÅWy·†¯o_%>±<µ|¾Ê¼P…Nlá«Ô[ÃW±·†¯ro_ß¾J¾¾Š¾¨‡–¯á«ğ›á«ô›á«øL+‘ÄÄ7šøŠ ÖŠ`p­ˆØŠ `­ˆÚŠ0`°­ˆÜŠ@`Ğ-oùtñÇeìõ¢Ón×÷JWËÀÁ<xíÔœ3 gÎÀ›Á6lÕ¤<3`fÌÀ˜Á0`½.P2ˆdàÈ@‘!A~ôØ1càÆ@1^´X1bàÄ@‰!>t8ØpáàÂA…ƒ	œØ;‘wâîDİ‰¹q'ŞN´X;‘vâìDÙ‰±a'¾NtØ:‘uâêDÕ‰©Q'N4X:‘tâèDÑ‰¡A'~NôœØ9‘sâæDÍ‰™1'^‚çÛ¼Ã—‡·ÛÃÛ?>IûJ»úüŸ'{¾şø÷í–±ÜâûzKYo©ë-m½ÅÖ[|½%Ö[õ–õt}=İXO7ÖÓõtc9İwÚÄ}ƒwïŞ9¼sxçğÎáÃ;‡wïŞ9¼sxçğÎáÃ;‡wïŞ9¼sxçğÎáÃ;‡wïŞ9¼sxçğÎáÃ;‡wïŞ¼xğ.à]À»€wïŞ¼xğ.à]À»€wïŞ¼xğ.à]À»€wïŞ¼xğ.à]À»€wïŞ¼xğ.à]À»€wïŞ¼xğ.à]À»8ÿT:ÿN:ÿH:ÿB:ÿ<âWˆà×‡ÉÃòã†A{D nôì[oñõ–Xo9Ö[úzËXn¹aĞ³[ÊzËzº±n¬§ëéÆzºñ?Ó}w¾ŒNÊŸø<‘~rû|õo¦Öçkè|ïïœ“Ôç»ù|ŸoÙóÅ£ö¸é6 mçMŸ‘ÿ¾şé×íËÓü²5îÄÿüşa{xıÕ·oò‘ôœv^(=è7¿ıñéq_ªô{ªôU•qO•±¨rìwT¹y•=S¥ÜS¥¬ªÔ{ªÔU•vO•¶ªb÷T±U¿§Šÿ§Ê¿ÚÇÿÅ
+endstream
+endobj
+
+854 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 432
+/Length 555
+>>
+stream
+xœÖÁjUAÆñı}Š¼ÁÍ—ÌœI táÂ….*Õ'DDqçÛ›”®êâË¦	í¹fNĞZBT,MN¬K=·Xô¼ÄwÏ#Ëz†¬ì™²/W•Ë{¢2=+wzºÄê¹$ÑsKFÏK »—#€õµd/)°nÖóğ}¨^¬–Î¢¹»‹%¸:Œ]K—Qå³QK•Ã¬–*G]ÌQå¼–xß@}×‚¾fİ­3œS‹‹ÙŠZêô'ÜêxÌ.±uUÙØö*[H´Ê–µœ*×qí¬*{•£ÎâõœETÙ½_g•}õû©rŸ }/¿ú¸Uö>Áª²÷suK÷~.ê}Ûµ·<<Üî_¾>}ı!çª_Şóíşé»ÔG^Ö/“ûÓ»Ï·ÇÇú‰¬ëõ¡ÏrÿëÏÏşö›Ê™T«Ä¤¬’“J’JIà•£¬‚I¬b“Š±ŠO*Î*kRY¬²'•Í*»‡Ù‰İÃìÆÄîavcb÷0»9±ÌnNì³›»ÁìæÄn0»9±ÌnNì³›»ÁìæÄn0»9±ÌnNì³ÛÎx&^èDo2½Ğ	ßd|¡¿ÉüB'€“®ÿ›&&¸ÿídaèÄp2ÃĞ	âdˆ¡ÅIc x+UŒâ­T1Š·RÅ(ŞJc x+UŒâ­T1Š·RÅ(ŞJc x+UŒâ­T±Mƒ*¶‰bPÅ6QªØ&ŠAÛD1¨b›(ÆÿŠÿEãRØ
+endstream
+endobj
+
+855 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 432
+/Length 605
+>>
+stream
+xœ•ÏŠA‡ïûyƒ©üOÁ²ô°²z/‚‚(Ş|{=Óâ"Ée’J7_U¥¿0jL‹Ô„’”©š‘°":Ibº#&™ ·"Û‰¸É£ğlQèFd`€sà
+<W*äêF[ôÊØ<â z³ô"–¤o$	f,âc>j’là˜•†‡ç9@Î9@®ãÜ8o9@Şr.ÜN„‘ll‘B"(k*‰¢%šè€1¶ K¬°E‰ã"šI‚-pJ‰-r“$6Ô¹d\^ö¹@Ş(ëXèıd¹€àr!¸Šª(§´…rí£é(ï£«hûııİåíõ÷ñó7t*ğõî.ï¾âİ[úá÷Ï/ty|õæéîáOÈù|é=]^ÿøõı(ÿ‹É	&[LM0Õbö³;Œ®FV‹á	†[ŒL0Òbt‚ÑcŒµŸ`¼ÅL,–ÖbX,­Å:±XZ‹ub±´ÛÄbm-¶‰ÅÚZl‹µµØ&kk±M,ÖÖb›X¬­Å6±X[‹mb±¶ÛÄbm-¶‰ÅÚZì‹­µØ'[k±O,¶ÖbŸXl/-şHá×ïGrÆçµÑnÑıŒuÖŸ×ûŒqÖ×ÏµŸ\?y~ò‚o1oÏ?½¸Ò_µÿw¥h'Ê}‚i'Êc‚i'Ês‚i'Êk‚i'Ê÷ÓNT¬&Û‰
+`Ú‰
+™`Ú‰
+`Úÿ…˜Xœ­Å1±8[‹cbq¶ÇÄâl-‰ÅÙZ‹³µ8'WkqN,®ÖâœX\­Å9±¸Z‹sbq½´øš*c²
+endstream
+endobj
+
+856 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 432
+/Length 561
+>>
+stream
+xœÒ;nTA…á|VQ;˜:§úU’å€€ÀF† !$$"c÷œ‹‰ ¨J¦ûÚ£ÿv×|‘0·HÚ†–0jF„Öi<Cë²˜Së¶AíóØĞ>2m.íİmEj…2®U¹­agRë°dh–j__S›m@,mzÚl5ÕAEëPª‚Úè¼CGÃ\êbV(ŒiØzË€Ê{«•ÏP*§TÎ£²Zô©2q]SeÒH~èäV™š@•©\ï¹îÍqTæ6Î©2qñIjsÍD-î¥ràœÊ¡rêC§d•Cóô©rh Ğ{†îĞ¨Gh¤\*Ç±=5®Ùµbì´‡‡ÛıİŸÏçO_uÕ©_ïåvÿE?Æëöã¯Ÿíşüæéåöø¨ÿØ<¿ôÁîo¿ÿüvıùßÌêdV™ÙÌ.3§“9e&;™¬2Ç™ô2ƒNe†ËLt2QfF'3ÊLGq–ŠOGq–ŠOGq–ŠOGq–ŠOGq–Š³¡xy©8Š——Š³¡xy©8Š——Š³¡xy©8Š——Š³¡xy©8Š——Š³¡xy©8Š—WŠéÅ¨Ó;ŠQ)¦w£RLï(F¥˜ŞQŒJ1½£•bzG1*ÅôbTŠéÅ¨Ó;ŠQ*FG1KÅè(f©Å,££˜¥bt³TŒb–ŠÑQÌR1:ŠY*FG1KÅè(f©˜ÅQ*fGq”ŠÙQ¥bvG©˜Åñ¿âß4X_
+endstream
+endobj
+
+857 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 432
+/Length 479
+>>
+stream
+xœ’ÁŠTAE÷ıùƒN*©TÃ,D\èbdôq!ø÷Ş4Š"h²é
+ınŸ®{^Ì„˜ÌÁ¡$ÍŒ–(ÎM+§“îó-Çd‰Ù’¶cŞL®‰S€nàm¥ÀlÛ(x`d‚·„À}HDAÜáT4IƒéŒ1ª/„×Ôâºaˆ
+ïºx…A®ŸšƒlYa·VäÛmÈÎ£²¸!Œ?? |@>Uó€|ÊK¬
+ƒ»Â GVä\ã–’¸”¡übF8†*Š¡
+F¹­‚¹RÃ1TÁ8´VD¥µª`$†*˜LKQğîîr}uû|x÷©Bx{—ëëÿ·ñí÷/ïéúğìåãåşOğf~†ŞĞõÅÓ×ÏõõßŸ`¼Åœ	æ´˜˜`¢Åä“Fy€1n12ÁH‹YÌj1:Áh‹±	ÆZÌd‹­İbl±µ[¬“-¶v‹u²ÅÖn±N¶ØÚ-¶ÉïmñŠ_kÒïæÏ?~û3£ƒŒ2{ñAæ21ÈdŸIddxÎçxÎçxÎçxÎŞ³rïY¹÷¬Ü{Vî=+÷•{ÏÊ½gåŞ³rïYyàYeàYeàYå S8Ş
+endstream
+endobj
+
+858 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 418
+/Length 377
+>>
+stream
+xœ1n]1û
+Şà‹\’’ ÃUº4A|
+_Àç÷2[{+Ğ¼}ÜÉë¶,oš¶ƒ#Í×á,óLÎ6?CmìXÔp×â«µ‘œÎ”ÅÉ4~S–Nfôpõo¯Å·n[íáµw­“œ/ëCÎçãÛ.rÎóxiyÚ‰áÊN×v×pÛ.†;v÷p—=^ñÅ&>ÍˆF˜;¿« –)pŸ6ÁÖ1u‚µcúÄæ2…øSÇ4
+&c*É9àãŠ0Ÿ=§˜<§˜\ÓL®)Æ#½§˜ÜSLîé&ï)Ç,ßl÷òòxş6ğÖeÏ?¹ÿ¯oöüõşñx}}|1[`ÀÜŸ^ÿ3ãI)<‡à9Ï!x†à‚g!x†à‚g!x†à‚ç<§à9Ï)xNÁs
+Sğœ‚ç<§à¹Ï%x.Ás	Kğ\‚ç<—à¹Ï%xnÁs[ğÜ‚ç<÷w?üŒ®
+endstream
+endobj
+
+859 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 419
+/Length 434
+>>
+stream
+xœ“;n1„ûÿ¼E‰OÀp•.‘"Èrş-;pãÕ«o‡äpW…i‘Ê¦cC¾!B¼ªÄ8«qå´¹° ­Å%í„ê¢sJ™N½;a†Ü©
+I$TI7|æP'[¥A&¥Iu·ĞXcrC}Ûë@…”
+E )%ÃÏŒRåÍ3õ,Ğÿ.£Äo«/¨31°è“Õñ^€So)co/s.Øq¨Iğ”Oµèp–¹°` 8KFg¬pÀ¹zÓ€³­‚ál§`8›gç‚áìR0œ½¦Ã$ïùùñôë1,êÇãé•6²z;ş¤§o¿ÿ<^^Œ˜hsîdÛ3“Z«exßë·_tâùú‰;—Ë“7NWÃéÅ¸Áòb»ÁÖÅNƒÙÅ¤ÁâbÚú^Õ:î}Vï¸‹u›¸‹ĞnwÖíÁ/ÖíosÖ-â~MÖ-â|ú2M¾ø›>ı)_3{Àœ#FŒ01`²gbsrAÎ1È99Ç çäƒœcsrÎAÎ9È99ç çäœƒœó9ÿ—š´t
+endstream
+endobj
+
+860 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 418
+/Length 378
+>>
+stream
+xœ‘±m1ó«‚¼–¤(	x|äÌ‰aWá\¿—8õoDá4·Ç›6l·(°åi›s29Ë°›Zæhl›ÏæùŞVcXxr‚)ƒ“i|§FX†s¦e57mæ˜‘Í-›«9Ş¡¹c•}æİ&pñ¼[“¸7-¤monÚ®æÊÎhnÙ‰æ¶ÕÜag›”£›u7€ï•,S, tgkï:ÎÚŞ}|ñĞ…øQD7r&GW
+&gw
+´+Â¼Fv«`òìZÁäÙ½‚É³‹qIôRL®®L®îL^]YXlw¿_·wú\üOŸ×íÃœŸÇ/»½}ÿ\ÇõÇl9/™¤Ë×Æ&&f
+L	ÌkÏ9^{Î!x†à‚g!x†à‚g!x†à‚g<»àÙÏ.xvÁ³]ğì‚g<»à9Ï!xÁsCğ‚ç<‡à9Ï!xNÁs
+Sğœ‚ç<§à9ÿóüè­ó
+endstream
+endobj
+
+861 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 33
+/First 266
+/Length 389
+>>
+stream
+xœÒÍj1ğû<Åÿfd[’!Ğ†@.!-ôœ¦Ë2f»]ÈÛGgK¥š“4öoäY
+a‚”„,24Y( ©ZdåRT])9«Hì®!Us<!'sLVÅœÍåf3Š—å‚¢ìÿ³€-Vpóÿ¬FÎÄ×·Jd‘ ì1A›ÇŒš­¾T1+ŒæûA³½‰(ZõXmÿÉ2D“ÍŠN Ë,!KŠ¬ëUO2(¾ºÆ«3ái‘l™5ı†ñË|®¯‡‹©L‹İ[lhƒILŞ`ÊÃŒ„Æï?2”úôeÅ½½ª¿òñ“ËİIäJw8î¬¬uÖ6­L§€Ig°ÚYŠú±j\?«–Èuu¢7B£Fô>hÔí,ê}l.jDM5j­àòéõŸN»ãÈÕî4r­»¹uÂÿ)ßß~ï0Ş–“ÿùyZ?}Ğ.ëöù¸óŒ÷»×óî4¿<ã×ååğk^öÌËÍrœ/^ñE5Ò
+endstream
+endobj
+
+862 0 obj
+<<
+/Size 863
+/Root 1 0 R
+/Info 2 0 R
+/ID [ <438e093afeea6f45b6b673c9ef9b885d> <d40e87c97f694e64bd5d731c72537998> ]
+/Filter /FlateDecode
+/Type /XRef
+/Length 1651
+/W [ 1 3 2 ]
+/Index [ 0 67 241 622 ]
+>>
+stream
+xœ-ÒwlVe†ñsNi-Ğ–J]´Œ¥¢F£Qq¡ˆ3ïÆ#*Æ­qEÔH4"(2T‚#*.4Á
+j\Áh4Œî80ØûÊ÷Ï•''_ÎóßûfY–íŞ]de3²Œæ´È³¬ºô¤Œö¡å´‚ö¥ıh:€VÒ*:Ê³úšÒÛ÷Î»Jsuµİ^škò¼üşÒ\›çMÛKó<ï\Wšëò|òÅ¥¹>Ï÷¬*ÍCó|¯‘¥yXï¼²47Ğá´‘6Ñt$m¦-´•¶Ñv:ŠvĞN:š¡cé8ÚÕ»wgiïx:!Ï§¬-=™H»é$ÚC÷èíL~3ù™½òùôÆÒ“²<?î‹ÒÜ'ÏO\QšËiíKûÑşt ­¤Ut DÓjZCkéZGëéP:Œ6Ğá´‘6Ñt$m¦-´•¶Ñv:ŠvĞN:š¡cé8ÚEÇÓ	t"í¦“h•Ş,Lf¡7++híCËiíKûÑşt ­¤Ut DÓjZCkéZGëéP:Œ6Ğá´‘6Ñt$m¦-´•¶Ñv:ŠvĞN:š¡cé8ÚEÇÓ	t"í¦“h••ÁÊ`e°2X¬V+ƒ•ÁÊ`e°2X¬V+ƒ•ÁÊ`e°2X¬V+ƒ•ÁÊ`e°2X¬V+ƒ•ÁÊ`e°2X¬V+ƒ•ÁÊ`e°2X¬V+ƒ•ÁÊ`e±²XY¬,V+‹•ÅÊbe±²XY¬,V+‹•ÅÊbe±²XY¬,V+‹•ÅÊbe±²XY¬,V+‹•ÅÊbe±²XY¬,V+‹•ÅÊbe±²XY¬,V+‹•ÅÊbe±²X9¬V+‡•ÃÊaå°rX9¬V+‡•ÃÊaå°rX9¬V+‡•ÃÊaå°rX9¬V+‡•ÃÊaå°rX9¬V+‡•ÃÊaå°rX9¬V+‡•ÃÊaå°rX9¬V+•ÇÊcå±òXy¬<V+•ÇÊcå±òXy¬<V+•ÇÊcå±òXy¬<V+•ÇÊcå±òXy¬<V+•ÇÊcå±òXy¬<V+•ÇÊcå±òXy¬<V+UÀ*`°
+X¬V«€UÀ*`°
+X¬V«€UÀ*`°
+X¬V«€UÀ*`°
+X¬V«€UÀ*`°
+X¬V«€UÀ*`°
+X¬V«€UÀ*`±ŠXE¬"V«ˆUÄ*b±ŠXE¬"V«ˆUÄ*b±ŠXE¬"V«ˆUÄ*b±ŠXE¬"V«ˆUÄ*b±ŠXE¬"V«ˆUÄ*b±ŠXE¬"V«ˆUÄ*b±ŠX%¬V	«„UÂ*a•°JX%¬V	«„UÂ*a•°JX%¬V	«„UÂ*a•°JX%¬V	«„UÂ*a•°JX¥¬5Ï]g–å¹_£Æ:5İ ÎşS=yzÊ6õ´ ş‰:çõÌwÕ³RÏY«Û£·N»zÁƒê…õêEóÔK*ÔKç«—T¯¸Z½ò{õ*§^Í–kOR¯Û®^?S÷šzãŞêMÏ©7ï¯Îß¨ŞÂö[W©·U©¨kÕEKÕÅl_r±ºôKõ®3ÔeßªËÏUW°}ÕQê=ëÕûØ²zƒºæõş§Ô[Õ‡nS®QY¬®mP»Y}É'OWŸúF}úõ™ŸÔgg«ëßTŸÛO}şEõÅ)ê†WÕ|ïKœÑ+CÔWù–MÃÔÍw«oP·\®nıZ}ëlõíÔw.Pßı\}ÿXõƒÔmœİ‡/«MU?fã'“ÕOïU?«V?¿Fı‚·mŸ«~õ«úõ¥ê7lün†ºƒ·ıp¸úãëêÎ£ÕŸÙøk—úÛ]êMêŸœ×_íêß‹Ô3u×ùê¿¨»u^Eö—Zœ¥–éNå‡©›Õ~:¯¢ÿÛjåjÕ£ê FuğJµFçUÔJ²¨Óm/ê¯W‡ş¬6\¤×yMWª#v¨ÍVmÙ¤¶MSÛu^EÇñj§î^1¦[»BíjQÇ¯V'V»ïT{t÷Š=.Q'ó-{]¡î½KİGw¯Ø÷cu¿#Õı·ªè¼ŠßS§èî?¡Ú¬vŸ:µC=â!ušî^qÔMêôßÕc.SıG=^çXœ »WœÕ[ÔYÇ¨æÕÍ ¼Íñßfën§ê¦ót«‹ù«·â¿ R]ø€zÇNu	ÿöN¶,c^şR–ı›”«Ù
+endstream
+endobj
+
+startxref
+170945
+%%EOF

@@ -1,0 +1,4239 @@
+%PDF-1.7
+%
+
+4 0 obj
+<<
+/Subtype /XML
+/Type /Metadata
+/Length 5294
+>>
+stream
+<?xpacket begin="ï»¿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.2-c001 63.139439, 2011/06/07-10:39:26        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+         <xmp:MetadataDate>2014-09-29T16:13:37-04:00</xmp:MetadataDate>
+         <xmp:CreatorTool>Adobe LiveCycle Designer 11.0</xmp:CreatorTool>
+         <xmp:ModifyDate>2014-09-29T16:13:37-04:00</xmp:ModifyDate>
+         <xmp:CreateDate>2014-08-23T18:50:23-04:00</xmp:CreateDate>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+         <pdf:Producer>Adobe LiveCycle Designer 11.0</pdf:Producer>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
+         <xmpMM:DocumentID>uuid:26eb1005-759a-48a1-90e7-6df8074a432e</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:f8f5d9e6-8fdc-4876-99b5-df3f8be93d68</xmpMM:InstanceID>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <dc:format>application/pdf</dc:format>
+         <dc:description>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">DA FORM 2408-14, JUN 1994</rdf:li>
+            </rdf:Alt>
+         </dc:description>
+         <dc:creator>
+            <rdf:Seq>
+               <rdf:li>APD</rdf:li>
+            </rdf:Seq>
+         </dc:creator>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">UNCORRECTED FAULT RECORD </rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/">
+         <pdfx:Doc_Num>2408-14</pdfx:Doc_Num>
+         <pdfx:Prefix>DA</pdfx:Prefix>
+         <pdfx:Scope>Army</pdfx:Scope>
+         <pdfx:Suffix/>
+         <pdfx:Form_Month>Jun</pdfx:Form_Month>
+         <pdfx:Form_Year>1994</pdfx:Form_Year>
+         <pdfx:PIN>001401</pdfx:PIN>
+         <pdfx:Pub_ID>8</pdfx:Pub_ID>
+         <pdfx:Pub_Type>PAM</pdfx:Pub_Type>
+         <pdfx:Pub_Series>750</pdfx:Pub_Series>
+         <pdfx:Pre_Dir>PAM 750-8</pdfx:Pre_Dir>
+         <pdfx:Pub_Day>25</pdfx:Pub_Day>
+         <pdfx:Pub_Month>Feb</pdfx:Pub_Month>
+         <pdfx:Pub_Year>2005</pdfx:Pub_Year>
+         <pdfx:Proponent>DCS, G-4</pdfx:Proponent>
+         <pdfx:Form_Version>1.00</pdfx:Form_Version>
+         <pdfx:Unicode>CD</pdfx:Unicode>
+         <pdfx:PA_Code>No</pdfx:PA_Code>
+         <pdfx:Distrubution>Unrestricted</pdfx:Distrubution>
+         <pdfx:OMB_Number/>
+         <pdfx:OMB_Expire/>
+         <pdfx:Security_Class>UC</pdfx:Security_Class>
+         <pdfx:Product_Type>Form</pdfx:Product_Type>
+         <pdfx:Signature>No</pdfx:Signature>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/">
+         <desc:version rdf:parseType="Resource">
+            <rdf:value>1.00</rdf:value>
+            <desc:ref>/template/subform[1]</desc:ref>
+         </desc:version>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?>
+endstream
+endobj
+
+17 0 obj
+<<
+/Type /EmbeddedFile
+/Length 162
+>>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+<xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/" timeStamp="2014-09-29T20:13:37Z" uuid="26eb1005-759a-48a1-90e7-6df8074a432e">
+endstream
+endobj
+
+19 0 obj
+<<
+/Type /EmbeddedFile
+/Length 2890
+>>
+stream
+<config xmlns="http://www.xfa.org/schema/xci/3.0/"
+><agent name="designer"
+><!--  [0..n]  --><destination
+>pdf</destination
+><pdf
+><!--  [0..n]  --><fontInfo
+/></pdf
+></agent
+><present
+><!--  [0..n]  --><pdf
+><!--  [0..n]  --><version
+>1.7</version
+><adobeExtensionLevel
+>8</adobeExtensionLevel
+><creator
+>Adobe LiveCycle Designer 11.0</creator
+><producer
+>Adobe LiveCycle Designer 11.0</producer
+><scriptModel
+>XFA</scriptModel
+><interactive
+>1</interactive
+><tagged
+>1</tagged
+><fontInfo
+><embed
+>0</embed
+></fontInfo
+><encryption
+><encrypt
+>1</encrypt
+><encryptionLevel
+>128bit</encryptionLevel
+><permissions
+><accessibleContent
+>1</accessibleContent
+><contentCopy
+>0</contentCopy
+><documentAssembly
+>0</documentAssembly
+><formFieldFilling
+>1</formFieldFilling
+><modifyAnnots
+>1</modifyAnnots
+><print
+>1</print
+><printHighQuality
+>1</printHighQuality
+><change
+>0</change
+><plaintextMetadata
+>1</plaintextMetadata
+></permissions
+></encryption
+><compression
+><level
+>6</level
+><compressLogicalStructure
+>1</compressLogicalStructure
+><compressObjectStream
+>1</compressObjectStream
+></compression
+><linearized
+>1</linearized
+><silentPrint
+><addSilentPrint
+>0</addSilentPrint
+><printerName
+/></silentPrint
+><viewerPreferences
+><duplexOption
+>duplexFlipLongEdge</duplexOption
+><numberOfCopies
+>0</numberOfCopies
+><printScaling
+>appDefault</printScaling
+><pickTrayByPDFSize
+>1</pickTrayByPDFSize
+><enforce
+>printScaling</enforce
+><ADBE_JSDebugger
+>delegate</ADBE_JSDebugger
+><ADBE_JSConsole
+>delegate</ADBE_JSConsole
+><addViewerPreferences
+>1</addViewerPreferences
+></viewerPreferences
+></pdf
+><common
+><log
+><to
+>memory</to
+><mode
+>overwrite</mode
+></log
+><template
+><base
+>J:\Publishing Division\Forms Publishing Branch\!Forms Conversion files and spreadsheets\!Forms Received by HalfAker\20140825-21 new to Q'c (Wes &amp; Tarek)\!Forms to be RE and ready for archive 18 of 21 completed)\</base
+></template
+></common
+><script
+><runScripts
+>server</runScripts
+></script
+><xdp
+><packets
+>*</packets
+></xdp
+><destination
+>pdf</destination
+><output
+><to
+>uri</to
+><uri
+>J:\Publishing Division\Forms Publishing Branch\!Forms Conversion files and spreadsheets\!Forms Received by HalfAker\20140825-21 new to Q'c (Wes &amp; Tarek)\!Forms to be RE and ready for archive 18 of 21 completed)\A2408_14.pdf</uri
+></output
+></present
+><acrobat
+><acrobat7
+><dynamicRender
+>forbidden</dynamicRender
+></acrobat7
+><common
+><versionControl sourceBelow="maintain"
+/><data
+><adjustData
+/><xsl
+><uri
+/></xsl
+><outputXSL
+><uri
+/></outputXSL
+></data
+><template
+><base
+>J:\Publishing Division\Forms Publishing Branch\!Forms Conversion files and spreadsheets\!Forms Received by HalfAker\20140825-21 new to Q'c (Wes &amp; Tarek)\!Forms to be RE and ready for archive 18 of 21 completed)\</base
+><relevant
+/><uri
+/></template
+></common
+><autoSave
+>enabled</autoSave
+><validate
+>preSubmit</validate
+></acrobat
+></config
+>
+endstream
+endobj
+
+21 0 obj
+<<
+/Type /EmbeddedFile
+/Length 58314
+>>
+stream
+
+<template xmlns="http://www.xfa.org/schema/xfa-template/3.3/"
+><?formServer defaultPDFRenderFormat acrobat10.0dynamic?><?formServer allowRenderCaching 0?><?formServer formModel client?><subform name="form1" layout="tb" locale="en_US" restoreState="auto"
+><pageSet
+><pageArea name="Page1" id="Page1"
+><contentArea w="279.4mm" h="215.9mm" name="ContentArea1"
+/><medium stock="letter" short="215.9mm" long="279.4mm" orientation="landscape"
+/><draw name="T88" x="27.712mm" y="45.424mm" w="0.464in" minH="0.137in"
+><value
+><text
+>STATUS</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T89[0]"
+/></traversal
+></draw
+><draw name="T89" x="27.28mm" y="48.599mm" w="0.506in" minH="0.137in"
+><value
+><exData contentType="text/html"
+><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><p style="text-decoration:none;letter-spacing:0in"
+>SYMBOL</p
+><p style="text-decoration:none;letter-spacing:0in"
+><span style="xfa-spacerun:yes"
+>Â Â Â Â Â  </span
+><span style="font-style:italic"
+>a</span
+></p
+></body
+></exData
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T92[0]"
+/></traversal
+></draw
+><draw name="T92" x="239.143mm" y="178.393mm" w="0.545in" minH="0.111in"
+><value
+><text
+>APD LC v1.00</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="6pt" typeface="Arial"
+/><traversal
+><traverse ref="T93[0]"
+/></traversal
+></draw
+><draw name="T93" x="76.835mm" y="48.599mm" w="0.379in" minH="0.137in"
+><value
+><exData contentType="text/html"
+><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><p style="text-decoration:none;letter-spacing:0in"
+>FAULT</p
+><p style="text-decoration:none;letter-spacing:0in"
+><span style="xfa-spacerun:yes"
+>Â Â Â  </span
+><span style="font-style:italic"
+>b</span
+></p
+></body
+></exData
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T94[0]"
+/></traversal
+></draw
+><draw name="T94" x="135.23mm" y="48.599mm" w="1.148in" minH="0.137in"
+><value
+><exData contentType="text/html"
+><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><p style="text-decoration:none;letter-spacing:0in"
+>REASON FOR DELAY</p
+><p style="text-decoration:none;letter-spacing:0in"
+><span style="xfa-spacerun:yes"
+>Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  </span
+><span style="font-style:italic"
+>c</span
+></p
+></body
+></exData
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T95[0]"
+/></traversal
+></draw
+><draw name="T95" x="184.557mm" y="42.249mm" w="0.33in" minH="0.137in"
+><value
+><text
+>DATE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T96[0]"
+/></traversal
+></draw
+><draw name="T96" x="177.224mm" y="45.424mm" w="0.859in" minH="0.138in"
+><value
+><text
+>(From DA FORM</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T97[0]"
+/></traversal
+></draw
+><draw name="T97" x="184.785mm" y="48.599mm" w="0.317in" minH="0.138in"
+><value
+><text
+>2404)â€©   d</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T98[0]"
+/></traversal
+></draw
+><draw name="T98" x="204.445mm" y="45.424mm" w="1.046in" minH="0.137in"
+><value
+><text
+>ENTRY APPROVED</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T99[0]"
+/></traversal
+></draw
+><draw name="T99" x="240.869mm" y="42.249mm" w="0.33in" minH="0.137in"
+><value
+><text
+>DATE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T100[0]"
+/></traversal
+></draw
+><draw name="T100" x="236.627mm" y="45.424mm" w="0.678in" h="3.575mm"
+><value
+><text
+>(To DA Form</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T101[0]"
+/></traversal
+><?renderCache.bounds 48816 10134 0 0 0 0 0 0?><?renderCache.textRun 11 (To DA Form 0 0 7407 0 0 0 "Arial" 0 1 8000 ISO-8859-1?></draw
+><draw name="T101" x="241.072mm" y="48.599mm" w="0.317in" minH="0.138in"
+><value
+><text
+>2407)â€©    f</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/></draw
+><draw name="T102" x="26.67mm" y="31.023mm" w="1.055in" minH="0.137in"
+><value
+><text
+>1. NOMENCLATURE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T103[0]"
+/></traversal
+></draw
+><draw name="T103" x="122.555mm" y="31.023mm" w="0.552in" minH="0.137in"
+><value
+><text
+>2. MODEL</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T104[0]"
+/></traversal
+></draw
+><draw name="T104" x="177.369mm" y="31.023mm" w="1.054in" minH="0.137in"
+><value
+><text
+>3. SERIAL NUMBER</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T109[0]"
+/></traversal
+></draw
+><draw name="T109" x="209.754mm" y="48.396mm" w="0.636in" minH="0.138in"
+><value
+><text
+>(Signature)â€©         e  </text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font posture="italic" size="8pt" typeface="Arial"
+/></draw
+><draw name="R112" y="29.82mm" x="25.4mm" w="0in" h="147.066mm"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R113" y="29.82mm" x="25.4mm" w="228.6mm" h="0in"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R114" y="29.82mm" x="254.212mm" w="0in" h="147.066mm"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R115" y="176.929mm" x="25.4mm" w="228.6mm" h="0in"
+><value
+><line
+><edge thickness="0.5715mm"
+/></line
+></value
+></draw
+><draw name="R116" y="90.145mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R117" y="116.18mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R118" y="133.537mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R119" y="150.894mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R120" y="41.674mm" x="234.527mm" w="0in" h="135.128mm"
+><value
+><line
+/></value
+></draw
+><draw name="R121" y="29.82mm" x="121.92mm" w="0in" h="147.087mm"
+><value
+><line
+/></value
+></draw
+><draw name="R122" y="29.82mm" x="176.53mm" w="0in" h="147.066mm"
+><value
+><line
+/></value
+></draw
+><draw name="R123" y="41.674mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R124" y="168.25mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R125" y="81.467mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R126" y="124.859mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R127" y="41.674mm" x="40.005mm" w="0in" h="135.128mm"
+><value
+><line
+/></value
+></draw
+><draw name="R128" y="55.432mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R129" y="72.789mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R130" y="98.824mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R131" y="142.215mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R132" y="64.11mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R133" y="107.502mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><draw name="R134" y="41.674mm" x="199.602mm" w="0in" h="135.128mm"
+><value
+><line
+/></value
+></draw
+><draw name="R135" y="159.572mm" x="25.612mm" w="228.6mm" h="0in"
+><value
+><line
+/></value
+></draw
+><?templateDesigner expand 1?></pageArea
+><?templateDesigner expand 1?></pageSet
+><subform w="11in" h="215.9mm" name="Page1"
+><field name="NOMEN_A" y="34.9mm" x="26.434mm" w="269.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>d ay form 24 o 8 dash 14, june 19 94.&#xD;edition of october 91 is obsolete.&#xD;ay p d. l c  version  1.00.&#xD;uncorrected fault record.&#xD;for use of this form, see d ay pamphlet 7 38 dash 7 50, the proponent agency is o d c s l o g.&#xD;1. enter nomenclature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="MODEL_A" y="34.9mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>2. enter model.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SERIALNO_A" y="34.9mm" x="177.14mm" w="217.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>3. enter serial number.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A" y="57.337mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A" y="57.337mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 1. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A" y="57.337mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 1. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A" y="57.337mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A" y="57.337mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B" y="57.337mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 1. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_1" y="66.015mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_1" y="66.015mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 2. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_1" y="66.015mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 2. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_1" y="66.015mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_1" y="66.015mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_1" y="66.015mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 2. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_2" y="74.693mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_2" y="74.693mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 3. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_2" y="74.693mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 3. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_2" y="74.693mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_2" y="74.693mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_2" y="74.693mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 3. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_3" y="83.583mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_3" y="83.583mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 4. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_3" y="83.583mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 4. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_3" y="83.583mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_3" y="83.583mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_3" y="83.583mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 4. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_4" y="92.262mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_4" y="92.262mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 5. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_4" y="92.262mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 5. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_4" y="92.262mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_4" y="92.262mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_4" y="92.262mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 5. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_5" y="100.94mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_5" y="100.94mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 6. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_5" y="100.94mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 6. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_5" y="100.94mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_5" y="100.94mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_5" y="100.94mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 6. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_6" y="109.407mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_6" y="109.407mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 7. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_6" y="109.407mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 7. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_6" y="109.407mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_6" y="109.407mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_6" y="109.407mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 7. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_7" y="118.297mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_7" y="118.297mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 8. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_7" y="118.297mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 8. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_7" y="118.297mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_7" y="118.297mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_7" y="118.297mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 8. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_8" y="126.975mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_8" y="126.975mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 9. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_8" y="126.975mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 9. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_8" y="126.975mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_8" y="126.975mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_8" y="126.975mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 9. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_9" y="135.653mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_9" y="135.653mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 10. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_9" y="135.653mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 10. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_9" y="135.653mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_9" y="135.653mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_9" y="135.653mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 10. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_10" y="144.332mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_10" y="144.332mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 11. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_10" y="144.332mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 11. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_10" y="144.332mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_10" y="144.332mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_10" y="144.332mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 11. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_11" y="152.798mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_11" y="152.798mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 12. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_11" y="152.798mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 12. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_11" y="152.798mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_11" y="152.798mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_11" y="152.798mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 12. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_12" y="161.688mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_12" y="161.688mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 13. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_12" y="161.688mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 13. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_12" y="161.688mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_12" y="161.688mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_12" y="161.688mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 13. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_A_13" y="170.367mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_A_13" y="170.367mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 14. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_A_13" y="170.367mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 14. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_A_13" y="170.367mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_A_13" y="170.367mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_B_13" y="170.367mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 14. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><draw name="T94" x="146.592mm" y="181.752mm" w="100.752mm" h="3.384mm"
+><value
+><text
+>For use of this form, see DA PAM 738-750; the proponent agency is ODCSLOG</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><traversal
+><traverse ref="T95[0]"
+/></traversal
+><?renderCache.bounds 285596 9592 0 0 0 0 0 0?><?renderCache.textRun 73 For use of this form, see DA PAM 738-750; the proponent agency is ODCSLOG 0 0 7112 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw
+><draw name="T93" x="146.591mm" y="177.484mm" w="2.238in" minH="0.176in"
+><value
+><text
+>UNCORRECTED FAULT RECORD</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font weight="bold" typeface="Arial"
+/><traversal
+><traverse ref="T94[0]"
+/></traversal
+></draw
+><draw name="T95" x="26.576mm" y="182.124mm" w="47.624mm" h="3.384mm"
+><value
+><text
+>EDITION OF OCT 91 IS OBSOLETE</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font size="8pt" typeface="Arial"
+/><?renderCache.bounds 134997 9592 0 0 0 0 0 0?><?renderCache.textRun 29 EDITION OF OCT 91 IS OBSOLETE 0 0 7112 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw
+><draw name="T90" x="26.805mm" y="177.484mm" w="59.243mm" minH="0.176in"
+><value
+><text
+>DA FORM 2408-14, JUN 1994</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font weight="bold" typeface="Arial"
+/><traversal
+><traverse ref="T93[0]"
+/></traversal
+></draw
+><traversal
+><traverse ref="Page2[0]"
+/><traverse operation="first" ref="NOMEN_A[0]"
+/></traversal
+><?templateDesigner expand 1?></subform
+><subform w="11in" h="215.9mm" name="Page2"
+><field name="NOMEN_A" y="35.42mm" x="26.434mm" w="269.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>reverse of d ay form 24 o 8 dash 14, june 94.&#xD;ay p d. l c  version 1.00.&#xD;1. enter nomenclature.</speak
+></assist
+><font typeface="Times New Roman"
+/><traversal
+><traverse ref="MODEL_A[0]"
+/></traversal
+></field
+><field name="MODEL_A" y="35.16mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>2. enter model.</speak
+></assist
+><font typeface="Times New Roman"
+/><traversal
+><traverse ref="SERIALNO_A[0]"
+/></traversal
+></field
+><field name="SERIALNO_A" y="35.16mm" x="177.14mm" w="217.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>3. enter serial number.</speak
+></assist
+><font typeface="Times New Roman"
+/><traversal
+><traverse ref="SYMBOL_B[0]"
+/></traversal
+></field
+><field name="SYMBOL_B" y="57.597mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B" y="57.597mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 15. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B" y="57.597mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 15. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA" y="57.597mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B" y="57.597mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB" y="57.597mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 15. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_1" y="66.275mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_1" y="66.275mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 16. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_1" y="66.275mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 16. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_1" y="66.275mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_1" y="66.275mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_1" y="66.275mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 16. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_2" y="74.953mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_2" y="74.953mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 17. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_2" y="74.953mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 17. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_2" y="74.953mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_2" y="74.953mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_2" y="74.953mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 17. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_3" y="83.843mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_3" y="83.843mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 18. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_3" y="83.843mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 18. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_3" y="83.843mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_3" y="83.843mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_3" y="83.843mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 18. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_4" y="92.522mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_4" y="92.522mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 19. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_4" y="92.522mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 19. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_4" y="92.522mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_4" y="92.522mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_4" y="92.522mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 19. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_5" y="101.2mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_5" y="101.2mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 20. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_5" y="101.2mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 20. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_5" y="101.2mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_5" y="101.2mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_5" y="101.2mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 20. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_6" y="109.667mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_6" y="109.667mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 21. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_6" y="109.667mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 21. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_6" y="109.667mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_6" y="109.667mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_6" y="109.667mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 21. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_7" y="118.557mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_7" y="118.557mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 22. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_7" y="118.557mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 22. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_7" y="118.557mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_7" y="118.557mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_7" y="118.557mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 22. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_8" y="127.235mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_8" y="127.235mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 23. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_8" y="127.235mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 23. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_8" y="127.235mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_8" y="127.235mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_8" y="127.235mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 23. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_9" y="135.913mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_9" y="135.913mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 24. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_9" y="135.913mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 24. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_9" y="135.913mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_9" y="135.913mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_9" y="135.913mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 24. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_10" y="144.592mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_10" y="144.592mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 25. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_10" y="144.592mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 25. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_10" y="144.592mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_10" y="144.592mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_10" y="144.592mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 25. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_11" y="153.058mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_11" y="153.058mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 26. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_11" y="153.058mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 26. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_11" y="153.058mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_11" y="153.058mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_11" y="153.058mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 26. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_12" y="161.948mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_12" y="161.948mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 27. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_12" y="161.948mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 27. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_12" y="161.948mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_12" y="161.948mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_12" y="161.948mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 27. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SYMBOL_B_13" y="170.627mm" x="26.174mm" w="37.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column ay. enter status symbol.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="FAULT_B_13" y="170.627mm" x="40.615mm" w="229.14pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 28. column b. enter fault.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="REASON_B_13" y="170.627mm" x="122.53mm" w="151.74pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><assist
+><speak
+>row 28. column c. enter reason for delay.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_AA_13" y="170.627mm" x="177.14mm" w="62.34pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column d. enter date from d ay form 24 o 4.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="SIGN_B_13" y="170.627mm" x="200.212mm" w="95.94pt" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column e. entry approved enter signature.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><field name="DATE_BB_13" y="170.627mm" x="235.137mm" w="18.288mm" h="11.94pt"
+><ui
+><textEdit hScrollPolicy="off"
+/></ui
+><para hAlign="center"
+/><assist
+><speak
+>row 28. column f. enter date to d ay form 24 o 7.</speak
+></assist
+><font typeface="Times New Roman"
+/></field
+><draw name="T90" x="27mm" y="177.728mm" w="62.442mm" minH="0.151in"
+><value
+><text
+>REVERSE OF DA FORM 2408-14, JUN 1994</text
+></value
+><ui
+><textEdit
+/></ui
+><para vAlign="middle"
+/><font weight="bold" posture="italic" size="8pt" typeface="Arial"
+/></draw
+><traversal
+><traverse operation="first" ref="NOMEN_A[0]"
+/></traversal
+><?templateDesigner expand 0?></subform
+><proto
+/><desc
+><text name="version"
+>1.00</text
+><text name="description"
+>DA FORM 2408-14, JUN 1994</text
+><text name="title"
+>UNCORRECTED FAULT RECORD </text
+><text name="creator"
+>APD</text
+></desc
+><event activity="docReady" ref="$host" name="event__docReady"
+><script contentType="application/x-javascript"
+>
+app.runtimeHighlight = false;
+xfa.host.setFocus(xfa.form.form1.Page1.NOMEN_A);
+</script
+></event
+><event activity="enter" name="event__enter"
+><script contentType="application/x-javascript"
+>
+app.runtimeHighlight = true;
+</script
+></event
+><?templateDesigner Hyphenation excludeInitialCap:1, excludeAllCaps:1, wordCharCnt:7, remainCharCnt:3, pushCharCnt:3?><?templateDesigner expand 1?><?renderCache.subset "Arial" 0 0 ISO-8859-1 4 196 49 0003000F0010001100130014001500160018001A001B001C001E002400250026002700280029002A002C002F003000310032003300350036003700380039003C0044004600480049004A004B004C005000510052005300550056005700580059005C ,-.01235789;ABCDEFGILMNOPRSTUVYacefghimnoprstuvy?><?renderCache.subset "Arial" 1 0 ISO-8859-1 4 88 22 0003000F00100013001400150017001B001C00240026002700280029002D002F003000310032003500370038 ,-012489ACDEFJLMNORTU?><?renderCache.subset "Arial" 0 1 ISO-8859-1 4 116 29 0003000B000C001300150017001A00240027002900300032003500360037004400450046004700480049004A004C005000510052005500570058 ()0247ADFMORSTabcdefgimnortu?><?renderCache.subset "Arial" 1 1 ISO-8859-1 4 84 21 0003000F00100013001400150017001B001C0024002700280029002D0030003100320035003600380039 ,-012489ADEFJMNORSUV?></subform
+><?templateDesigner DefaultPreviewDynamic 1?><?templateDesigner Grid show:0, snap:0, units:0, color:ff8080, origin:(0,0), interval:(125000,125000), objsnap:0, guidesnap:0, pagecentersnap:0?><?templateDesigner SavePDFWithLog 0?><?templateDesigner WidowOrphanControl 0?><?originalXFAVersion http://www.xfa.org/schema/xfa-template/3.3/?><?templateDesigner SaveTaggedPDF 1?><?templateDesigner SavePDFWithEmbeddedFonts 0?><?templateDesigner Rulers horizontal:1, vertical:1, guidelines:1, crosshairs:0?><?templateDesigner Zoom 100?><?templateDesigner FormTargetVersion 33?><?templateDesigner DefaultLanguage JavaScript?><?templateDesigner DefaultRunAt client?><?acrobat JavaScript strictScoping?><?acrobat allowAutosave enabled?><?PDFPrintOptions embedViewerPrefs 1?><?PDFPrintOptions embedPrintOnFormOpen 0?><?PDFPrintOptions scalingPrefs 0?><?PDFPrintOptions enforceScalingPrefs 1?><?PDFPrintOptions paperSource 1?><?PDFPrintOptions duplexMode 1?><?templateDesigner DefaultPreviewType interactive?><?templateDesigner DefaultPreviewPagination simplex?><?templateDesigner XDPPreviewFormat 20?><?templateDesigner DefaultCaptionFontSettings face:Arial;size:8;weight:normal;style:normal?><?templateDesigner DefaultValueFontSettings face:Times New Roman;size:10;weight:normal;style:normal?></template
+>
+endstream
+endobj
+
+23 0 obj
+<<
+/Type /EmbeddedFile
+/Length 5620
+>>
+stream
+
+<localeSet xmlns="http://www.xfa.org/schema/xfa-locale-set/2.7/"
+><locale name="en_CA" desc="English (Canada)"
+><calendarSymbols name="gregorian"
+><monthNames
+><month
+>January</month
+><month
+>February</month
+><month
+>March</month
+><month
+>April</month
+><month
+>May</month
+><month
+>June</month
+><month
+>July</month
+><month
+>August</month
+><month
+>September</month
+><month
+>October</month
+><month
+>November</month
+><month
+>December</month
+></monthNames
+><monthNames abbr="1"
+><month
+>Jan</month
+><month
+>Feb</month
+><month
+>Mar</month
+><month
+>Apr</month
+><month
+>May</month
+><month
+>Jun</month
+><month
+>Jul</month
+><month
+>Aug</month
+><month
+>Sep</month
+><month
+>Oct</month
+><month
+>Nov</month
+><month
+>Dec</month
+></monthNames
+><dayNames
+><day
+>Sunday</day
+><day
+>Monday</day
+><day
+>Tuesday</day
+><day
+>Wednesday</day
+><day
+>Thursday</day
+><day
+>Friday</day
+><day
+>Saturday</day
+></dayNames
+><dayNames abbr="1"
+><day
+>Sun</day
+><day
+>Mon</day
+><day
+>Tue</day
+><day
+>Wed</day
+><day
+>Thu</day
+><day
+>Fri</day
+><day
+>Sat</day
+></dayNames
+><meridiemNames
+><meridiem
+>AM</meridiem
+><meridiem
+>PM</meridiem
+></meridiemNames
+><eraNames
+><era
+>BC</era
+><era
+>AD</era
+></eraNames
+></calendarSymbols
+><datePatterns
+><datePattern name="full"
+>EEEE, MMMM D, YYYY</datePattern
+><datePattern name="long"
+>MMMM D, YYYY</datePattern
+><datePattern name="med"
+>D-MMM-YY</datePattern
+><datePattern name="short"
+>DD/MM/YY</datePattern
+></datePatterns
+><timePatterns
+><timePattern name="full"
+>h:MM:SS A Z</timePattern
+><timePattern name="long"
+>h:MM:SS A Z</timePattern
+><timePattern name="med"
+>h:MM:SS A</timePattern
+><timePattern name="short"
+>h:MM A</timePattern
+></timePatterns
+><dateTimeSymbols
+>GyMdkHmsSEDFwWahKzZ</dateTimeSymbols
+><numberPatterns
+><numberPattern name="numeric"
+>z,zz9.zzz</numberPattern
+><numberPattern name="currency"
+>$z,zz9.99</numberPattern
+><numberPattern name="percent"
+>z,zz9%</numberPattern
+></numberPatterns
+><numberSymbols
+><numberSymbol name="decimal"
+>.</numberSymbol
+><numberSymbol name="grouping"
+>,</numberSymbol
+><numberSymbol name="percent"
+>%</numberSymbol
+><numberSymbol name="minus"
+>-</numberSymbol
+><numberSymbol name="zero"
+>0</numberSymbol
+></numberSymbols
+><currencySymbols
+><currencySymbol name="symbol"
+>$</currencySymbol
+><currencySymbol name="isoname"
+>CAD</currencySymbol
+><currencySymbol name="decimal"
+>.</currencySymbol
+></currencySymbols
+><typefaces
+><typeface name="Myriad Pro"
+/><typeface name="Minion Pro"
+/><typeface name="Courier Std"
+/><typeface name="Adobe Pi Std"
+/><typeface name="Adobe Hebrew"
+/><typeface name="Adobe Arabic"
+/><typeface name="Adobe Thai"
+/><typeface name="Kozuka Gothic Pro-VI M"
+/><typeface name="Kozuka Mincho Pro-VI R"
+/><typeface name="Adobe Ming Std L"
+/><typeface name="Adobe Song Std L"
+/><typeface name="Adobe Myungjo Std M"
+/></typefaces
+></locale
+><locale name="en_US" desc="English (United States)"
+><calendarSymbols name="gregorian"
+><monthNames
+><month
+>January</month
+><month
+>February</month
+><month
+>March</month
+><month
+>April</month
+><month
+>May</month
+><month
+>June</month
+><month
+>July</month
+><month
+>August</month
+><month
+>September</month
+><month
+>October</month
+><month
+>November</month
+><month
+>December</month
+></monthNames
+><monthNames abbr="1"
+><month
+>Jan</month
+><month
+>Feb</month
+><month
+>Mar</month
+><month
+>Apr</month
+><month
+>May</month
+><month
+>Jun</month
+><month
+>Jul</month
+><month
+>Aug</month
+><month
+>Sep</month
+><month
+>Oct</month
+><month
+>Nov</month
+><month
+>Dec</month
+></monthNames
+><dayNames
+><day
+>Sunday</day
+><day
+>Monday</day
+><day
+>Tuesday</day
+><day
+>Wednesday</day
+><day
+>Thursday</day
+><day
+>Friday</day
+><day
+>Saturday</day
+></dayNames
+><dayNames abbr="1"
+><day
+>Sun</day
+><day
+>Mon</day
+><day
+>Tue</day
+><day
+>Wed</day
+><day
+>Thu</day
+><day
+>Fri</day
+><day
+>Sat</day
+></dayNames
+><meridiemNames
+><meridiem
+>AM</meridiem
+><meridiem
+>PM</meridiem
+></meridiemNames
+><eraNames
+><era
+>BC</era
+><era
+>AD</era
+></eraNames
+></calendarSymbols
+><datePatterns
+><datePattern name="full"
+>EEEE, MMMM D, YYYY</datePattern
+><datePattern name="long"
+>MMMM D, YYYY</datePattern
+><datePattern name="med"
+>MMM D, YYYY</datePattern
+><datePattern name="short"
+>M/D/YY</datePattern
+></datePatterns
+><timePatterns
+><timePattern name="full"
+>h:MM:SS A Z</timePattern
+><timePattern name="long"
+>h:MM:SS A Z</timePattern
+><timePattern name="med"
+>h:MM:SS A</timePattern
+><timePattern name="short"
+>h:MM A</timePattern
+></timePatterns
+><dateTimeSymbols
+>GyMdkHmsSEDFwWahKzZ</dateTimeSymbols
+><numberPatterns
+><numberPattern name="numeric"
+>z,zz9.zzz</numberPattern
+><numberPattern name="currency"
+>$z,zz9.99|($z,zz9.99)</numberPattern
+><numberPattern name="percent"
+>z,zz9%</numberPattern
+></numberPatterns
+><numberSymbols
+><numberSymbol name="decimal"
+>.</numberSymbol
+><numberSymbol name="grouping"
+>,</numberSymbol
+><numberSymbol name="percent"
+>%</numberSymbol
+><numberSymbol name="minus"
+>-</numberSymbol
+><numberSymbol name="zero"
+>0</numberSymbol
+></numberSymbols
+><currencySymbols
+><currencySymbol name="symbol"
+>$</currencySymbol
+><currencySymbol name="isoname"
+>USD</currencySymbol
+><currencySymbol name="decimal"
+>.</currencySymbol
+></currencySymbols
+><typefaces
+><typeface name="Myriad Pro"
+/><typeface name="Minion Pro"
+/><typeface name="Courier Std"
+/><typeface name="Adobe Pi Std"
+/><typeface name="Adobe Hebrew"
+/><typeface name="Adobe Arabic"
+/><typeface name="Adobe Thai"
+/><typeface name="Kozuka Gothic Pro-VI M"
+/><typeface name="Kozuka Mincho Pro-VI R"
+/><typeface name="Adobe Ming Std L"
+/><typeface name="Adobe Song Std L"
+/><typeface name="Adobe Myungjo Std M"
+/></typefaces
+></locale
+></localeSet
+>
+endstream
+endobj
+
+25 0 obj
+<<
+/Type /EmbeddedFile
+/Length 2438
+>>
+stream
+
+<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"
+><xfa:data
+><form1
+><Page1
+><NOMEN_A
+/><MODEL_A
+/><SERIALNO_A
+/><SYMBOL_A
+/><FAULT_A
+/><REASON_A
+/><DATE_A
+/><SIGN_A
+/><DATE_B
+/><SYMBOL_A_1
+/><FAULT_A_1
+/><REASON_A_1
+/><DATE_A_1
+/><SIGN_A_1
+/><DATE_B_1
+/><SYMBOL_A_2
+/><FAULT_A_2
+/><REASON_A_2
+/><DATE_A_2
+/><SIGN_A_2
+/><DATE_B_2
+/><SYMBOL_A_3
+/><FAULT_A_3
+/><REASON_A_3
+/><DATE_A_3
+/><SIGN_A_3
+/><DATE_B_3
+/><SYMBOL_A_4
+/><FAULT_A_4
+/><REASON_A_4
+/><DATE_A_4
+/><SIGN_A_4
+/><DATE_B_4
+/><SYMBOL_A_5
+/><FAULT_A_5
+/><REASON_A_5
+/><DATE_A_5
+/><SIGN_A_5
+/><DATE_B_5
+/><SYMBOL_A_6
+/><FAULT_A_6
+/><REASON_A_6
+/><DATE_A_6
+/><SIGN_A_6
+/><DATE_B_6
+/><SYMBOL_A_7
+/><FAULT_A_7
+/><REASON_A_7
+/><DATE_A_7
+/><SIGN_A_7
+/><DATE_B_7
+/><SYMBOL_A_8
+/><FAULT_A_8
+/><REASON_A_8
+/><DATE_A_8
+/><SIGN_A_8
+/><DATE_B_8
+/><SYMBOL_A_9
+/><FAULT_A_9
+/><REASON_A_9
+/><DATE_A_9
+/><SIGN_A_9
+/><DATE_B_9
+/><SYMBOL_A_10
+/><FAULT_A_10
+/><REASON_A_10
+/><DATE_A_10
+/><SIGN_A_10
+/><DATE_B_10
+/><SYMBOL_A_11
+/><FAULT_A_11
+/><REASON_A_11
+/><DATE_A_11
+/><SIGN_A_11
+/><DATE_B_11
+/><SYMBOL_A_12
+/><FAULT_A_12
+/><REASON_A_12
+/><DATE_A_12
+/><SIGN_A_12
+/><DATE_B_12
+/><SYMBOL_A_13
+/><FAULT_A_13
+/><REASON_A_13
+/><DATE_A_13
+/><SIGN_A_13
+/><DATE_B_13
+/></Page1
+><Page2
+><NOMEN_A
+/><MODEL_A
+/><SERIALNO_A
+/><SYMBOL_B
+/><FAULT_B
+/><REASON_B
+/><DATE_AA
+/><SIGN_B
+/><DATE_BB
+/><SYMBOL_B_1
+/><FAULT_B_1
+/><REASON_B_1
+/><DATE_AA_1
+/><SIGN_B_1
+/><DATE_BB_1
+/><SYMBOL_B_2
+/><FAULT_B_2
+/><REASON_B_2
+/><DATE_AA_2
+/><SIGN_B_2
+/><DATE_BB_2
+/><SYMBOL_B_3
+/><FAULT_B_3
+/><REASON_B_3
+/><DATE_AA_3
+/><SIGN_B_3
+/><DATE_BB_3
+/><SYMBOL_B_4
+/><FAULT_B_4
+/><REASON_B_4
+/><DATE_AA_4
+/><SIGN_B_4
+/><DATE_BB_4
+/><SYMBOL_B_5
+/><FAULT_B_5
+/><REASON_B_5
+/><DATE_AA_5
+/><SIGN_B_5
+/><DATE_BB_5
+/><SYMBOL_B_6
+/><FAULT_B_6
+/><REASON_B_6
+/><DATE_AA_6
+/><SIGN_B_6
+/><DATE_BB_6
+/><SYMBOL_B_7
+/><FAULT_B_7
+/><REASON_B_7
+/><DATE_AA_7
+/><SIGN_B_7
+/><DATE_BB_7
+/><SYMBOL_B_8
+/><FAULT_B_8
+/><REASON_B_8
+/><DATE_AA_8
+/><SIGN_B_8
+/><DATE_BB_8
+/><SYMBOL_B_9
+/><FAULT_B_9
+/><REASON_B_9
+/><DATE_AA_9
+/><SIGN_B_9
+/><DATE_BB_9
+/><SYMBOL_B_10
+/><FAULT_B_10
+/><REASON_B_10
+/><DATE_AA_10
+/><SIGN_B_10
+/><DATE_BB_10
+/><SYMBOL_B_11
+/><FAULT_B_11
+/><REASON_B_11
+/><DATE_AA_11
+/><SIGN_B_11
+/><DATE_BB_11
+/><SYMBOL_B_12
+/><FAULT_B_12
+/><REASON_B_12
+/><DATE_AA_12
+/><SIGN_B_12
+/><DATE_BB_12
+/><SYMBOL_B_13
+/><FAULT_B_13
+/><REASON_B_13
+/><DATE_AA_13
+/><SIGN_B_13
+/><DATE_BB_13
+/></Page2
+></form1
+></xfa:data
+></xfa:datasets
+>
+endstream
+endobj
+
+27 0 obj
+<<
+/Type /EmbeddedFile
+/Length 3191
+>>
+stream
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.2-c001 63.139439, 2011/06/07-10:39:26        "
+><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+      <rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about=""
+>
+         <xmp:MetadataDate
+>2014-09-29T20:13:37Z</xmp:MetadataDate
+>
+         <xmp:CreatorTool
+>Adobe LiveCycle Designer 11.0</xmp:CreatorTool
+>
+         <xmp:ModifyDate
+>2014-08-23T22:35:33-04:00</xmp:ModifyDate
+>
+         <xmp:CreateDate
+>2014-08-23T18:50:23-04:00</xmp:CreateDate
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:pdf="http://ns.adobe.com/pdf/1.3/" rdf:about=""
+>
+         <pdf:Producer
+>Adobe LiveCycle Designer 11.0</pdf:Producer
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" rdf:about=""
+>
+         <xmpMM:DocumentID
+>uuid:26eb1005-759a-48a1-90e7-6df8074a432e</xmpMM:DocumentID
+>
+         <xmpMM:InstanceID
+>uuid:16ee5d12-7982-4ed7-a76b-1d2fe3fe7a68</xmpMM:InstanceID
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:about=""
+>
+         <dc:format
+>application/pdf</dc:format
+>
+         <dc:description
+>
+            <rdf:Alt
+>
+               <rdf:li xml:lang="x-default"
+>DA FORM 2408-14, JUN 1994</rdf:li
+>
+            </rdf:Alt
+>
+         </dc:description
+>
+         <dc:creator
+>
+            <rdf:Seq
+>
+               <rdf:li
+>APD</rdf:li
+>
+            </rdf:Seq
+>
+         </dc:creator
+>
+         <dc:title
+>
+            <rdf:Alt
+>
+               <rdf:li xml:lang="x-default"
+>UNCORRECTED FAULT RECORD </rdf:li
+>
+            </rdf:Alt
+>
+         </dc:title
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/" rdf:about=""
+>
+         <pdfx:Doc_Num
+>2408-14</pdfx:Doc_Num
+>
+         <pdfx:Prefix
+>DA</pdfx:Prefix
+>
+         <pdfx:Scope
+>Army</pdfx:Scope
+>
+         <pdfx:Suffix
+/>
+         <pdfx:Form_Month
+>Jun</pdfx:Form_Month
+>
+         <pdfx:Form_Year
+>1994</pdfx:Form_Year
+>
+         <pdfx:PIN
+>001401</pdfx:PIN
+>
+         <pdfx:Pub_ID
+>8</pdfx:Pub_ID
+>
+         <pdfx:Pub_Type
+>PAM</pdfx:Pub_Type
+>
+         <pdfx:Pub_Series
+>750</pdfx:Pub_Series
+>
+         <pdfx:Pre_Dir
+>PAM 750-8</pdfx:Pre_Dir
+>
+         <pdfx:Pub_Day
+>25</pdfx:Pub_Day
+>
+         <pdfx:Pub_Month
+>Feb</pdfx:Pub_Month
+>
+         <pdfx:Pub_Year
+>2005</pdfx:Pub_Year
+>
+         <pdfx:Proponent
+>DCS, G-4</pdfx:Proponent
+>
+         <pdfx:Form_Version
+>1.00</pdfx:Form_Version
+>
+         <pdfx:Unicode
+>CD</pdfx:Unicode
+>
+         <pdfx:PA_Code
+>No</pdfx:PA_Code
+>
+         <pdfx:Distrubution
+>Unrestricted</pdfx:Distrubution
+>
+         <pdfx:OMB_Number
+/>
+         <pdfx:OMB_Expire
+/>
+         <pdfx:Security_Class
+>UC</pdfx:Security_Class
+>
+         <pdfx:Product_Type
+>Form</pdfx:Product_Type
+>
+         <pdfx:Signature
+>No</pdfx:Signature
+>
+      </rdf:Description
+>
+      <rdf:Description xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/" rdf:about=""
+>
+         <desc:version rdf:parseType="Resource"
+>
+            <rdf:value
+>1.00</rdf:value
+>
+            <desc:ref
+>/template/subform[1]</desc:ref
+>
+         </desc:version
+>
+      </rdf:Description
+>
+   </rdf:RDF
+></x:xmpmeta
+>
+endstream
+endobj
+
+29 0 obj
+<<
+/Type /EmbeddedFile
+/Length 80
+>>
+stream
+<xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve"
+><annots
+/></xfdf
+>
+endstream
+endobj
+
+31 0 obj
+<<
+/Type /EmbeddedFile
+/Length 200
+>>
+stream
+<PDFSecurity xmlns="http://ns.adobe.com/xtd/" print="1" printHighQuality="1" change="0" modifyAnnots="1" formFieldFilling="1" documentAssembly="0" contentCopy="0" accessibleContent="1" metadata="1"
+/>
+endstream
+endobj
+
+33 0 obj
+<<
+/Type /EmbeddedFile
+/Length 56
+>>
+stream
+<form xmlns="http://www.xfa.org/schema/xfa-form/2.8/"
+/>
+endstream
+endobj
+
+35 0 obj
+<<
+/Type /EmbeddedFile
+/Length 10
+>>
+stream
+</xdp:xdp>
+endstream
+endobj
+
+55 0 obj
+<<
+/Length 2952
+>>
+stream
+BT
+/Content <</MCID 0 >>BDC 
+0 0 0 rg
+/RelativeColorimetric ri
+/TT0 1 Tf
+8 0 0 8 78.554 475.991 Tm
+(STATUS)Tj
+EMC 
+/Content <</MCID 1 >>BDC 
+-0.153 -1.008 Td
+(SYMBOL )Tj
+0 -1.203 TD
+(      )Tj
+/TT1 1 Tf
+1.667 0 Td
+(a)Tj
+EMC 
+/Content <</MCID 2 >>BDC 
+/TT0 1 Tf
+6 0 0 6 677.886 100.586 Tm
+(APD LC v1.00)Tj
+EMC 
+/Content <</MCID 3 >>BDC 
+8 0 0 8 217.8 467.923 Tm
+(FAULT )Tj
+T*
+(    )Tj
+/TT1 1 Tf
+1.111 0 Td
+(b)Tj
+EMC 
+/Content <</MCID 4 >>BDC 
+/TT0 1 Tf
+19.58 1.203 Td
+(REASON FOR DELAY )Tj
+T*
+(                 )Tj
+/TT1 1 Tf
+4.723 0 Td
+(c)Tj
+EMC 
+/Content <</MCID 5 >>BDC 
+/TT0 1 Tf
+12.755 3.337 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 6 >>BDC 
+/TT1 1 Tf
+-2.598 -1.133 Td
+(\(From DA FORM)Tj
+EMC 
+/Content <</MCID 7 >>BDC 
+2.679 -1.004 Td
+(2404\) )Tj
+0 -1.2 TD
+(   d)Tj
+EMC 
+/Content <</MCID 8 >>BDC 
+/TT0 1 Tf
+6.966 2.212 Td
+(ENTRY APPROVED)Tj
+EMC 
+/Content <</MCID 9 >>BDC 
+12.906 1.125 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 10 >>BDC 
+/TT1 1 Tf
+-1.503 -1.145 Td
+(\(To DA Form)Tj
+EMC 
+/Content <</MCID 11 >>BDC 
+1.575 -0.992 Td
+(2407\) )Tj
+T*
+(    f)Tj
+EMC 
+/Content <</MCID 12 >>BDC 
+/TT0 1 Tf
+-75.969 7.314 Td
+(1. NOMENCLATURE)Tj
+EMC 
+/Content <</MCID 13 >>BDC 
+33.975 0 Td
+(2. MODEL)Tj
+EMC 
+/Content <</MCID 14 >>BDC 
+19.422 0 Td
+(3. SERIAL NUMBER)Tj
+EMC 
+/Content <</MCID 15 >>BDC 
+/TT1 1 Tf
+11.475 -6.042 Td
+(\(Signature\) )Tj
+T*
+(         e  )Tj
+EMC 
+ET
+0 0 0 RG
+0 i 1.62 w 2 J 
+q 1 0 0 1 72 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 527.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 720.601 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 110.469 cm
+0 0 m
+648 0 l
+S
+Q
+0.5 w 
+q 1 0 0 1 72.601 356.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 282.671 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 233.47 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 184.269 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 664.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 345.6 527.471 cm
+0 0 m
+0 -416.94 l
+S
+Q
+q 1 0 0 1 500.4 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72.601 493.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 135.071 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 381.07 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 258.069 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 113.4 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 454.87 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 405.669 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 331.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 208.871 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 430.271 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 307.27 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 565.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 159.67 cm
+0 0 m
+648 0 l
+S
+Q
+BT
+/Content <</MCID 16 >>BDC 
+1 i 
+/TT0 1 Tf
+8 0 0 8 415.536 89.685 Tm
+(For use of this form, see DA PAM 738-750; the proponent agency is ODCSLOG)
+Tj
+EMC 
+/Content <</MCID 17 >>BDC 
+/TT2 1 Tf
+10 0 0 10 415.534 99.664 Tm
+(UNCORRECTED FAULT RECORD)Tj
+EMC 
+/Content <</MCID 18 >>BDC 
+/TT0 1 Tf
+8 0 0 8 75.334 88.631 Tm
+(EDITION OF OCT 91 IS OBSOLETE)Tj
+EMC 
+/Content <</MCID 19 >>BDC 
+/TT2 1 Tf
+10 0 0 10 75.983 99.664 Tm
+(DA FORM 2408-14, JUN 1994)Tj
+EMC 
+ET
+endstream
+endobj
+
+58 0 obj
+<<
+/Length 2615
+>>
+stream
+BT
+/Content <</MCID 0 >>BDC 
+0 0 0 rg
+/RelativeColorimetric ri
+/TT0 1 Tf
+8 0 0 8 78.554 475.991 Tm
+(STATUS)Tj
+EMC 
+/Content <</MCID 1 >>BDC 
+-0.153 -1.008 Td
+(SYMBOL )Tj
+0 -1.203 TD
+(      )Tj
+/TT1 1 Tf
+1.667 0 Td
+(a)Tj
+EMC 
+/Content <</MCID 2 >>BDC 
+/TT0 1 Tf
+6 0 0 6 677.886 100.586 Tm
+(APD LC v1.00)Tj
+EMC 
+/Content <</MCID 3 >>BDC 
+8 0 0 8 217.8 467.923 Tm
+(FAULT )Tj
+T*
+(    )Tj
+/TT1 1 Tf
+1.111 0 Td
+(b)Tj
+EMC 
+/Content <</MCID 4 >>BDC 
+/TT0 1 Tf
+19.58 1.203 Td
+(REASON FOR DELAY )Tj
+T*
+(                 )Tj
+/TT1 1 Tf
+4.723 0 Td
+(c)Tj
+EMC 
+/Content <</MCID 5 >>BDC 
+/TT0 1 Tf
+12.755 3.337 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 6 >>BDC 
+/TT1 1 Tf
+-2.598 -1.133 Td
+(\(From DA FORM)Tj
+EMC 
+/Content <</MCID 7 >>BDC 
+2.679 -1.004 Td
+(2404\) )Tj
+0 -1.2 TD
+(   d)Tj
+EMC 
+/Content <</MCID 8 >>BDC 
+/TT0 1 Tf
+6.966 2.212 Td
+(ENTRY APPROVED)Tj
+EMC 
+/Content <</MCID 9 >>BDC 
+12.906 1.125 Td
+(DATE)Tj
+EMC 
+/Content <</MCID 10 >>BDC 
+/TT1 1 Tf
+-1.503 -1.145 Td
+(\(To DA Form)Tj
+EMC 
+/Content <</MCID 11 >>BDC 
+1.575 -0.992 Td
+(2407\) )Tj
+T*
+(    f)Tj
+EMC 
+/Content <</MCID 12 >>BDC 
+/TT0 1 Tf
+-75.969 7.314 Td
+(1. NOMENCLATURE)Tj
+EMC 
+/Content <</MCID 13 >>BDC 
+33.975 0 Td
+(2. MODEL)Tj
+EMC 
+/Content <</MCID 14 >>BDC 
+19.422 0 Td
+(3. SERIAL NUMBER)Tj
+EMC 
+/Content <</MCID 15 >>BDC 
+/TT1 1 Tf
+11.475 -6.042 Td
+(\(Signature\) )Tj
+T*
+(         e  )Tj
+EMC 
+ET
+0 0 0 RG
+0 i 1.62 w 2 J 
+q 1 0 0 1 72 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 527.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 720.601 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72 110.469 cm
+0 0 m
+648 0 l
+S
+Q
+0.5 w 
+q 1 0 0 1 72.601 356.471 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 282.671 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 233.47 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 184.269 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 664.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 345.6 527.471 cm
+0 0 m
+0 -416.94 l
+S
+Q
+q 1 0 0 1 500.4 527.471 cm
+0 0 m
+0 -416.88 l
+S
+Q
+q 1 0 0 1 72.601 493.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 135.071 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 381.07 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 258.069 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 113.4 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 454.87 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 405.669 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 331.869 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 208.871 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 430.271 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 72.601 307.27 cm
+0 0 m
+648 0 l
+S
+Q
+q 1 0 0 1 565.801 493.869 cm
+0 0 m
+0 -383.04 l
+S
+Q
+q 1 0 0 1 72.601 159.67 cm
+0 0 m
+648 0 l
+S
+Q
+BT
+/Content <</MCID 16 >>BDC 
+1 i 
+/TT2 1 Tf
+8 0 0 8 76.535 100.452 Tm
+(REVERSE OF DA FORM 2408-14, JUN 1994)Tj
+EMC 
+ET
+endstream
+endobj
+
+241 0 obj
+<<
+/Length 1168
+>>
+stream
+if (typeof(this.ADBE) == "undefined")
+   this.ADBE = new Object();
+ADBE.LANGUAGE = "ENU";
+ADBE.Viewer_string_Title = "Adobe Acrobat";
+ADBE.Viewer_string_Update_Desc = "Adobe Interactive Forms Update";
+ADBE.Reader_string_Need_New_Version_Msg = "This PDF file requires a newer version of Adobe Reader. Press OK to download the latest version or see your system administrator.";
+ADBE.Viewer_string_Need_New_Version_Msg_Old = "This PDF requires a newer version of Acrobat. Copy this URL and paste into your browser or see your sys admin.";
+ADBE.Viewer_string_Need_New_Version_Msg = "This PDF form requires a newer version of Adobe Acrobat. Without a newer version, the form may display, but may not work properly. Some form elements might not be visible at all. Click OK for more information on obtaining the latest version of Adobe Reader.";
+ADBE.Viewer_string_Need_New_Version_Msg_Updater = "This PDF form requires a newer version of Adobe Acrobat. Without a newer version, the form may display, but may not work properly. Some form elements might not be visible at all. If an internet connection is available, clicking OK will download and install the latest version.";
+endstream
+endobj
+
+243 0 obj
+<<
+/Length 901
+>>
+stream
+if (typeof(ADBE.Reader_Value_Asked) == "undefined")
+   ADBE.Reader_Value_Asked = false;
+if (typeof(ADBE.Viewer_Value_Asked) == "undefined")
+   ADBE.Viewer_Value_Asked = false;
+if (typeof(ADBE.Reader_Need_Version) == "undefined" || ADBE.Reader_Need_Version < 9.0)
+{
+   ADBE.Reader_Need_Version = 9.0;
+   ADBE.Reader_Value_New_Version_URL = "http://cgi.adobe.com/special/acrobat/update";
+   ADBE.SYSINFO = "?p=" + app.platform + "&v=" + app.viewerVersion + "&l=" + app.language + "&c=" + app.viewerType + "&r=" + ADBE.Reader_Need_Version;
+}
+if (typeof(ADBE.Viewer_Need_Version) == "undefined" || ADBE.Viewer_Need_Version < 9.0)
+{
+   ADBE.Viewer_Need_Version = 9.0;
+   ADBE.Viewer_Value_New_Version_URL = "http://cgi.adobe.com/special/acrobat/update";
+   ADBE.SYSINFO = "?p=" + app.platform + "&v=" + app.viewerVersion + "&l=" + app.language + "&c=" + app.viewerType + "&r=" + ADBE.Viewer_Need_Version;
+}
+endstream
+endobj
+
+245 0 obj
+<<
+/Length 1362
+>>
+stream
+if (typeof(xfa_installed) == "undefined" || typeof(xfa_version) == "undefined" || xfa_version < 2.8)
+{
+   if (app.viewerType == "Reader")
+   {
+      if (ADBE.Reader_Value_Asked != true)
+      {
+         if (app.viewerVersion < 9.0)
+         {
+            if (app.alert(ADBE.Reader_string_Need_New_Version_Msg, 1, 1) == 1)
+               this.getURL(ADBE.Reader_Value_New_Version_URL + ADBE.SYSINFO, false);
+            ADBE.Reader_Value_Asked = true;
+         }
+         else if (app.alert(ADBE.Viewer_string_Need_New_Version_Msg_Updater, 1, 1) == 1)
+            app.findComponent({cType:"Plugin", cName:"XFA", cVer:"2.8"});
+      }
+   }
+   else
+   {
+      if (ADBE.Viewer_Value_Asked != true)
+      {
+         if (app.viewerVersion < 7.0)
+            app.response({cQuestion: ADBE.Viewer_string_Need_New_Version_Msg_Old, cDefault: ADBE.Viewer_Value_New_Version_URL + ADBE.SYSINFO, cTitle: ADBE.Viewer_string_Title});
+		   else if (app.viewerVersion < 9.0)
+         {
+            if (app.alert(ADBE.Viewer_string_Need_New_Version_Msg, 1, 1) == 1)
+               app.launchURL(ADBE.Viewer_Value_New_Version_URL + ADBE.SYSINFO, true);
+         }
+         else if (app.alert(ADBE.Viewer_string_Need_New_Version_Msg_Updater, 1, 1) == 1)
+            app.findComponent({cType:"Plugin", cName:"XFA", cVer:"2.8"});
+         ADBE.Viewer_Value_Asked = true;
+      }
+   }
+}
+endstream
+endobj
+
+673 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 409
+/Length 7089
+>>
+stream
+xœí\is7’ıÎ_Qûa¨Ø‘‰ûp8!‘âÉ
+’öÌ®Ã¡@(©×$›ÑlÚÒşú}	d5›uØšc—”ª«
+@%@¾‡LT7ä 5h©=H)Ã`iENHô8é0œ¢â ò¤¤å,Õ`„ÇYVYÈ1ƒ3
+…íà,
+I7x‘ï” s”ÂÙ›AœôptF>•ƒ\Må¢4•‹aĞ(´utFº§3ÒQ>"QÇ!Hç¡ÌtŒƒAÕÁ;=…‹@j’R }ˆeĞŞ(Z5j3hst¨Û ¥1Ø0¨*¤pƒ…"@šEËñD{éÒĞl\x?X´Gzt‘uh ¦OOA¸p¢]øõ*­ ²ƒmP5t£²jøâ‹½Gyµ<\®Î06b8ÚÙ{òz]Ï/ËóË}ğøI»xœ.ëuE9ÃüÌo•ü¶şRO‡°óå—ôïiZıüÕù´lÑM-ÃzuU{f]§’Öi0½ºgé¬^ÂÚÍóô7oêêìVÑn! ¯OVµ-—kIK=ysQ‡½}ˆ;]¾ÜÙûaQ­«ç«:ÕU=Ïµ·ààêâ´¾ø|xº¸øvyşòIyYÑ¨¹ÊuøqØ{¾Zœ¯s:]œ¿~Bõ‹üóÉ*½yüæùÁáñâ¿ë¦øßzæjıj¹v=?x°³·¿ªi¾8Hë:ì|Á4-ƒJ?æBüa.×+Ë±ß.~©ûoòiêåâåy]Áâ?(x°¸D…ã	v¿?_UÜ/òºÊ\æÏ®Î†]…JJƒ$ÃO—çëWÃî×WçsÊ<d»*æÄÿ¨	ÈéÁ§Ër­´rÂ
+‹³°ñ?‘ùİÓÇ/¼¾X¬Ï·¨w„štûüÑ‹ıeAÖ³%İ}õlØÔnIw«úâ`rÏ=¼COœ¯QÕ£v³,W¢¾8|rx(€n!œÁá„P8ïãˆ8î‘§®qxÃÒ¼B?BŞa?œïÏP~+kùù'8£¬£2½¬	ı~S/Õõ¤ËPÒ'~97`ı¢™á.õloÕÅò¼¯ÑÊıã?ÿş:ùùÕøâ ½Á€Y¾ûê`Ø|ÍÃvXGN8®«ÌwêsJ¯}É÷}¡	É;ÎKÊ}´:{Cw5_­ë7/öOÓ%„|¿O‰0®´¾ZÍƒu|5şWÍ¤ä£áğ»£§[Ò‡¯¿6°i_Mm¸py²XÃHw¿¶ÿİÑÑ“ı“'Ãá£ï¿=póİÑÁ€"ßŸ/r³†} ‚Aé»{ª§¿ °'>^RÉƒ£†ÌC4»“Ìj‘N>^–¯ åE~zBüß ~E‰r;ñº¬ÚJ¦{¦²V¯d¢9Y€hÕ_–géüù1³-‡YëpQOË%˜@62"
+@Ÿ¦——ƒÚÙûËá#äí^ ¾gãi}€Ù©ÛÍËóiñ÷±ß¯ëÙÅ)ğô İSN—`•z\×HÒ=‰ğ²®/‘b{Êë³‹3P#Xîë©L¸c©ÄA<¬0“öÄ‰,nĞ,óby¹fİ´å& aVEÓ†âëôK:Î«ÅÅš&5n9eì/¯0hã7‹Öºq.ÍtÜf9ÏÏ|¤i
+Ü’òM…Ìâ`ßÆÕ4)ŞJzV_¯¿©oĞ}ngïhyZŸ¦š2·øü&×Ïòişis‡µ‘Ãôˆ¹÷ş¼8„YiN ]]®÷_.¢›˜¶uXØ°q|›¸ˆ²¶acİ49ã“N³fôôj(ëWÔQ@çßõP~	†ßÀ¿±pè!^ÑLßóÚ4Ì¦<é˜ŸùĞ1Ë!óAIô¶Õµ}8r4'«ëÁõ´<¤Èie‘Neçr›çø:bhZ§Ïzoô`½èÜœ¤­3¥Ó5Ûm¥3õÏœ7­¶kún÷­& M_jô{†Ça.'1iÜè¸–@­ØÜĞ#­Z+67ô$çÓÓ½ğüÔ,:¦•`±›N¹5h¤ìüŒàµg½HyN³–¼j¤ÃûÜÉò7¾pª›ÁCyÀî:šÒ›‘İ:ææÎÇæ!º¾u²~»Ì¶•±e¼Ëjê[s«şÛÖ°}PÇÜ™¾em?½¡>…›ì=7İsÓ=7İsÓÿ7}ºçäşÙÙ©§µ7Æ„ÆMFùWc§Mù-vêğ¡u+6”÷Ò#©[÷ï£§mƒ2îšN¶)d[áÍ5é€ƒòéî@r“#nÒŒçg6œ4*×ÏoÑ•İf£ßHO¬âf¼î¦'¾ùhzrŸHOÚ=İfŸùøÇ §­Áx=½×ü™ŞJŸåâü.zú^ò÷¼tÏK÷¼tÏK]^¢µÄº^äô^fºæ|Ê$ó–Ä·$?ç…Oâ¼;éoy(ÛQ`Äu˜Ñ(y2ˆk¦<g6åÕİlAú}ÇÆ8 c>•¼a€s4HÆ0çÌ¹›H‘¯=ÓÄüüì{Ïy„ìßŠå1t½}Ş´YÜÃÔ¤[í›uÜî“mÊ#™†Ş€Ò5`FnXGsŸÎå6ô4¾æQëo3Ş<J­–->Û0^ä UólAwÚªşÆmiàé…¦w3˜ÓšÊ3áQY.O„gìÙQºänÙšrÍÖİ>æ©÷­ |›DçÙïéúÎ<æ›¹ÓnT÷]éoñİûLßÄBcÃwüÀô¥+6o †/¦:Mı]˜ÃÙch\=*ìˆ3†Ù–ö&E:½C¯ìwlĞÒìX§Ä2:ìhx0;7ynGÊVeüã°û/ôªùóÏ$¶·–û¯~>^¯@~—è]x{ÇqG™ÒŠ
+¨›ÔuzCùâ/‡ö_Õüóz‰¾y7ÒŞ=Ÿ/×—ôJ½qè>È±S/¿í¯–—¯¡!õ†dE}ò´–Eº3§¿í˜ßcÕËåÕj~½yçur"6/ªNNäæ%ÖÉ‰šßs}Ùß1æãºno¨Aæõõº+¿w´\Ó{[1¿ïÕ^RÂõ›ÛÍô·›şÍŸÒÌîjçã7ëz”Î_Ö¦/HFX@Æá3OZoZş…ôXD•‚3!¸É‹ËòB%ä´\úJ†„°ïˆ²V¢"KÉ$¬ï”@¬' E‰R}C#ÛY«˜èA’L¯Ù•u¹Bz¹C¤wñTØN[: 6F8ˆÃ4oµ– ½tŸsrŠñÎºÉ¯¼…[h @tÕiUQ¾ ü¸)?¢ĞÎ79å¬ÛOYøˆ¸s.:º¢Ú"ö›§5uàiã­»û)!+)(ŒkJ>kmµ±©åª–õuà£ı³Ôƒ2Š÷öÁ'µ	cH·{P¦OkéYôiñzîK“BGàÓÉ–g ;ôĞãvïhèa•í¨÷Õ­Ş‚“«JĞ·•pG¦‚{—Õ§êqÿ¬«¤½“H7MŠmZ”hZ/Mï´%&S¡4Ë•àh…OØj€ö2xcå¨
+t*jL^›P]‰Rq„Ö£V^—É¦¬ŠÉ»lê˜Jœ‚0£¯Jg5fás4“®.f=BR§R#Ä:#¦ÅHw‡ş”&Z•'9:grjÔÉ _âäƒ(cšÆ0ù¤ÆšalJ@I_L²“KS²J–¬&úÑ•‚ÔUö¦”Kã€Àœ£÷¦VáàæÙ\œó4*Q“OÁ´ ´À¡n˜•Ic $ŒB´3ìBğhÊ"&Œ¨iØõÄ3ædQ4Ö…Ënõ¼šZ¿CŒ†ËJHAk…”O0`:8%F ÿ„NjRlC¹¬ª»¶Ãfs®(i· ô£#¦*ò¦j‘œHgE³3x®Åœ‹TİòZ‰±ÜÑôå¥©}R/|v~òÄbİödÂg¶°hoÉR}CÆ|"ËV€;Xr¤v^†¶áN%Éş‘KË°yÍ( ÌZ:nâIÅ¢cƒ½«§0quùôÔ-é¾U]	ß[8Ó½¿}Ãœ‘şZÊ† §é5#ZµšI~Ã7éµáVÆ“l=÷SeKoÛÙ¾ÚŒÔhÑLä¥6C½wşÍ¦É¾5à9Æ6”,ƒ©\†1ÕQMÀ@“ÒÓ8ª¬«Õcœb(ŞC)¢¶ƒR*d¤fÌ[¨°ø‚²#˜XJŸ'–ÎuÔ®VŒ	lÒxD«‰m ™<†XÈY$SPS N|	6aÍ˜À%*F-h?bÂ½OU©Næ0M^N¾À5X¾ #Áİ™FQÔ1‚“JÔ®D²ô/[T˜Rœ¬.hN°J Â&)AÕÆ–ê³-Eôd-àÆœjEéjªÉ¡i4mK%+èe ¬´cBãc%L!¦ÊãEŸÆŒöSœŸ0«A/8ÀFÊ<ÁF”œl0
+0úh´‡*ëGĞšrqˆwu"6cu#8}Õ˜“„¡bMÁÄäKrR6“˜¼SrˆµÉ`>£)"a}õir`z]FXT°Œ˜C÷D{"á¦'bt•yD}Èqñ}3ñ_o.ıD?å¦W¤›Wt±Sç%£Û wElù ähíéü–‡Ù;áÜÿ«½BÌ¡Ô}
+²¡©Í1tE–ÌŒ“³&sLç A¸{€Ç³Tî€Íz°o“‚S‘¨ ÙèLLâf.Š“‹àEĞ‹F°™³Ë)Â'Èsgœ2¼§qÂ\šªª0eGSã¤#¦†àk„¡bÊTÙ)8WBÂ§AÀ™±5’G¸œ’Z•AÉQ•¤Ã(9`Ä9 ODP†EZ}´‰\zUr	iÂÿgªè59Ú3'ùÒÊ—¦Ö	Õ¨‚Ak`ÒÆPyÃÀ*ô#*Â0£!6‡R€[L_Öfcó£-£L	‰
+“‰IAãq%‰ÉLF‚P“Íu£+DbŠğç²?9PøB Qx:5áÆ±Ì3“È˜¢‰ûdÑ`Ÿ+Ü9AÆ
+ú4ù¼Ø¬³5Î`R‚=HĞ^M¾ ŒmFˆVeRª`Hµ‡¾İwØö¬ÌÔmÄ ‹$á!Â™€M		«A6«™½¬öõ^x¨uÛwÂ½k©Í'!ÏW9úğ…rã[^—7SŒÉt©6*:Ú(ÄŠ¾*=aÅ»ù~/ñN»Ó÷•ôEjŒÄìIB†€ûŠ6Á1ô:˜uR¤€IbÒ,‘9¡FLø"æB¾NÙÈ®äJáøOßğs1áÑ×À»GË’¯¹Êù—lĞã$*Æ- ô¢h¾¶6tn-3Q|´'¥
+¼
+Lä6K€{‚ÍO[FØ\qÅQ¤ì %Ä@ÔK6‚r¬µšlõ„M˜ÔÍ8V5Òªš÷E™öÜ±,5Â,A(ºRŒ Rò`%¥&ˆT–àº! ‚hQ1:ğ€Ù1ƒ-áuT?AVÈ TØJÈÒèSS’-d:Ó˜©ĞXàªKí9’€JŒæ4Â²ˆı´¢&ïPCs0±#`¬ˆ@*xÄèNéà"´ğ´Zxƒ^EK´™¢Wğœ
+Ü%3¼¨Xì„QÆÈÂ·vtK‚¯@‚‰ '§“+*ófT‘h	•É¾-zYy KÀ,²D´^ãcµhˆ/á\Âå)ÌjàŸ¢Û¬Ç0e•0¦àz?¢._)a6P™ğ×é‡Iˆ$Ñ¼0××U«LÚ8[• u³'Us÷¤˜ŞáIåüÿÜ“2|ÀíÕäáÂ†ˆ®õüó¯v}ª×”œ­Òè-„€¤h©u.MQÁ½Nğ‘È)©…FKQæÉ$OU—`ğÆ×*Ãhà. ¦ˆ©ˆ…rªËÙ*„4¸$VîÛVLï6MˆI¦BOØ”|S„ˆÀ5³,bÀ‚ş,pv¿"¾AHåXÁ÷‚?s>|.Şbr–ğ(ŞCT÷É«‚- ŠÀ]¤õ™
+ØÜSr­(~+B¸Š†¡í>Š²®ì³˜@#­%ø ğ‘3‚F§Œ8NN
+ñ'¸ş`Š¾NÅUft”$ó1Øú6 Óhh•ıö€¢Œ¬D`ØfMÉ£Áà¥,à‚‹Áø`¢y`ˆ=%ı}µæ‚8,hòÍ`¾p(ÕX¼Ç‚-1¤‘˜ÛLR@ñ Æã@Ô‰náÔærÛkJ¦ÛH¢d%Ş^á¡˜Íñ]_³F¸µÖc,-`#íîõøË ²;Övq›µ)Xw[òíïîÕ©¶ò‚iÖ©ÜÇ÷z½
+1k_±¢i‹¤á)Z))´võ[ÖÓ)«›^aj«Ä ¼
+Ÿx(8™?~UgÓ4âµ´{ï’.ÿÖ>`)
+S¸aLBö´ìt)	ì  âÃLSèB|—Ÿ'hæMèA3ûy¿Õ¿Kğ†sÆdG;¢¥Ê’%]àIG1A£âcöİOcTå!Æ²]
+¡€B pÏÒ~ˆ0jF‹Iİ«²G0[E˜•àïÀ}›rR&ÀÚŠs€‰@,„O£Èhh¨$Ñ5	¼Ú¨<¢İààéÀC!?ŠeØ’GBEZh3”5£Y¬,&kĞ´œ&1³€¼0Üüá‰ƒ“c‚{fˆY£ÇdD,11­¤Ã5 —D, nÌ;‚ß­‚0ë	*"ÌÌMDcwÎÑ‘I98‘d"
+€MÚÉ‘^uÀ;};Z@ÃD2¡ŞGÀÙ)Ä¦ğçà8¡ ^Iè³{0,
+¥ ]$` ":»‚&àSû8&‹V8„£ĞZ Ã¨dxÖíE¨?f`ñÂ[ï’"ü2²×ßİIçfVE,şOïŸl½u¼ã&>H£pJ jùİo<ñL¾ó‹g&~ûgZ”©Ú£Ã'H‘|>0È]Ï6VĞ¾Ğ4"š"*ÁO‘Ì é}ÓHÃÇş>­`” k,p$K–cE4‡ ˆĞ	rT!UØF‚›S1»Ä c†b\…a  
+iPŸ–zœ…‘LVáŒÍûNÃU@ŒÖWhñ<d=‚:àô$Ìü!$eup`‚XÉƒ”ÍTfÊtgGzÛE~	â3@˜éåGˆ´j¨ˆÂƒPC	“İHáŸ )´V#”A-âşïşïşïşïşïşïïö×¶\8]×Õ°×¶Bùìùóo¾]¬ëÎŞÓÍş)QEé­²şzÿúºà°ûèèÉà>“ïÀAœüºX¿¾;?]œ×ayvF_MKçex~u_í§Uá½9^<¾Zœ–¾íÄÅEß!¦m‚õCÿîDÈÏ­ø\é#EçJ»šÿªÄfÏ\ÕTê
+×ÛæĞÍ±ÙÙ;$o,ÑZ9×‘å<?8¤N–ËÓŸëëÆ?_Õ£zZÓe¦tzYI˜÷¨8šw¶~œOïºp²Jç—´#ÄÓº~µ,mÑ°•ú<­ÒoéÓ¿
+øãĞ7£F¨‘ÎO—e1½AúòŸ_],WëaïÉë~æÎı©m?sÕ:2¯NOÓ/-ıÉá]Rg9,ı§¾	M{vqzúÕùÛ5_g‹õñã—N—¨s®}W6‚éË‰—/ûF4sg]osòãv…'üEø±³÷Ã°§>S­kyë‰ÅKô1ÚöWãl¡©À@/~Î—ş³R×)¿ªeë‘ë-0~¤m—èë¥NÎ_}>oVt<lúíÖ×m]ÿòªëßLu¦ŸúÎİüºêÁ*ı
+A‹_xÇ¾¦¯@Ò!Wë¦75r `6U=ºÌ4`p„ÃÎŞ~ºøS]¼|µ¼´Y{æCM›rô-O¢ë_â|Ü¿úùÎrË¤¦İ¸ ¦äùú0-NßĞî3‹tú §±¡ß±Qå¯Wu_{Ï f:í‰f…„ØÙëÅ¿<­ÃC©è›Ÿõì‡Œ°ı†ë_@ììı…Ûceü`‹İİ-Öêf‹
+½Åô"ò7·øwµUlZªİoo)"¢÷4TÙw­ô-µÚHR>¶?ªæ=£ÕïTá>ª­o*`ÕÚÊƒ*ÜG6öwµr3×ßUşMmôÛmtNm·‘2¹æ6TCËß´ÑßncûéÑğ¬ş:´İhí?Kú„v°Æ„ÛlØ7@r}"×Šà;­úN«¾¦ï„é;aúN˜¾¦ïR|—â»”Ğ¥„.%t)¡K	]JèRB—º”Ğ¥„.%v)±K‰]JìRb—»”Ø¥Ä.%v)±KÁ¸ğYòYñYóÙğÙòÙñÙó9ğ™åI–'Ydy’åI–'Yïs%y#+Ú—±ŸYby¼•T,÷°’ŠåñVR±<ŞÀJ*–Ç[XIÍòx÷*©Yï_%5ËãÍ«@|fy¼-•ä}©¤ay†å–gXay†å–gXayücÉ¿v‘ü[É?)‘›ŒÌ?x¼õÁæG1´²ä$o>gïüQÌ–}KËŠYVÌ²b–³¬˜eÅØ¥ìSHv$û’Éƒd—A2$#I2”$cI2˜$£I2œ$ãI2 $#J2¤$cJ2¨$£J2¬$ãJ2°$#K2´$cK2¸$£K2¼$ãK2À$#L2Ä$cL2È$£L2Ì$ãL2ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1ĞM1Ğ”Ùüì£ îÀ×ÇÆá
+¼áëénĞ*`ßQà~ê¸Ÿ:øü6u¨hõÎ=õßSÿ?+õ+‡k^ãPŒÅ8PŒÅ8PŒÅ8PŒÅæ¯Øü›¿bóWlşŠÍ_±ù+6Åæ¯ÜµK6lM(íw ˜•vÛjˆ|°½.£*Š¡¢*Š¡¢*Š¡¢*Š¡¢*Š¡¢*Š¡¢*Š¡¢*Š¡¢‚øÕFçog‹¶HG¿Z§§]õ[5ƒW¬®ºVW]/ƒ«®íuŞu£×xnÃOL´½z»Šƒšá‡Jf¢–„¨fÆ!ê™¡ˆŠf4¢¦¨jÆ$êša‰Êæ)¬ÿX¿ƒ—3p9C —³Õâ’{Ûàr6\Îc8è±—Üó—Üù±ıô¿õõg¯ıªÀ?½Õí@¬ìºßußÀ¾=}èÀ“f¬RšáNÛÄ3âiÇ=mzÈ¸¼4CÓŒ~Ú	 ’fÀœ¤™h[fC;Ö÷Ú09iæàR3% ššY¡íÓkkû,ôÚ,mcĞk³}ƒ‹v©Ûv8í’öX`BmLmˆ^›¥İdzm–¶´àMPÓí­ÃS,¬y–ˆ5O´èaÍsmÿpÉJ
+endstream
+endobj
+
+674 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 427
+/Length 2164
+>>
+stream
+xœÕšÑoã6ÆßóWÌcXÈ$g(ŠÀ¢@¢/w-zÛ÷p×'–³9ÄV`;ííÍ‘“İ%%yXˆ×#YâÇü83×Q-d¨öÄMMuM±T²b™ê†l´êHÎ6BÁ“À,¹€kƒ#6§˜ç…¸K£Eöjç"…@âŸ7$ÃùHŞ²ƒyÁõ%Újãqiö Y×¿ISğBM’¬™HzL®i0$Ä›ˆ! nÁd#†§psdüàÃ(1¥Ÿq}MÖ8Œ†ØŸ.Çolšˆ!"YëŒÃ¡AäGd5&¦›Èºã±aDbÒm‚(ØãHdÙ¸t/˜]:‡×.İ‹k9Úá>¸ÏB„ÒøxIÃéî%Ü‡•°^8Òû÷‹Ünn{ú7Õ’~?.¿<lô˜Åc-?W8a0ä0 lrØ Œ9ŒÄŞC,/ƒş1´]±Èsˆuö’C¨ù¬–VÛg50gŸÕ°ì³–}VÃÊsÕ°ø\g5¬?ØäjuVC ›r˜+«a9¹ÎjH®³Öë¬†¤à:«!/8d5¬>‡¬†ìàÕ°â²r„CVCšpÈj Ì!«ıqñı÷Ÿ­@J¬íãà‡<!d‡<!ä‡<!d7yB)¯¸±cJÓsjXcLª1«ÆkœË5Çm‚ÆPm!ÛD¡U¹†ôÓºQu‘o(Z¡U×B7ª®M…­ººQu‘õU×B7ª.²\Œê:ƒXuE¬º¨1ªë±ê¢.Ä¨.z†Õuh*FuA?ÕŞóËc*-<-‘tFŒÎµ(VçÆ˜›Õ¹¡
+ÅêÜĞ£RÌ1æfun¨O±:7ô9±:7ÆÜ¬Î•+V™0t­ê¢Å©®@×©.ú šÆĞuª‹¾*NuºNuQëâTWR£U]T»8ÕE¹‹S]Ô»°ê¢à…U/¬º(yaÕEÍ«.Š^XuQõÂª‹²V]Ô½°ê¢ğS¿Ê1tEuQú©ßçº¢º(~ÕEõ‹¨.Ê_´§YÔ¿hS³h ¢]Í¢ˆ¶5‹ Ú×,z€hc³h¢Í¢ˆ¶6‹6 ÚÛ,ú€hs³h¢İ-eø/ZÀ?Ğw‹ËÛM»ÿ¥ıëC·YnıíçKÔY…l¿\ãâ›¿],~"Á?—´¸üŞ×hhMS›æbñóßS+ÇX‹_)#C´ÜµÛåÙ_,şIæbñ¡½> mƒT«å­Rv²H£IZ¼#¿;ì®:„ÅñÃÕáÓ}K‹İ®nÚÃÅâ’Ş¯ÛõÚiñJï+¼|>öéıÈ_Ãï+ÌìòwúnEËO´îvØ>uÔĞj¹ÿˆLzGÿ}Ø¶Ø UVÿÙµ«ÛÃm·¥nMİõ¡»jw©ÇŞî©»Úwwí¡Å5èVİÑ5ÑŸínŸn ^øğa{İívøeÛ­—wÂA·[á#¨ÓÃ¾Mc>bÈ4›w´o[:Nî~¹¹ÿ	J/O/ Ô;\ÜÒı®»ï¶	Éò¦İ^:N	÷]ÓóèèãÛŠpf¼í6¸ænyxØµïòÈï‡í¶;|›U‡mWŒâí—]b¬L‹Ëî—}¥Ë.ºì×Ëîz&›nÕŞo\eŸÀ6Vn Áğœ!x‡÷˜!$ }mÁpfßîn—w´}Ø Ù¿! û´GØ˜ºt¨ĞĞ`ì'“’XIøŠŒÑñQSÆiÚ¥Ë®û…L×İİÃf‹¢<A: ˜ö´ÿ´¹êÎ#‹°9f‘R:6ÒdÏSòƒU+¾˜d2¡«Ğ±Õ˜¾×(˜¾ÕÀÔƒéã´ÃX-´õˆÉ|çº‡³k—{XDêÿhBÈªs¨²¾)'_K%eNa0DyhGÈgÕóY--­wİ†¾pi9RuÎ¤ª®9*pjF›ujGáEyÔ9í>ÑòÛ€?±±Ğ¦t{³ıÖÿH©®ë'”‚m*.RŠ/Î&7JiıY6º/s)œ¥ŞÛ¬;îƒOææ¤jÛÿš7ÙŞ¹”_n^6§ÀN>W6ü?†!§›ëœO,¯Ähp{=jzÓ8ÍÄüÙÉıJÈ7áEÿ›†jn>¨Ìz#,!İ™?k…ÓÍËXï‰%`Ã›ô’+N6+wÄİpE÷èÆT.¸¯‰ïŞ§¸ci_Á³rÇØÉKÀ†·ñcî8ëŒİ±gtrÇ£á-üwç4wì‘Ü±„ìåûùé¨fæ=³ŞÈÜèÆ¾èãÈfå=°ŞKÀ†7öCî8l^îˆÌ²OÜ‘ƒ¯ÌsÄ†·ùSÜ‘äd^î¨Àzw,Şä¹ã8¬svGeÔ»c‘Ñğ®~Š;sš‰;*²Ş‹È^¾¯Ÿjnî¨ÌÔ‹ÈF7öEwG6/wT`êE`/ÿ~ŞM6/wäæé_Ù›ç¾€v£ßÓz£¸ùyycÆu²Æ®áş˜3£:ggÌ„NÆø<!ŞÏOñÅqJ3ñÅìd‹`/ßÏO57WÌÄzS, İÎ=qØ¼<1ãê-±€ëåßØ»É¸æåˆ–?û[#;ÿì÷Ïü¶Gi9_ WÏËØÉKÀ^ÿTÍ4XçìŠÊèd‹%Fo{Àf§™ø¢";c	Ùëµ™†jnÎ¨Ìzk,!{İc7ÓÍËXo%`¯{g°Y¹£k"€=š£± öõS¦o§.p³òFÅu²Æ®·=…3êŒQ	Œ±@èíÏàŒSš‡/*°“-€½ş	œqP3sE%Ö›bØëŸ¿6+OT\½%p½şé›q\órDbxtDêª~†×ÛŸ½	nÍ¼1ãê±„ëmOŞŒ£uÄÿÿ°Ú
+endstream
+endobj
+
+675 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 461
+/Length 1619
+>>
+stream
+xœÕ›OoÛ6‡ïşï±šÿ)AÃ.C‡®õ°Ã¶ƒcË]Û
+d»]¾ı^Ê¤âÄ¡D)@+b1´DQO(>?	c(0¦@P…[šqÜ°Ìı^ ãîƒY`Šã7÷.ğ ¬î>Ör)°šàFàQ\bkÒÕ`³BºB×˜a¥ÆB’+W° •Æ–±	YhÜG0PÌàQ‚ƒ’Û”)\A‚¦Öí¬@Kêj°Ç†º£Šıfx#\…£ñÌ»b¬ëdPpå
+
+¥]A@Qh¼8)ñŠµÛY•Ä^ZãÎ%±QÊ¨+a5•ÄC¨i¨8|ÔO!ì³+9„»Æ”pì¤«sÌ¸ûF5@(~Ó\a\ÉuÁ’»éú¦¬»*‡¯é)mJÌõÙÉ!“ÚõÃ%-ÖİÜÌæ?½ƒ7óÅİ®<üZ~ıXí–ûŸŞ/°³i-6øÇşüÃlş3HüXÀ|ñn7P¤@‹Ùüı/®•·ogó€ )|ÄÒ².÷GÀS5¿şt6ÿX®ğ'iˆÀ¿ ×’àeHk	EšÜh¢ü=›:Ö§Õ1´€'øtº=>Ü—0ÿãnı¹<Îæ¸Ù”›¥ŠS¼DüaX¸Å:Ybyãëp+noqKq»Æ^.~‡7uõ
+«j{ÚíaE ÏUÖP—ËCµ‡MUÃºÜ.^÷¢9õ»ı¾:º‹üVÀXLQNØ#0…ÙÌv“Òƒ‘gpA­¨õòXÂ¦®v°†åƒ¶Ã;*Ó@¦ÁÛÈÓZ¼!#ÀíanTYü1£FVÙ «`y_W_Êµçw¸û¼_Ou9	\Zë\†DÄq±Áã‹'ãÚ<_Çêùè2“Àe$Áù{D‰cŒ ² 'j‚óû51Ş7À”`ë3©f
+[=hE„œmÉá\†ÖÖ»Ûjûy=ÎøÎ˜&¤$ÜÍ`1`¢sˆiFyPr0¬ÛÀj³<m“`ÔZÑ3jµc$_íÅ~N™xÑ#kÅC¦F›±UnfôÌ‚cÈôh7ö#ËËXc˜mÇ~`yÙ'}%ø£¹Á‘Æ¯‰uü;Ú9¼À¬ôè‰µzŒëNø}zL 5e?zH­#twªOñc¨Lé™µ‚Œ1í°ÊÍZ0dŒYo¸2Y^ŠôÄ‚"cÄºÓ}—"ˆeåHf)±âQ‘x¿×OÜº;ê§’yh/ÂcYYÒ3k%aÖõû™ÈkÂô˜ZMF0uçûK&¢ÊÃ”Z+Êµá! ­Ì\é±UF¨õı¨)©eeKÏ,È2ÂløË|>ŒY^¾Dtöâ™’™©]GÓûJ?É˜,†çeLO-(3J­;ş§83Ø”éAiFAugşTk&ÀÊÄš[Ğf”Ûğä?WnŞôà¼8£Üz :Í™À-/szj^QjÃ_÷óaÔòr§dÄ\ºS	¢_ÂÖûÊ?É<†OäåNO­ugŒZ÷#AŠ;ˆMÙTëÎ¨×¯çI„•‰;=·Ö1nã—õ$òÊÍ\pg„[1~uO"·¼Üé©wÆ¨_ä“H-/w2CØã{Z¼o	½~X/^¿ÎÇÁ1x2/s™µâŒ0{İRŸD^SöæS«Í¦×¯öID•‰5ÏÔZiF¨_ğ“H+7g±eF¨_ó“H-/c™aF˜_ö“Èl
+¾´O˜)z=«¡/­_¼¨•9OşÆık#Ê¾€­;Ô–~*[ûéír¸]á*¿”õ¡„jóœLÈÿ ËáßÓ¾+É_5îqïîŞ-¬ Ü‘w8×1d‚ß±€z_íÊıjû­†d?Ş „Aæ’`ÅxLóµá·á†g0lŒ/Pvê`4‚Ãl5¢4:Cm3±)/S{¦àˆ„Q%#Ú,VÖwË-ìO»Û²ş„®â«š˜‹uRø ®°ÑÄ¯&Zû‡R­TH­QRãbk¥oUÓg 'Ì:Q8ãÃj ïPûï¸0'V!¡FYŠ¨/ğ)§iDÓbçh€ùlå5<œ&Œ©)Ò~R>R>‘FIŠ¤)´¦E¯İ‡aàü
+Ç»cıKá`ü2ô‹$ÿ2:=Âÿ¼²
+endstream
+endobj
+
+676 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 461
+/Length 1457
+>>
+stream
+xœÕšKoã6€ïşsÜ^h>†/ X`¢—b‹í®‹ŠœX$và(İæßwä‚·ë‘èhÅƒM™¦ùø4ĞGY£‚å,èh¨tà¤¦ÒCTÊ Jk¤ƒÊÊSë€Šhu¬Ñ ©7 ½¥†ÁHêJyÆxêÇ;0.Ğ ôÁÄcM Ô¡k¤ƒŒ’
+¬VÔOĞ`­¦!è—6kœÒ]‘:¤.œ·İ¤<xéº~xCP!‚w]M”àc7ñ¨ hú©Š‚¥7E‹QR?!jICDÑkÄ º6Ô—TšŞ#,ÑĞZ#µ”	›¤~•´D£[„2Ç:ú1E:¢¨§HGØ¡$ZÒ´¥ùjIë×æ %õnÔ±Æ0»v4†	ªãLc RhDMıu3CO'€ÎIuWW‹åàİru÷Ğ<ıÒ|ı¼Xï>}ù¸¢É
+šèjK'ûö‡Åò'@z[Árõ7•[&'Ãbùñç®—÷ïËOt¢¨õg:Zš]ùøñW‹åçæ¦…?hmV(•Bƒ(4­5
+Zü¹X~iÏ7mê#Fªx¾n_Xş~·¹mÚÅrWÛf»•’â@¢’ÒZ*o¨Dzuõúµ4İw×TJ*74ÇÕoğî°ÿJá)àfÿü°ƒk4Ps€íúù¾´ÖÕq°»İ¾íößC2è…9„1
+9 ‰V9DÉ´‰¡ÀPs9©›LêĞ¬Ÿö;Øî°iî×/ÿ#4ÕC£€ş&²¬CƒĞÔ`ha†¯ğ°Tª+¶ÉÀ6ë¶íaÿ X¿tàè{Ày s^XÓ“sÎôàô`´uéåßeÍÚáÖ‡ı_Í&1|º»İ­ÛçC3dÎ¹Sd^a†™‹cM_†mûM¬µûGšŸ6¯Wı@GŞTJ	C¼]àºÍÂ÷Üp,Ôlj›Äk›4pršcç{vtËAÖRˆ=ÁÓËÃõş~.ÈÂÌÈ²0ydv’1pÍØ˜™R6&OÉM6f©:Œ™¡ecòĞü$c «Ì˜™\2&.¼Ù˜Ğª2fF–ŒÉ#Şø³ []ÆtZ˜ScR½9ÇMß
+”ÓpìB]ÆLÈzc²È†oÆŒY€kÎÆL”zc²”†wı%Æ, U‰1´Ş˜,´Ë÷ı§Æ, V›1¹lLÜèÆŸ5f´ºŒ™ec²È†7şcÆ,ÀV—1¾û‹:£ğÆœá6|+PbLäØÅºŒ™õÆd‘ßŒ³ ×œ™(õÆd)ïúKŒY@ªc&h½1Yh—ïûOY ¬6c&rÙ˜8=ºñgY ­.c&dÙ˜,²ËŸ èË°ÕeLeeoLmÏÿ›­G ŒÓ2ì´¬Ë˜	YoLÙğÀ˜1pÍÙ˜‰RoL–Òğ®¿Ä˜¤*1f‚Ö“…vù¾ÿÔ˜Àj3f"—É‚İø³Æ,€V—1²lLÙåO ôeØª2¦Q¨Ó{L©ˆÛ¹Æè€Qc:ªÊ˜YoLÙ´ÌŸ\36f¦Ô“£d¦gşªÃ˜ZoLÚ´ÌŸ`•3“ËÆdÁ½=ó§ ZUÆÌÈ²1YdÓ2
+°ÕeLŠ°xbLí­ˆg¹MÏüñ;]—1²lLÙ´ÌŸ\s6f¢”ÉSšùS@ªc&hÙ˜<´i™?Àj3f"—ŒÉƒ{{æO´ºŒ™%còÈ¦eş`«Ë˜&
+sò¯¬¶¯åwÜpzæOàØ™ºŒ™õÆd‘MËü)À5gc&J½1YJÓ3
+HUbÌ­7&mZæO°ÚŒ™Èec²àŞùS ­.c&dÙ˜,²i™?Øê2¦BáOreµvÂŸË˜Âé™?‘c‡u3!ëÉ"›–ùS€kÎÆL”zc²”¦gşºÄ˜ÿ VMÀÅ
+endstream
+endobj
+
+677 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 446
+/Length 1606
+>>
+stream
+xœÕ™AoÛ8…ïş<v/²HÎI (P ØKÑE·ñbEN,»pœvóïwè<y]7’èvZwhzòL}¢ŞgÉÔÆY6^_ÎŠç´“¼×u”ÉX&kœ«L:°¹M?ÊıóŒ¾	)é€T­Î•¥:è@Œú£ÎCµÏECóL2$¢ßíkC)ä5ì²²w†9Š¼áTçH×góamt^WóÂ|0ÁfeM ÖEé›‚~Dµ‰uÌËt&ú¤ë!2‘ê<#y ‚t`ss4Éî~*™äòGºÊäòW°ÕAÈ3Nñäfö: <C:ˆy†M¢¼BpQ–”¯‚U™36VeÖÏ¨2'U—gTY$Ï¨²¤<£Ê!_©2²5‰®^DG¬Ë¿¸˜L_¿2/¦³›»æşæëûõİ|õîòíLªº6³¥ŞİO¿M¦¿Òff:ûGëR1Ä(uœLß¾É*/_N¦ïŒ«Í{Í7Íjkôºwoÿ4v2}ß\oÍs•Õ[æ,U!±a¡Š$ßO©‚Ş”“éåvóp½…†¥¤3WÛÇÏ™ş}³øÔl'Ó™¹X6Ëe]éËÖ5çÊZ—Oïws:öIë•ÖZëB9ûË¼Ø¬¿êİ©Ìõúöáne•Ñoj6f1ß6f¹Yß™…™?šåzs§}fm¨R³İ
+^­Vëm¾Ü_€NBÅ~ONÄWºÁqİ•)
+új Î•CkvĞ6fşùófı¥Y€áıÍ§Õ|û°iÎ™ˆ"6V¾™=y¯¹Ó°-¿ÙkÛõñNg-Pe›j­ŞXk+¯Îéò³«Vú=77´Õ8oµxen×G[Î‚Û³üxÏoşØ¼ßê6»7÷wWëÛ_H­ŞS³–wÖÖbóD•ËÖÖ‰Í÷n7Ávcà¢CvÕ[În·gAÊS¨ü)J©ª{IQïsOä–Ç;ö´BZ×-­M3¿_¯ò£iÍ­î»sx0ÛôlÁíÓ³ÿTzBY‚¶ôÚí„'?œ …àF•¢-¶6E;±…ŸJÑBtãJR%hõ6ImˆÊî¹ß@âÿ’¤¶‹ŸŒ+I­MÒnlı‡„’$-@vÎI
+Rm’v’’şSAi’ĞI’\›¤İàN?'i´±%)è!I»áz“´ Ü¸’Ø¤İØú%IZ€n\IJu•“”]•e×d(MR×Å/Œ+ImŸ¤Øú%IZ€ìœ“¤öIÚIªÿtPš¤´F’¤ ·OÒNp§Ÿ“´ ÚØ’ôÚ$í„7x@èMÒpãJR`k“´ÛéE8NÒtãJR+•?øß]ëásçù0ø‡„¢$õ]üâ¸’ØöIÚ‰­ÿÀP’¤ÈÎ9IAjŸ¤¤úO¥IZ@k$I
+pû$íwúùà8I -IA¯MÒNxƒ„Ş$- 7®$¶6I;±ş…ã$-@÷#IjsÊ§ÚM¬×ƒsùF/8äkÖQÓS•Õ¢:TJ¨Œ*¨Ğè	ôôôôôôôôôôô"ô"ô"ô"ô"ô"ô"ô"ô"ô"ôôôôôôôôôôÒ“Ş\T‹êP=*¡2ª Ôˆ
+===============================‚A GĞ#èôzô¤÷1?Ş‚çùÒL/õinävE<ø‡=¯o¾¶¤Á–Ö/úZìp‹nñÃ-4ÜÂÃ-2Ü†[†éò0]¦+Ãte˜®ÒÍé‰ı¿cøÃï~Çğ;†ß1üáw¿cøÃï~Çğ;†ß1üáw¿cøÃï~Çğ;†ß1üáw¿cøÃï~Çğ;†ß1üáw¿cøÃï~'ğ;ß	üNàw¿øÀï~'ğ;ß	üNàw¿øÀï~'ğ;ß	üNàw¿øÀï~'ğ;ß	üNàw¿øÀï~'ğ;ß	üNàw¿øÀï~'ğ;ß	üNàw¿øÀï„ GĞcè=üĞvø¡xĞ=ß<ràAßµü/÷V
+endstream
+endobj
+
+678 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 426
+/Length 562
+>>
+stream
+xœ—½SA…û<…ß ãùñ´Ú!
+(-tˆ	!ˆ‰·Ç'wîR °‹ÄÇ‰óeÆúR¤‹R£.FcEqÒèâÁ-Zeâ‰¾+úAÑOê}<½Ğ`ôôA3ôN³·ÛÌ\˜eš¾“¬`Ø í¨“ÔQ™ 
+ù@Õ8GC°øVsbÃâŒ tCP}Ä©$Op}/€]ˆd²‚ìAV=ÈäÑ‚ìŒd7„N½-Ü¿#ÄØâV]„ú»iAœú«™±q„%"lávÉyìÓAfÁ/º»»\_İöÖèñr}MÂGzC×çŸ^îï/çÈÊG$Ñ|ÄòOG¤å#œô|dä#ùv%ß®äÛ•ÿl÷­u;jT;ªœ½ï¾íwûõ³_»ö]e¿¿û¹¹sóÖÉ»+g»ï‹¶]şû}<?|øBO·ù?ü#¾ıõı#]½|Ä•âó*.úâÛ¯–ñD±
+Å2ŠW(P´(§¹ÿ¦p…Â¥W(=£Œ
+ed”Y¡ÌŒ²*”•Q¤B‘ŒRqW2wµâ®dîjÅ]ÉÜµŠ»š¹kw5s×*îjæ®UÜÕÌ]«¸«™»VqW3w­â®fîZÅ]ÍÜµŠ»š¹kw5s×+îZæ®WÜµÌ]¯¸k™»^q×2w½â®eîzÅ]ËÜõŠ»–¹ëw-s×+îZæ®WÜµÌİø¯RÀx&/·Š½ş·½¿Óùç\
+endstream
+endobj
+
+679 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 432
+/Length 557
+>>
+stream
+xœÓ=S1Åñ>«¸;ˆï—ı,¦  €bĞÀ
+Ñ±{GSÅ9Müä$ÿ÷|óKú²aé—-Ç²Í+,cXxbu‹«°b¯kZÅÄZV{amëya6sc]È È]èÅ¶«ñİ¶ñİL·½ÑË0ÁLsO³Ìc ™‹…&v=Ñ\ç¡PÍYÜÊ{¢[Ã|¢‘åæk Œ§÷µP.”¯B¹PŞ8eÊûB»1åZç˜(×eeÜ/bÓb§‘”£ŒsD](wZt£Üe1qä3š˜eìÆš(÷:ƒC¹QŞ2îûBybw ‘ó“Ìsß(Ï3ò‰ò<3Â¹óÌ¨Êg·Ö¶‡‡ÛıãËëÓ×bà×{¾İ?}7LçåòËßßßìşôîÃóíñïà—zıĞg»¿ÿõççÙ~›I%“4SJ¦h¦•LÓÌT2“f–’Y4s)™‹f¶’Ù,ƒ?)Íô4ãJÆiFPÜƒ*vAqªØÅ=¨b÷ Š]PÜƒ*vAqªØÅ=¨b÷ ŠCQìTq(Š*E±SÅ¡(vª8ÅN‡¢Ø©âP;UŠb§ŠCQìTq(Š*NEqPÅ©(ª8ÅA§¢8¨âTUœŠâ ŠSQTq*Šƒ*NEqPÅ©(ª¸ÅI—¢8©âR'U\Šâ¤ŠKQœTq)Š“*.EqRÅ¥(Nª¸ÅI—¢8©âVUÜŠâú_ñ?CbWR
+endstream
+endobj
+
+680 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 433
+/Length 614
+>>
+stream
+xœ“ÍŠTAF÷ıyƒN*Uùa.\èb¤u'nQÜùö~×[ƒ0$›ş’ºÍ©JİsÕœ˜Ô‚\I2©38kK‘ƒæ˜H¥™9i™!™:ÒÈ9Nî‰Š,ê`S&x!$l .¢ †’2&
+p4á	 a8Œ€"€ Y.18™ÄäÙq<Å6ä9ä9Sœ[œFCÈé(äS+š¡Sh2®`
+æfAcNl3Öš(”†…b¢ lb œİQ€(@NN 'æŸh”È‚md€,@pÌc²` U°y0q­S0ÀšA—ëÛ¿¿OŸ¿á:^ßír}÷·r–~ÿüB×§Won—ÇG<¡5÷ŸŞÓõõ_ßå—í`ôó‘lİÈlì|îuç<s­±×ŸûÜi{wî~mîÚ¼µy&gúùüÓİHóßHù¿‘l–7³:˜Ub¬ƒ±ãŒ—˜è`¢Äd“æ|ãÆ¹ÄH#%ft0åeÚÁÜQ/1‹½´Ø:{i±u,öÒbëXì¥ÅÖ±ØK‹­c±—{Çâ(-öÅQZì‹£´Ø;Gi±w,ÒbïX¥ÅŞ±8J‹½cq”{Çâ(-öÅQZ‹³´8:giqt,ÎÒâèXœ¥ÅÑ±8K‹£cq–GÇâ,-ÅYZ‹³´8:giq6,6.-Î†ÅÆ¥ÅÙ°Ø¸´8—gÃbãÒâlXl\Zœ‹K‹³a±qiq6,6.-Î†ÅÆ•Åƒ;Ë½Å ˆ;d­
+endstream
+endobj
+
+681 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 432
+/Length 540
+>>
+stream
+xœÓÍj”A…áı\EİÁtªşƒ…ˆ]D¢W ˆ(HÄ…àİ{zPAë,’¯éÔ¼ßtó$}Z³ôeÓùØæ	K4ƒŸnXÉ',zçóìşpoO>»õ±n{#6Ÿ“æÀÜbÛVg/šíóÙpÛ›Ÿ˜·Á`„¹‹‘æhLFçb²É]d4æùR¬Æâb3ËWyìf3ldºùl,óÛûœ,'Ë+YN–7O™Éò^,s­³œó“å\4–ù>`²ÜyÁFv^A:Ë<r±ÜÃĞ;Ë=ƒGN^Æf™»˜ƒå>ÏÅ±ÜY^ó³¼åÁòæs°¼Ïíò$ÑÎGpqÊ#¹Øg¸[8Îğà‚Ûww—ë«Ûï‡wŸì|çf—ëëÆK¹-ß~ÿòŞ®Ï^>^îïùşsè]_<}ı|¶ÿÎ@É Ì„’‰2“J&ËLW2½Ì%3ÊÌT2³Ì,%³ÊÌV2»Êğ½Î •E1JÅ®(F©ØÅ(»¢¥bW£TìŠb”Š]QŒR±+ŠQ*vE1JÅPG©Šâ(CQ¥b(Š£TEq”Š¡(R1ÅQ*†¢8JÅPG©Šâ(‡¢8KÅ¡(ÎRq(Š³TŠâ,‡¢8KÅ¡(ÎRq(Š³TŠâ,‡¢8KÅ¡(ÎRq*Šû¿cıbÇÒï“?ÿøíÏ™fR˜éÂÌf¦0³„™]Ïì&Ìøf~ ôa‹
+endstream
+endobj
+
+682 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 418
+/Length 384
+>>
+stream
+xœ‘;n\1ó=ÅÜ`çKr€ÅFÎœÒ)tŸß=œš‘ ë5§ëåÚ¢’ëH,,-Û%·ŠéÁjb™X]ì€Ú!nÀvŠ×p%~†[>ÜFÊpHëáZ2ÀŸò˜”‚;.•8;!…oó¤,®dåpKÖncœáìã5¸V9®MÎ‡³VpÒS£Szzt¡ÇÁ0¦Ó¤÷4ôˆÙtéÆe
+fx©­uJQÛÑ§4°AÆo#9ÖÀHNx«‘<FJ‘\¨U†äB¯2$ŠÍ©-4+CòBµ2$¯ÉÛFòF»×ëñü-;•ÏÇóC<÷ÏöK¿¾ÿ<ŞïÇ?&&	¦fÌ&˜C0}e¿ïÎÁÜ=‡Ş=‡Ş=‡Ş=‡Ş=‡Ş=‡Ş=‡ğl„g#<áÙÏFx6Â³ğl„g'<;áÙ	ÏNxvÂ³ğì„g'<;á9ÏAxÂsƒğ„ç <á9ÏAxNÂsşÏó_*®5
+endstream
+endobj
+
+683 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 418
+/Length 436
+>>
+stream
+xœ“Kn1D÷s
+Ş`Dñ'†WÙy3°aä9ŠÑŒ1€á+±»ŸJ¬bË8hñ"q,›b’ÍA<V&VÅ:‰¨)4ØTš–œÑ\É9ÉL. ’Ôvr›TÀÉ upÂd\¾Sp"dN”œ“3rMÎÉWrv’[–ÚÛgïÂ¦LËÁé¤=À©ĞNèy§5øH#ê(Ò‰F:KtszÑ"Å¦9»6¸)‹<ÃP±0¶›¢À“”%[ÁNÖôePÖÈÊÆY@9U‘°­Ê;”İ”cdå@›æPe‡òÂ\^^.×7xô~¹Şhjœòƒ®¿~ÿ¹¼¾^Œ4m0Ö`¼ÁDƒYf×‚®n0œ­‘³5r¶FÎÖÈÙ9[#gkäìœ½‘³7röFÎŞÈÙ9{#goäìuÎu>îõ,¼uV=/çóCí“d}‘·'N·+Nÿq_7ò'ÎÆ¶6lL
+Ì¦¶f•Õû©^qw¯Qq«&qaÕ Î¼šC¬šŸæ¼Äù›¼„<ı™Küí6=İ”Ÿ™ùæ/Kô³–
+endstream
+endobj
+
+684 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 418
+/Length 385
+>>
+stream
+xœ”1n1û{`R¢(0\¹K$¯Èòş,¸¶’ ŒVÜ9àVlQY‘2KÉ²¶Šib51w¬C,Aí)Ã€m—±š[2²¹9šÛHiiÕ\‰Op¸ëxa¥ÉRp‰3—óuw¥KXsKÂ›‰lncœæRöjã¸RÉ®L2Àá¬\M©®Q.Õ=j¡GÁ0¦İ¤v7k4Å¬»Taƒ2 3¼ŠÖuBQ{ OèÄámÎ†‘<£a$»6¼ÛUÃHöİ0’j…!y¡W’ße-Ğ,ÉjaHjÉ{4Œäv÷ûuû	÷*_×íS_Ûo¹=~¯Çãz3N0‹`‚`6Á$ÁÔ™Á;3F0ƒ`ÏIxNÂs“ğœ„ç$<á¹ÏEx.Âs‹ğ\„ç"<á¹Î]Ï]Ï]Ï]ÏûÿufÎ]Ï]Ï]Ï]	ÏFx6Â³ğl„g#<áÙÏFx6Âó <ÂóøÏóŠˆ®³
+endstream
+endobj
+
+685 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 50
+/First 418
+/Length 425
+>>
+stream
+xœ’;n1D{Ÿ‚7°(ş$Àp•.M"Èrş­HÕ
+Ú·#ÎÓ:r^$Ç¦˜äs…'«â9‰¨)4ØTš–œÑ\É9ÉL.’Òvr›TÀÉ upÂdöLÁ‰8Á'gäšöVrq’[–ÆÛàğíÂ®LËÁé¤=À©ĞÎo1óÎjè‘EÔ±È&Ùl<aÎ.º±È2†Òœm­gÖÁ.ÏìcB,y€)9¹!Y2c±B›’Õòs$ë,l9"ØİÉÎ¹@rf¸#Ù7ÎBøpGräğäÅL·ÛåúJ
+÷ƒŞ/×7š`Ëº¾|}_î÷Ë“ÑcÆL4˜Õ`vÍàÿ©n0³Á4<KÃ³4<KÃ³4<KÃ³4<kÃ³6<kÃ³6<kÃ³6<kÃ³6<kÃ³6<[Ã³5<[Ã³5<[Ã³5<[íÙ£™çyı<ñ“?/È·?œÎ+Ng[¶¶l<°æã[›UÕßS¥âN×ĞŠ;Xuç"¢ºˆsQİC¬ºşîÿ‹ø\=³s
+endstream
+endobj
+
+686 0 obj
+<<
+/Filter /FlateDecode
+/Type /ObjStm
+/N 6
+/First 44
+/Length 109
+>>
+stream
+xœ…Ï»À Ğ)n0Á6–PHƒ’!²ÿáS¤IDuW¼“lE€HÆf-ÚBˆzˆ{FJqş@t¾"æĞfg«wzÁW·ïn2’î8Éëò§Óéxåòtºr6]Z¹qŸ0ışñ jw5
+endstream
+endobj
+
+687 0 obj
+<<
+/Size 688
+/Root 1 0 R
+/Info 2 0 R
+/ID [ <438e093afeea6f45b6b673c9ef9b885d> <d40e87c97f694e64bd5d731c72537998> ]
+/Filter /FlateDecode
+/Type /XRef
+/Length 1372
+/W [ 1 3 2 ]
+/Index [ 0 688 ]
+>>
+stream
+xœ-×9Ë]E Çás¢1£IÔDÍ¾½Ù7—J,´²°°°ò{hkee¥ ‚ ¢™9³ÏÛø}ñØ‹ ¹·ùñg¸Üsx.ÜeY–ÿ=²ùuYtÕ#ë²œÚŸ<£ÏêQ}Néóú‚×õ„¾¤/¯Ë™Óûo;ùtÿ³ß§Öåê7û}z]nûıÊºÿs¿_]×ƒßöûµu}ûóı>³®ïœØï³ëúîÅı~ıéşi¿ßĞ7õœ×zQ/ée½¢Wõš^×z 7õ–ŞÖ;z÷ésÿÚ?÷Ş_×æşä>ÔGúXßzÚ'>ó„ü“åˆ>£ÏêQ}Néóú‚×õ„¾¤/ëI=¥§õ}U_Ó3zV_×7ôM=§çõ‚^ÔKzY¯èU½¦×õ†èM½¥·õŞÕ{z_èC}¤ugXVU`XVU`XVU`XVU`XVU`XVU`XVU`XVU`XVU`XVU`XVU`XVU`XV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘UdYEV‘Udõÿ/ÏÆjcµ±ÚXm¬6V«ÕÆjcµ±ÚXm¬6V«ÕÆjcµ±ÚXm¬6V«ÕÆj[Î­ëÇçöox~]?ùc¿/¬ë§?î÷E½¤—õŠ^Õkz]oèŞÔ[z[ïè]½§÷õ>ÔGúXwzÉ;$z‰^¢—è%z‰^¢—è%z‰^¢—è%z‰^¢—è%z‰^¢—è%z‰^¢—è%zÉMKnZrÓ«Ä*±J¬«Ä*±J¬«Ä*±J¬«Ä*±J¬«Ä*±J¬«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³Ê¬2«Ì*³*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Âª°*¬
+«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²ª¬*«Êª²j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Æª±j¬«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³ê¬:«Îª³¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«Áj°¬«ÿÿMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV“Õd5YMV‡¬Y²:duÈêp9º®Ÿ,Ëº~ñá®_^Ùõ«ßwıúï]¿í»~÷Ñ®ß;ÿáp×ßİõçK»şòş®OníßÛu;¹,ÿU
+endstream
+endobj
+
+startxref
+107791
+%%EOF

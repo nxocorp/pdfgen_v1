@@ -1,0 +1,1544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF-gen POC (multi) — UH-60R Logbook</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<style>
+  :root {
+    --bg: #f4f5f7; --panel: #ffffff; --border: #d7dae0; --border-strong: #b9bec8;
+    --text: #1d222b; --muted: #6b7280; --accent: #3454d1; --accent-bg: #eaeefc;
+    --danger: #b42318;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text);
+    display: flex; flex-direction: column; }
+
+  header.topbar {
+    height: 52px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px; background: var(--panel); border-bottom: 1px solid var(--border);
+  }
+  header.topbar .brand { font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
+  header.topbar .sub { font-size: 12px; color: var(--muted); margin-left: 10px; }
+
+  .app-body { flex: 1; display: flex; min-height: 0; }
+
+  /* ---------- Sidebar ---------- */
+  aside.sidebar {
+    width: 260px; flex-shrink: 0; display: flex; flex-direction: column;
+    background: #fbfbfc; border-right: 1px solid var(--border);
+  }
+  aside.sidebar.collapsed { width: 44px; align-items: center; }
+  .sidebar-toggle {
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-strong); border-radius: 5px; background: #fff; color: var(--muted);
+    cursor: pointer; flex-shrink: 0;
+  }
+  .sidebar-toggle:hover { background: #f0f1f3; }
+  .sidebar-collapsed-strip { padding: 12px 0; display: flex; justify-content: center; }
+  .sidebar-header-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 0; }
+  .sidebar-section { padding: 12px 14px 4px; }
+  .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .model-pill {
+    display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px;
+    border-radius: 12px; background: var(--accent-bg); color: var(--accent);
+  }
+  .doctype-line { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+  .sidebar-list { flex: 1; overflow-y: auto; padding: 4px 8px 8px; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 8px; padding: 8px 8px; border-radius: 6px; cursor: pointer;
+    font-size: 12.5px;
+  }
+  .sidebar-item:hover { background: #f0f1f3; }
+  .sidebar-item.active { background: var(--accent-bg); }
+  .sidebar-item .tail { font-family: ui-monospace, Menlo, monospace; font-weight: 600; flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sidebar-item .meta { font-size: 10px; color: var(--muted); }
+  .sidebar-item .del { opacity: 0; color: var(--danger); font-size: 15px; line-height: 1; background: none; border: none; cursor: pointer; }
+  .sidebar-item:hover .del { opacity: 1; }
+  .sidebar-empty { padding: 14px 8px; font-size: 12px; color: var(--muted); }
+  .sidebar-footer { padding: 12px 14px; border-top: 1px solid var(--border); }
+  .sidebar-footer .btn { width: 100%; justify-content: center; }
+
+  .form-type-group { margin-bottom: 4px; }
+  .form-type-header {
+    display: flex; align-items: center; gap: 6px; padding: 8px 8px 4px;
+    font-size: 11px; font-weight: 700; color: var(--text);
+  }
+  .form-type-header .form-type-count { color: var(--muted); font-weight: 600; }
+  .form-type-actions { margin-left: auto; display: flex; gap: 4px; }
+  .form-type-gear, .form-type-add {
+    width: 18px; height: 18px; line-height: 1; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-strong); border-radius: 4px; background: #fff; color: var(--muted); font-size: 13px;
+    cursor: pointer; padding: 0;
+  }
+  .form-type-gear:hover, .form-type-add:hover { background: #f0f1f3; color: var(--text); }
+  .form-instance-item { padding-left: 18px; font-size: 12px; }
+
+  /* ---------- Configure form type modal ---------- */
+  .config-field-list { overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 16px; }
+  .config-field-row {
+    display: grid; grid-template-columns: 2fr 1.2fr .8fr 1fr 1fr; gap: 8px; align-items: center;
+    padding: 6px 10px; border-bottom: 1px solid #eef0f2; font-size: 12px;
+  }
+  .config-field-row:last-child { border-bottom: none; }
+  .config-field-row-head {
+    font-size: 10px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--muted);
+    background: #fbfbfc; position: sticky; top: 0;
+  }
+  .config-field-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .config-field-row select, .config-field-row input[type=number] { padding: 4px 6px; font-size: 12px; }
+  .config-style-toggles { display: flex; gap: 8px; }
+  .config-check { display: flex; align-items: center; gap: 3px; font-size: 11px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+
+  /* ---------- Center ---------- */
+  main.center { flex: 1; min-width: 0; overflow-y: auto; padding: 22px 26px 60px; }
+  .placeholder { max-width: 420px; margin: 60px auto 0; text-align: center; color: var(--muted); font-size: 13px; }
+
+  .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+  .toolbar .titles h1 { font-size: 18px; margin: 0 0 2px; }
+  .toolbar .titles .cap { font-size: 12px; color: var(--muted); }
+  .toolbar .actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 13px; font-weight: 600;
+    border-radius: 6px; border: 1px solid var(--border-strong); background: #fff; color: var(--text); cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn:hover { background: #f0f1f3; }
+  .btn-primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #2a44b8; }
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--muted); padding: 14px 16px 8px;
+  }
+  .field-grid { display: grid; gap: 12px; padding: 0 16px 16px; }
+  label { display: block; font-size: 10.5px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 4px; min-height: 1px; }
+  input[type=text], textarea, select {
+    width: 100%; padding: 7px 9px; font-size: 13px; border: 1px solid var(--border-strong); border-radius: 5px;
+    font-family: inherit; background: #fff; color: var(--text);
+  }
+  textarea { resize: vertical; min-height: 60px; }
+
+  table.rows { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.rows th {
+    text-align: left; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+    padding: 6px 6px; border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  table.rows td { padding: 4px 4px; border-bottom: 1px solid #eef0f2; vertical-align: top; }
+  table.rows input[type=text] { font-size: 12px; padding: 5px 6px; }
+  .row-num { font-family: ui-monospace, Menlo, monospace; color: var(--muted); font-size: 11px; padding-top: 8px; }
+  .drag-handle { cursor: grab; color: var(--muted); text-align: center; padding-top: 7px; user-select: none; font-size: 13px; }
+  .drag-handle:active { cursor: grabbing; }
+  table.rows tr.dragging { opacity: .4; }
+  .row-actions { display: flex; gap: 2px; padding-top: 4px; }
+  .row-actions button {
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer; padding: 4px;
+    color: var(--muted); border-radius: 4px;
+  }
+  .row-actions button:hover { background: #f0f1f3; }
+  .row-actions button.danger:hover { color: var(--danger); }
+  .table-wrap { overflow-x: auto; padding: 0 16px 8px; }
+  .table-actions { padding: 4px 16px 16px; }
+
+  .banner-note {
+    font-size: 12px; color: #7a5200; background: #fff6e5; border: 1px solid #f0dca6; border-radius: 6px;
+    padding: 8px 12px; margin-bottom: 14px;
+  }
+
+  /* ---------- Right preview panel ---------- */
+  aside.preview {
+    flex-shrink: 0; display: flex; flex-direction: column;
+    border-left: 1px solid var(--border); background: #fff;
+  }
+  .preview-resizer {
+    width: 6px; flex-shrink: 0; cursor: col-resize; background: transparent;
+    position: relative;
+  }
+  .preview-resizer:hover, .preview-resizer.resizing { background: var(--accent-bg); }
+  .preview-resizer::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 2px; width: 2px; background: var(--border);
+  }
+  .preview-toolbar {
+    height: 46px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 12px; border-bottom: 1px solid var(--border);
+  }
+  .preview-toolbar .label { font-size: 12px; font-weight: 600; color: var(--muted); }
+  .preview-frame-wrap { flex: 1; background: #e9eaec; overflow: auto; }
+  .preview-pages { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .preview-pages canvas { max-width: 100%; height: auto; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+  .preview-empty { height: 100%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px; }
+  .preview-footer { padding: 8px 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); text-align: center; }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(20,22,28,.45); display: flex; align-items: center; justify-content: center; z-index: 50;
+  }
+  .modal {
+    width: 440px; max-width: calc(100vw - 40px); background: #fff; border-radius: 10px; box-shadow: 0 20px 48px rgba(0,0,0,.28);
+    padding: 20px 22px;
+  }
+  .modal h2 { font-size: 15.5px; margin: 0 0 4px; }
+  /* declared after the base .modal rule so its width/height win the cascade */
+  .modal-wide {
+    width: 85vw; max-width: 85vw; height: 85vh; max-height: 85vh;
+    display: flex; flex-direction: column;
+  }
+  .modal-wide .config-field-list { flex: 1; }
+  .modal .cap { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .modal .field { margin-bottom: 14px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+  .source-option {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--border-strong);
+    border-radius: 6px; margin-bottom: 6px; cursor: pointer; font-size: 12.5px;
+  }
+  .source-option.selected { border-color: var(--accent); background: var(--accent-bg); }
+  .source-option .name { flex: 1; font-weight: 600; }
+  .source-option .del { color: var(--danger); background: none; border: none; cursor: pointer; font-size: 14px; }
+
+  .automate-steps { display: flex; flex-direction: column; gap: 12px; margin: 6px 0 20px; }
+  .automate-step { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .automate-step.active, .automate-step.done { color: var(--text); font-weight: 600; }
+  .automate-step-icon {
+    width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; border: 1px solid var(--border-strong); color: var(--muted);
+  }
+  .automate-step.active .automate-step-icon {
+    border-color: var(--accent); animation: automate-pulse 1s ease-in-out infinite;
+  }
+  .automate-step.done .automate-step-icon { border-color: #1a7f4b; background: #1a7f4b; color: #fff; }
+  @keyframes automate-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  .select-field { margin-bottom: 10px; }
+  .not-supported-note {
+    margin: 8px 8px 0; padding: 10px 10px; font-size: 11.5px; line-height: 1.5; color: #7a5200;
+    background: #fff6e5; border: 1px solid #f0dca6; border-radius: 6px;
+  }
+</style>
+</head>
+<body x-data="pdfgenApp()">
+
+  <header class="topbar">
+    <div>
+      <span class="brand">PDF-gen</span>
+      <span class="sub">POC (multi) &middot; UH-60R &middot; Logbook &middot; schema-driven, AcroForm-only</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="btn btn-sm" x-show="current" @click="exportAll()" :disabled="generating">
+        <span x-text="generating ? 'Generating…' : 'Export All'"></span>
+      </button>
+      <span style="font-size:11px;color:#1a7f4b;background:#e7f7ee;padding:4px 10px;border-radius:10px;">Saved to this browser</span>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ============ LEFT SIDEBAR ============ -->
+    <aside class="sidebar" :class="{ collapsed: !sidebarOpen }">
+
+      <template x-if="!sidebarOpen">
+        <div class="sidebar-collapsed-strip">
+          <button class="sidebar-toggle" title="Expand sidebar" @click="sidebarOpen = true">&raquo;</button>
+        </div>
+      </template>
+
+      <template x-if="sidebarOpen">
+        <div style="display:flex; flex-direction:column; min-height:0; flex:1;">
+          <div class="sidebar-header-row">
+            <div class="sidebar-label">Selection</div>
+            <button class="sidebar-toggle" title="Collapse sidebar" @click="sidebarOpen = false">&laquo;</button>
+          </div>
+
+          <div class="sidebar-section" style="padding-top:6px;">
+            <div class="select-field">
+              <label>Aircraft model</label>
+              <select x-model="selectedModel">
+                <template x-for="m in AIRCRAFT_MODELS" :key="m">
+                  <option :value="m" x-text="m"></option>
+                </template>
+              </select>
+            </div>
+            <div class="select-field" style="margin-bottom:0;">
+              <label>Document type</label>
+              <select x-model="selectedDocType">
+                <template x-for="t in DOCUMENT_TYPES" :key="t">
+                  <option :value="t" x-text="t"></option>
+                </template>
+              </select>
+            </div>
+          </div>
+
+          <template x-if="!isSupported">
+            <div class="not-supported-note">
+              This POC only implements <strong>UH-60R &middot; Logbook</strong>.
+              Pick that combination to create or view logbooks — the other options are here
+              for testing the selector only.
+            </div>
+          </template>
+
+          <template x-if="isSupported">
+            <div style="display:flex; flex-direction:column; min-height:0; flex:1;">
+              <div class="sidebar-section" style="padding-top:14px;">
+                <div class="sidebar-label">Logbooks (<span x-text="logbooks.length"></span>)</div>
+              </div>
+              <div class="sidebar-list" style="flex:0 1 auto; max-height:220px;">
+                <template x-if="logbooks.length === 0">
+                  <div class="sidebar-empty">No logbooks yet.</div>
+                </template>
+                <template x-for="lb in sortedLogbooks()" :key="lb.id">
+                  <div class="sidebar-item" :class="{ active: lb.id === currentId }" @click="openLogbook(lb.id)">
+                    <div style="flex:1;min-width:0;">
+                      <div class="tail" x-text="lb.tailNumber"></div>
+                      <div class="meta" x-text="formatDate(lb.updatedAt)"></div>
+                    </div>
+                    <button class="del" title="Delete logbook" @click.stop="deleteLogbook(lb.id)">&times;</button>
+                  </div>
+                </template>
+              </div>
+              <div class="sidebar-footer">
+                <button class="btn btn-primary" @click="openNewModal()">+ New logbook</button>
+              </div>
+
+              <template x-if="current">
+                <div style="display:flex; flex-direction:column; min-height:0; flex:1; border-top:1px solid var(--border);">
+                  <div class="sidebar-section" style="padding-top:12px;">
+                    <div class="sidebar-label">Forms in this document</div>
+                  </div>
+                  <div class="sidebar-list">
+                    <template x-for="ft in FORM_TYPES" :key="ft.type">
+                      <div class="form-type-group">
+                        <div class="form-type-header">
+                          <span x-text="ft.label"></span>
+                          <span class="form-type-count" x-text="'(' + instancesOf(ft.type).length + ')'"></span>
+                          <span class="form-type-actions">
+                            <button class="form-type-gear" title="Configure export styling" @click.stop="openConfigModal(ft.type)">
+                              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                            </button>
+                            <button class="form-type-add" :title="'New ' + ft.type" @click="addFormInstance(ft.type)">+</button>
+                          </span>
+                        </div>
+                        <template x-for="(inst, i) in instancesOf(ft.type)" :key="inst.id">
+                          <div class="sidebar-item form-instance-item"
+                               :class="{ active: activeFormType === ft.type && activeInstanceId === inst.id }"
+                               @click="openFormInstance(ft.type, inst.id)">
+                            <div style="flex:1;min-width:0;" x-text="ft.type + ' — Instance ' + (i + 1)"></div>
+                            <button class="del" title="Delete this form instance" @click.stop="deleteFormInstance(ft.type, inst.id)">&times;</button>
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </aside>
+
+    <!-- ============ CENTER ============ -->
+    <main class="center">
+
+      <template x-if="!current">
+        <div class="placeholder">
+          Select a logbook from the sidebar, or create a new one to get started.
+        </div>
+      </template>
+
+      <template x-if="current && activeSchema && activeInstance">
+        <div>
+          <div class="toolbar">
+            <div class="titles">
+              <h1 x-text="'Logbook — ' + current.tailNumber"></h1>
+              <div class="cap" x-text="activeSchema.label + ' — Instance ' + activeInstanceIndex()"></div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-sm" title="Undo (Ctrl+Z)" :disabled="!canUndo()" @click="undo()">↶ Undo</button>
+              <button class="btn btn-sm" title="Redo (Ctrl+Shift+Z)" :disabled="!canRedo()" @click="redo()">↷ Redo</button>
+              <button class="btn" @click="openAutomateModal()">Auto-fill from source</button>
+              <button class="btn" @click="openSaveDefaultModal()">Save as default</button>
+              <button class="btn btn-primary" @click="showPrintPreview()" :disabled="generating">
+                <span x-text="generating ? 'Generating…' : 'Print Preview'"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="banner-note" x-show="activeSchema.bannerNote" x-text="activeSchema.bannerNote"></div>
+
+          <!-- ===== Generic, schema-driven form renderer ===== -->
+          <div class="card">
+            <template x-for="section in activeSchema.sections" :key="section.title">
+              <div>
+
+                <!-- a labeled field group (header-level data) -->
+                <template x-if="section.kind === 'fields'">
+                  <div>
+                    <div class="section-title" x-text="section.title"></div>
+                    <div class="field-grid" :style="'grid-template-columns: repeat(' + (section.columns || 3) + ', 1fr)'">
+                      <template x-for="field in section.fields" :key="field.key">
+                        <div>
+                          <label x-text="field.label"></label>
+                          <template x-if="field.textarea">
+                            <textarea :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                                      @input="activeInstance.header[field.key] = $event.target.value"></textarea>
+                          </template>
+                          <template x-if="!field.textarea">
+                            <input type="text" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                                   @input="activeInstance.header[field.key] = $event.target.value">
+                          </template>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+
+                <!-- a repeating row table (e.g. sample rows, inspection items) -->
+                <template x-if="section.kind === 'table'">
+                  <div>
+                    <div class="section-title" x-text="section.title + ' (' + activeInstance[section.rowsKey].length + ')'"></div>
+                    <div class="table-wrap">
+                      <table class="rows">
+                        <thead>
+                          <tr>
+                            <th style="width:18px"></th>
+                            <th style="width:26px"></th>
+                            <template x-for="col in section.columns" :key="col.key">
+                              <th x-text="col.label"></th>
+                            </template>
+                            <th style="width:44px"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <template x-for="(row, idx) in activeInstance[section.rowsKey]" :key="row.id">
+                            <tr :class="{ dragging: dragIndex === idx }"
+                                @dragover.prevent @drop="dropRow(section, idx)">
+                              <td class="drag-handle" draggable="true"
+                                  @dragstart="dragStart(idx)" @dragend="dragIndex = null" title="Drag to reorder">&#8942;&#8942;</td>
+                              <td class="row-num" x-text="idx + 1"></td>
+                              <template x-for="col in section.columns" :key="col.key">
+                                <td>
+                                  <input type="text" :value="row[col.key]" :maxlength="col.maxLength || null"
+                                         @focus="snapshotBeforeChange()" @input="row[col.key] = $event.target.value">
+                                </td>
+                              </template>
+                              <td class="row-actions">
+                                <button title="Duplicate row" @click="duplicateRow(section, idx)">
+                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="1.5"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/></svg>
+                                </button>
+                                <button class="danger" title="Remove row" @click="removeRow(section, idx)">
+                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                                </button>
+                              </td>
+                            </tr>
+                          </template>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="table-actions">
+                      <button class="btn btn-sm" @click="addRow(section)">+ Add row</button>
+                    </div>
+                  </div>
+                </template>
+
+              </div>
+            </template>
+          </div>
+          <!-- ===== /generic renderer ===== -->
+
+        </div>
+      </template>
+
+    </main>
+
+    <!-- ============ RIGHT PREVIEW PANEL ============ -->
+    <div class="preview-resizer" x-show="current && previewPanelOpen"
+         :class="{ resizing: resizingPreview }" @mousedown="startPreviewResize($event)"
+         title="Drag to resize"></div>
+    <aside class="preview" x-show="current && previewPanelOpen" :style="'width:' + previewWidth + 'px'">
+      <div class="preview-toolbar">
+        <span class="label">PDF preview</span>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-sm" @click="regeneratePreview()" :disabled="generating">Refresh</button>
+          <button class="btn btn-sm" @click="openPreviewPdf()" :disabled="!previewGenerated"
+                  title="Open the real, still-fillable AcroForm PDF in a new tab">Open PDF</button>
+          <button class="btn btn-sm btn-primary" @click="printPreview()" :disabled="!previewGenerated">Print</button>
+          <button class="sidebar-toggle" title="Close preview" @click="previewPanelOpen = false">&times;</button>
+        </div>
+      </div>
+      <div class="preview-frame-wrap">
+        <div class="preview-pages" x-ref="previewPages" x-show="previewGenerated"></div>
+        <template x-if="!previewGenerated">
+          <div class="preview-empty">
+            <span x-text="generating ? 'Generating preview…' : 'Click \'Print Preview\' to render this logbook.'"></span>
+          </div>
+        </template>
+      </div>
+      <div class="preview-footer">Preview reflects unsaved changes as of the last refresh</div>
+    </aside>
+
+  </div>
+
+  <!-- ============ NEW LOGBOOK MODAL ============ -->
+  <template x-if="showNewModal">
+    <div class="modal-backdrop" @click.self="showNewModal = false">
+      <div class="modal">
+        <h2>New logbook</h2>
+        <div class="cap">UH-60R &middot; Logbook</div>
+
+        <div class="field">
+          <label>Aircraft tail number</label>
+          <input type="text" x-model="newTailNumber" placeholder="e.g. 16-04578" x-ref="tailInput">
+        </div>
+
+        <div class="field">
+          <label>Start from</label>
+          <div class="source-option" :class="{ selected: newSource === 'blank' }" @click="newSource = 'blank'">
+            <input type="radio" :checked="newSource === 'blank'" @click.stop="newSource = 'blank'">
+            <span class="name">Blank logbook</span>
+          </div>
+          <template x-for="d in defaults" :key="d.id">
+            <div class="source-option" :class="{ selected: newSource === d.id }" @click="newSource = d.id">
+              <input type="radio" :checked="newSource === d.id" @click.stop="newSource = d.id">
+              <span class="name" x-text="d.name"></span>
+              <span style="font-size:10.5px;color:var(--muted);" x-text="defaultSummary(d)"></span>
+              <button class="del" title="Delete this default" @click.stop="deleteDefault(d.id)">&times;</button>
+            </div>
+          </template>
+          <div class="cap" x-show="defaults.length === 0" style="margin:6px 0 0;">
+            No saved defaults yet — open a logbook and use "Save as default" to create one.
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn" @click="showNewModal = false">Cancel</button>
+          <button class="btn btn-primary" @click="confirmCreateLogbook()" :disabled="!newTailNumber.trim()">Create</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============ SAVE AS DEFAULT MODAL ============ -->
+  <template x-if="showSaveDefaultModal">
+    <div class="modal-backdrop" @click.self="showSaveDefaultModal = false">
+      <div class="modal">
+        <h2>Save as default</h2>
+        <div class="cap">
+          Stores this logbook's forms as a reusable starting point for new logbooks.
+          This logbook stays independent — editing it later won't change the saved default.
+        </div>
+        <div class="field">
+          <label>Default name</label>
+          <input type="text" x-model="newDefaultName" placeholder="e.g. Standard UH-60R logbook" x-ref="defaultNameInput">
+        </div>
+        <div class="modal-actions">
+          <button class="btn" @click="showSaveDefaultModal = false">Cancel</button>
+          <button class="btn btn-primary" @click="confirmSaveDefault()" :disabled="!newDefaultName.trim()">Save</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============ CONFIGURE FORM TYPE MODAL ============ -->
+  <template x-if="showConfigModal">
+    <div class="modal-backdrop" @click.self="showConfigModal = false">
+      <div class="modal modal-wide">
+        <h2 x-text="'Configure ' + (configSchema ? configSchema.label : '')"></h2>
+        <div class="cap">
+          Export styling per field, applied whenever this form type is filled and printed or opened.
+          Defaults: Helvetica, 12pt, left-aligned, single line.
+        </div>
+
+        <div class="config-field-list">
+          <div class="config-field-row config-field-row-head">
+            <div>Field</div>
+            <div>Font</div>
+            <div>Size</div>
+            <div>Style</div>
+            <div>Overflow</div>
+          </div>
+          <template x-for="cf in configFields" :key="cf.key">
+            <div class="config-field-row">
+              <div class="config-field-label" :title="cf.label" x-text="cf.label"></div>
+              <select :value="configDraft[cf.key].fontFamily" @change="configDraft[cf.key].fontFamily = $event.target.value">
+                <option value="Helvetica">Helvetica</option>
+                <option value="TimesRoman">Times</option>
+                <option value="Courier">Courier</option>
+              </select>
+              <input type="number" min="0" max="72" placeholder="Auto"
+                     :value="configDraft[cf.key].fontSize || ''"
+                     @input="configDraft[cf.key].fontSize = $event.target.value === '' ? 0 : Number($event.target.value)">
+              <div class="config-style-toggles">
+                <label class="config-check"><input type="checkbox" :checked="configDraft[cf.key].bold" @change="configDraft[cf.key].bold = $event.target.checked"> B</label>
+                <label class="config-check"><input type="checkbox" :checked="configDraft[cf.key].italic" @change="configDraft[cf.key].italic = $event.target.checked"> I</label>
+              </div>
+              <label class="config-check"><input type="checkbox" :checked="configDraft[cf.key].allowOverflow" @change="configDraft[cf.key].allowOverflow = $event.target.checked"> Allow</label>
+            </div>
+          </template>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn" @click="resetConfigDraft()">Reset to defaults</button>
+          <button class="btn" @click="showConfigModal = false">Cancel</button>
+          <button class="btn btn-primary" @click="confirmSaveConfig()">Save</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============ AUTOMATE FORM ENTRY MODAL ============ -->
+  <template x-if="showAutomateModal">
+    <div class="modal-backdrop" @click.self="automateDone && closeAutomateModal()">
+      <div class="modal">
+        <h2>Automate form entry</h2>
+        <div class="cap">
+          POC scope: this simulates pulling data for
+          <strong x-text="activeSchema && activeSchema.label"></strong> from an external system —
+          no real request is made, but the four stages a real integration would go through are
+          shown below before the form is auto-populated.
+        </div>
+
+        <div class="automate-steps">
+          <template x-for="step in automateSteps" :key="step.key">
+            <div class="automate-step" :class="{ active: step.status === 'active', done: step.status === 'done' }">
+              <span class="automate-step-icon">
+                <span x-show="step.status === 'done'">&#10003;</span>
+                <span x-show="step.status === 'pending'">&#9675;</span>
+              </span>
+              <span x-text="step.label"></span>
+            </div>
+          </template>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" @click="closeAutomateModal()" :disabled="!automateDone">
+            <span x-text="automateDone ? 'Done' : 'Working…'"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+<script src="js/form2408-18.js"></script>
+<script src="js/form2408-20.js"></script>
+
+<script>
+// ---------------------------------------------------------------------------
+// Form-type registry, in numeric order — each entry is a full schema (label,
+// banner note, UI sections, and the model/fill-engine functions) supplied by
+// its own js/form-XXXX.js file. This is the single generalization point:
+// index.html renders whatever's in this list, generically, via the "fields"
+// and "table" section renderers below — adding a form type means adding a
+// schema object here, not touching any markup.
+// ---------------------------------------------------------------------------
+const FORM_TYPES = [SCHEMA_2408_18, SCHEMA_2408_20];
+
+const STORAGE_KEY = "pdfgen-vanilla-multi-logbooks";
+const DEFAULTS_KEY = "pdfgen-vanilla-multi-defaults";
+const STYLES_KEY = "pdfgen-vanilla-multi-fieldstyles";
+
+function formTypeKey(type) {
+  return "forms" + type.replace("-", "_"); // '2408-20' -> 'forms2408_20'
+}
+
+// ---------------------------------------------------------------------------
+// Per-field export styling (Configure form type modal). fontSize 0 means
+// "auto" — pdf-lib shrinks the field's own font size to fit its box; the
+// default is a fixed 12pt instead. allowOverflow enables multiline so long
+// text wraps within the field's box instead of staying clipped to one line.
+// ---------------------------------------------------------------------------
+const DEFAULT_FIELD_STYLE = {
+  fontFamily: "Helvetica", bold: false, italic: false,
+  fontSize: 12, align: "left", allowOverflow: false,
+};
+
+// Flattens a schema's sections into the flat {key, label} list the
+// Configure modal edits — one row per header field and per table column,
+// addressed by the same key the schema/fill-engine already use for it.
+function fieldStyleKeysForSchema(schema) {
+  const keys = [];
+  for (const section of schema.sections) {
+    if (section.kind === "fields") {
+      for (const f of section.fields) {
+        keys.push({ key: f.key, label: (section.title ? section.title + " — " : "") + (f.label || f.key) });
+      }
+    } else if (section.kind === "table") {
+      for (const c of section.columns) {
+        keys.push({ key: c.key, label: (section.title ? section.title + " — " : "") + c.label });
+      }
+    }
+  }
+  return keys;
+}
+
+function uid() {
+  return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+}
+
+// A logbook document bundles every form type belonging to it (per the
+// "Document = collection of Forms" model), each as an *array* of instances —
+// a logbook can contain more than one of a given form type. Fully generic
+// over FORM_TYPES, so a new form type needs no changes here.
+function emptyLogbookForms() {
+  const forms = {};
+  for (const ft of FORM_TYPES) forms[formTypeKey(ft.type)] = [ft.empty()];
+  return forms;
+}
+
+function cloneLogbookForms(forms) {
+  const out = {};
+  for (const ft of FORM_TYPES) out[formTypeKey(ft.type)] = forms[formTypeKey(ft.type)].map(ft.clone);
+  return out;
+}
+
+function emptyLogbook(tailNumber, forms) {
+  const now = new Date().toISOString();
+  const f = forms || emptyLogbookForms();
+  const lb = {
+    id: uid(), tailNumber, aircraftModel: "UH-60R", documentType: "Logbook",
+    createdAt: now, updatedAt: now,
+  };
+  for (const ft of FORM_TYPES) lb[formTypeKey(ft.type)] = f[formTypeKey(ft.type)];
+  return lb;
+}
+
+// ---------------------------------------------------------------------------
+// Preview rendering. Mobile browsers (Chrome/Safari on Android/iOS in
+// particular) do not render PDFs inline inside an <iframe> — they show a
+// generic "open externally" card instead, which also breaks
+// iframe.contentWindow.print(). Rendering each page to a <canvas> with
+// pdf.js works identically on every platform, and printing is done by
+// turning those canvases into images in a dedicated print window instead of
+// relying on any browser's native PDF viewer.
+// ---------------------------------------------------------------------------
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+// kept outside Alpine's reactive state — it's a large binary blob, not UI
+// state, so there's no reason to pay for deep-proxying it on every change.
+let lastPreviewBytes = null;
+
+function openBytesInNewWindow(bytes) {
+  const blob = new Blob([bytes], { type: "application/pdf" });
+  const url = URL.createObjectURL(blob);
+  const win = window.open(url, "_blank");
+  if (!win) {
+    alert("Your browser blocked the new window — please allow pop-ups for this page and try again.");
+    URL.revokeObjectURL(url);
+    return;
+  }
+  // the new tab needs the blob URL to stay valid while its native PDF viewer
+  // loads the file — revoke well after that's had time to happen, not
+  // immediately like a one-shot download click.
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+async function renderPreviewPages(container, bytes) {
+  container.innerHTML = "";
+  // pdf.js detaches/transfers the buffer it's given, so hand it a copy —
+  // the caller (and printPreview, via lastPreviewBytes) still needs the
+  // original bytes afterward.
+  const loadingTask = pdfjsLib.getDocument({ data: bytes.slice() });
+  const pdf = await loadingTask.promise;
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale: 1.4 });
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    container.appendChild(canvas);
+    await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+  }
+}
+
+function printRenderedPages(container) {
+  const canvases = container.querySelectorAll("canvas");
+  if (!canvases.length) return;
+  const win = window.open("", "_blank");
+  if (!win) {
+    alert("Your browser blocked the print window — please allow pop-ups for this page and try again.");
+    return;
+  }
+  const imagesHtml = Array.from(canvases)
+    .map(c => `<img src="${c.toDataURL("image/png")}">`)
+    .join("");
+  win.document.open();
+  win.document.write(`<!doctype html><html><head><title>Print preview</title><style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; width: 100%; page-break-after: always; }
+    @media print { @page { margin: 0; } }
+  </style></head><body>${imagesHtml}</body></html>`);
+  win.document.close();
+  setTimeout(() => { win.focus(); win.print(); }, 150);
+}
+
+function pdfgenApp() {
+  return {
+    logbooks: [],
+    defaults: [],
+    fieldStyles: {},
+    currentId: null,
+
+    // Undo/redo history, in-memory only (not persisted) — keyed by logbook
+    // id so switching logbooks doesn't mix histories. Each entry is a full
+    // deep-cloned snapshot of that logbook's state just before a change.
+    undoStacks: {},
+    redoStacks: {},
+    generating: false,
+    previewGenerated: false,
+
+    sidebarOpen: true,
+    previewPanelOpen: false,
+    previewWidth: 380,
+    resizingPreview: false,
+    FORM_TYPES,
+    activeFormType: FORM_TYPES[0].type, // numeric-first, e.g. '2408-18'
+    activeInstanceId: null,             // id of the specific instance being edited
+    dragIndex: null,
+
+    // Fake examples for testing the selectors — only UH-60R / Logbook is
+    // actually implemented in this POC (see isSupported below).
+    AIRCRAFT_MODELS: ["UH-60R", "UH-60M", "MH-60R", "MH-60M", "AH-64D", "AH-64E"],
+    DOCUMENT_TYPES: ["Logbook", "SN Book", "Maintenance Record", "Historical Record"],
+    selectedModel: "UH-60R",
+    selectedDocType: "Logbook",
+
+    showNewModal: false,
+    newTailNumber: "",
+    newSource: "blank",
+
+    showSaveDefaultModal: false,
+    newDefaultName: "",
+
+    showAutomateModal: false,
+    automateSteps: [],
+    automateDone: false,
+
+    showConfigModal: false,
+    configFormType: null,
+    configFields: [],
+    configDraft: {},
+
+    get current() {
+      return this.logbooks.find(l => l.id === this.currentId) || null;
+    },
+
+    get isSupported() {
+      return this.selectedModel === "UH-60R" && this.selectedDocType === "Logbook";
+    },
+
+    get activeSchema() {
+      return FORM_TYPES.find(f => f.type === this.activeFormType) || null;
+    },
+
+    get configSchema() {
+      return FORM_TYPES.find(f => f.type === this.configFormType) || null;
+    },
+
+    stylesFor(type) {
+      return this.fieldStyles[type] || {};
+    },
+
+    // the currently-open logbook's instances of a given form type
+    instancesOf(type) {
+      return this.current ? this.current[formTypeKey(type)] : [];
+    },
+
+    get activeInstance() {
+      if (!this.current) return null;
+      const list = this.current[formTypeKey(this.activeFormType)];
+      return list.find(i => i.id === this.activeInstanceId) || null;
+    },
+
+    activeInstanceIndex() {
+      if (!this.current) return "";
+      const list = this.current[formTypeKey(this.activeFormType)];
+      const idx = list.findIndex(i => i.id === this.activeInstanceId);
+      return idx === -1 ? "" : idx + 1;
+    },
+
+    init() {
+      this.load();
+      this.$watch("logbooks", () => this.persistLogbooks(), { deep: true });
+      this.$watch("defaults", () => this.persistDefaults(), { deep: true });
+      this.$watch("fieldStyles", () => this.persistFieldStyles(), { deep: true });
+
+      // Global Ctrl/Cmd+Z (undo) and Ctrl/Cmd+Shift+Z or Ctrl+Y (redo) —
+      // skipped while a text input/textarea/select has focus so it doesn't
+      // fight with the browser's own per-field undo while actively typing.
+      window.addEventListener("keydown", (e) => {
+        const tag = (e.target && e.target.tagName) || "";
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
+        if (!(e.ctrlKey || e.metaKey)) return;
+        const key = e.key.toLowerCase();
+        if (key === "z") {
+          e.preventDefault();
+          if (e.shiftKey) this.redo(); else this.undo();
+        } else if (key === "y") {
+          e.preventDefault();
+          this.redo();
+        }
+      });
+    },
+
+    load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        this.logbooks = raw ? JSON.parse(raw) : [];
+      } catch { this.logbooks = []; }
+      try {
+        const raw = localStorage.getItem(DEFAULTS_KEY);
+        this.defaults = raw ? JSON.parse(raw) : [];
+      } catch { this.defaults = []; }
+      try {
+        const raw = localStorage.getItem(STYLES_KEY);
+        this.fieldStyles = raw ? JSON.parse(raw) : {};
+      } catch { this.fieldStyles = {}; }
+    },
+
+    persistLogbooks() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.logbooks)); }
+      catch (e) { console.warn("Could not save logbooks", e); }
+    },
+
+    persistDefaults() {
+      try { localStorage.setItem(DEFAULTS_KEY, JSON.stringify(this.defaults)); }
+      catch (e) { console.warn("Could not save defaults", e); }
+    },
+
+    persistFieldStyles() {
+      try { localStorage.setItem(STYLES_KEY, JSON.stringify(this.fieldStyles)); }
+      catch (e) { console.warn("Could not save field styles", e); }
+    },
+
+    sortedLogbooks() {
+      return this.logbooks.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    },
+
+    formatDate(iso) {
+      try { return new Date(iso).toLocaleString(); } catch { return iso; }
+    },
+
+    defaultSummary(d) {
+      return FORM_TYPES
+        .map(ft => d.forms[formTypeKey(ft.type)].length + ' × ' + ft.type)
+        .join(', ');
+    },
+
+    clearPreview() {
+      lastPreviewBytes = null;
+      this.previewGenerated = false;
+      if (this.$refs.previewPages) this.$refs.previewPages.innerHTML = "";
+    },
+
+    // ---- new logbook modal ----
+    openNewModal() {
+      this.newTailNumber = "";
+      this.newSource = "blank";
+      this.showNewModal = true;
+      this.$nextTick(() => this.$refs.tailInput && this.$refs.tailInput.focus());
+    },
+
+    confirmCreateLogbook() {
+      const tail = this.newTailNumber.trim();
+      if (!tail) return;
+      let forms;
+      if (this.newSource === "blank") {
+        forms = emptyLogbookForms();
+      } else {
+        const d = this.defaults.find(x => x.id === this.newSource);
+        forms = d ? cloneLogbookForms(d.forms) : emptyLogbookForms();
+      }
+      const lb = emptyLogbook(tail, forms);
+      this.logbooks.push(lb);
+      this.showNewModal = false;
+      this.openLogbook(lb.id);
+    },
+
+    // ---- save as default modal ----
+    openSaveDefaultModal() {
+      this.newDefaultName = "";
+      this.showSaveDefaultModal = true;
+      this.$nextTick(() => this.$refs.defaultNameInput && this.$refs.defaultNameInput.focus());
+    },
+
+    confirmSaveDefault() {
+      const name = this.newDefaultName.trim();
+      if (!name || !this.current) return;
+      this.defaults.push({
+        id: uid(),
+        name,
+        createdAt: new Date().toISOString(),
+        forms: cloneLogbookForms(this.current),
+      });
+      this.showSaveDefaultModal = false;
+    },
+
+    // ---- automate form entry modal ----
+    // POC simulation of an external-system data pull: no real request is
+    // made, but the same four stages a real integration would go through
+    // (request/response/parsing/data entry — per the "Data entry workflows"
+    // design) are shown in sequence before the active instance is
+    // auto-populated from that form type's own sampleData() — generic over
+    // whichever schema is active, not special-cased per form type.
+    openAutomateModal() {
+      if (!this.activeInstance) return;
+      this.automateSteps = [
+        { key: "request", label: "Sending request to external data source", status: "pending" },
+        { key: "response", label: "Waiting for response", status: "pending" },
+        { key: "parsing", label: "Parsing response data", status: "pending" },
+        { key: "entry", label: "Populating form fields", status: "pending" },
+      ];
+      this.automateDone = false;
+      this.showAutomateModal = true;
+      this.runAutomateWorkflow();
+    },
+
+    async runAutomateWorkflow() {
+      const delays = [650, 550, 500, 450];
+      for (let i = 0; i < this.automateSteps.length; i++) {
+        this.automateSteps[i].status = "active";
+        await new Promise(resolve => setTimeout(resolve, delays[i]));
+        this.automateSteps[i].status = "done";
+      }
+
+      const schema = this.activeSchema;
+      const instance = this.activeInstance;
+      if (schema && instance && schema.sampleData) {
+        this.snapshotBeforeChange();
+        const data = schema.sampleData();
+        Object.assign(instance.header, data.header);
+        const tableSection = schema.sections.find(s => s.kind === "table");
+        if (tableSection) {
+          instance[tableSection.rowsKey] = data.rows.map(r => ({ ...r, id: uid() }));
+        }
+        this.current.updatedAt = new Date().toISOString();
+      }
+      this.automateDone = true;
+    },
+
+    closeAutomateModal() {
+      this.showAutomateModal = false;
+    },
+
+    deleteDefault(id) {
+      if (!confirm("Delete this default? This cannot be undone.")) return;
+      this.defaults = this.defaults.filter(d => d.id !== id);
+      if (this.newSource === id) this.newSource = "blank";
+    },
+
+    // ---- configure form type modal (per-field export styling) ----
+    openConfigModal(type) {
+      const schema = FORM_TYPES.find(f => f.type === type);
+      if (!schema) return;
+      this.configFormType = type;
+      this.configFields = fieldStyleKeysForSchema(schema);
+      const saved = this.fieldStyles[type] || {};
+      const draft = {};
+      for (const cf of this.configFields) draft[cf.key] = { ...DEFAULT_FIELD_STYLE, ...(saved[cf.key] || {}) };
+      this.configDraft = draft;
+      this.showConfigModal = true;
+    },
+
+    resetConfigDraft() {
+      const draft = {};
+      for (const cf of this.configFields) draft[cf.key] = { ...DEFAULT_FIELD_STYLE };
+      this.configDraft = draft;
+    },
+
+    confirmSaveConfig() {
+      if (!this.configFormType) return;
+      this.fieldStyles[this.configFormType] = this.configDraft;
+      this.showConfigModal = false;
+      // an already-rendered preview for this form type no longer reflects
+      // the styling it was generated with — clear it rather than show stale output.
+      if (this.activeFormType === this.configFormType) this.clearPreview();
+    },
+
+    // ---- logbook selection ----
+    openLogbook(id) {
+      this.currentId = id;
+      const lb = this.logbooks.find(l => l.id === id);
+      this.activeFormType = FORM_TYPES[0].type;
+      this.activeInstanceId = lb ? lb[formTypeKey(this.activeFormType)][0]?.id ?? null : null;
+      this.previewPanelOpen = false;
+      this.clearPreview();
+    },
+
+    // ---- form instance selection (sidebar "Forms in this document") ----
+    openFormInstance(type, instanceId) {
+      if (this.activeFormType === type && this.activeInstanceId === instanceId) return;
+      this.activeFormType = type;
+      this.activeInstanceId = instanceId;
+      this.previewPanelOpen = false;
+      this.clearPreview();
+    },
+
+    addFormInstance(type) {
+      if (!this.current) return;
+      this.snapshotBeforeChange();
+      const ft = FORM_TYPES.find(f => f.type === type);
+      const list = this.current[formTypeKey(type)];
+      const instance = ft.empty();
+      list.push(instance);
+      this.current.updatedAt = new Date().toISOString();
+      this.openFormInstance(type, instance.id);
+    },
+
+    deleteFormInstance(type, instanceId) {
+      if (!this.current) return;
+      const list = this.current[formTypeKey(type)];
+      if (list.length <= 1) {
+        alert("A logbook needs at least one instance of each form type.");
+        return;
+      }
+      if (!confirm("Delete this form instance? This cannot be undone.")) return;
+      this.snapshotBeforeChange();
+      const idx = list.findIndex(i => i.id === instanceId);
+      if (idx === -1) return;
+      list.splice(idx, 1);
+      this.current.updatedAt = new Date().toISOString();
+      if (this.activeFormType === type && this.activeInstanceId === instanceId) {
+        this.openFormInstance(type, list[0].id);
+      }
+    },
+
+    deleteLogbook(id) {
+      if (!confirm("Delete this logbook? This cannot be undone.")) return;
+      this.logbooks = this.logbooks.filter(l => l.id !== id);
+      delete this.undoStacks[id];
+      delete this.redoStacks[id];
+      if (this.currentId === id) {
+        this.currentId = null;
+        this.previewPanelOpen = false;
+        this.clearPreview();
+      }
+    },
+
+    // ---- undo/redo, scoped to the currently open logbook ----
+    // Called right before any edit to the current logbook's data (header
+    // fields, rows, form instances) — pushes a snapshot of its pre-edit
+    // state and drops the redo history, same as any standard undo stack.
+    snapshotBeforeChange() {
+      if (!this.current) return;
+      const id = this.currentId;
+      const stack = this.undoStacks[id] || (this.undoStacks[id] = []);
+      stack.push(JSON.parse(JSON.stringify(this.current)));
+      if (stack.length > 100) stack.shift();
+      this.redoStacks[id] = [];
+    },
+
+    canUndo() {
+      const stack = this.undoStacks[this.currentId];
+      return !!(stack && stack.length);
+    },
+
+    canRedo() {
+      const stack = this.redoStacks[this.currentId];
+      return !!(stack && stack.length);
+    },
+
+    undo() {
+      if (!this.canUndo()) return;
+      const id = this.currentId;
+      const prev = this.undoStacks[id].pop();
+      (this.redoStacks[id] || (this.redoStacks[id] = [])).push(JSON.parse(JSON.stringify(this.current)));
+      this.applyRestoredLogbook(prev);
+    },
+
+    redo() {
+      if (!this.canRedo()) return;
+      const id = this.currentId;
+      const next = this.redoStacks[id].pop();
+      (this.undoStacks[id] || (this.undoStacks[id] = [])).push(JSON.parse(JSON.stringify(this.current)));
+      this.applyRestoredLogbook(next);
+    },
+
+    // Swaps the current logbook's data for a restored snapshot, then
+    // re-points activeInstanceId at the restored data if the instance that
+    // was open no longer exists there (e.g. undoing past its creation).
+    applyRestoredLogbook(snapshot) {
+      const idx = this.logbooks.findIndex(l => l.id === this.currentId);
+      if (idx === -1) return;
+      this.logbooks[idx] = snapshot;
+      const list = snapshot[formTypeKey(this.activeFormType)] || [];
+      if (!list.find(i => i.id === this.activeInstanceId)) {
+        this.activeInstanceId = list[0] ? list[0].id : null;
+      }
+      this.clearPreview();
+    },
+
+    // opens the right-hand panel and (re)generates the preview into it —
+    // the panel is only ever shown via this action, per the "only display
+    // the right panel on Print Preview" requirement.
+    async showPrintPreview() {
+      this.previewPanelOpen = true;
+      await this.regeneratePreview();
+    },
+
+    // ---- generic row operations, driven by the active table section's
+    // rowsKey and its schema's newRow() factory — no per-form-type branching.
+    addRow(section) {
+      const form = this.activeInstance;
+      if (!form) return;
+      this.snapshotBeforeChange();
+      form[section.rowsKey].push(this.activeSchema.newRow());
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    removeRow(section, idx) {
+      const form = this.activeInstance;
+      if (!form) return;
+      this.snapshotBeforeChange();
+      const rows = form[section.rowsKey];
+      rows.splice(idx, 1);
+      if (rows.length === 0) rows.push(this.activeSchema.newRow());
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    duplicateRow(section, idx) {
+      const form = this.activeInstance;
+      if (!form) return;
+      this.snapshotBeforeChange();
+      const rows = form[section.rowsKey];
+      const copy = { ...rows[idx], id: uid() };
+      rows.splice(idx + 1, 0, copy);
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    dragStart(idx) {
+      this.dragIndex = idx;
+    },
+
+    dropRow(section, targetIdx) {
+      if (this.dragIndex === null || this.dragIndex === targetIdx) { this.dragIndex = null; return; }
+      const form = this.activeInstance;
+      if (!form) { this.dragIndex = null; return; }
+      this.snapshotBeforeChange();
+      const rows = form[section.rowsKey];
+      const [moved] = rows.splice(this.dragIndex, 1);
+      rows.splice(targetIdx, 0, moved);
+      this.dragIndex = null;
+      this.current.updatedAt = new Date().toISOString();
+    },
+
+    async regeneratePreview() {
+      if (!this.activeInstance) return;
+      this.generating = true;
+      try {
+        const bytes = await this.activeSchema.build(this.activeInstance, this.stylesFor(this.activeFormType));
+        lastPreviewBytes = bytes;
+        await renderPreviewPages(this.$refs.previewPages, bytes);
+        this.previewGenerated = true;
+      } catch (e) {
+        console.error(e);
+        alert("Could not generate the PDF preview — see console for details.");
+      } finally {
+        this.generating = false;
+      }
+    },
+
+    printPreview() {
+      if (!lastPreviewBytes || !this.$refs.previewPages) return;
+      printRenderedPages(this.$refs.previewPages);
+    },
+
+    // Opens the real, still-interactive AcroForm PDF (the same bytes the
+    // preview was rendered from) in a new browser tab, via its native PDF
+    // viewer — this is the deliverable a customer would open in Acrobat or
+    // any other viewer, as opposed to the in-app canvas preview/print,
+    // which stays image-based per platform (see renderPreviewPages above).
+    openPreviewPdf() {
+      if (!lastPreviewBytes) return;
+      openBytesInNewWindow(lastPreviewBytes);
+    },
+
+    // drag-to-resize the preview panel from its left edge — dragging left
+    // (mouse moving toward smaller clientX) widens the panel, since it's
+    // anchored to the right side of the window.
+    startPreviewResize(e) {
+      e.preventDefault();
+      const startX = e.clientX;
+      const startWidth = this.previewWidth;
+      this.resizingPreview = true;
+      const prevUserSelect = document.body.style.userSelect;
+      document.body.style.userSelect = "none";
+
+      const onMove = (ev) => {
+        const delta = startX - ev.clientX;
+        this.previewWidth = Math.min(900, Math.max(260, startWidth + delta));
+      };
+      const onUp = () => {
+        this.resizingPreview = false;
+        document.body.style.userSelect = prevUserSelect;
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+      };
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    },
+
+    // "Export All" — every form instance in this logbook, merged into one
+    // PDF, rendered into the preview panel and then immediately opened in a
+    // new tab (the same action "Open PDF" performs for a single instance),
+    // so exporting the whole document is one click instead of two. Doesn't
+    // touch activeFormType/activeInstanceId, only the preview panel.
+    async exportAll() {
+      if (!this.current) return;
+      this.previewPanelOpen = true;
+      this.generating = true;
+      try {
+        const bytes = await buildCombinedPdf(this.current, this.fieldStyles);
+        lastPreviewBytes = bytes;
+        await renderPreviewPages(this.$refs.previewPages, bytes);
+        this.previewGenerated = true;
+        this.openPreviewPdf();
+      } catch (e) {
+        console.error(e);
+        alert("Could not generate the combined PDF — see console for details.");
+      } finally {
+        this.generating = false;
+      }
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Shared AcroForm fill infrastructure. Every form type in this POC is a
+// named-field PDF (per the "AcroForm-only" scope for this multi-form-type
+// slice), so the whole set-fields / merge loop lives here once; a form
+// type's js/form-XXXX.js file supplies only data (its template + field-name
+// config), not its own copy of this logic.
+//
+// Output PDFs are never flattened — the app must hand back a real,
+// interactive AcroForm PDF (openable and still fillable in a normal PDF
+// viewer), not a flattened/static one. That has one real complication:
+// whenever more than one already-filled copy gets merged into a single PDF
+// (row overflow onto extra copies of the same form, or "Print All" combining
+// several instances), pdf-lib's copyPages() carries each copy's field tree
+// over verbatim but does NOT attach it to the new document's /AcroForm, and
+// if left unattached, two copies of the same template collide on identical
+// fully-qualified field names (e.g. both named "form1[0].Page1[0].Nomen[0]"),
+// which real viewers can treat as one shared field rather than two — losing
+// the second copy's own value. mergeAcroFormDocs (below) fixes both: it
+// attaches a proper /AcroForm pointing at every copy's fields, and
+// disambiguates each copy's top-level field name so they stay independent.
+// ---------------------------------------------------------------------------
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+// Resolves a saved field style to the matching pdf-lib StandardFonts value.
+// Helvetica/Times/Courier are the only fonts pdf-lib ships without needing a
+// real font file embedded, and each has the same four bold/italic variants,
+// so this is a plain lookup rather than general font matching.
+function resolveStandardFont(style) {
+  const { StandardFonts } = PDFLib;
+  const table = {
+    Helvetica:  { "": StandardFonts.Helvetica,  bold: StandardFonts.HelveticaBold,  italic: StandardFonts.HelveticaOblique,  boldItalic: StandardFonts.HelveticaBoldOblique },
+    TimesRoman: { "": StandardFonts.TimesRoman, bold: StandardFonts.TimesRomanBold, italic: StandardFonts.TimesRomanItalic,  boldItalic: StandardFonts.TimesRomanBoldItalic },
+    Courier:    { "": StandardFonts.Courier,    bold: StandardFonts.CourierBold,    italic: StandardFonts.CourierOblique,    boldItalic: StandardFonts.CourierBoldOblique },
+  };
+  const family = table[style.fontFamily] || table.Helvetica;
+  const variant = style.bold && style.italic ? "boldItalic" : style.bold ? "bold" : style.italic ? "italic" : "";
+  return family[variant] || family[""];
+}
+
+// One embedded-font cache per physical copy (a copy may use several distinct
+// font/bold/italic combinations across its fields, but each combination only
+// needs embedding once).
+async function getEmbeddedFont(doc, fontCache, standardFontName) {
+  if (!fontCache.has(standardFontName)) fontCache.set(standardFontName, await doc.embedFont(standardFontName));
+  return fontCache.get(standardFontName);
+}
+
+// Sets one AcroForm text field's value AND its export styling (font, size,
+// bold/italic, justification, overflow) in one place. Falls back to
+// DEFAULT_FIELD_STYLE (Helvetica, 12pt, left-aligned, single line) when no
+// style is passed or saved for this field.
+async function setStyledAcroText(doc, form, name, value, style, fontCache) {
+  if (!value) return;
+  let field;
+  try { field = form.getTextField(name); } catch { return; } // missing field — skip silently
+  const max = field.getMaxLength();
+  const str = String(value);
+  // pdf-lib throws on a value longer than the field's max length rather
+  // than truncating it, so truncate ourselves first.
+  field.setText(typeof max === "number" && max > 0 && str.length > max ? str.slice(0, max) : str);
+
+  const s = style || DEFAULT_FIELD_STYLE;
+  const { TextAlignment } = PDFLib;
+  const alignMap = { left: TextAlignment.Left, center: TextAlignment.Center, right: TextAlignment.Right };
+  field.setAlignment(alignMap[s.align] || TextAlignment.Left);
+  if (s.allowOverflow) field.enableMultiline(); else field.disableMultiline();
+  field.setFontSize(s.fontSize > 0 ? s.fontSize : 0); // 0 = pdf-lib auto-sizes to fit the box
+
+  const font = await getEmbeddedFont(doc, fontCache, resolveStandardFont(s));
+  field.updateAppearances(font);
+}
+
+// LiveCycle/XFA-authored forms name repeated row fields "<base>[0]" for the
+// first row and "<base>_N[0]" for the Nth, qualified by page subform — same
+// pattern across every form type inspected so far (see js/form-XXXX.js
+// header comments for how each one's names were confirmed).
+function acroFieldName(root, page, base, rowIdx) {
+  const suffix = rowIdx === 0 ? "" : "_" + rowIdx;
+  const pageKey = page === 0 ? "Page1" : "Page2";
+  return `${root}[0].${pageKey}[0].${base}${suffix}[0]`;
+}
+
+// cfg: { root, page1Rows, page2Rows, header: {key: fieldName}, cols: [{key,p1,p2}],
+//        repeatingHeaderExclude: [headerKey, ...] }
+// header.page / header.pageOf are always the computed "Page X of Y" fields.
+// Any other header key not present in cfg.header is silently skipped, same
+// as an empty value — lets a form type's schema carry fields with no PDF
+// counterpart (e.g. app-only notes) without the fill engine caring.
+//
+// Returns an array of loaded, filled, NOT-yet-merged PDFDocuments — one per
+// physical copy needed to fit all rows. Each is already a fully valid
+// interactive AcroForm document on its own; buildAcroFormFilledPdf (below)
+// merges them into one when there's more than one, and buildCombinedPdf
+// merges instances' copies together the same way for "Print All".
+async function buildAcroFormCopies(templateB64, form, cfg, styles) {
+  const { PDFDocument } = PDFLib;
+  const templateBytes = b64ToBytes(templateB64);
+  const rows = form.rows;
+  const rowsPerCopy = cfg.page1Rows + cfg.page2Rows;
+  const totalCopies = Math.max(1, Math.ceil(rows.length / rowsPerCopy));
+  const exclude = cfg.repeatingHeaderExclude || [];
+  const fieldStyles = styles || {};
+  const docs = [];
+
+  for (let copyIndex = 0; copyIndex < totalCopies; copyIndex++) {
+    const templateDoc = await PDFDocument.load(templateBytes);
+    const acroForm = templateDoc.getForm();
+    const fontCache = new Map();
+
+    await setStyledAcroText(templateDoc, acroForm, cfg.header.page, String(copyIndex + 1), null, fontCache);
+    await setStyledAcroText(templateDoc, acroForm, cfg.header.pageOf, String(totalCopies), null, fontCache);
+    for (const key of Object.keys(form.header)) {
+      if (exclude.includes(key) && copyIndex > 0) continue; // e.g. remarks: copy 1 only
+      if (cfg.header[key]) {
+        await setStyledAcroText(templateDoc, acroForm, cfg.header[key], form.header[key], fieldStyles[key], fontCache);
+      }
+    }
+
+    const start = copyIndex * rowsPerCopy;
+    const chunk = rows.slice(start, start + rowsPerCopy);
+    for (let i = 0; i < chunk.length; i++) {
+      const row = chunk[i];
+      const onPage1 = i < cfg.page1Rows;
+      const page = onPage1 ? 0 : 1;
+      const rowIdx = onPage1 ? i : i - cfg.page1Rows;
+      for (const col of cfg.cols) {
+        const base = onPage1 ? col.p1 : col.p2;
+        await setStyledAcroText(
+          templateDoc, acroForm, acroFieldName(cfg.root, page, base, rowIdx),
+          row[col.key], fieldStyles[col.key], fontCache
+        );
+      }
+    }
+
+    docs.push(templateDoc);
+  }
+
+  return docs;
+}
+
+// Walks a (possibly deep) field/widget dict up its /Parent chain to the
+// root ancestor of its field tree — LiveCycle-authored AcroForms nest each
+// dotted name segment ("topmostSubform[0].Page1[0].Nomen[0]") as a real
+// parent/child field hierarchy, not just a naming convention.
+function findTopFieldAncestor(context, ref) {
+  const { PDFName } = PDFLib;
+  let currentRef = ref;
+  let currentDict = context.lookup(ref);
+  while (currentDict && currentDict.dict.has(PDFName.of("Parent"))) {
+    const parentRef = currentDict.dict.get(PDFName.of("Parent"));
+    const parentDict = context.lookup(parentRef);
+    if (!parentDict) break;
+    currentRef = parentRef;
+    currentDict = parentDict;
+  }
+  return currentRef;
+}
+
+// Merges several independent, already-filled AcroForm PDFDocuments into one
+// interactive output document. copyPages() alone carries each source's page
+// content and field/widget dicts over correctly, but leaves the new
+// document with no /AcroForm at all (so nothing is recognized as a live
+// field), and if two sources share a template their fully-qualified field
+// names collide. This fixes both: it collects each source's top-level field
+// ancestors after copying, renames every source after the first so its
+// field tree's name is unique, then attaches a /AcroForm whose /Fields
+// lists every source's (now-unique) top-level fields.
+async function mergeAcroFormDocs(sourceDocs) {
+  const { PDFDocument, PDFName, PDFString } = PDFLib;
+  const outDoc = await PDFDocument.create();
+  const allTopRefs = [];
+
+  for (let i = 0; i < sourceDocs.length; i++) {
+    const pages = await outDoc.copyPages(sourceDocs[i], sourceDocs[i].getPageIndices());
+    pages.forEach(p => outDoc.addPage(p));
+
+    const topRefs = new Set();
+    for (const p of pages) {
+      const annots = p.node.Annots();
+      if (!annots) continue;
+      for (let a = 0; a < annots.size(); a++) {
+        topRefs.add(findTopFieldAncestor(outDoc.context, annots.get(a)));
+      }
+    }
+    if (i > 0) {
+      for (const ref of topRefs) {
+        const dict = outDoc.context.lookup(ref);
+        const nameKey = PDFName.of("T");
+        const origT = dict.dict.get(nameKey);
+        const origName = origT ? origT.decodeText() : "field";
+        dict.dict.set(nameKey, PDFString.of(`${origName}__f${i}`));
+      }
+    }
+    topRefs.forEach(r => allTopRefs.push(r));
+  }
+
+  const acroForm = outDoc.getForm(); // creates an empty /AcroForm dict if none exists yet
+  acroForm.acroForm.dict.set(PDFName.of("Fields"), outDoc.context.obj(allTopRefs));
+  return outDoc;
+}
+
+// ---------------------------------------------------------------------------
+// "Print All" — runs every form instance's fill engine independently, then
+// merges all of their (still-unmerged, per-copy) documents into a single
+// combined PDF in one pass, so every copy of every instance gets a
+// consistent, collision-free field namespace. Grouped by form type in
+// numeric order (all 2408-18 instances, then all 2408-20 instances), each
+// type's own instances in the order they appear in the sidebar.
+// ---------------------------------------------------------------------------
+async function buildCombinedPdf(logbook, fieldStyles) {
+  const allDocs = [];
+  for (const ft of FORM_TYPES) {
+    const styles = (fieldStyles && fieldStyles[ft.type]) || {};
+    for (const instance of logbook[formTypeKey(ft.type)]) {
+      allDocs.push(...await ft.buildCopies(instance, styles));
+    }
+  }
+  const outDoc = await mergeAcroFormDocs(allDocs);
+  return outDoc.save();
+}
+</script>
+</body>
+</html>

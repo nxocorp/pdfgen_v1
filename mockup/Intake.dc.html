@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: oklch(0.5 0.16 265); }
+    a:hover { color: oklch(0.4 0.18 265); }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: oklch(0.85 0.006 250); border-radius: 4px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .dc-spin { animation: spin 1s linear infinite; transform-origin: center; }
+  </style>
+</helmet>
+
+<div style="position:relative;width:1440px;height:900px;display:flex;flex-direction:column;font-family:'IBM Plex Sans',system-ui,sans-serif;background:oklch(0.98 0.003 250);color:oklch(0.22 0.01 250);overflow:hidden;">
+
+  <!-- Top bar -->
+  <div style="height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid oklch(0.88 0.006 250);background:#fff;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.5 0.16 265)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+          <path d="M15 3v5h5"/>
+          <path d="M9 13.5h6M9 16.5h4"/>
+        </svg>
+        <span style="font-weight:700;font-size:15px;letter-spacing:-0.01em;">PDF-gen</span>
+      </div>
+      <div style="width:1px;height:20px;background:oklch(0.88 0.006 250);"></div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:oklch(0.55 0.01 250);">
+        <span>Templates</span>
+        <span style="color:oklch(0.75 0.01 250);">/</span>
+        <span>Army Forms</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:oklch(0.5 0.12 150);background:oklch(0.95 0.03 150);padding:5px 10px;border-radius:12px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Cached &middot; synced
+      </div>
+      <div style="width:30px;height:30px;border-radius:50%;background:oklch(0.55 0.18 265);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">JR</div>
+    </div>
+  </div>
+
+  <!-- Body (blurred behind the modal) -->
+  <div style="flex:1;display:flex;min-height:0;filter:blur(1.5px);">
+
+    <div style="width:272px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid oklch(0.88 0.006 250);background:oklch(0.965 0.004 250);">
+      <div style="padding:16px 14px 10px;">
+        <div style="display:flex;align-items:center;gap:8px;border:1px solid oklch(0.86 0.006 250);background:#fff;border-radius:6px;padding:7px 10px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span style="font-size:13px;color:oklch(0.6 0.01 250);">Search templates&hellip;</span>
+        </div>
+      </div>
+
+      <div style="padding:0 14px 12px;display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.04em;color:oklch(0.55 0.01 250);text-transform:uppercase;margin-bottom:5px;">Aircraft model</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid oklch(0.82 0.006 250);background:#fff;border-radius:6px;padding:8px 10px;">
+            <span style="font-size:13px;font-weight:600;">UH-60M</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.04em;color:oklch(0.55 0.01 250);text-transform:uppercase;margin-bottom:5px;">Document type</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid oklch(0.82 0.006 250);background:#fff;border-radius:6px;padding:8px 10px;">
+            <span style="display:flex;align-items:center;gap:6px;font-size:13px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a1 1 0 0 1 1-1h4l2 2h10a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7z"/></svg>
+              <span style="color:oklch(0.55 0.01 250);">Records /</span>
+              <span style="font-weight:600;">Logbook</span>
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;padding:6px 10px 10px;">
+        <div style="padding:4px 6px 6px;">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:oklch(0.55 0.01 250);text-transform:uppercase;">Documents &middot; Logbook</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;background:oklch(0.55 0.18 265 / 0.1);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.5 0.16 265)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/></svg>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:oklch(0.4 0.16 265);">SN 16-04578</div>
+              <div style="font-size:10.5px;color:oklch(0.55 0.01 250);">Edited 2h ago</div>
+            </div>
+            <span style="font-size:9px;font-weight:600;letter-spacing:0.02em;color:oklch(0.45 0.12 150);background:oklch(0.94 0.05 150);padding:2px 6px;border-radius:9px;flex-shrink:0;">OPEN</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/></svg>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:oklch(0.35 0.01 250);">SN 16-09912</div>
+              <div style="font-size:10.5px;color:oklch(0.55 0.01 250);">Edited yesterday</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:1px;background:oklch(0.88 0.006 250);margin:0 0 14px;"></div>
+
+        <div style="padding:0 6px 6px;">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:oklch(0.55 0.01 250);text-transform:uppercase;">Forms in this document</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/></svg>
+            <span style="font-size:13px;color:oklch(0.35 0.01 250);flex:1;">DA 2408-5</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.01 250)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/></svg>
+            <span style="font-size:13px;color:oklch(0.35 0.01 250);flex:1;">DA 2408-17</span>
+          </div>
+        </div>
+        <button style="margin-top:12px;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border:1px solid oklch(0.55 0.16 265 / 0.4);border-radius:6px;background:oklch(0.55 0.18 265 / 0.1);font-size:12.5px;font-weight:600;color:oklch(0.42 0.16 265);cursor:pointer;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          New form template
+        </button>
+      </div>
+
+      <div style="border-top:1px solid oklch(0.88 0.006 250);padding:10px 16px;display:flex;align-items:center;gap:8px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:oklch(0.65 0.16 150);flex-shrink:0;"></span>
+        <span style="font-size:11.5px;color:oklch(0.55 0.01 250);">2 changes queued for sync</span>
+      </div>
+    </div>
+
+    <div style="flex:1;background:oklch(0.965 0.004 250);"></div>
+    <div style="width:360px;flex-shrink:0;border-left:1px solid oklch(0.88 0.006 250);background:#fff;"></div>
+  </div>
+
+  <!-- Modal overlay -->
+  <div style="position:absolute;inset:0;background:rgba(20,22,28,0.45);display:flex;align-items:center;justify-content:center;">
+    <div style="width:520px;background:#fff;border-radius:10px;box-shadow:0 20px 48px rgba(0,0,0,0.28);overflow:hidden;">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <div style="width:30px;height:30px;border-radius:7px;background:oklch(0.55 0.18 265 / 0.12);display:flex;align-items:center;justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.5 0.16 265)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0l-4 4m4-4l4 4M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"/></svg>
+          </div>
+          <span style="font-size:15.5px;font-weight:700;letter-spacing:-0.01em;">New template from a blank PDF</span>
+        </div>
+        <button style="width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:oklch(0.55 0.01 250);cursor:pointer;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div style="padding:0 22px 22px;">
+        <p style="margin:0 0 16px;font-size:13px;line-height:1.5;color:oklch(0.5 0.01 250);">
+          Upload a blank PDF or scanned image. We'll analyze the pages, then
+          open the visual field editor so you can map its fields.
+        </p>
+
+        <!-- Selected file -->
+        <div style="display:flex;align-items:center;gap:11px;border:1px solid oklch(0.85 0.006 250);border-radius:8px;padding:12px 13px;margin-bottom:16px;">
+          <div style="width:34px;height:34px;border-radius:6px;background:oklch(0.45 0.12 25 / 0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="oklch(0.45 0.14 25)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">DA_2408-9_blank_scan.pdf</div>
+            <div style="font-size:11.5px;color:oklch(0.55 0.01 250);">412 KB &middot; 2 pages</div>
+          </div>
+          <button style="width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:oklch(0.6 0.01 250);cursor:pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Analysis progress -->
+        <div style="border:1px solid oklch(0.9 0.006 250);border-radius:8px;padding:14px 15px;margin-bottom:18px;background:oklch(0.98 0.003 250);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:oklch(0.4 0.01 250);text-transform:uppercase;">Analyzing document</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:oklch(0.55 0.01 250);">75%</span>
+          </div>
+          <div style="height:5px;border-radius:3px;background:oklch(0.9 0.006 250);overflow:hidden;margin-bottom:14px;">
+            <div style="height:100%;width:75%;background:oklch(0.55 0.18 265);border-radius:3px;"></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="display:flex;align-items:center;gap:9px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.14 150)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span style="font-size:12.5px;color:oklch(0.3 0.01 250);">Reading file</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.14 150)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span style="font-size:12.5px;color:oklch(0.3 0.01 250);">Rendering pages (2)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.55 0.14 150)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span style="font-size:12.5px;color:oklch(0.3 0.01 250);">Detecting page size &mdash; Letter, 8.5&times;11</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;">
+              <svg class="dc-spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.5 0.16 265)" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a9 9 0 1 1-6.36 2.64"/></svg>
+              <span style="font-size:12.5px;color:oklch(0.4 0.01 250);">Suggesting field candidates&hellip;</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;">
+          <button style="padding:9px 16px;border-radius:6px;border:1px solid oklch(0.82 0.006 250);background:#fff;font-size:13px;font-weight:600;color:oklch(0.4 0.01 250);cursor:pointer;">Cancel</button>
+          <button style="display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:6px;border:none;background:oklch(0.55 0.18 265 / 0.35);color:oklch(1 0 0 / 0.7);font-size:13px;font-weight:600;cursor:not-allowed;">
+            Open in field editor
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
