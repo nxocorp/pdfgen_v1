@@ -535,10 +535,18 @@
                   </div>
                 </template>
 
-                <!-- a repeating row table (e.g. sample rows, inspection items) -->
+                <!-- a repeating row table (e.g. sample rows, inspection items).
+                     activeInstance[section.rowsKey] falls back to [] here and
+                     below — switching form types changes activeFormType and
+                     activeInstanceId in two separate reactive writes, so
+                     Alpine can briefly re-evaluate an outgoing schema's
+                     section against the new instance before the DOM settles;
+                     harmless once every schema shared one "rows" key, but
+                     a form type with its own rowsKey (verifRows, remarksRows)
+                     needs the guard. -->
                 <template x-if="section.kind === 'table'">
                   <div>
-                    <div class="section-title" x-text="section.title + ' (' + activeInstance[section.rowsKey].length + ')'"></div>
+                    <div class="section-title" x-text="section.title + ' (' + (activeInstance[section.rowsKey] || []).length + ')'"></div>
                     <div class="table-wrap">
                       <table class="rows">
                         <thead>
@@ -555,7 +563,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <template x-for="(row, idx) in activeInstance[section.rowsKey]" :key="row.id">
+                          <template x-for="(row, idx) in (activeInstance[section.rowsKey] || [])" :key="row.id">
                             <tr :class="{ dragging: dragIndex === idx }"
                                 @dragover.prevent @drop="dropRow(section, idx)">
                               <td class="drag-handle" x-show="!section.fixedRows" :draggable="!activeInstance.complete"
@@ -906,6 +914,23 @@
                   <template x-if="editorSelectedKind === 'col'">
                     <div>
                       <hr class="editor-props-divider">
+                      <label class="editor-check" style="margin-bottom:10px;">
+                        <input type="checkbox" :checked="editorSelectedSpec().independentY"
+                               @change="toggleIndependentY(editorSelectedSpec(), $event.target.checked)">
+                        Move independently of this table's row grid
+                      </label>
+                      <template x-if="editorSelectedSpec().independentY">
+                        <div class="field" style="margin:0 0 12px;">
+                          <label>Y offset from the row (pt)</label>
+                          <input type="number" step="0.5" :value="editorSelectedSpec().yOffset || 0"
+                                 @input="editorSelectedSpec().yOffset = Number($event.target.value)">
+                          <div class="cap" style="margin:4px 0 0;">
+                            Drag this box vertically on the canvas, or set the offset here — e.g. a
+                            negative value prints it on a line below the row's other columns (like DA
+                            2408-17's 12 check-number columns sitting under Item No./Nomenclature).
+                          </div>
+                        </div>
+                      </template>
                       <h3 x-text="'Row grid — ' + (editorPageIndex === 0 ? 'front page' : 'back page')"></h3>
                       <div class="editor-prop-row">
                         <div>
@@ -2058,13 +2083,13 @@ function pdfgenApp() {
       const grid = this.editorPageIndex === 0 ? draft.page1 : draft.page2;
       for (const key of Object.keys(draft.cols)) {
         const spec = draft.cols[key];
-        boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: grid.startY, width: spec.width, fontSize: spec.fontSize });
+        boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: grid.startY + (spec.yOffset || 0), width: spec.width, fontSize: spec.fontSize });
       }
       for (const table of draft.extraTables || []) {
         if (table.page !== this.editorPageIndex) continue;
         for (const key of Object.keys(table.cols)) {
           const spec = table.cols[key];
-          boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: table.startY, width: spec.width, fontSize: spec.fontSize });
+          boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: table.startY + (spec.yOffset || 0), width: spec.width, fontSize: spec.fontSize });
         }
       }
       for (const ov of draft.overlays || []) {
@@ -2150,6 +2175,8 @@ function pdfgenApp() {
       e.preventDefault();
       const startX = e.clientX, startY = e.clientY;
       const origX = box.x, origY = box.y;
+      const colBucket = box.kind === "col" ? this.findColBucket(this.editorDraft, box.key) : null;
+      const origYOffset = colBucket ? (colBucket[box.key].yOffset || 0) : 0;
       const scale = this.editorScale;
       const onMove = (ev) => {
         const dx = (ev.clientX - startX) / scale;
@@ -2162,9 +2189,19 @@ function pdfgenApp() {
           const bucket = this.findColBucket(this.editorDraft, box.key);
           const spec = bucket[box.key];
           spec.x = Math.round((origX + dx) * 10) / 10;
-          const extra = this.findExtraTableForColKey(this.editorDraft, box.key);
-          const grid = extra || (this.editorPageIndex === 0 ? this.editorDraft.page1 : this.editorDraft.page2);
-          grid.startY = Math.round((origY - dy) * 10) / 10;
+          if (spec.independentY) {
+            // This column opted out of following its table's shared row
+            // grid (see "Move independently" below) — vertical drag
+            // adjusts its own yOffset instead of the whole table's
+            // startY, so it can sit on a different line than the rest of
+            // the row (e.g. DA 2408-17's Item No./Nomenclature sitting
+            // above that row's 12 check-number columns).
+            spec.yOffset = Math.round((origYOffset - dy) * 10) / 10;
+          } else {
+            const extra = this.findExtraTableForColKey(this.editorDraft, box.key);
+            const grid = extra || (this.editorPageIndex === 0 ? this.editorDraft.page1 : this.editorDraft.page2);
+            grid.startY = Math.round((origY - dy) * 10) / 10;
+          }
         }
       };
       const onUp = () => {
@@ -2276,6 +2313,17 @@ function pdfgenApp() {
         delete overlay.imageB64;
         delete overlay.text;
       }
+    },
+
+    // Toggling a column off "independent" snaps its yOffset back to 0 —
+    // otherwise a hidden nonzero offset would keep silently shifting the
+    // column even after the checkbox no longer shows any way to see or
+    // edit it, which would look like the position "randomly" reverted the
+    // next time this column happened to get selected.
+    toggleIndependentY(spec, isIndependent) {
+      if (!spec) return;
+      spec.independentY = isIndependent;
+      if (!isIndependent) spec.yOffset = 0;
     },
 
     resetEditorAll() {

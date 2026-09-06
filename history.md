@@ -942,6 +942,133 @@ prior (already-committed) name rather than reverting to the original
 auto-label, and a third rename committed correctly via blur (clicking
 elsewhere) rather than only via Enter. Zero console errors.
 
+## 21. DA 2408-17 and multi-table engine support (`03-pdfgen-vanilla-json`)
+
+Asked to implement `reference-plain/A2408_17.pdf` (DA 2408-17, "Aircraft
+Inventory Record") as a third form type in this folder. Inspection (pdf-lib
+probe against `reference-acroform/A2408_17.pdf`'s 259 AcroForm widgets,
+cross-checked against pdf.js-extracted page text for real labels) showed
+this form doesn't fit the "one header + one growable table" shape every
+other form type in this project has used: page 1 is a 12-row-per-copy
+Equipment Checklist (Item No./Nomenclature/Qty Req + 12 monthly "Check
+number" columns) that grows/overflows like DA 2408-20/18's tables, but page
+2 holds a fixed 6-slot Verification log and a fixed 13-slot Location/
+Remarks list — neither ever grows, shrinks, or reorders.
+
+Surfaced this as a real scope question before building: represent the 74
+fixed page-2 slots as plain "fields" grids (fast, zero engine risk, less
+faithful to the source form's real table structure), or generalize the
+shared engine — until now hardcoded to exactly one table section per
+schema — to support genuine multiple tables, including fixed-row-count
+ones. Chose the generalization.
+
+**Schema/data model**: a table section can now carry `fixedRows: N`,
+marking it as a fixed physical row count (`emptyInstance` seeds exactly
+`N` empty rows) instead of the default growable table (starts at 1,
+add/remove/duplicate/reorder freely). `tableSectionOf` (singular) became
+`tableSectionsOf` (plural) everywhere that walks a schema's tables
+(`emptyInstance`, `validateInstance`, `runAutomateWorkflow`);
+`cloneInstance` needed no schema parameter at all — it finds row arrays by
+duck-typing (any own array-valued instance property), which generalizes to
+however many `rowsKey`s exist with zero schema awareness.
+
+**Fill engine**: two additions, both additive/backward-compatible — DA
+2408-20/18 needed no migration. (1) A primary-table column can carry an
+optional `yOffset` (default 0), since 2408-17's Item/Nomenclature/Qty and
+its 12 check-number columns print on two different physical lines within
+one logical row, not side by side — the first table in this project where
+a row isn't one single printed line. (2) Fixed tables live in
+`defaultLayout.extraTables[]`, each with its own single `page`/`startY`/
+`spacing`/`rows` (no page1/page2 split — a fixed table never overflows)
+and `cols`; `buildCoordinateCopies` draws them once, only on
+`copyIndex === 0`, since a verification log or remarks list is
+document-level content, not per-physical-copy. `getLayout()` merges
+`extraTables` the same per-column-then-per-table way it already merged
+the primary `cols`.
+
+**Form Type Editor**: reused the *existing* `'col'` box kind for extra-
+table columns instead of adding a parallel kind — column keys are unique
+across a schema's tables by convention, so `findColBucket()`/
+`findExtraTableForColKey()` just locate the right `cols` object by key.
+Only small lookups changed in `editorBoxesForCurrentPage`,
+`editorSelectedSpec`, `editorCurrentGrid`, `selectEditorField`,
+`startBoxDrag`, `startBoxResize` — no new markup, no new Alpine state, no
+duplicated drag/resize/select code. Verified via Playwright: selecting a
+Verification column jumps to the back page automatically, its Row Grid
+panel shows/edits that table's own `startY`/`spacing`, dragging it
+doesn't disturb the primary table's grid, and Save persists
+`extraTables` correctly.
+
+**A real bug this surfaced**: switching the active form type sets
+`activeFormType` and `activeInstanceId` in two separate reactive writes,
+so Alpine briefly re-evaluates the *outgoing* schema's sections against
+the *new* instance before the DOM settles. Invisible until now because
+every schema shared one `rowsKey` ("rows"); 2408-17's `verifRows`/
+`remarksRows` don't exist on a 2408-18/20 instance, so switching *away*
+from 2408-17 threw `Cannot read properties of undefined (reading
+'length')` on every transition — caught by an automated regression check
+across all three form types (2408-18/20 Print Preview + a combined Export
+All), not by manual testing, since it never blocked the actual UI action
+that triggered it. Fixed with a defensive `(activeInstance[section.rowsKey]
+|| [])` at the two read sites (section-title row count, row `x-for`) —
+the window it guards is exactly one Alpine tick.
+
+Verified end to end with Playwright against a real Chromium: sidebar
+ordering (`2408-17, 2408-18, 2408-20`, numeric), the Verification/Remarks
+tables render with exactly 6/13 rows and no add/remove/drag controls
+while the Checklist table shows all of them and starts at 1 row; adding
+rows past 12 produces a second physical copy (4 total pages, confirmed
+against `Math.ceil(rows/12)`); a screenshot of the rendered PDF's page 2
+confirmed the Verification and Remarks tables' text lands inside the
+correct printed grid cells (not just "no crash" — actually legible,
+correctly aligned output); Mark Complete correctly refuses with 36 listed
+problems against a mix of filled/blank rows; a full regression pass
+against 2408-18 and 2408-20 (Print Preview + a combined Export All across
+all three form types, 6 total pages) confirmed zero behavior change to
+the two pre-existing form types. `sampleData` was then extended (a
+follow-up ask) to also cover `verifRows` (exactly 6 entries, preserving
+the fixed-count invariant) and `remarksRows` (13 entries, only the first
+few populated — realistic, since a real inventory record rarely fills
+every remarks slot) — `runAutomateWorkflow` only replaces a table's rows
+if `sampleData` actually supplies that `rowsKey`, so a fixed table with no
+corresponding sample data would simply keep its pre-seeded empty rows.
+
+**Follow-up bug report, same session**: the user found that in the Form
+Type Editor, Item No./Nomenclature visually overlapped the Equipment
+Checklist's 12 check-number columns instead of sitting one line above
+them — even though the *generated PDF* already placed them correctly
+(their `yOffset: 0` vs. the check columns' negative `yOffset`, added
+earlier in this same section). Root cause: `editorBoxesForCurrentPage()`
+computed every column's on-canvas `y` from the shared row grid's `startY`
+alone, never applying `yOffset` — a real gap in the "Form Type Editor"
+generalization above, since the fill engine had gotten `yOffset` right
+but the editor's own preview never did. The user also reported the
+underlying reason they'd gone looking in the first place: dragging Item
+No. vertically moved the *whole table's* shared `startY` (correct for
+every previous column in this project, which always shared one line per
+row) — there was no way to reposition just those two fields on their own
+line. Asked for a checkbox to let a user opt a column out of the shared
+grid.
+
+Fixed both: `editorBoxesForCurrentPage()` now folds `yOffset` into the
+computed `y` for both the primary table and any extra table's columns
+(the actual bug fix). Then added `independentY` — a boolean per column,
+off by default (every existing column in every form type keeps behaving
+exactly as before) — surfaced as a "Move independently of this table's
+row grid" checkbox plus a numeric "Y offset" field in the properties
+panel whenever a `'col'` box is selected. When on, `startBoxDrag`
+redirects a vertical drag to that column's own `yOffset` instead of the
+shared `page1`/`page2`/extra-table `startY`; switching it back off resets
+`yOffset` to 0 rather than leaving a hidden, no-longer-editable offset in
+place. Verified via Playwright: the editor now renders Item No. and
+Check 1 at genuinely different `y` values; with `independentY` off,
+dragging still moves the shared grid (`page1.startY` changes, `yOffset`
+doesn't); with it on, dragging changes only that column's `yOffset` and
+leaves `page1.startY` untouched; unchecking snaps `yOffset` back to 0;
+Save persists `independentY`/`yOffset` correctly into `fieldLayouts`. A
+full rerun of every earlier 2408-17/regression check (§21) still passed,
+zero console errors.
+
 ## Where things stand
 
 - `PDF-gen/CLAUDE.md` — the living design doc (vision, domain model,
@@ -995,7 +1122,13 @@ elsewhere) rather than only via Enter. Zero console errors.
   per-document placeholder (e.g. a signature) filled in via a
   "Signature & attachments" section on each instance (§19). The sidebar's
   per-form-type instance lists can be collapsed, and each instance can be
-  renamed inline (§20).
+  renamed inline (§20). A third form type, DA 2408-17, was added (§21),
+  which required generalizing the shared engine to support more than one
+  table section per schema, including fixed-row-count tables that never
+  grow/shrink (`fixedRows`) — a schema-level `extraTables` fill-engine
+  addition, a Form Type Editor extension that reuses the existing 'col'
+  box kind for them, and a real (fixed) transient Alpine cross-render bug
+  found along the way.
 - `pdfgen-spring/` — empty, reserved for the future backend.
 - The Postgres schema (§5) is a design decision made in conversation,
   not yet written into any file — `03-pdfgen-vanilla-json`'s
