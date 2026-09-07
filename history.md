@@ -1069,6 +1069,233 @@ Save persists `independentY`/`yOffset` correctly into `fieldLayouts`. A
 full rerun of every earlier 2408-17/regression check (§21) still passed,
 zero console errors.
 
+## 22. `04-pdfgen-vanilla` — admin-maintained registry (a fifth track, not another POC of the original four)
+
+Asked to copy `03-pdfgen-vanilla-json` into a new `04-pdfgen-vanilla` folder — an
+exact fork, no changes yet, to build the next feature against. Immediately
+after the copy, the user asked to remove the copied-over, now-unused
+`js/` folder (03 already deleted its per-form-type JS files when it moved
+to `form-types.json`, so the folder existed but was empty in the fork too).
+
+Then a "major enhancement": UH-60R/Logbook was the only real combination
+this project ever wired up — everything else (other aircraft models, other
+document types like the planned "Blades" type with "Main Blades"/"Tail
+Blades" form types) only existed as fake, hardcoded `<select>` options with
+a "not implemented" note. Asked to make aircraft models, document types,
+and form types all genuinely admin-maintainable *through the app* instead
+of being added by more AI-assisted coding — plus which form types belong to
+which document type, and in what order.
+
+**Scope-defining answer, asked and resolved up front**: should a newly
+admin-created form type get a manual schema builder now (so it's fillable
+immediately) or just a name/label stub until PDF upload support exists?
+Resolved as "manual builder now, automated (PDF-driven) one later" — this
+is the decision that shaped everything else in this folder from here on.
+
+**Registry**: `AIRCRAFT_MODELS`/`DOCUMENT_TYPES` (flat fake arrays) and the
+read-only `FORM_TYPES` fetch became a mutable, localStorage-backed set —
+`aircraftModels` (string array), `documentTypes` (`{id, name, models[]}`,
+which aircraft models it applies to), `documentTypeForms` (`{docTypeId:
+[formType keys, ordered]}` — replaces the old assumption that every
+document contains every entry in `FORM_TYPES`), `formTypeOverrides`
+(label/banner edits), and admin-created form types themselves (persisted
+separately from the fetched, read-only `form-types.json`, tagged
+`custom: true`). Seeded once from the old fake values / the fetched
+`FORM_TYPES` order, so existing behavior is unchanged on first load.
+
+**Admin mode**: a checkbox in the header (simulated role check, in-memory
+only, unchecked by default) reveals three sidebar panels — Aircraft
+models, Document types (+ an "Assign & sort form types" sub-panel per
+type, drag-to-reorder), Form types (+ "+ New form type," a manual schema
+builder: header fields and at most one repeating table; no PDF template
+yet, so Print Preview/Export/the Form Type Editor's position placement are
+hidden with a note instead). The header's "+ New logbook" button and its
+modal now read "+ New {document type}" — cosmetic only, `logbooks` the
+array/`openLogbook()`/the storage key etc. all keep their names.
+
+**A real, unrelated bug caught along the way**: `04`'s three localStorage
+keys were copied verbatim from `03` (`pdfgen-vanilla-json-*`) — since
+localStorage is scoped per *origin*, not per path, serving both folders
+from one static server would make them silently share (and corrupt) each
+other's data. Renamed to a `04`-specific prefix before anything else.
+
+**A real bug reported after this shipped: renaming an aircraft model did
+nothing.** Traced (by reproducing the exact rename in a real, non-Electron
+Chromium via Playwright, where it worked perfectly) to the actual cause:
+`window.prompt()` is stubbed to always return `null` in Electron-based
+renderers — which includes VS Code's own webviews, i.e. this very
+session's environment — while `alert()`/`confirm()` are patched to real
+dialogs there. Renaming used `prompt()`; deleting (which uses `confirm()`)
+worked fine, which was the tell. Fixed by converting aircraft-model
+rename, document-type rename, and form-type label/banner editing to
+inline editing instead (same pattern this file already used for instance
+rename, §20) — not just a workaround for this session's environment, a
+strictly more robust choice regardless of host.
+
+## 23. Upload PDF workflow — AcroForm + vector-PDF structure extraction
+
+Discussed before building: can turning an uploaded PDF into a form
+type's field structure be done without an LLM? Answer, arrived at through
+back-and-forth: it splits cleanly into three cases. A PDF with real
+AcroForm fields — fully mechanical, `pdf-lib`'s widget rectangles are
+already exact positions, no guessing. A flattened/vector-exported PDF
+(fields stripped, real text/line-draw operators intact, like this
+project's own `reference-plain/` set) — no fields, but `pdf.js`'s
+`getTextContent()` gives real label text at real positions, so a labeled-
+text + nearby-blank-space heuristic is deterministic, not AI. A genuinely
+scanned/photographed page — no text layer at all, would need real OCR
+(Tesseract.js), lower confidence, explicitly deferred; the user confirmed
+that case should just open the editor blank against the real uploaded page
+for manual placement, not attempt extraction.
+
+**Design, confirmed as a plan before coding**: classify by what the file
+actually contains (`pdf-lib`: has fields? → AcroForm. Else `pdf.js`: has
+real text? → vector. Else → image), extract candidates accordingly, land
+in the Form Type Editor either way. AcroForm extraction walks each
+`PDFTextField`'s first widget rectangle directly (page lookup verified
+against `pdf-lib`'s actual source — a widget's `/P` ref, falling back to
+scanning every page's `/Annots` array by object identity for PDFs that
+omit it), flattens the form afterward so the resulting template has zero
+live fields (this folder's fill engine is coordinate-draw only). Vector
+extraction clusters `pdf.js` text items into lines, treats a `label:`-
+style item as a field, claims the blank space to its right as its box.
+Both skip table/repeating-row detection entirely (every candidate is a
+one-off header field) and skip non-text AcroForm field kinds (checkbox/
+dropdown/radio) — deliberately scoped down, not a limitation discovered
+later.
+
+Since extraction will always miss some fields and invent some false ones,
+the Form Type Editor gained an add/remove capability for header fields —
+"+ Add field" and a per-field × — scoped to `custom: true` types only
+(built-ins' fields stay structurally fixed). A custom type's Save now
+reconciles `editorDraft.header`'s current key set (and any label edits)
+back into the schema's own `sections`.
+
+Verified against three real, generated fixture PDFs (an AcroForm PDF, a
+flattened/vector PDF, an image-only PDF) via Playwright — each produced
+exactly the expected candidate count and correctly landed in the editor,
+including the image case opening with the real page as a visual
+background rather than a blank canvas.
+
+**Three more real bugs, all found by actually generating a PDF for a
+header-only custom type (the case the manual builder makes trivial to
+reach) rather than by re-reading the code:**
+
+1. `buildCoordinateCopies` read `form.rows.length` and `page1.rows +
+   page2.rows` unconditionally — a header-only type has neither, so this
+   crashed the instant Print Preview was clicked. Fixed: `rows` defaults
+   to `[]`, and total-copies math only chunks by row-capacity when that
+   capacity is actually nonzero (otherwise always exactly one copy).
+2. The running "Page X of Y" header stamp assumed every schema's layout
+   has `header.page`/`header.pageOf` keys (true only for the three
+   built-in types) — crashed drawing an undefined spec once bug 1 was
+   fixed and the code reached further. Fixed: only draw the stamp when
+   those keys exist.
+3. Saving the position editor's own add/remove-field feature for a custom
+   type updated `sections` but never `schema.defaultLayout` — a field
+   added via "+ Add field" would silently disappear the next time the
+   editor reopened (dropped by `getLayout()`'s merge, which only walks
+   keys already present in the base layout), and selecting it in the
+   meantime threw `Cannot read properties of undefined`. Fixed by making
+   a custom type's `defaultLayout` become the saved `editorDraft`
+   directly on Save — there's no separate "real PDF original" layout
+   worth protecting for these types the way there is for built-ins, so no
+   override layer is needed for them at all. A related, subtler bug
+   surfaced testing this: a transient Alpine re-render (same class of
+   cross-render timing issue as the double-`init()` bug in §14) could
+   evaluate the properties panel against a stale selection for one tick
+   when switching which type's editor was open, throwing `Cannot read
+   properties of null`. Fixed two ways — `closeEditorModal()` now resets
+   the selection on every path out of the modal (Cancel, backdrop click,
+   Save), and every read in that panel got defensive optional-chaining so
+   a transient null render can't throw regardless of cause.
+
+## 24. Manual structure builder: multiple field groups and tables, full "Edit"
+
+Follow-up ask: the admin "Edit" button on a form type only ever touched
+label/banner — asked to let it edit full structure instead, and to allow
+adding "other layout elements like tables" (the create flow only offered
+one fields section + at most one table).
+
+Reworked the create builder into one shared builder used for both create
+and edit (`builderDraft.editingType` null vs. an existing type's key):
+unlimited field groups (pure UI grouping — a schema's header keys stay
+flat regardless of how many groups they're split across) and unlimited
+tables. The first table with any columns becomes the primary, growable
+one (`rowsKey: "rows"`, overflows onto extra physical copies once a
+template exists); any table after that is a fixed row count instead,
+stored in `defaultLayout.extraTables` — reusing, not reinventing, the
+exact multi-table machinery DA 2408-17 already proved out (§21).
+
+Editing an existing custom type splits its current `sections` back into
+the builder's draft shape, keeping every field/column's real key (and a
+table's real `rowsKey`) so Save can tell "already existed" from "new" and
+only regenerate keys for genuinely new rows; Save reconciles both
+`sections` and `defaultLayout` together (new rows get a placeholder
+position, removed ones lose theirs, existing ones keep whatever position
+they already had). Built-in types are untouched — their "Edit" still opens
+the old simple label/banner modal, since their structure is load-bearing
+against real PDF-derived coordinates.
+
+**A real bug found immediately after, from an actual user test screenshot**
+(a form type built this way, filled with real row data, showed nothing
+from its table in Print Preview): every table on a custom type had its
+page-1 row capacity defaulted to `{rows: 0, startY: 0, spacing: 0}` (no
+template existed yet to derive real numbers from) — with zero capacity,
+the fill engine's row-chunking math produces an always-empty slice
+window, so *no* row was ever drawn regardless of how much data existed.
+Fixed at `getLayout()`'s read time rather than only at creation, so an
+already-broken existing type self-heals the next time its layout is read
+(no manual re-save needed) — defaults to a generous `rows: 20, startY:
+700, spacing: 20` whenever a primary table exists but was never given a
+real capacity. Also hardened `drawStyledField`/`drawOverlayImage`/the
+editor's `renderEditorPage` to clamp to the last real page rather than
+crash — every layout still assumes a 2-page front/back template, but a
+custom type's attached PDF is now often genuinely one page (a blank
+background, or a single uploaded page), which this project's fill engine
+had never had to handle before this folder existed.
+
+## 25. Per-type "Upload/Replace PDF" on an already-existing custom type
+
+Follow-up: let the admin attach a PDF to a custom type that already
+exists (whether built manually or via an earlier upload), not just at
+creation. Refactored the classify/extract logic (§23) out of the create
+handler into a shared `classifyAndExtractPdf()`, then added a per-row
+"Upload PDF" (or "Replace PDF," once a template already exists) button —
+a `<label for>` / `<input id>` pair, not a dynamic `x-ref` (Alpine's
+`x-ref` isn't bindable — the same mistake, and the same fix, already hit
+once for the per-overlay image upload in §19). Additive by design: newly
+extracted fields merge into (or create) a single "Extracted fields"
+section rather than replacing anything the admin already built by hand or
+from a prior upload, with key collisions deduped against every existing
+field. Verified live: a manually-added field survived two separate
+uploads to the same type, and both uploads' extracted fields landed in
+one shared section rather than two duplicate ones.
+
+## 26. Small polish: model/doctype placeholders, a date picker, a dead button
+
+Three small, independent asks in one pass:
+
+- The aircraft-model and document-type selects defaulted to a real,
+  pre-chosen value (`"UH-60R"`/`"logbook"`) — changed to genuine
+  placeholder options ("Pick Model"/"Pick Document"), with the
+  document-type list itself now filtered to only what's enabled for
+  whichever model is picked (previously it listed every document type
+  regardless of model, gated only by a warning note). Switching models
+  resets an now-incompatible document-type selection back to the
+  placeholder rather than silently keeping it.
+- Any field or table column whose `validation.type === "date"` renders a
+  native `<input type="date">` instead of plain text. Tradeoff surfaced
+  and accepted: a native date input only displays a value already in ISO
+  `yyyy-mm-dd` form, so an existing non-ISO date (this project's own
+  sample data intentionally also uses "15 MAR 26"-style dates, per
+  `looksLikeDate()`'s lenient validator, §18) shows blank in the picker
+  until re-entered — the stored string itself isn't touched until then.
+- Removed the PDF preview panel's "Print" button, reported as not doing
+  anything useful (it opened a popup and printed static PNG snapshots of
+  the on-screen canvas preview — a real feature, just apparently not one
+  that helped) — and its now-unreferenced `printRenderedPages()` helper.
+
 ## Where things stand
 
 - `PDF-gen/CLAUDE.md` — the living design doc (vision, domain model,
@@ -1129,6 +1356,28 @@ zero console errors.
   addition, a Form Type Editor extension that reuses the existing 'col'
   box kind for them, and a real (fixed) transient Alpine cross-render bug
   found along the way.
+- `04-pdfgen-vanilla/` — forked from `03-pdfgen-vanilla-json` (§22); every
+  registry piece that folder still hardcoded (aircraft models, document
+  types, which form types belong to a document type and in what order,
+  the form types themselves) is now genuinely admin-maintainable through
+  the app, gated behind an in-memory "Admin" checkbox, persisted to its
+  own `localStorage` keys (§22 also caught a real bug: it had copied 03's
+  key names verbatim, which would have made the two folders silently
+  share/corrupt each other's data). A custom (admin-created) form type can
+  be built with a manual schema builder (unlimited field groups, a
+  primary growable table plus fixed-row-count extra tables, §24) or by
+  uploading a real PDF — classified as AcroForm/vector/scanned-image and
+  extracted accordingly (mechanical widget rects, deterministic text-
+  layout heuristics, or a blank visual reference respectively, §23) — and
+  a PDF can also be attached or replaced on an already-existing custom
+  type afterward, merging additively (§25). The aircraft-model/document-
+  type selects default to real placeholders and the document-type list is
+  filtered by model (§26); date-typed fields get a native date picker
+  (§26). Several real bugs specific to a template-less or newly-templated
+  custom type were found and fixed along the way (§23's three, §24's
+  page-capacity self-heal) — this folder is where every one of them
+  surfaced, since none of the built-in form types ever exercised those
+  code paths.
 - `pdfgen-spring/` — empty, reserved for the future backend.
 - The Postgres schema (§5) is a design decision made in conversation,
   not yet written into any file — `03-pdfgen-vanilla-json`'s

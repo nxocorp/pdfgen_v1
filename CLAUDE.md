@@ -7,7 +7,7 @@ formalized into a file (e.g. a draft Postgres schema).
 
 ## Repository layout
 
-This project spans six sibling folders under `DEVELOPMENT/`:
+This project spans seven sibling folders under `DEVELOPMENT/`:
 
 - **`PDF-gen/`** (this folder) — design docs, the visual mockup source
   (`mockup/`), and the reference PDF sets (`reference-acroform/`,
@@ -81,13 +81,29 @@ This project spans six sibling folders under `DEVELOPMENT/`:
   support it needed (a schema can now declare more than one table
   section, including fixed-row-count tables that never grow/shrink) —
   see "Multi-table support, and DA 2408-17" below.
+- **`04-pdfgen-vanilla/`** — forked from `03-pdfgen-vanilla-json/`, but
+  answering a different kind of question than the original four (see
+  "Five vanilla tracks" below): instead of proving out an engine
+  capability, it replaces every hardcoded/fake piece of the registry
+  (aircraft models, document types, which form types belong to a
+  document type and in what order, the form types themselves) with
+  something genuinely admin-maintained *through the app* — see "Admin-
+  maintained registry" below. A custom (admin-created) form type can be
+  built with a manual schema builder or by uploading a real PDF
+  (classified as AcroForm/vector-text/scanned-image and extracted
+  accordingly) — see "Upload PDF workflow" and "Manual form-type
+  structure builder" below — and everything it needed from the shared
+  Form Type Editor/fill engine to support that is documented there too.
 - **`pdfgen-spring/`** — empty, reserved for the future Spring Boot
   backend.
 
-## Four vanilla POC tracks — why there are four `NN-pdfgen-vanilla*` folders
+## Five vanilla tracks — why there are five `NN-pdfgen-vanilla*` folders
 
 None of these are a superseded-vs-current pair — each is deliberately
-answering a different question, and all four are worth keeping:
+answering a different question, and all five are worth keeping. The
+first four answer an *engine* question (does this capability work at
+all); the fifth answers a *registry* question (can the data those
+engines run against be maintained without more AI-assisted coding):
 
 - `00-pdfgen-vanilla/` proves the **two fill paths** (coordinate vs.
   AcroForm) can coexist in one app, against the narrowest possible
@@ -105,13 +121,21 @@ answering a different question, and all four are worth keeping:
   exact same generic engine and UI, but form-type definitions come
   from a fetched JSON payload instead of being hardcoded in JS,
   proving the shape that would eventually come from Postgres.
+- `04-pdfgen-vanilla/` proves the **registry** can move too, one step
+  further than `03`'s read-only fetched JSON: aircraft models, document
+  types, and form types (including their field/table shape, built
+  manually or extracted from an uploaded PDF) are all created, edited,
+  and assigned through the app itself, by an admin, with no code change
+  and no AI assistance required to add e.g. a new aircraft's new
+  document type.
 
 If a future change only concerns one of these questions, it likely
-only needs one of the four folders touched. `02-pdfgen-vanilla-image` and
+only needs one of the five folders touched. `02-pdfgen-vanilla-image` and
 `03-pdfgen-vanilla-json` in particular track each other closely (the
-latter is a near-direct fork of the former) — a fix to the shared app
-shell (undo/redo, Defaults, preview panel, etc.) found in one should
-usually be checked against the other.
+latter is a near-direct fork of the former), and `04-pdfgen-vanilla` tracks
+`03` the same way — a fix to the shared app shell (undo/redo, Defaults,
+preview panel, etc.) found in one should usually be checked against the
+others.
 
 ## Design mockup
 
@@ -317,7 +341,7 @@ user edits anything. Notes:
    its own, confirmed directly — so leaving fields live doesn't cost
    anything on the in-app preview path.
 
-## UI architecture: schema-driven forms (`01-pdfgen-vanilla-multi`, `02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`)
+## UI architecture: schema-driven forms (`01-pdfgen-vanilla-multi`, `02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 To scale to "many form types, many document types" without every new
 form type requiring hand-written markup, each of these three folders
@@ -388,10 +412,10 @@ lines. A gear icon in the sidebar, immediately left of a form type's "+"
 (add instance), opens a "Configure `<form type>`" modal listing one row per
 header field and table column (label taken straight from the schema, so no
 extra config needed when a new form type or field is added). This is
-`01-pdfgen-vanilla-multi`'s version specifically — `02-pdfgen-vanilla-image` and
-`03-pdfgen-vanilla-json` evolved the same gear icon into a full **Form Type
-Editor** (below) that edits field *position* as well as styling, since the
-coordinate fill path actually needs both.
+`01-pdfgen-vanilla-multi`'s version specifically — `02-pdfgen-vanilla-image`,
+`03-pdfgen-vanilla-json`, and `04-pdfgen-vanilla` evolved the same gear icon
+into a full **Form Type Editor** (below) that edits field *position* as
+well as styling, since the coordinate fill path actually needs both.
 
 - **Data model**: a `localStorage` key (`01-pdfgen-vanilla-multi-fieldstyles`)
   holds `{ [formType]: { [fieldKey]: { fontFamily, bold, italic, fontSize,
@@ -421,7 +445,7 @@ coordinate fill path actually needs both.
   preview for that form type (the preview no longer reflects what Save
   produced), rather than silently leaving stale output on screen.
 
-## Form Type Editor (`02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`)
+## Form Type Editor (`02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 The coordinate fill path needs a real (page, x, y, width) per field, not
 just styling — so these two folders replaced the Configure modal with a
@@ -491,6 +515,14 @@ Since a JSON-fetched schema is pure data (no functions survive
 architecture" above — see that section for why this ended up being a
 simplification, not a workaround.
 
+`04-pdfgen-vanilla` forks this folder and takes the same idea one step
+further: `form-types.json` here stays read-only (still fetched the same
+way), but `FORM_TYPES` also gets *admin-created* entries pushed in from a
+separate, mutable, `localStorage`-backed store — see "Admin-maintained
+registry" below for the full registry (aircraft models, document types,
+form types, and which form types belong to which document type) that
+grew up around this.
+
 **A real bug this surfaced, worth remembering**: Alpine automatically
 calls a data object's `init()` method if it has one — `<body
 x-data="pdfgenApp()" x-init="init()">`'s explicit `x-init` call was
@@ -506,7 +538,7 @@ data). Fixed by removing the redundant `x-init="init()"` in all four
 its own), plus a defensive guard in `loadFormTypes()` against any future
 double-population.
 
-## Field & form validation, and Mark complete (`03-pdfgen-vanilla-json`)
+## Field & form validation, and Mark complete (`03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 Validation rules travel with the schema itself — a `validation` object per
 header field / table column (`{ required, type: "text"|"number"|"date",
@@ -526,6 +558,11 @@ not as a separate mechanism.
   data mixes army-style dates ("15 MAR 26"), ISO (`2026-03-05`), and slash
   dates — a strict `Date.parse()` would flag legitimate values as invalid,
   so `looksLikeDate()` accepts all three shapes via regex instead.
+  (`04-pdfgen-vanilla` renders a native `<input type="date">` for any
+  `type: "date"` field/column — but a native date input only *displays* a
+  value already in ISO `yyyy-mm-dd` form, so an existing non-ISO value
+  shows blank in the picker until re-entered; the stored string itself,
+  and `looksLikeDate()`'s leniency, are both untouched by this.)
 - **Whole-form validation** (`validateInstance(schema, instance)`) walks
   every header field and every row's columns against the schema's
   validation specs, producing a flat list of `"Label: problem"` strings — 0
@@ -578,7 +615,7 @@ The center-pane toolbar keeps only the actions that only make sense while
 looking at one specific form instance: Undo/Redo, Auto-fill from source,
 and Print Preview.
 
-## Overlays: images and text boxes on the Form Type Editor (`03-pdfgen-vanilla-json`)
+## Overlays: images and text boxes on the Form Type Editor (`03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 The Form Type Editor (see "Form Type Editor" above) was extended to let a
 user add arbitrary **overlay** elements on top of a form type's existing
@@ -649,7 +686,7 @@ so removing an overlay in the editor actually removes it.
   branch alongside the existing `"header"`/`"col"` ones) plus a new
   `startBoxResizeHeight` for the image-only height handle.
 
-## Sidebar: collapsible instance lists and inline rename (`03-pdfgen-vanilla-json`)
+## Sidebar: collapsible instance lists and inline rename (`03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 Two small usability additions to the "Forms in this document" sidebar
 section (see "UI architecture" above), aimed at documents with several
@@ -676,7 +713,7 @@ instances of the same form type:
   state, so a document created from a saved Default keeps its instances'
   names rather than resetting them.
 
-## Multi-table support, and DA 2408-17 (`03-pdfgen-vanilla-json`)
+## Multi-table support, and DA 2408-17 (`03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 A third form type, **DA 2408-17 (Aircraft Inventory Record)**, was added
 against `reference-plain/A2408_17.pdf` (coordinate path, same as this
@@ -798,18 +835,29 @@ backward-compatible — DA 2408-20/18 needed zero migration:
   (hypothetically) would simply keep its pre-seeded empty rows rather than
   erroring.
 
-## Export All (`01-pdfgen-vanilla-multi`, `02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`)
+## Export All (`01-pdfgen-vanilla-multi`, `02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 The header button originally named "Print All" (still called that in
-`00-pdfgen-vanilla` only) was renamed **"Export All"** in the other three
-folders and given one more step: after merging every form instance into
-one combined PDF and rendering it into the preview panel (unchanged
-behavior), it now also immediately calls the same action "Open PDF"
-performs — opening the merged PDF in a new tab via a blob URL — so
-exporting the whole document is one click instead of two
-(`exportAll()`, formerly `printAllPreview()`).
+`00-pdfgen-vanilla` only) was renamed **"Export All"** in the other folders
+and given one more step: after merging every form instance into one
+combined PDF and rendering it into the preview panel (unchanged behavior),
+it now also immediately calls the same action "Open PDF" performs —
+opening the merged PDF in a new tab via a blob URL — so exporting the
+whole document is one click instead of two (`exportAll()`, formerly
+`printAllPreview()`).
 
-## Undo/redo (`01-pdfgen-vanilla-multi`, `02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`)
+`04-pdfgen-vanilla` generalizes which form types get merged: instead of
+iterating the whole `FORM_TYPES` registry, it iterates the current
+document's own document type's assigned form types (`documentTypeForms`,
+in admin-sorted order — see "Admin-maintained registry" above), and
+silently skips any assigned type with no PDF template yet (a template-
+less custom type contributes nothing to export, not an error). The
+preview panel's own standalone "Print" button (image-snapshot printing,
+separate from "Export All"/"Open PDF") was removed from this folder —
+reported as not useful — along with its now-dead `printRenderedPages()`
+helper; "Open PDF" is the only preview-panel action left besides Refresh.
+
+## Undo/redo (`01-pdfgen-vanilla-multi`, `02-pdfgen-vanilla-image`, `03-pdfgen-vanilla-json`, `04-pdfgen-vanilla`)
 
 Per-logbook undo/redo, in-memory only (not persisted — a page reload
 starts a fresh history, which is standard for undo stacks and avoids
@@ -884,10 +932,158 @@ reused, 2408-18 freshly derived from `reference-acroform/`'s widget
 rects). `03-pdfgen-vanilla-json` reuses these same bytes, just moved into
 `form-types.json` instead of embedded in JS.
 
+## Admin-maintained registry (`04-pdfgen-vanilla`)
+
+`03-pdfgen-vanilla-json` fetches `form-types.json` read-only and hardcodes
+fake `AIRCRAFT_MODELS`/`DOCUMENT_TYPES` arrays with only UH-60R + Logbook
+actually wired up. `04-pdfgen-vanilla` replaces all of that with a mutable,
+`localStorage`-backed registry, editable through the app by an admin
+instead of by adding more code:
+
+- **`aircraftModels`** — a plain string array.
+- **`documentTypes`** — `{id, name, models: string[]}`; `models` is which
+  aircraft models this document type applies to (the sidebar's document-
+  type `<select>` only ever lists ones enabled for whichever model is
+  currently picked).
+- **`documentTypeForms`** — `{ [docTypeId]: string[] }`, an *ordered* list
+  of form-type keys — which form types a document of this type contains,
+  and in what order (sidebar listing, Export All grouping/merge order).
+  Replaces `03`'s implicit assumption that every document contains every
+  entry in `FORM_TYPES`.
+- **`formTypeOverrides`** — label/banner-note edits, keyed by form-type,
+  layered on top of whatever `form-types.json`/a custom type otherwise
+  says (so editing a *built-in* type's label doesn't mean rewriting
+  `form-types.json`).
+- Admin-created form types themselves (`custom: true`, see the next two
+  sections) persist separately from the fetched, still-read-only
+  `form-types.json`.
+
+An **"Admin" checkbox** in the header (simulated role check, in-memory
+only, unchecked by default) reveals three sidebar panels: Aircraft models
+(add/rename/delete), Document types (add/rename/delete, per-model
+checkboxes, plus an "Assign & sort form types" sub-panel per type —
+include/exclude + drag-to-reorder), and Form types (list, "+ New form
+type," and — for a custom type — "Upload/Replace PDF"; see the next two
+sections). The header's "+ New logbook" button/modal read "+ New
+{document type}" — cosmetic only; the underlying `logbooks` array,
+`openLogbook()`, the `STORAGE_KEY`, etc. all keep their names.
+
+**A rename/edit gotcha worth remembering for any future admin UI in this
+project**: `window.prompt()` is stubbed to always return `null` in
+Electron-based renderers — which includes VS Code's own webviews —
+while `alert()`/`confirm()` are patched to real dialogs there. A
+`prompt()`-based rename will silently no-op in that environment with no
+error at all. Every rename/edit flow in this folder (aircraft model,
+document type, form-type label/banner) uses inline editing instead, the
+same pattern this project already used for instance rename — not a
+workaround specific to one environment, a strictly more robust default.
+
+## Upload PDF workflow (`04-pdfgen-vanilla`)
+
+A custom form type's field/table shape can come from a manual schema
+builder (next section) or from uploading a real PDF, classified
+mechanically (no AI/LLM involved) by what the file actually contains:
+
+1. **Has real AcroForm fields** (`pdf-lib`: `form.getFields().length >
+   0`) → each `PDFTextField`'s first widget rectangle is used directly —
+   already an exact position, no guessing. Non-text field kinds
+   (checkbox/dropdown/radio) are skipped; this app's schema model has no
+   field kind for them yet. The form is then `flatten()`'d so the
+   resulting template has zero live fields — this folder's fill engine is
+   coordinate-draw only, so a leftover live field would just be dead
+   weight, not a second fill path.
+2. **No fields, but a real text layer** (`pdf.js`: any page's
+   `getTextContent().items.length > 0` — true for a flattened/exported
+   PDF like this project's own `reference-plain/` set, where the fields
+   are gone but the original vector text/lines are still real) → text
+   items are clustered into lines by y-position; any item ending in `:`
+   is treated as a label, and the blank space to its right on that same
+   line (capped at a max width) becomes its field box.
+3. **Neither** (a genuinely scanned/photographed page) → zero candidates,
+   but the real uploaded page still becomes the template, so the Form
+   Type Editor opens with a real visual background to place fields
+   against by hand rather than a blank canvas. Real OCR-based extraction
+   for this case was discussed and deliberately deferred, not attempted.
+
+Both extraction paths deliberately skip table/repeating-row detection
+entirely — every candidate becomes a one-off header field; a real table
+still requires the manual structure builder's "+ Add table." All three
+paths converge on the same place: a new (or, via "Upload/Replace PDF" on
+an *existing* custom type, an updated) form type with `templateB64` set,
+landing in the Form Type Editor for review. Uploading to an existing type
+is additive — new fields land in a single, reused "Extracted fields"
+section rather than replacing anything already there, with key collisions
+deduped.
+
+Since extraction always misses some fields and invents some false ones,
+the Form Type Editor gained an add/remove capability for header fields
+("+ Add field", a per-field ×) — scoped to `custom: true` types only; a
+built-in type's fields stay structurally fixed. Saving a custom type's
+editor session writes `editorDraft` straight into `schema.defaultLayout`
+(replacing it wholesale) rather than layering it as an override the way
+a built-in type's `fieldLayouts` entry does — a custom type has no
+separate "real PDF original" layout worth protecting, so there's nothing
+to layer on top of.
+
+**Real bugs this surfaced, worth remembering** (all only reachable once a
+form type has zero table/zero real page-2 the way a template-less custom
+type commonly does — none of the built-in types ever exercised these
+paths): `buildCoordinateCopies` assumed every schema has a `rows` array
+and nonzero per-page row capacity (crashed on a header-only type — fixed
+by defaulting to exactly one physical copy when capacity is zero); the
+running "Page X of Y" stamp assumed every schema's layout has
+`header.page`/`header.pageOf` keys, true only for the three built-in
+types (fixed by only drawing it when they exist); and `drawStyledField`/
+`drawOverlayImage`/the editor's page renderer all assumed a 2-page
+front/back template, which a custom type's attached PDF is now often not
+(fixed by clamping to the last real page instead of throwing).
+
+## Manual form-type structure builder (`04-pdfgen-vanilla`)
+
+A custom form type's fields/tables can also be authored directly, without
+a PDF at all (or alongside one — see above), via one builder shared by
+"+ New form type" (create) and a custom type's "Edit" (full structure,
+not just label/banner — a built-in type's "Edit" still only touches
+label/banner, since its structure is load-bearing against real PDF-
+derived positions):
+
+- **Unlimited field groups** — pure UI grouping; a schema's header keys
+  stay flat regardless of how many groups they're split across.
+- **Unlimited tables** — the first table with any columns becomes the
+  primary, growable one (`rowsKey: "rows"`, overflows onto extra physical
+  copies once a template exists, exactly like every built-in type's main
+  table); any table after that is a fixed row count instead, stored in
+  `defaultLayout.extraTables` — reusing the exact multi-table machinery
+  "Multi-table support, and DA 2408-17" above already proved out, not a
+  parallel mechanism.
+- **Editing** round-trips an existing type's current `sections` back into
+  the builder, keeping every field/column's real key (and a table's real
+  `rowsKey`) so Save can tell "already existed" from "new" and only
+  regenerates keys for genuinely new rows. Save reconciles both
+  `sections` and `defaultLayout` together — new rows get a placeholder
+  position (same defaults the editor's own "+ Add field" uses), removed
+  ones lose theirs, existing ones keep whatever position they already had
+  (including anything already hand-tuned in the Form Type Editor).
+
+A newly-added table's page-1 row capacity has no template to derive real
+numbers from, so it starts at a placeholder — self-healed to a generous
+default (`rows: 20, startY: 700, spacing: 20`) inside `getLayout()`
+itself (read time, not just at creation), specifically so an
+already-existing type with the old broken `rows: 0` placeholder starts
+drawing its row data again the moment its layout is next read, with no
+manual re-save required.
+
 ## Non-goals (for now)
 
-- Automatic field detection (OCR/heuristics) — the placement UI is manual
-  first; auto-suggestion can layer on top later, not replace it.
+- OCR-based field detection for a scanned/photographed PDF with no real
+  text layer — `04-pdfgen-vanilla`'s "Upload PDF workflow" (above) does now
+  do automatic extraction for the other two cases (real AcroForm fields;
+  a flattened/vector PDF's real text layer), both deterministic and
+  AI-free, but a genuine scan still just opens the placement UI manually,
+  against the real page as a visual reference.
+- Automatic table/repeating-row detection during PDF upload — every
+  extracted candidate is a one-off header field; a real table still needs
+  the manual structure builder's "+ Add table."
 - Round-trip import from a filled flat PDF — there are no fields left to
   read back after drawing text, so the app's own data model is the source
   of truth, not the PDF.
