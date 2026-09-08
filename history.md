@@ -1900,3 +1900,76 @@ clicked "+", and confirmed an instance was created with zero console
 errors. Stopped the isolated server and deleted the scratch copy
 afterward — the live server/database were never touched by this
 verification.
+
+## 35. Committing the backend, and cutting the official Version 1 (`06-pdfgen_v1.0.0`)
+
+**Committing.** Asked to prep the pending changes for a commit — `git
+status` showed `05-pdfgen-database/server/` had never been committed at
+all (this whole Express/SQLite backend was new, untracked). Since
+`node_modules`/the SQLite files clearly shouldn't be tracked, and the
+question of *delete-from-disk vs. gitignore-only* has real, different
+consequences (deleting `node_modules` breaks the running server until
+`npm install` runs again; deleting the database resets it again), asked
+first — chose gitignore-only. Added a repo-root `.gitignore`
+(`node_modules/`, `*.sqlite`/`*.sqlite-shm`/`*.sqlite-wal`,
+`*.backup.json`), confirmed via a dry-run `git add` that only the 4 real
+source files (`db.js`, `server.js`, `package.json`, `package-lock.json`)
+would be staged from `server/`, then committed everything pending
+(including a `04-pdfgen-vanilla.zip` deletion unrelated to this session's
+own work — asked before including it, since committing someone else's
+pending deletion silently would be scope creep).
+
+**Cutting Version 1.** Asked to copy `05-pdfgen-database/` to a new
+`06-pdfgen_v1.0.0/` folder — a plain, exact copy (`diff -rq` confirmed
+byte-identical afterward), including `node_modules` and `05`'s current
+`pdfgen.sqlite` (81MB total, small enough that excluding `node_modules`
+for speed wasn't worth the complexity of a partial copy). Then, on `06`
+specifically: remove every "POC" mention from the running app, since this
+folder is now the official Version 1 (not another POC track), and
+document that fact.
+
+- Found and reworded 8 real occurrences in `index.html` (browser tab
+  title, header subtitle, the "can't delete a built-in type" alert, the
+  Automate-entry modal's scope caption, and 4 code comments) plus 3 more
+  in `form-types.json` — each built-in form type's `bannerNote`, shown
+  directly in the app's own banner-note UI. Two of the three `bannerNote`
+  strings were also stale in a second way, inherited unchanged from this
+  form type's `03-pdfgen-vanilla-json` ancestry: "fetched from
+  form-types.json at load, simulating a database-backed form-type
+  registry" hasn't been true since the real database landed (§27) —
+  `form-types.json` is now only read once, to seed the database on first
+  boot. Corrected both while removing "POC" from them, since leaving a
+  now-inaccurate technical claim right next to the POC-removal edit would
+  have been worse than the original text.
+- **A real scope question surfaced mid-edit**: the copied
+  `pdfgen.sqlite` had already been seeded (during `05`'s own prior
+  development) with the *old* "POC scope: ..." `bannerNote` text baked
+  into its `form_types` table — editing `form-types.json` alone doesn't
+  touch an already-seeded database, so the corrected text would never
+  actually reach a running `06` unless its database got cleared and
+  reseeded. Clearing it, though, would also drop whatever dev/test data
+  `05` currently had (custom form types like `a2408-15`, the `AB-12A`
+  aircraft model, etc.) that had been carried into the copy — asked
+  before doing that, since "was that data wanted in the official release
+  snapshot, or is a clean baseline the right call for Version 1" is
+  exactly the kind of judgment only the user can make, and the two
+  answers produce a meaningfully different `06`. Chose the clean
+  baseline — matches treating this as a real release rather than a
+  snapshot of `05`'s in-progress exploration; `05-pdfgen-database/`
+  itself was never touched by any of this (it has its own separate
+  database, its own server process, untouched throughout).
+- Verified: `node --check`/`JSON.parse` on both edited files, a case-
+  sensitive `grep -rn "POC"` across every `.html`/`.js`/`.json` file
+  (excluding `node_modules` and `templateB64` payloads, which produced
+  false-positive substring hits under a case-*insensitive* search) came
+  back empty, then booted `06`'s own server on a spare port (3098) and
+  confirmed via `/api/bootstrap` — all 3 built-in `bannerNote`s corrected,
+  0 custom types, 0 documents, and a real Chromium pass confirmed the tab
+  title ("PDF-gen — Version 1") and header subtitle ("Version 1 · Express
+  + SQLite backend · form types served from the database") render
+  correctly with zero console errors. Stopped that verification server
+  afterward.
+- `CLAUDE.md` gained a new "Version 1" section (right after "Five vanilla
+  tracks") declaring `06-pdfgen_v1.0.0/` the official release and stating
+  plainly that `05-pdfgen-database/` keeps developing independently past
+  this point — the two are not required to stay in sync going forward.

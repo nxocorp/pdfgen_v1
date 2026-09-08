@@ -7,7 +7,7 @@ formalized into a file (e.g. a draft Postgres schema).
 
 ## Repository layout
 
-This project spans seven sibling folders under `DEVELOPMENT/`:
+This project spans eight sibling folders under `DEVELOPMENT/`:
 
 - **`PDF-gen/`** (this folder) — design docs, the visual mockup source
   (`mockup/`), and the reference PDF sets (`reference-acroform/`,
@@ -101,6 +101,13 @@ This project spans seven sibling folders under `DEVELOPMENT/`:
   cache design — see "Database backend, and table authoring inside the
   Form Type Editor" below for the Express/SQLite backend (`server/`) and
   the two custom-form-type workflow gaps closed alongside it.
+- **`06-pdfgen_v1.0.0/`** — **the official Version 1 release** — see
+  "Version 1" below. An exact fork of `05-pdfgen-database/` at the point
+  it was deemed ready, with every "POC"/scope-disclaimer mention removed
+  from user-facing text and code comments, and its database reset to a
+  clean seed (no leftover dev/test data from `05`'s own active
+  development). `05-pdfgen-database/` keeps developing independently past
+  this point — the two are not required to stay in sync.
 - **`pdfgen-spring/`** — empty, reserved for the future Spring Boot
   backend.
 
@@ -143,6 +150,46 @@ latter is a near-direct fork of the former), and `04-pdfgen-vanilla` tracks
 `03` the same way — a fix to the shared app shell (undo/redo, Defaults,
 preview panel, etc.) found in one should usually be checked against the
 others.
+
+## Version 1 — `06-pdfgen_v1.0.0/` is the official release
+
+`00-pdfgen-vanilla/` through `05-pdfgen-database/` are the exploratory
+lineage this file calls the "`NN-pdfgen-vanilla*`"/POC tracks above — each
+answering one architectural question in isolation (a fill path, a
+structural shape, the registry, the persistence layer), never meant to be
+"the product" on its own. **`06-pdfgen_v1.0.0/` is where that lineage
+turns into the first official, shippable Version 1** — every design
+decision documented throughout this file (the two-path fill engine, the
+schema-driven UI, the admin-maintained registry, the Express/SQLite
+backend, the unified table row-capacity model, field-type output
+formatting) is present and working together in this one folder, not
+scattered across five different POC scopes.
+
+Concretely, `06-pdfgen_v1.0.0/` is an exact fork of `05-pdfgen-database/`
+at the point it was judged ready, with two changes on top:
+
+- **Every "POC" mention removed** — the browser tab title, the header
+  subtitle, an admin-facing alert, the Automate-entry modal's caption, the
+  three built-in form types' `bannerNote` text, and every code comment
+  that referenced "this POC" — reworded to read as a real, released app
+  rather than a proof of concept with caveats. Nothing about the actual
+  behavior changed; this was a wording pass only.
+- **Database reset to a clean seed** — `05-pdfgen-database/` had
+  accumulated real dev/test data from its own active development (custom
+  form types, registry entries, documents) by the time this fork happened;
+  none of that belongs in an official Version 1 baseline, so
+  `06-pdfgen_v1.0.0/`'s database starts empty and reseeds fresh from
+  `form-types.json`/`server/db.js` on first boot (3 built-in form types,
+  default registry, 0 documents/custom types) — the same reseed mechanism
+  `05-pdfgen-database/` itself has always used, just run once more against
+  the corrected seed text.
+
+`05-pdfgen-database/` is not superseded or frozen by this — it keeps
+being the active development folder for whatever comes next; the two
+folders are independent from this point on, and a fix made in one isn't
+automatically expected to be ported to the other unless it's a real bug
+in shared logic (in which case, check both, same as the five-vanilla-
+tracks note above already advises for that folder family).
 
 ## Design mockup
 
