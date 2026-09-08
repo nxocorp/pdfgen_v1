@@ -1389,3 +1389,514 @@ Three small, independent asks in one pass:
   concrete form of the "data structures not tied to a form type"
   question raised in §10) — flagged as a natural next step for any of
   the schema-driven folders if/when it's needed.
+
+## 27. `05-pdfgen-database` — a real backend, plus two custom-form-type gaps closed
+
+A new fork, `05-pdfgen-database` (copied from `04-pdfgen-vanilla`), created to
+finally take the Postgres-backed direction sketched in §5/`CLAUDE.md`'s
+"Stack" section out of design-discussion and into something real — this time
+answering "can the persistence layer move off `localStorage`," not another
+engine/registry question like the previous four/five tracks.
+
+**Express + SQLite backend.** Discussed as architect (not sales/pm) since it
+was clearly a system-design question; planned via `EnterPlanMode` before
+touching code. Two decisions confirmed with the user up front: **document-
+level JSON blobs** (`documents` + `form_instances`, one row per form
+instance, not a fully normalized `form_instance_rows` table — no row-level
+queries are needed yet) over the fully normalized §5 schema; and **cache +
+async flush queue** (the frontend edits in-memory instantly, writes debounce
+to the server in the background) over synchronous await-per-save, matching
+the pattern `CLAUDE.md`'s "Local storage" section already described. Built
+`server/` (`server.js`, `db.js`, `better-sqlite3`, no ORM) with one
+`GET /api/bootstrap` + eight `PUT /api/*` endpoints mirroring the app's
+existing `load()`/`loadRegistry()`/`persist*()` split 1:1. `index.html`'s
+persistence swap was correspondingly small: `persist*()` bodies now call a
+`queueSync()` helper instead of `localStorage.setItem`, and a small set of
+`documentToWire`/`documentFromWire` (etc.) helpers reshape a logbook's
+`forms<Type>` keys into a flat `instances` list at the sync boundary, so the
+server never needs to know how `formTypeKey()` spells a given type's key
+(important for custom types, whose keys come from `slugify()`, not just the
+three built-in DA types). A "Saved to server / Saving… / Save failed" pill
+replaced the old "Saved to this browser" pill. Verified with a real Chromium
+instance (Playwright): created a document, edited a field, added a row,
+confirmed the write landed in SQLite via a direct API read (not just the
+UI), and confirmed a fresh page reload still showed the edited value.
+
+**Admin modal backdrop-click.** Small, separate ask: stop the six admin CRUD
+modals (Aircraft models, Document types, Assign form types, Form types list,
+Edit form type, Structure builder) from closing on a stray backdrop click,
+which risked losing in-progress edits — `@click.self="show... = false"`
+removed from each; only each modal's own Cancel/Close button closes it now.
+
+**"+ Add table" in the Form Type Editor, and automatic table detection on
+Upload PDF** — see "Database backend, and table authoring inside the Form
+Type Editor" in `CLAUDE.md` for the full design; both scoped and confirmed
+via `AskUserQuestion`/plan approval before building (the second one
+specifically: whether to attempt table detection on flattened/vector-text
+PDFs at all, given no field names survive flattening — the user chose to
+attempt it anyway, accepting the higher false-positive risk). Verified two
+different ways: a Node harness ran the extraction functions directly (via
+`vm`, no browser) against this project's own real `reference-acroform/`
+files, confirming `A2408_18.pdf` and `A2408_17.pdf`'s real tables (14+15 row,
+6+13 row) were detected correctly, matching CLAUDE.md's already-documented
+ground truth — a genuine "check against known-real data" test, not just a
+smoke test. A real bug surfaced during that testing: the AcroForm signal was
+initially assumed to be each field's `[n]` widget-array index (e.g.
+`Item[0]`, `Item[1]`) — wrong for this project's real LiveCycle-generated
+forms, which carry a constant `[0]` on every field and instead encode the
+repeating row as a `_N` numeric suffix on the base name (`InspNo`,
+`InspNo_1`, `InspNo_2`, ...). Found by testing against the real file instead
+of trusting the assumption, and fixed to match the real convention (plus a
+"require a consecutive 0,1,2,... run" guard, to avoid misreading a
+coincidentally `_N`-suffixed unrelated field as a table column). A second
+bug, also caught by testing (a Playwright pass exercising the actual "+ Add
+table"/Save round-trip on a freshly-uploaded custom type): a per-table
+column-label disambiguation prefix — added for the new multi-table-capable
+field list — was getting permanently baked into a custom type's saved column
+labels on every Save, the exact same trap `reconcileCustomFormTypeFields`
+already existed to avoid for header fields (§23), just re-introduced for
+table columns. Fixed by not prefixing custom types' column labels at all,
+same as header fields — the new per-table grouping in the field list already
+disambiguates on screen, so the prefix was redundant on top of destructive.
+
+**Four rendering bugs found and fixed afterwards, by a dedicated render-test
+pass** (asked for as "a couple of bugs when rendering custom PDFs"). The
+harness runs the real extraction + fill engine outside the browser (Node +
+`vm`, same technique as §13 — including the same cross-realm `Uint8Array`
+red herring that section documents, solved here by injecting the outer
+realm's constructors into the sandbox), renders a fully-filled instance of
+every built-in type *and* of types freshly extracted from every real
+reference PDF, then reads the produced PDF's own text layer back to assert
+what actually landed: every value drawn, nothing over 14pt, nothing
+overprinted, nothing off-page, no duplicate section titles.
+
+1. **26pt text in every cell.** The AcroForm extractor derived font size from
+   the widget's box *height* (`height * 0.7`) — but a form cell is routinely
+   much taller than the text meant to go in it (one real form's row cells
+   measured ~37pt, giving a 26pt font). Every value overflowed its cell and
+   ran off the page. Clamped to a realistic 6–12pt fill range.
+2. **Text sitting on the cell's bottom rule.** `rect.y` is the box's bottom
+   edge, but pdf-lib draws from the text *baseline* — so values printed on
+   the ruling line rather than inside the box. Now centred in the box,
+   clamped.
+3. **The page-number stamp overprinting a real field.** `buildCoordinateCopies`
+   treats layout keys `page`/`pageOf` as the running "Page X of Y" stamp. Every
+   DA form has a real "PAGE" box, so an uploaded form's *extracted* `page`
+   field got the copy number drawn on top of the user's own value, at
+   identical coordinates (confirmed by reading both strings back at the same
+   x/y). The stamp now only fires when `page`/`pageOf` are layout-only keys,
+   i.e. not real fields in `form.header` — built-in types are unaffected.
+4. **The duplicate-`:key` page-wide crash, twice.** The main document
+   renderer keyed its section loop on `section.title`, and auto-detected
+   tables all defaulted to the title "Table" — two same-titled sections
+   produced a duplicate Alpine `:key`, which (exactly as §14 documented for
+   `FORM_TYPES`) crashed Alpine's diffing for the *entire page*: every field
+   on every form type went blank and inputs anywhere stopped accepting text.
+   Keying by bare index fixed that but introduced a subtler variant — an
+   index is *too* stable, so switching form types made Alpine reuse the DOM
+   node at index N for a completely different section (a table section's node
+   reused for a fields section), corrupting the nested column `x-for`
+   instead. The key is now scoped to the active form type as well
+   (`activeFormType + ':' + sIdx`), forcing a clean rebuild per schema
+   switch. Titles are also deduped at their source now, in both
+   `tableCandidatesToLayout` and `addEditorTable`. **Lesson worth keeping:
+   an `x-for` key here must be unique *within* a schema and different
+   *across* schemas — neither a human-editable label nor a bare index
+   satisfies both.**
+
+The vector-text (flattened-PDF) side of detection works — verified against
+synthetic aligned text — but **finds nothing on this project's own
+`reference-plain/` files**, reported to the user as a real, honest finding
+rather than silently claiming full success: those files' table rows are
+blank fillable cells (empty ruled boxes, drawn as vector line graphics), not
+text, so a pure text-alignment heuristic has nothing to align against.
+Detecting a genuinely blank grid would need parsing the PDF content stream's
+line/rect drawing operators, not `getTextContent()` — a materially different
+approach, not attempted. Still useful for a flattened PDF whose table cells
+already contain visible text.
+
+## 28. Custom-PDF rendering bugs, found by a dedicated render-test harness
+
+Asked to "run a full set of tests and fix the bugs" after §27's fixes still
+left the reported symptoms unresolved on a live session. Built a Node
+harness (`vm`, no browser — same technique as §13/§27, including the same
+cross-realm `Uint8Array` fix) that runs the real extraction + fill engine
+against every built-in type *and* types freshly extracted from every real
+reference PDF, fills every field/row with a value, renders through the real
+coordinate fill engine, then reads the produced PDF's own text layer back to
+assert what actually landed: every value drawn, nothing over 14pt, nothing
+overprinted, nothing off-page, no duplicate section titles. Found and fixed
+four real bugs (all detailed in `CLAUDE.md`'s "Database backend..." section):
+a widget-height-derived font size that produced 26pt text overflowing every
+cell; text sitting on the cell's bottom rule instead of centred in the box;
+the automatic "Page X of Y" stamp overprinting a real extracted "PAGE"
+field at identical coordinates; and the duplicate-`:key` page-wide Alpine
+crash from §27, whose first fix (keying by array index) turned out to
+introduce a second, subtler variant (an index is schema-position-stable, so
+switching form types reused one section kind's DOM node for another) — fixed
+by scoping the key to the active form type as well.
+
+Verified two ways: the render harness (all built-ins regression-clean at
+8pt; every fresh AcroForm upload at ≤12pt with no overlaps; overflow,
+overlays, single-page clamping, header-only types all separately covered),
+and a real Chromium pass switching between all four of the user's actual
+form types in both directions with zero console errors. The user's
+already-saved custom type had the 26pt bug baked into its stored layout (the
+code fix only affects new extractions) — repaired in place directly against
+their live SQLite file (backed up first to `server/custom-form-types.backup.json`),
+verified against the same harness afterward.
+
+## 29. Built-in form types moved from `form-types.json` into the database
+
+Asked directly ("is this content been migrated into the database?" → "yes
+move it into the database") after noticing `form-types.json` was still
+present following §27's backend work — a fair catch: that file was a
+deliberate scope decision at the time (§27's plan explicitly kept it static,
+since nothing in the app ever wrote to it), not an oversight, but the user
+preferred one source of truth. Added a `form_types` table (`server/db.js`),
+seeded once from `form-types.json` on first boot (transaction, same pattern
+`aircraft_models`/`document_types` already used) — the file is never read
+again after that. `/api/bootstrap` now returns `formTypes` alongside
+`customFormTypes`; `index.html`'s `loadFormTypes()` became synchronous,
+reading `boot.formTypes` instead of doing its own separate `fetch()`, which
+let `init()` collapse to a single bootstrap round-trip instead of two. The
+separate `formTypesError` state/banner (distinct wording about `file://`
+fetch restrictions, no longer a meaningfully different failure mode once
+both loads share one request) was folded into `bootstrapError`.
+
+Verified against the user's actual live database (not a fresh one): booted
+the server, confirmed the `form_types` table didn't exist beforehand, then
+confirmed after boot that all 3 built-in types migrated with their template
+bytes and sections intact, sitting alongside the pre-existing custom type
+and documents untouched. A Playwright pass confirmed `form-types.json` is
+never requested by the browser at all post-migration, all four form types
+(3 built-in + 1 custom) still render correctly, and the render-test harness
+from §28 re-run clean against the DB-sourced schemas. `form-types.json`
+itself was left on disk (inert, harmless) rather than deleted, in case a
+fresh database ever needs reseeding from it.
+
+## 30. Built-in form types made structurally editable, same as custom ones
+
+Direct follow-on ask right after §29: "now that the 3 form types are in the
+database, allow the user to edit the structure the same way custom form
+types." Planned via `EnterPlanMode` first, since it touched several call
+sites and had real judgment calls (what stays custom-only) — investigation
+during that phase found `confirmFormTypeBuilder`'s edit path and
+`openFormTypeBuilderForEdit` were already fully generic, keyed by type not
+a `.custom` flag, so the actual change was smaller than it sounded: remove
+the `.custom` gates on "Edit" routing, the Form Type Editor's add/remove
+controls, and `confirmSaveEditor`'s reconcile-vs-fieldLayouts branch; add
+the missing write endpoint for `form_types` (mirroring `custom_form_types`,
+which already had one); keep Delete and Upload/Replace PDF custom-only.
+Removed the now-redundant label/banner-only modal (`showEditFormTypeMetaModal`)
+as dead code, since the Structure Builder already has those same fields and
+now handles every type.
+
+Verification followed the same discipline as §27/28 — against the user's
+*actual* live database, not a fresh one, but this time via an isolated copy
+(the user had their own server running against the real file at the time;
+copied the live `pdfgen.sqlite` + app to a scratch dir, ran a second server
+instance on a different port against the copy) so the real session was
+never touched or interrupted. Three real bugs surfaced this way, all fixed
+(detailed in `CLAUDE.md`'s "Database backend..." section): the Structure
+Builder's edit path silently dropping the "Page X of Y" running-stamp
+keys (never reachable before — no custom type ever had them); a pre-existing
+double-modal-stacking issue (fixed for consistency, traced and ruled out as
+the actual cause); and the real cause, a `<template x-if>` in this feature's
+own new warning-text markup that wrapped bare text with no element child —
+Alpine requires an element for `template.content.firstElementChild`, and a
+text-only template threw an uncaught `_x_dataStack` error on `null`, on
+*every* Structure Builder open (reproduced with a completely blank "+ New
+form type", confirming it had nothing to do with which type was being
+edited). Found by testing the actual UI flow with Playwright rather than
+just the data layer — the render-test harness from §28 alone would never
+have caught either the modal-stacking or the Alpine template bug, both pure
+frontend-interaction issues.
+
+Final verification: real Chromium pass against the isolated copy — edited
+DA 2408-20 (added one new header field), confirmed via direct DB read that
+every *other* header field kept its exact original x/y/width/fontSize and
+`page1` kept its real 12-row capacity, confirmed the edit landed in
+`form_types` (not `custom_form_types`), confirmed Delete/Upload-PDF stayed
+invisible for built-in types, zero console errors — then re-ran the new
+field through the actual coordinate fill engine and read the produced PDF's
+text layer back to confirm it renders (8pt, matching every other field on
+that form, no regression).
+
+## 31. Database reset, an autofill-warning fix, and the Form Type Editor's on-canvas labels (`05-pdfgen-database`)
+
+Three small, independent asks in one session:
+
+- **Reset the database** — the live server (`node server.js`, port 3000)
+  had its database file open, so a plain `rm` on `pdfgen.sqlite`/`-shm`/
+  `-wal` failed (`Device or resource busy`) until the process was stopped
+  first. Stopped it, deleted the three files, restarted the server (it
+  reseeds `form_types`/registry defaults from `form-types.json` on first
+  boot per §29), confirmed via `/api/bootstrap`: 3 built-in form types, 0
+  custom types, 0 documents, default registry (6 aircraft models, 4
+  document types) restored.
+- **A Chrome DevTools autofill warning** ("A form field element has
+  neither an id nor a name attribute") — 52 real `<input>`/`<select>`/
+  `<textarea>` elements in `index.html` had neither. Added a unique `id`
+  to each: a plain static one for one-off fields (aircraft-model select,
+  admin checkbox, new-tail-number input, etc.), a dynamic `:id` expression
+  built from the same key the schema/fill-engine already address that
+  field by (`field.key`, `row.id` + `col.key`, `inst.id`, `dt.id` + model
+  name, builder draft indices, etc.) for anything inside an `x-for` loop —
+  following the exact pattern the file already used for the one existing
+  dynamic id (`'overlayUpload_' + ov.id`, from the per-instance signature
+  upload). Verified no duplicate ids (static or live-rendered), the inline
+  script still parses, and a Playwright pass through the create-document
+  flow (model/doctype select → tail number → Create) still works with zero
+  console errors.
+- **Form Type Editor: on-canvas labels moved inside their box, styled like
+  the real field.** A field/column's label used to float in a small
+  fixed-style tag *above* its box (`.editor-box-label`: always 9px bold,
+  a fixed editor-chrome color) — told you where a field was, not how it
+  would actually print. `.editor-box-label` now positions `inset: 0`
+  inside the box itself, and `editorBoxStyle()` (already computing the
+  box's own font-size from the field's real `fontSize`) now also maps the
+  field's real `fontFamily`/`bold`/`italic` to real CSS (`Helvetica` → a
+  sans stack, `TimesRoman` → a serif stack, `Courier` → a monospace stack;
+  weight/style straight off `bold`/`italic`) — `editorBoxesForCurrentPage()`
+  was extended to carry these three properties on every box (header, col,
+  overlay), not just `fontSize`. Verified via Playwright: selecting a
+  field, switching it to Courier + bold + italic, and reading back the
+  box's own inline style confirmed all three landed correctly; a full
+  screenshot of DA 2408-20's front page showed every field's label sitting
+  legibly inside its own box at its real position.
+
+## 32. Custom form type tables: front/back/total row capacity, for every table
+
+Follow-up ask, framed around a real gap: "the auto form analyser did a
+good job but the form layout needed manual fixing for generated tables" —
+add three properties (max rows on the front page, max rows on the back
+page, a total row count per instance that triggers a new physical copy
+when exceeded) to every table an admin creates or the app auto-detects,
+plus let the Form Type Editor position each table's front-page and
+back-page printing independently, and show the same three numbers at the
+top of each table in the actual data-entry view. Two points were
+genuinely ambiguous enough to ask before building (`AskUserQuestion`),
+since guessing wrong on either meant redoing real work:
+
+1. **What "overflow" means when a table's data exceeds its total-rows
+   cap** — a new *physical page-copy* of the same Form instance (matching
+   how the primary/growable table already overflows: header repeats,
+   "Page X of Y" increments, one sidebar entry, more pages) vs.
+   auto-creating a genuinely *new Form instance* in the sidebar with the
+   header copied forward. Chosen: the former — the smaller, already-proven
+   mechanism, just generalized to any table instead of only the one
+   designated primary.
+2. **Whether a column's style** (font family/size/bold/italic/allow-
+   overflow) should be independently settable for its front-page vs.
+   back-page printing, or shared with only position/spacing differing per
+   page (already supported). Chosen: style stays shared — no data-model
+   split needed.
+
+Both answers kept the change additive rather than a rearchitecture:
+
+- **Unified the fill engine.** `buildCoordinateCopies` previously had two
+  separate code paths — the primary table's `page1`/`page2`-driven
+  overflow (computing `totalCopies` from its own row capacity) and a
+  hardcoded `copyIndex === 0`-only draw for every extra table (which,
+  per "Database backend..." in `CLAUDE.md`, already had its own
+  `page1`/`page2` split for *position* but could never itself overflow).
+  Both are now one list (`allTables`: the primary table plus every extra
+  table, each with its own `maxRows`/`page1`/`page2`/`cols`), with
+  `totalCopies` computed as the max, across every table, of
+  `ceil(rows.length / table.maxRows)`. A fixed-count table (no "add row"
+  control exists for one, so its row count can never exceed what it was
+  seeded with) simply has nothing to draw past copy 0 automatically —
+  removing the special case entirely rather than keeping it as a second
+  rule alongside the new general one. Added a schema-level `maxRows`
+  (mirroring the extra-table one from the prior session) to `getLayout()`,
+  defaulting to `page1.rows + page2.rows` when unset, same self-heal
+  precedent as `page1`'s own 0-capacity default.
+- **Admin Structure Builder** — a table's one "Fixed rows" number became
+  four controls, for *every* table (primary or fixed): a "Table shows on"
+  select (Front/Back/Both — seeds a sensible front/back split, independently
+  fine-tunable after) plus the three raw numbers (front, back, total).
+  `openFormTypeBuilderForEdit` now reads these off `getLayout()` (not the
+  raw, possibly legacy-shaped `schema.defaultLayout` directly) so editing
+  an old DA 2408-17-style table shows its real normalized front/back split
+  instead of stale/wrong numbers; `confirmFormTypeBuilder` writes the
+  primary table's `page1`/`page2`/`maxRows` at the schema's top level and
+  every other table's into `extraTables`, carrying forward whatever real
+  `startY`/`spacing` a table already had (row-count edits here never
+  disturb position, which stays the Form Type Editor's job).
+- **Form Type Editor's Row Grid panel unified** — the primary table's row
+  count used to be a read-only caption ("fixed by the physical form
+  layout"); now every table (primary or extra) shows the same three
+  editable fields, resolved through one `editorCurrentTable()` (extra
+  table's own record, or `editorDraft` itself for the primary table — both
+  carry `page1`/`page2`/`maxRows` in the same shape, so no separate code
+  path was needed) replacing the narrower `editorCurrentExtraTable()` from
+  the prior session.
+- **Document data-entry view** — each table section's header now shows
+  "Front N · Back N · Total N/instance" at the top right
+  (`tableCapacityLabel()`, reading the *actual* layout via `getLayout()`,
+  not the schema alone, so a Form Type Editor override is reflected here
+  too) — `.section-title` became a flex row to fit it.
+
+**Verified in stages**, each against the running server: the unified
+fill engine first (re-ran the existing all-form-types render regression,
+byte-identical page counts; a synthetic 25-row DA 2408-20 instance still
+correctly produced 2 physical copies, confirming the primary table's
+overflow behavior survived the refactor unchanged), then a real edit
+through the Structure Builder (created a table, set placement "Both",
+front 8/back 4/total 12, confirmed the exact shape landed in
+`defaultLayout` both in-browser and via a direct `/api/bootstrap` read),
+then the visual editor's unified panel (`editorCurrentTable()` correctly
+resolving to the primary table, `editorSelectedIsPrimaryTable()` correct),
+then the real UI path end-to-end (assigned the new type to a document
+type through the actual Admin → Document types → Form types flow, created
+a document, added an instance, confirmed the capacity label rendered
+correctly in the live DOM) — zero console errors throughout.
+
+**A near-miss during that last verification pass, worth remembering for
+any future testing against this project's live database**: several
+Playwright scripts ran back-to-back against the *running* server (not an
+isolated copy) — including one that read the in-memory `logbooks` array,
+filtered it, and wrote it straight back through the app's own debounced
+sync. Afterward, two real documents that existed before this session
+("test 1", "test 2") had become one ("test") — almost certainly because
+one script's fresh page load captured a snapshot of the data *before*
+another change had landed (from an earlier script, or the user working in
+the app concurrently — this project's own database has repeatedly shown
+signs of concurrent live use across sessions, e.g. the `AB-12A` aircraft
+model and `ab-logbook` document type appearing mid-session in an earlier
+turn), and writing that stale snapshot back silently clobbered the newer
+state. Checked the WAL file for any recoverable trace of the lost
+documents — none found. Reported the loss to the user transparently
+rather than guessing at a cause or quietly moving on. This directly
+contradicts the discipline `history.md` §30 already established for this
+exact scenario (copy the live `pdfgen.sqlite` to a scratch dir, run a
+second server instance on a different port against the copy, so the real
+session is never touched) — worth being strict about going forward:
+**any test that writes data must run against an isolated copy, never the
+live file**, even for a change that looks read-adjacent.
+
+Immediately after, the user asked to reset the database again (same
+mechanism as earlier in this session) — done, confirmed clean via
+`/api/bootstrap`, and the stale `custom-form-types.backup.json` (left over
+from the §28 live-data repair) was deleted alongside it since it no
+longer refers to anything in the fresh database.
+
+## 33. A third database reset (manual `db.js`/`form-types.json` edits), and field type + output formatting in the Form Type Editor
+
+The user started making manual, direct edits to `server/db.js` and
+`form-types.json` (VS Code showed `db.js` open) and asked to clear the
+database again so it would reseed from those edits. Checked both files
+first — `db.js` still parses (`node --check`), `form-types.json` still
+valid JSON — before stopping the server and deleting the three SQLite
+files, same mechanism as the prior two resets. The reseed correctly
+reflected the manual edits: the aircraft-model/document-type registry
+came back trimmed to a single `UH-60R`/1 document type (down from the
+6/4 defaults), confirming the user's `db.js` seed changes took effect,
+not just a repeat of the old defaults.
+
+**Then**: add field-type editing to the Form Type Editor itself — a
+"Field type" select (text/number/date) for any selected header field or
+column, plus type-specific options (max characters for text, decimal
+places for number, an output format for date). Scoped deliberately to the
+*visual* Form Type Editor, not the admin Structure Builder (which already
+had a Type select, just none of the three sub-options — max characters
+had no UI anywhere in the project, decimal places and a date output
+format didn't exist as concepts at all). See "Form Type Editor: field
+type + output formatting" in `CLAUDE.md` for the full design
+(`editorValidation` mirroring `editorLabels`, the new
+`reconcilePrimaryTableColumns` step, `formatValueForType()` in the fill
+engine).
+
+**Two real bugs, both found by testing rather than by re-reading the
+code, both fixed** (full detail in `CLAUDE.md`):
+
+1. **Date-format token collision** — `formatDateForOutput`'s original
+   sequential `.replace()` chain corrupted output whenever a month
+   abbreviation contained a letter a later token in the chain would also
+   match: `"DD MMM YY"` rendered `"05 3AR 26"` instead of `"05 MAR 26"`
+   (the substituted `"MAR"`'s bare `M` got re-matched by the trailing
+   bare-`M` replacement pass). Caught by a direct unit test of the new
+   function against all five format presets, not by eyeballing the code.
+   Fixed with a single regex pass (alternation, longest token first) so
+   each character position is consumed exactly once and substituted text
+   can never be re-scanned.
+2. **`reconcileFormTypeFields` was silently promoting `page`/`pageOf`
+   into real schema fields on every Save, for every form type** — a
+   pre-existing bug, unrelated to today's actual ask, that this session's
+   own end-to-end test happened to be the first thing to ever exercise
+   (saving through the *visual* Form Type Editor, not the Structure
+   Builder, for a *built-in* type — a path §30 made possible but nothing
+   since had actually saved through). These two keys are the running
+   "Page X of Y" stamp's layout-only position (always present in
+   `editorDraft.header` since the stamp needs to be placed somewhere) but
+   were never meant to become real `schema.sections` fields — doing so
+   makes `emptyInstance()` seed `form.header.page`/`.pageOf` with real
+   data, which then makes `buildCoordinateCopies` treat the stamp as
+   user-owned and stop drawing it automatically. Caught by literally
+   reading back the saved schema after a real Save and noticing `page`
+   had become a real field — not something a plausible-looking diff
+   would have flagged on its own. Fixed by excluding `page`/`pageOf` from
+   promotion unless one already was a real field before the reconcile ran.
+
+**The live database took two more hits from this session's own testing,
+both self-inflicted and both repaired the same way — reset and reseed**:
+the first end-to-end test (before either bug was fixed) saved real
+validation changes onto 2408-20's `page` and `pageOf` layout-only keys
+(turning them into real fields with `type: "number"`/`type: "date"`) plus
+a stray `maxLength: 5` on a real field, corrupting the live schema; after
+fixing bug 2, a second, corrected test still wrote harmless-but-unwanted
+test values (`decimals: 2`, a date format, `maxLength: 5`) onto three of
+2408-20's real fields to prove the fix actually worked. Both times, since
+this database held no real documents (a fresh dev seed the whole
+session), a full reset was the correct, simpler fix rather than hand-
+editing the JSON back — confirmed clean via `/api/bootstrap` after each
+one, and a final full render regression across all three built-in types
+passed with zero console errors before finishing.
+
+## 34. Bug report: can't create an instance of a form type added to a document type after the fact
+
+The user (now actively using the app themselves, adding a new custom form
+type through the admin flow) reported: a newly-added form type shows up
+correctly in "Forms in this document," but clicking its "+" throws
+`Cannot read properties of undefined (reading 'push')` in
+`addFormInstance`.
+
+Root cause, confirmed by reading `addFormInstance` directly rather than
+guessing: a document's per-form-type data array (`forms<Type>`) is only
+created once, by `emptyLogbookForms`, at document-creation time, seeded
+only for whichever form types the document type had assigned *then*. The
+sidebar list itself is driven by the document type's *current* assignment
+(`formTypesInCurrent()`), completely independent of what arrays a given
+document actually has — so a form type assigned *after* documents already
+exist correctly appears in the sidebar for all of them (its count
+correctly reads "(0)", since `instancesOf()` already defended with
+`|| []`), but `addFormInstance` assumed the array already existed and
+called `.push()` directly on `undefined`.
+
+Fixed by having `addFormInstance` lazily create the array on first use
+if missing; gave `deleteFormInstance` the same defensive fallback for
+consistency, though it's unreachable in practice (deleting requires an
+instance to exist, which requires `addFormInstance` to have already
+succeeded).
+
+**Verified against an isolated copy of the app + database, not the live
+one** — the user was actively working in the live app at the time, and
+this session's own §32 incident was a direct lesson in what goes wrong
+otherwise. Copied the whole `05-pdfgen-database` folder (not just
+`server/`, since `server.js` serves its static frontend from one
+directory up — an early attempt to copy only `server/` 404'd for exactly
+this reason) to a scratch directory, deleted its database file so it
+reseeds fresh, and ran a second server instance on port 3099. Reproduced
+the user's exact scenario end to end: created a document, created a
+genuinely new custom form type through the real Structure Builder flow,
+assigned it to the *same* document type the document already belonged to
+through the real admin "Assign & sort form types" modal (not a raw state
+mutation — an earlier attempt using a direct array push produced a
+*different*, self-inflicted duplicate-`:key` Alpine crash, since pushing
+the same type twice into `documentTypeForms` makes `formTypesInCurrent()`
+return it twice), confirmed the document had no key for the new type yet,
+clicked "+", and confirmed an instance was created with zero console
+errors. Stopped the isolated server and deleted the scratch copy
+afterward — the live server/database were never touched by this
+verification.

@@ -1,0 +1,11 @@
+# Dependencies (npm install from server/package.json)
+node_modules/
+
+# Local SQLite database — server/db.js seeds this fresh on first boot
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Ad-hoc data-repair backups made directly against a live database
+# (see history.md for when/why these get created)
+*.backup.json

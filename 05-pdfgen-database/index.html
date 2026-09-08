@@ -141,6 +141,11 @@
   .section-title {
     font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
     color: var(--muted); padding: 14px 16px 8px;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  }
+  .section-title-capacity {
+    font-size: 10.5px; font-weight: 400; letter-spacing: normal; text-transform: none;
+    white-space: nowrap;
   }
   .field-grid { display: grid; gap: 12px; padding: 0 16px 16px; }
   label { display: block; font-size: 10.5px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 4px; min-height: 1px; }
@@ -269,9 +274,12 @@
   .editor-box:hover { border-color: var(--accent); background: rgba(52,84,209,.16); }
   .editor-box.selected { border-color: var(--accent); background: rgba(52,84,209,.22); box-shadow: 0 0 0 1px var(--accent); }
   .editor-box-label {
-    position: absolute; top: -16px; left: -1px; font-size: 9px; font-weight: 700; color: var(--accent);
-    background: #fff; padding: 0 3px; border-radius: 3px; white-space: nowrap; pointer-events: none;
-    max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+    position: absolute; inset: 0; display: flex; align-items: center;
+    padding: 0 3px; color: var(--text); white-space: nowrap; pointer-events: none;
+    overflow: hidden; text-overflow: ellipsis;
+    /* font-family/size/weight/style come from editorBoxStyle() inline, so the
+       label reads exactly as styled — the same font/size/bold/italic this
+       field will actually print with, not a fixed editor-chrome label look. */
   }
   .editor-box-resize {
     position: absolute; right: -4px; top: 0; bottom: 0; width: 8px; cursor: ew-resize;
@@ -312,11 +320,11 @@
   <header class="topbar">
     <div>
       <span class="brand">PDF-gen</span>
-      <span class="sub">POC (json) &middot; UH-60R &middot; Logbook &middot; form types fetched from form-types.json</span>
+      <span class="sub">POC (database) &middot; Express + SQLite backend &middot; form types served from the database</span>
     </div>
     <div style="display:flex; align-items:center; gap:10px;">
       <label style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); cursor:pointer; user-select:none;">
-        <input type="checkbox" x-model="isAdmin" style="width:auto;">
+        <input type="checkbox" id="isAdminCheckbox" x-model="isAdmin" style="width:auto;">
         Admin
       </label>
       <button class="btn btn-sm" x-show="current" @click="openSaveDefaultModal()">Save as default</button>
@@ -326,7 +334,14 @@
       <button class="btn btn-sm" x-show="current" @click="exportAll()" :disabled="generating">
         <span x-text="generating ? 'Generating…' : 'Export All'"></span>
       </button>
-      <span style="font-size:11px;color:#1a7f4b;background:#e7f7ee;padding:4px 10px;border-radius:10px;">Saved to this browser</span>
+      <span
+        style="font-size:11px;padding:4px 10px;border-radius:10px;"
+        :style="{
+          'color': saveStatus === 'error' ? '#a3291a' : (saveStatus === 'saved' ? '#1a7f4b' : '#8a6d1a'),
+          'background': saveStatus === 'error' ? '#fbeae7' : (saveStatus === 'saved' ? '#e7f7ee' : '#fbf3df'),
+        }"
+        x-text="saveStatus === 'error' ? 'Save failed — retrying' : (saveStatus === 'saved' ? 'Saved to server' : 'Saving…')"
+      ></span>
     </div>
   </header>
 
@@ -348,23 +363,23 @@
             <button class="sidebar-toggle" title="Collapse sidebar" @click="sidebarOpen = false">&laquo;</button>
           </div>
 
-          <template x-if="!formTypesLoaded && !formTypesError">
+          <template x-if="!formTypesLoaded && !bootstrapError">
             <div class="not-supported-note" style="margin:8px 8px 0;">
-              Loading form types from <code>form-types.json</code>&hellip;
+              Loading form types from the server&hellip;
             </div>
           </template>
-          <template x-if="formTypesError">
+          <template x-if="bootstrapError">
             <div class="not-supported-note" style="margin:8px 8px 0; color:var(--danger);">
-              Could not load <code>form-types.json</code> — this page must be served over
-              http(s), not opened as a <code>file://</code> URL (fetch of a local file is
-              blocked). Try e.g. <code>python -m http.server</code> from this folder.
+              Could not reach the server's <code>/api/bootstrap</code> — start it with
+              <code>npm start</code> in <code>server/</code>. Running with no form types or
+              data loaded; nothing you do right now will be saved.
             </div>
           </template>
 
           <div class="sidebar-section" style="padding-top:6px;">
             <div class="select-field">
               <label>Aircraft model</label>
-              <select x-model="selectedModel">
+              <select id="selectedModelSelect" x-model="selectedModel">
                 <option value="">Pick Model</option>
                 <template x-for="m in aircraftModels" :key="m">
                   <option :value="m" x-text="m"></option>
@@ -373,7 +388,7 @@
             </div>
             <div class="select-field" style="margin-bottom:0;">
               <label>Document type</label>
-              <select x-model="selectedDocType" :disabled="!selectedModel">
+              <select id="selectedDocTypeSelect" x-model="selectedDocType" :disabled="!selectedModel">
                 <option value="">Pick Document</option>
                 <template x-for="dt in availableDocumentTypes()" :key="dt.id">
                   <option :value="dt.id" x-text="dt.name"></option>
@@ -463,7 +478,7 @@
                                  :class="{ active: activeFormType === ft.type && activeInstanceId === inst.id }"
                                  @click="renamingInstanceId !== inst.id && openFormInstance(ft.type, inst.id)">
                               <template x-if="renamingInstanceId === inst.id">
-                                <input type="text" class="instance-rename-input" x-ref="renameInput" x-model="renameDraft"
+                                <input type="text" class="instance-rename-input" :id="'renameInstance_' + inst.id" x-ref="renameInput" x-model="renameDraft"
                                        @click.stop
                                        @keydown.enter="commitRename(inst)"
                                        @keydown.escape="cancelRename()"
@@ -529,7 +544,17 @@
 
           <!-- ===== Generic, schema-driven form renderer ===== -->
           <div class="card">
-            <template x-for="section in activeSchema.sections" :key="section.title">
+            <!-- Key must be unique WITHIN a schema and different ACROSS
+                 schemas. `section.title` alone (the original) is neither: two
+                 auto-detected tables can share a title, and a duplicate :key
+                 crashes Alpine's diffing for the whole page. A bare index is
+                 unique but *too* stable — switching form types then makes
+                 Alpine reuse the DOM node at index N for a completely
+                 different section (a table section's node reused for a fields
+                 section), which corrupts the nested column x-for the same
+                 way. Prefixing with the active form type forces a clean
+                 teardown/rebuild on every schema switch. -->
+            <template x-for="(section, sIdx) in activeSchema.sections" :key="activeFormType + ':' + sIdx">
               <div>
 
                 <!-- a labeled field group (header-level data) -->
@@ -544,7 +569,7 @@
                             <span class="req-star" x-show="field.validation && field.validation.required">*</span>
                           </label>
                           <template x-if="field.textarea">
-                            <textarea :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                            <textarea :id="'headerField_' + activeFormType + '_' + field.key" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
                                       :readonly="activeInstance.complete"
                                       :maxlength="(field.validation && field.validation.maxLength) || null"
                                       :class="{ 'input-invalid': headerFieldErrors(field.key).length }"
@@ -552,7 +577,7 @@
                                       @input="activeInstance.header[field.key] = $event.target.value"></textarea>
                           </template>
                           <template x-if="!field.textarea && (!field.validation || field.validation.type !== 'date')">
-                            <input type="text" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                            <input type="text" :id="'headerField_' + activeFormType + '_' + field.key" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
                                    :readonly="activeInstance.complete"
                                    :maxlength="(field.validation && field.validation.maxLength) || null"
                                    :class="{ 'input-invalid': headerFieldErrors(field.key).length }"
@@ -567,7 +592,7 @@
                                until re-entered through the picker, though the stored string is
                                untouched until then. -->
                           <template x-if="!field.textarea && field.validation && field.validation.type === 'date'">
-                            <input type="date" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
+                            <input type="date" :id="'headerField_' + activeFormType + '_' + field.key" :value="activeInstance.header[field.key]" @focus="snapshotBeforeChange()"
                                    :readonly="activeInstance.complete"
                                    :class="{ 'input-invalid': headerFieldErrors(field.key).length }"
                                    :title="headerFieldErrors(field.key).join('; ')"
@@ -590,7 +615,10 @@
                      needs the guard. -->
                 <template x-if="section.kind === 'table'">
                   <div>
-                    <div class="section-title" x-text="section.title + ' (' + (activeInstance[section.rowsKey] || []).length + ')'"></div>
+                    <div class="section-title">
+                      <span x-text="section.title + ' (' + (activeInstance[section.rowsKey] || []).length + ')'"></span>
+                      <span class="section-title-capacity" x-show="tableCapacityLabel(section)" x-text="tableCapacityLabel(section)"></span>
+                    </div>
                     <div class="table-wrap">
                       <table class="rows">
                         <thead>
@@ -616,7 +644,7 @@
                               <template x-for="col in section.columns" :key="col.key">
                                 <td>
                                   <template x-if="!col.validation || col.validation.type !== 'date'">
-                                    <input type="text" :value="row[col.key]"
+                                    <input type="text" :id="'rowField_' + section.rowsKey + '_' + row.id + '_' + col.key" :value="row[col.key]"
                                            :maxlength="(col.validation && col.validation.maxLength) || null"
                                            :readonly="activeInstance.complete"
                                            :class="{ 'input-invalid': rowFieldErrors(section, row, col.key).length }"
@@ -624,7 +652,7 @@
                                            @focus="snapshotBeforeChange()" @input="row[col.key] = $event.target.value">
                                   </template>
                                   <template x-if="col.validation && col.validation.type === 'date'">
-                                    <input type="date" :value="row[col.key]"
+                                    <input type="date" :id="'rowField_' + section.rowsKey + '_' + row.id + '_' + col.key" :value="row[col.key]"
                                            :readonly="activeInstance.complete"
                                            :class="{ 'input-invalid': rowFieldErrors(section, row, col.key).length }"
                                            :title="rowFieldErrors(section, row, col.key).join('; ')"
@@ -684,7 +712,7 @@
                     </template>
 
                     <template x-if="ov.kind === 'text'">
-                      <textarea :value="overlayValue(ov.id).text" :readonly="activeInstance.complete"
+                      <textarea :id="'overlayText_' + ov.id" :value="overlayValue(ov.id).text" :readonly="activeInstance.complete"
                                 @focus="snapshotBeforeChange()"
                                 @input="setInstanceOverlayText(ov.id, $event.target.value)"></textarea>
                     </template>
@@ -735,18 +763,18 @@
 
         <div class="field">
           <label>Aircraft tail number</label>
-          <input type="text" x-model="newTailNumber" placeholder="e.g. 16-04578" x-ref="tailInput">
+          <input type="text" id="newTailNumberInput" x-model="newTailNumber" placeholder="e.g. 16-04578" x-ref="tailInput">
         </div>
 
         <div class="field">
           <label>Start from</label>
           <div class="source-option" :class="{ selected: newSource === 'blank' }" @click="newSource = 'blank'">
-            <input type="radio" :checked="newSource === 'blank'" @click.stop="newSource = 'blank'">
+            <input type="radio" id="newSourceBlank" name="newSource" :checked="newSource === 'blank'" @click.stop="newSource = 'blank'">
             <span class="name">Blank</span>
           </div>
           <template x-for="d in defaultsForSelection()" :key="d.id">
             <div class="source-option" :class="{ selected: newSource === d.id }" @click="newSource = d.id">
-              <input type="radio" :checked="newSource === d.id" @click.stop="newSource = d.id">
+              <input type="radio" :id="'newSourceDefault_' + d.id" name="newSource" :checked="newSource === d.id" @click.stop="newSource = d.id">
               <span class="name" x-text="d.name"></span>
               <span style="font-size:10.5px;color:var(--muted);" x-text="defaultSummary(d)"></span>
               <button class="del" title="Delete this default" @click.stop="deleteDefault(d.id)">&times;</button>
@@ -776,7 +804,7 @@
         </div>
         <div class="field">
           <label>Default name</label>
-          <input type="text" x-model="newDefaultName" placeholder="e.g. Standard UH-60R logbook" x-ref="defaultNameInput">
+          <input type="text" id="newDefaultNameInput" x-model="newDefaultName" placeholder="e.g. Standard UH-60R logbook" x-ref="defaultNameInput">
         </div>
         <div class="modal-actions">
           <button class="btn" @click="showSaveDefaultModal = false">Cancel</button>
@@ -788,7 +816,7 @@
 
   <!-- ============ ADMIN: AIRCRAFT MODELS MODAL ============ -->
   <template x-if="showAdminModelsModal">
-    <div class="modal-backdrop" @click.self="showAdminModelsModal = false">
+    <div class="modal-backdrop">
       <div class="modal">
         <h2>Aircraft models</h2>
         <div class="cap">Models available across every document type.</div>
@@ -799,7 +827,7 @@
                 <span class="name" x-text="m"></span>
               </template>
               <template x-if="renamingModelName === m">
-                <input type="text" class="instance-rename-input" style="flex:1;" x-ref="renameModelInput" x-model="renameModelDraft"
+                <input type="text" id="renameModelInputField" class="instance-rename-input" style="flex:1;" x-ref="renameModelInput" x-model="renameModelDraft"
                        @keydown.enter="commitRenameAircraftModel()"
                        @keydown.escape="cancelRenameAircraftModel()"
                        @blur="commitRenameAircraftModel()">
@@ -811,7 +839,7 @@
           <div class="cap" x-show="aircraftModels.length === 0" style="margin:6px 0 0;">No models yet.</div>
         </div>
         <div class="field" style="display:flex; gap:8px;">
-          <input type="text" x-model="newModelName" placeholder="e.g. AH-64E" @keydown.enter="addAircraftModel()">
+          <input type="text" id="newModelNameInput" x-model="newModelName" placeholder="e.g. AH-64E" @keydown.enter="addAircraftModel()">
           <button class="btn btn-primary btn-sm" @click="addAircraftModel()">Add</button>
         </div>
         <div class="modal-actions">
@@ -823,7 +851,7 @@
 
   <!-- ============ ADMIN: DOCUMENT TYPES MODAL ============ -->
   <template x-if="showAdminDocTypesModal">
-    <div class="modal-backdrop" @click.self="showAdminDocTypesModal = false">
+    <div class="modal-backdrop">
       <div class="modal">
         <h2>Document types</h2>
         <div class="cap">
@@ -838,7 +866,7 @@
                   <span class="name" style="font-weight:600; flex:1;" x-text="dt.name"></span>
                 </template>
                 <template x-if="renamingDocTypeId === dt.id">
-                  <input type="text" class="instance-rename-input" style="flex:1;" x-ref="renameDocTypeInput" x-model="renameDocTypeDraft"
+                  <input type="text" id="renameDocTypeInputField" class="instance-rename-input" style="flex:1;" x-ref="renameDocTypeInput" x-model="renameDocTypeDraft"
                          @keydown.enter="commitRenameDocumentType(dt)"
                          @keydown.escape="cancelRenameDocumentType()"
                          @blur="commitRenameDocumentType(dt)">
@@ -850,7 +878,7 @@
               <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:10px;">
                 <template x-for="m in aircraftModels" :key="m">
                   <label class="editor-check">
-                    <input type="checkbox" :checked="dt.models.includes(m)" @change="toggleDocTypeModel(dt, m)">
+                    <input type="checkbox" :id="'docTypeModel_' + dt.id + '_' + m" :checked="dt.models.includes(m)" @change="toggleDocTypeModel(dt, m)">
                     <span x-text="m"></span>
                   </label>
                 </template>
@@ -860,7 +888,7 @@
           </template>
         </div>
         <div class="field" style="display:flex; gap:8px;">
-          <input type="text" x-model="newDocTypeName" placeholder="e.g. Blades" @keydown.enter="addDocumentType()">
+          <input type="text" id="newDocTypeNameInput" x-model="newDocTypeName" placeholder="e.g. Blades" @keydown.enter="addDocumentType()">
           <button class="btn btn-primary btn-sm" @click="addDocumentType()">Add</button>
         </div>
         <div class="modal-actions">
@@ -872,7 +900,7 @@
 
   <!-- ============ ADMIN: ASSIGN & SORT FORM TYPES MODAL ============ -->
   <template x-if="showAdminAssignModal">
-    <div class="modal-backdrop" @click.self="showAdminAssignModal = false">
+    <div class="modal-backdrop">
       <div class="modal">
         <h2 x-text="'Form types — ' + (assignDocType ? assignDocType.name : '')"></h2>
         <div class="cap">Click a form type to include/exclude it; drag items in "Assigned" to reorder.</div>
@@ -911,14 +939,14 @@
 
   <!-- ============ ADMIN: FORM TYPES MODAL ============ -->
   <template x-if="showAdminFormTypesModal">
-    <div class="modal-backdrop" @click.self="showAdminFormTypesModal = false">
+    <div class="modal-backdrop">
       <div class="modal" style="width:560px; max-width:calc(100vw - 40px);">
         <h2>Form types</h2>
         <div class="cap">
           A form type with no PDF template yet supports data entry but not PDF generation —
           attaching a template is a later phase. "Edit" opens the full structure builder (fields
-          and tables) for a custom, admin-created type; a built-in type's structure is tied to its
-          real PDF template, so only its label/banner note are editable.
+          and tables) for any type, built-in or admin-created — see the builder's own note about
+          what editing an already-templated type can affect.
         </div>
         <div class="field">
           <template x-for="ft in FORM_TYPES" :key="ft.type">
@@ -926,7 +954,7 @@
               <span class="name" x-text="ft.label"></span>
               <span style="font-size:10.5px; color:var(--muted);"
                     x-text="hasTemplate(ft) ? 'PDF template' : 'Shape only — no template'"></span>
-              <button class="btn btn-sm" @click="ft.custom ? openFormTypeBuilderForEdit(ft) : openEditFormTypeMeta(ft)">Edit</button>
+              <button class="btn btn-sm" @click="openFormTypeBuilderForEdit(ft)">Edit</button>
               <template x-if="ft.custom">
                 <div style="display:inline-flex;">
                   <label class="btn btn-sm" :for="'uploadPdfFor_' + ft.type" :class="{ 'btn-label-disabled': uploadingFormType }" style="margin:0;">
@@ -946,7 +974,7 @@
             <button class="btn btn-sm" :disabled="uploadingFormType" @click="$refs.uploadFormTypePdfInput.click()">
               <span x-text="uploadingFormType ? 'Analyzing…' : 'Upload PDF…'"></span>
             </button>
-            <input type="file" accept="application/pdf" x-ref="uploadFormTypePdfInput" style="display:none;"
+            <input type="file" id="uploadFormTypePdfInput" accept="application/pdf" x-ref="uploadFormTypePdfInput" style="display:none;"
                    @change="handleUploadFormTypePdf($event.target.files[0]); $event.target.value = ''">
           </div>
           <button class="btn" @click="showAdminFormTypesModal = false">Close</button>
@@ -955,51 +983,40 @@
     </div>
   </template>
 
-  <!-- ============ ADMIN: EDIT FORM TYPE LABEL/BANNER ============ -->
-  <template x-if="showEditFormTypeMetaModal">
-    <div class="modal-backdrop" @click.self="showEditFormTypeMetaModal = false">
-      <div class="modal">
-        <h2>Edit form type</h2>
-        <div class="field">
-          <label>Label</label>
-          <input type="text" x-model="editFormTypeDraft.label">
-        </div>
-        <div class="field">
-          <label>Banner note (optional)</label>
-          <input type="text" x-model="editFormTypeDraft.bannerNote">
-        </div>
-        <div class="modal-actions">
-          <button class="btn" @click="showEditFormTypeMetaModal = false">Cancel</button>
-          <button class="btn btn-primary" @click="confirmEditFormTypeMeta()">Save</button>
-        </div>
-      </div>
-    </div>
-  </template>
-
   <!-- ============ ADMIN: NEW FORM TYPE — MANUAL SCHEMA BUILDER ============ -->
   <template x-if="showFormTypeBuilder">
-    <div class="modal-backdrop" @click.self="showFormTypeBuilder = false">
+    <div class="modal-backdrop">
       <div class="modal modal-wide" style="height:auto; max-height:88vh;">
         <h2 x-text="builderDraft.editingType ? 'Edit form type' : 'New form type'"></h2>
         <div class="cap">
           Manual schema builder — add as many field groups and tables as this form type needs. The
           first table with any columns becomes the primary, growable table (rows overflow onto extra
           physical copies once a PDF template is attached); any table after that is a fixed row count
-          instead (like a signature/verification log). No PDF template yet; a future phase will let
-          you upload one and auto-suggest this shape instead.
+          instead (like a signature/verification log).
+          <template x-if="!builderEditingHasTemplate()">
+            <span>No PDF template yet; a future phase will let you upload one and auto-suggest this
+            shape instead.</span>
+          </template>
+          <template x-if="builderEditingHasTemplate()">
+            <span>This type already has a real PDF template — an existing field/column keeps its
+            current position; a newly-added one starts at a placeholder position you'll need to place
+            in the Form Type Editor afterward. Changing structure here (renaming/removing a field or
+            column) can affect any document already saved with this form type, since its stored data
+            is keyed by these same field/column keys.</span>
+          </template>
         </div>
 
         <div style="overflow-y:auto; flex:1; padding-right:4px;">
           <div class="editor-prop-row">
             <div class="full">
               <label>Label</label>
-              <input type="text" x-model="builderDraft.label" placeholder="e.g. Main Blades">
+              <input type="text" id="formTypeBuilderLabelInput" x-model="builderDraft.label" placeholder="e.g. Main Blades">
             </div>
           </div>
           <div class="editor-prop-row">
             <div class="full">
               <label>Banner note (optional)</label>
-              <input type="text" x-model="builderDraft.bannerNote" placeholder="e.g. Coordinate-based fill, once a template is uploaded">
+              <input type="text" id="formTypeBuilderBannerNoteInput" x-model="builderDraft.bannerNote" placeholder="e.g. Coordinate-based fill, once a template is uploaded">
             </div>
           </div>
 
@@ -1008,19 +1025,19 @@
           <template x-for="(fs, sIdx) in builderDraft.fieldSections" :key="sIdx">
             <div style="border:1px solid var(--border); border-radius:6px; padding:10px; margin-bottom:10px;">
               <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
-                <input type="text" x-model="fs.title" placeholder="Section title" style="flex:1;">
+                <input type="text" :id="'builderFieldGroupTitle_' + sIdx" x-model="fs.title" placeholder="Section title" style="flex:1;">
                 <button class="del" title="Remove this field group" @click="removeBuilderFieldSection(sIdx)">&times;</button>
               </div>
               <template x-for="(f, idx) in fs.fields" :key="idx">
                 <div style="display:flex; gap:6px; align-items:center; margin-bottom:8px;">
-                  <input type="text" x-model="f.label" placeholder="Label" style="flex:2;">
-                  <select x-model="f.type" style="flex:1;">
+                  <input type="text" :id="'builderField_' + sIdx + '_' + idx + '_label'" x-model="f.label" placeholder="Label" style="flex:2;">
+                  <select :id="'builderField_' + sIdx + '_' + idx + '_type'" x-model="f.type" style="flex:1;">
                     <option value="text">Text</option>
                     <option value="number">Number</option>
                     <option value="date">Date</option>
                   </select>
-                  <label class="editor-check"><input type="checkbox" x-model="f.required"> Req'd</label>
-                  <label class="editor-check"><input type="checkbox" x-model="f.textarea"> Multiline</label>
+                  <label class="editor-check"><input type="checkbox" :id="'builderField_' + sIdx + '_' + idx + '_required'" x-model="f.required"> Req'd</label>
+                  <label class="editor-check"><input type="checkbox" :id="'builderField_' + sIdx + '_' + idx + '_multiline'" x-model="f.textarea"> Multiline</label>
                   <button class="del" @click="removeBuilderField(sIdx, idx)">&times;</button>
                 </div>
               </template>
@@ -1034,22 +1051,57 @@
           <template x-for="(ts, tIdx) in builderDraft.tableSections" :key="tIdx">
             <div style="border:1px solid var(--border); border-radius:6px; padding:10px; margin-bottom:10px;">
               <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
-                <input type="text" x-model="ts.title" placeholder="Table title" style="flex:1;">
+                <input type="text" :id="'builderTableTitle_' + tIdx" x-model="ts.title" placeholder="Table title" style="flex:1;">
                 <span class="cap" style="margin:0; white-space:nowrap;"
                       x-text="firstNonEmptyTableIndex() === tIdx ? 'Primary (growable)' : 'Fixed rows'"></span>
-                <input type="number" min="1" step="1" style="width:70px;"
-                       x-show="firstNonEmptyTableIndex() !== tIdx" x-model.number="ts.fixedRows">
                 <button class="del" title="Remove this table" @click="removeBuilderTableSection(tIdx)">&times;</button>
+              </div>
+              <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px; flex-wrap:wrap;">
+                <div style="display:flex; align-items:center; gap:4px;">
+                  <label style="font-size:11px; color:var(--muted);">Table shows on</label>
+                  <select :id="'builderTablePlacement_' + tIdx" :value="ts.placement"
+                          @change="setBuilderTablePlacement(ts, $event.target.value)" style="font-size:12px;">
+                    <option value="front">Front page</option>
+                    <option value="back">Back page</option>
+                    <option value="both">Both pages</option>
+                  </select>
+                </div>
+                <div style="display:flex; align-items:center; gap:4px;">
+                  <label style="font-size:11px; color:var(--muted);">Max rows — front</label>
+                  <input type="number" :id="'builderTableMaxRowsFront_' + tIdx" min="0" step="1" style="width:60px;"
+                         x-model.number="ts.maxRowsFront">
+                </div>
+                <div style="display:flex; align-items:center; gap:4px;">
+                  <label style="font-size:11px; color:var(--muted);">Max rows — back</label>
+                  <input type="number" :id="'builderTableMaxRowsBack_' + tIdx" min="0" step="1" style="width:60px;"
+                         x-model.number="ts.maxRowsBack">
+                </div>
+                <div style="display:flex; align-items:center; gap:4px;">
+                  <label style="font-size:11px; color:var(--muted);">Total rows per instance</label>
+                  <input type="number" :id="'builderTableMaxRowsTotal_' + tIdx" min="0" step="1" style="width:60px;"
+                         x-model.number="ts.maxRowsTotal">
+                </div>
+              </div>
+              <div class="cap" style="margin:0 0 8px;">
+                <span x-show="firstNonEmptyTableIndex() === tIdx">
+                  If more rows are entered than fit here, a new physical copy of this whole form is
+                  generated (header repeated) to hold the rest.
+                </span>
+                <span x-show="firstNonEmptyTableIndex() !== tIdx">
+                  A fixed-count table like this always has exactly this many rows — front/back just
+                  decide where each one prints. Fine-tune exact position/spacing per page afterward in
+                  the Form Type Editor.
+                </span>
               </div>
               <template x-for="(c, idx) in ts.columns" :key="idx">
                 <div style="display:flex; gap:6px; align-items:center; margin-bottom:8px;">
-                  <input type="text" x-model="c.label" placeholder="Column label" style="flex:2;">
-                  <select x-model="c.type" style="flex:1;">
+                  <input type="text" :id="'builderColumn_' + tIdx + '_' + idx + '_label'" x-model="c.label" placeholder="Column label" style="flex:2;">
+                  <select :id="'builderColumn_' + tIdx + '_' + idx + '_type'" x-model="c.type" style="flex:1;">
                     <option value="text">Text</option>
                     <option value="number">Number</option>
                     <option value="date">Date</option>
                   </select>
-                  <label class="editor-check"><input type="checkbox" x-model="c.required"> Req'd</label>
+                  <label class="editor-check"><input type="checkbox" :id="'builderColumn_' + tIdx + '_' + idx + '_required'" x-model="c.required"> Req'd</label>
                   <button class="del" @click="removeBuilderColumn(tIdx, idx)">&times;</button>
                 </div>
               </template>
@@ -1085,9 +1137,10 @@
               <button :class="{ active: editorPageIndex === 0 }" @click="switchEditorPage(0)">Front page</button>
               <button :class="{ active: editorPageIndex === 1 }" @click="switchEditorPage(1)">Back page</button>
               <span style="flex:1;"></span>
-              <button class="btn btn-sm" x-show="editorSchema && editorSchema.custom" @click="addEditorHeaderField()">+ Add field</button>
+              <button class="btn btn-sm" x-show="editorSchema" @click="addEditorHeaderField()">+ Add field</button>
+              <button class="btn btn-sm" x-show="editorSchema" @click="addEditorTable()">+ Add table</button>
               <button class="btn btn-sm" @click="$refs.overlayImageInput.click()">+ Add image</button>
-              <input type="file" accept="image/png,image/jpeg" x-ref="overlayImageInput" style="display:none;"
+              <input type="file" id="overlayImageFileInput" accept="image/png,image/jpeg" x-ref="overlayImageInput" style="display:none;"
                      @change="addImageOverlay($event.target.files[0]); $event.target.value = ''">
               <button class="btn btn-sm" @click="addTextOverlay()">+ Add text box</button>
             </div>
@@ -1109,22 +1162,44 @@
           <div class="editor-props-pane">
             <div class="editor-field-list">
               <div class="editor-field-list-group-label">Header fields</div>
-              <template x-if="editorSchema && editorSchema.custom && editorFieldList.filter(f => f.kind === 'header').length === 0">
+              <template x-if="editorSchema && editorFieldList.filter(f => f.kind === 'header').length === 0">
                 <div class="editor-field-list-empty">None yet — use "+ Add field" above.</div>
               </template>
               <template x-for="f in editorFieldList.filter(f => f.kind === 'header')" :key="f.key">
-                <div class="editor-field-list-item"
-                     :class="{ selected: editorSelectedKind === 'header' && editorSelectedKey === f.key, 'editor-field-list-item-overlay': editorSchema && editorSchema.custom }"
+                <div class="editor-field-list-item editor-field-list-item-overlay"
+                     :class="{ selected: editorSelectedKind === 'header' && editorSelectedKey === f.key }"
                      @click="selectEditorField('header', f.key)">
                   <span x-text="f.label"></span>
-                  <button class="editor-overlay-remove" x-show="editorSchema && editorSchema.custom"
+                  <button class="editor-overlay-remove"
                           title="Remove this field" @click.stop="removeEditorHeaderField(f.key)">&times;</button>
                 </div>
               </template>
-              <div class="editor-field-list-group-label">Table columns</div>
-              <template x-for="f in editorFieldList.filter(f => f.kind === 'col')" :key="f.key">
-                <div class="editor-field-list-item" :class="{ selected: editorSelectedKind === 'col' && editorSelectedKey === f.key }"
-                     @click="selectEditorField('col', f.key)" x-text="f.label"></div>
+              <template x-if="editorSchema && editorTableGroups().length === 0">
+                <div>
+                  <div class="editor-field-list-group-label">Table columns</div>
+                  <div class="editor-field-list-empty">None yet — use "+ Add table" above.</div>
+                </div>
+              </template>
+              <template x-for="group in editorTableGroups()" :key="group.rowsKey">
+                <div>
+                  <div class="editor-field-list-group-label" style="display:flex; align-items:center; gap:6px;">
+                    <input type="text" :id="'editorTableGroupTitle_' + group.rowsKey" :value="group.title" style="flex:1; min-width:0;"
+                           @input="editorLabels.table[group.rowsKey] = $event.target.value">
+                    <button class="editor-overlay-remove" x-show="group.removable"
+                            title="Remove this table" @click.stop="removeEditorTable(group.rowsKey)">&times;</button>
+                  </div>
+                  <template x-for="f in group.columns" :key="f.key">
+                    <div class="editor-field-list-item"
+                         :class="{ selected: editorSelectedKind === 'col' && editorSelectedKey === f.key, 'editor-field-list-item-overlay': group.removable }"
+                         @click="selectEditorField('col', f.key)">
+                      <span x-text="f.label"></span>
+                      <button class="editor-overlay-remove" x-show="group.removable"
+                              title="Remove this column" @click.stop="removeEditorTableColumn(group.rowsKey, f.key)">&times;</button>
+                    </div>
+                  </template>
+                  <button class="btn btn-sm" x-show="group.removable" style="margin:4px 0 8px;"
+                          @click="addEditorTableColumn(group.rowsKey)">+ Add column</button>
+                </div>
               </template>
               <div class="editor-field-list-group-label">Overlays (images &amp; text boxes)</div>
               <template x-if="editorDraft && editorDraft.overlays.length === 0">
@@ -1152,31 +1227,90 @@
                     <div class="editor-prop-row">
                       <div class="full">
                         <label>Label</label>
-                        <input type="text" :value="editorSelectedSpec()?.label"
+                        <input type="text" id="editorOverlayLabelInput" :value="editorSelectedSpec()?.label"
                                @input="editorSelectedSpec().label = $event.target.value">
                       </div>
                     </div>
                   </template>
 
-                  <template x-if="(editorSelectedKind === 'header' || editorSelectedKind === 'col') && editorSchema && editorSchema.custom">
+                  <template x-if="(editorSelectedKind === 'header' || editorSelectedKind === 'col') && editorSchema">
                     <div class="editor-prop-row">
                       <div class="full">
                         <label>Label</label>
-                        <input type="text" :value="editorLabels[editorSelectedKind]?.[editorSelectedKey]"
+                        <input type="text" id="editorFieldLabelInput" :value="editorLabels[editorSelectedKind]?.[editorSelectedKey]"
                                @input="editorLabels[editorSelectedKind][editorSelectedKey] = $event.target.value">
                       </div>
+                    </div>
+                  </template>
+
+                  <!-- Field type + type-specific output options — a real
+                       schema field/column only (not an overlay, which has no
+                       data-validation concept). Changing "Field type" here
+                       also changes how this field renders in the actual
+                       data-entry view (a date-typed field gets a native date
+                       picker, etc.) once saved, same as the admin Structure
+                       Builder's own Type select already does. -->
+                  <template x-if="(editorSelectedKind === 'header' || editorSelectedKind === 'col') && editorSchema">
+                    <div>
+                      <div class="editor-prop-row">
+                        <div class="full">
+                          <label>Field type</label>
+                          <select id="editorPropFieldType" :value="editorSelectedValidation()?.type || 'text'"
+                                  @change="editorSelectedValidation().type = $event.target.value">
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="date">Date</option>
+                          </select>
+                        </div>
+                      </div>
+                      <template x-if="(editorSelectedValidation()?.type || 'text') === 'text'">
+                        <div class="editor-prop-row">
+                          <div class="full">
+                            <label>Max characters</label>
+                            <input type="number" id="editorPropMaxLength" min="0" step="1"
+                                   :value="editorSelectedValidation()?.maxLength ?? ''"
+                                   @input="editorSelectedValidation().maxLength = $event.target.value !== '' ? Number($event.target.value) : undefined">
+                          </div>
+                        </div>
+                      </template>
+                      <template x-if="editorSelectedValidation()?.type === 'number'">
+                        <div class="editor-prop-row">
+                          <div class="full">
+                            <label>Decimal places</label>
+                            <input type="number" id="editorPropDecimals" min="0" max="10" step="1"
+                                   :value="editorSelectedValidation()?.decimals ?? ''"
+                                   @input="editorSelectedValidation().decimals = $event.target.value !== '' ? Number($event.target.value) : undefined">
+                          </div>
+                        </div>
+                      </template>
+                      <template x-if="editorSelectedValidation()?.type === 'date'">
+                        <div class="editor-prop-row">
+                          <div class="full">
+                            <label>Output format</label>
+                            <select id="editorPropDateFormat" :value="editorSelectedValidation()?.dateFormat || 'asEntered'"
+                                    @change="editorSelectedValidation().dateFormat = $event.target.value">
+                              <option value="asEntered">As entered (no reformat)</option>
+                              <option value="M-D-YY">M-D-YY</option>
+                              <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                              <option value="DD MMM YY">DD MMM YY</option>
+                            </select>
+                          </div>
+                        </div>
+                      </template>
+                      <hr class="editor-props-divider">
                     </div>
                   </template>
 
                   <div class="editor-prop-row">
                     <div>
                       <label>X (pt)</label>
-                      <input type="number" step="0.5" :value="editorSelectedSpec()?.x"
+                      <input type="number" id="editorPropX" step="0.5" :value="editorSelectedSpec()?.x"
                              @input="editorSelectedSpec().x = Number($event.target.value)">
                     </div>
                     <div x-show="editorSelectedKind === 'header' || editorSelectedKind === 'overlay'">
                       <label>Y (pt)</label>
-                      <input type="number" step="0.5" :value="editorSelectedSpec()?.y"
+                      <input type="number" id="editorPropY" step="0.5" :value="editorSelectedSpec()?.y"
                              @input="editorSelectedSpec().y = Number($event.target.value)">
                     </div>
                   </div>
@@ -1184,17 +1318,17 @@
                   <div class="editor-prop-row">
                     <div>
                       <label>Width (pt)</label>
-                      <input type="number" step="1" min="8" :value="editorSelectedSpec()?.width"
+                      <input type="number" id="editorPropWidth" step="1" min="8" :value="editorSelectedSpec()?.width"
                              @input="editorSelectedSpec().width = Number($event.target.value)">
                     </div>
                     <div x-show="!(editorSelectedKind === 'overlay' && editorSelectedSpec()?.kind === 'image')">
                       <label>Font size</label>
-                      <input type="number" step="0.5" min="5" max="24" :value="editorSelectedSpec()?.fontSize"
+                      <input type="number" id="editorPropFontSize" step="0.5" min="5" max="24" :value="editorSelectedSpec()?.fontSize"
                              @input="editorSelectedSpec().fontSize = Number($event.target.value)">
                     </div>
                     <div x-show="editorSelectedKind === 'overlay' && editorSelectedSpec()?.kind === 'image'">
                       <label>Height (pt)</label>
-                      <input type="number" step="1" min="8" :value="editorSelectedSpec()?.height"
+                      <input type="number" id="editorPropHeight" step="1" min="8" :value="editorSelectedSpec()?.height"
                              @input="editorSelectedSpec().height = Number($event.target.value)">
                     </div>
                   </div>
@@ -1204,7 +1338,7 @@
                       <div class="editor-prop-row">
                         <div class="full">
                           <label>Font</label>
-                          <select :value="editorSelectedSpec()?.fontFamily || 'Helvetica'"
+                          <select id="editorPropFontFamily" :value="editorSelectedSpec()?.fontFamily || 'Helvetica'"
                                   @change="editorSelectedSpec().fontFamily = $event.target.value">
                             <option value="Helvetica">Helvetica</option>
                             <option value="TimesRoman">Times</option>
@@ -1214,11 +1348,11 @@
                       </div>
 
                       <div class="editor-prop-toggles">
-                        <label class="editor-check"><input type="checkbox" :checked="editorSelectedSpec()?.bold"
+                        <label class="editor-check"><input type="checkbox" id="editorPropBold" :checked="editorSelectedSpec()?.bold"
                           @change="editorSelectedSpec().bold = $event.target.checked"> Bold</label>
-                        <label class="editor-check"><input type="checkbox" :checked="editorSelectedSpec()?.italic"
+                        <label class="editor-check"><input type="checkbox" id="editorPropItalic" :checked="editorSelectedSpec()?.italic"
                           @change="editorSelectedSpec().italic = $event.target.checked"> Italic</label>
-                        <label class="editor-check"><input type="checkbox" :checked="editorSelectedSpec()?.allowOverflow"
+                        <label class="editor-check"><input type="checkbox" id="editorPropAllowOverflow" :checked="editorSelectedSpec()?.allowOverflow"
                           @change="editorSelectedSpec().allowOverflow = $event.target.checked"> Allow overflow</label>
                       </div>
                     </div>
@@ -1228,7 +1362,7 @@
                     <div>
                       <hr class="editor-props-divider">
                       <label class="editor-check" style="margin-bottom:10px;">
-                        <input type="checkbox" :checked="editorSelectedSpec()?.mode === 'placeholder'"
+                        <input type="checkbox" id="editorPropOverlayPlaceholder" :checked="editorSelectedSpec()?.mode === 'placeholder'"
                                @change="setOverlayPlaceholder(editorSelectedSpec(), $event.target.checked)">
                         Fill per document (leave this blank here; each form instance supplies its own)
                       </label>
@@ -1245,7 +1379,7 @@
                       <template x-if="editorSelectedSpec()?.mode === 'fixed' && editorSelectedSpec()?.kind === 'text'">
                         <div class="field" style="margin:0;">
                           <label>Text content (same on every instance)</label>
-                          <textarea :value="editorSelectedSpec()?.text"
+                          <textarea id="editorPropOverlayText" :value="editorSelectedSpec()?.text"
                                     @input="editorSelectedSpec().text = $event.target.value"></textarea>
                         </div>
                       </template>
@@ -1257,7 +1391,7 @@
                           <button class="btn btn-sm" style="margin-top:8px;" @click="$refs.overlayReplaceInput.click()">
                             <span x-text="editorSelectedSpec()?.imageB64 ? 'Replace image' : 'Upload image'"></span>
                           </button>
-                          <input type="file" accept="image/png,image/jpeg" x-ref="overlayReplaceInput" style="display:none;"
+                          <input type="file" id="editorOverlayReplaceInput" accept="image/png,image/jpeg" x-ref="overlayReplaceInput" style="display:none;"
                                  @change="replaceOverlayImage(editorSelectedSpec(), $event.target.files[0]); $event.target.value = ''">
                         </div>
                       </template>
@@ -1268,14 +1402,14 @@
                     <div>
                       <hr class="editor-props-divider">
                       <label class="editor-check" style="margin-bottom:10px;">
-                        <input type="checkbox" :checked="editorSelectedSpec()?.independentY"
+                        <input type="checkbox" id="editorPropIndependentY" :checked="editorSelectedSpec()?.independentY"
                                @change="toggleIndependentY(editorSelectedSpec(), $event.target.checked)">
                         Move independently of this table's row grid
                       </label>
                       <template x-if="editorSelectedSpec()?.independentY">
                         <div class="field" style="margin:0 0 12px;">
                           <label>Y offset from the row (pt)</label>
-                          <input type="number" step="0.5" :value="editorSelectedSpec()?.yOffset || 0"
+                          <input type="number" id="editorPropYOffset" step="0.5" :value="editorSelectedSpec()?.yOffset || 0"
                                  @input="editorSelectedSpec().yOffset = Number($event.target.value)">
                           <div class="cap" style="margin:4px 0 0;">
                             Drag this box vertically on the canvas, or set the offset here — e.g. a
@@ -1288,16 +1422,53 @@
                       <div class="editor-prop-row">
                         <div>
                           <label>Start Y (pt)</label>
-                          <input type="number" step="0.5" :value="editorCurrentGrid().startY"
+                          <input type="number" id="editorPropStartY" step="0.5" :value="editorCurrentGrid().startY"
                                  @input="editorCurrentGrid().startY = Number($event.target.value)">
                         </div>
                         <div>
                           <label>Row spacing (pt)</label>
-                          <input type="number" step="0.1" min="4" :value="editorCurrentGrid().spacing"
+                          <input type="number" id="editorPropSpacing" step="0.1" min="4" :value="editorCurrentGrid().spacing"
                                  @input="editorCurrentGrid().spacing = Number($event.target.value)">
                         </div>
                       </div>
-                      <div class="cap" style="margin:0;" x-text="editorCurrentGrid().rows + ' rows on this page (fixed by the physical form layout)'"></div>
+                      <!-- Front/back/total row capacity — same 3 properties for every table,
+                           primary (growable) or fixed-count. editorCurrentTable() resolves to
+                           whichever table this column belongs to (its own extraTables entry, or
+                           editorDraft itself for the primary table — both carry page1/page2/maxRows
+                           in the same shape, see getLayout/normalizeExtraTable). -->
+                      <div class="editor-prop-row">
+                        <div>
+                          <label>Max rows — front page</label>
+                          <input type="number" id="editorPropMaxRowsPage1" min="0" step="1"
+                                 :value="editorCurrentTable()?.page1.rows"
+                                 @input="editorCurrentTable().page1.rows = Number($event.target.value)">
+                        </div>
+                        <div>
+                          <label>Max rows — back page</label>
+                          <input type="number" id="editorPropMaxRowsPage2" min="0" step="1"
+                                 :value="editorCurrentTable()?.page2.rows"
+                                 @input="editorCurrentTable().page2.rows = Number($event.target.value)">
+                        </div>
+                      </div>
+                      <div class="editor-prop-row full">
+                        <div>
+                          <label>Total rows per instance</label>
+                          <input type="number" id="editorPropMaxRowsTotal" min="0" step="1"
+                                 :value="editorCurrentTable()?.maxRows"
+                                 @input="editorCurrentTable().maxRows = Number($event.target.value)">
+                          <div class="cap" style="margin:4px 0 0;">
+                            <span x-show="editorSelectedIsPrimaryTable()">
+                              Front/back above only decide where each row prints. If more rows are
+                              entered than fit here, a new physical copy of this whole form is
+                              generated (header repeated) to hold the rest.
+                            </span>
+                            <span x-show="!editorSelectedIsPrimaryTable()">
+                              A fixed-count table always shows exactly this many rows — front/back
+                              above just decide where each one gets drawn.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </template>
                 </div>
@@ -1382,29 +1553,18 @@
 // ---------------------------------------------------------------------------
 // Form-type registry. Unlike pdfgen-vanilla-multi/-image (which hardcode
 // each form type as a schema object exported by its own js/form-XXXX.js),
-// here the registry starts empty and is populated by fetching
-// FORM_TYPES_URL — simulating a database-backed form-type registry (see
-// PDF-gen/CLAUDE.md's "form_types" table sketch) instead of shipping the
-// form definitions as JS. A schema fetched this way is pure JSON — no
-// functions — so the model factories (empty/clone/newRow) and fill-engine
-// entry points that pdfgen-vanilla-image attached directly to each schema
-// object are generic top-level functions here instead, parameterized by
-// whichever schema they're given. index.html renders whatever's in
-// FORM_TYPES, generically, via the "fields"/"table" section renderers and
-// the Form Type Editor below — adding a form type means adding an entry to
-// form-types.json, not touching any markup or JS.
+// here the registry starts empty and is populated from the server's
+// /api/bootstrap response — a real `form_types` table (server/db.js),
+// seeded once from form-types.json on first boot and never read from that
+// file again after (see db.js's seed comment). A schema loaded this way is
+// pure JSON — no functions — so the model factories (empty/clone/newRow)
+// and fill-engine entry points that pdfgen-vanilla-image attached directly
+// to each schema object are generic top-level functions here instead,
+// parameterized by whichever schema they're given. index.html renders
+// whatever's in FORM_TYPES, generically, via the "fields"/"table" section
+// renderers and the Form Type Editor below.
 // ---------------------------------------------------------------------------
-const FORM_TYPES_URL = "form-types.json";
 let FORM_TYPES = []; // populated in place (push, never reassigned) by loadFormTypes()
-
-const STORAGE_KEY = "pdfgen-vanilla-04-logbooks";
-const DEFAULTS_KEY = "pdfgen-vanilla-04-defaults";
-const LAYOUTS_KEY = "pdfgen-vanilla-04-fieldlayouts";
-const AIRCRAFT_MODELS_KEY = "pdfgen-vanilla-04-aircraftmodels";
-const DOCUMENT_TYPES_KEY = "pdfgen-vanilla-04-documenttypes";
-const DOC_TYPE_FORMS_KEY = "pdfgen-vanilla-04-doctypeforms";
-const CUSTOM_FORM_TYPES_KEY = "pdfgen-vanilla-04-customformtypes";
-const FORM_TYPE_OVERRIDES_KEY = "pdfgen-vanilla-04-formtypeoverrides";
 
 // Turns a label into a stable id/key: "Main Blades" -> "main-blades". Used
 // for admin-created document types and form types alike (see "Admin mode"
@@ -1425,6 +1585,131 @@ function formTypeKey(type) {
 
 function uid() {
   return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+}
+
+// ---------------------------------------------------------------------------
+// Wire-format helpers for the /api backend (server.js). A logbook/default
+// keeps its in-memory `forms<Type>: instance[]` keys (per formTypeKey())
+// throughout the app — these only reshape at the sync boundary, into a flat
+// `instances: [{id, formType, name, complete, data}]` list the server can
+// store generically without knowing how any particular type's key was
+// spelled (custom types are user-named via slugify(), not just the three
+// built-in DA types formTypeKey() was written against).
+// ---------------------------------------------------------------------------
+function serializeInstance(formType, inst) {
+  const { id, name, complete, header, overlayData, ...rows } = inst;
+  return { id, formType, name: name || "", complete: !!complete, data: { header, overlayData, ...rows } };
+}
+
+function deserializeInstance(wire) {
+  return { id: wire.id, name: wire.name || "", complete: !!wire.complete, ...wire.data };
+}
+
+function groupInstancesByFormKey(instances) {
+  const out = {};
+  for (const wire of instances || []) {
+    const key = formTypeKey(wire.formType);
+    (out[key] || (out[key] = [])).push(deserializeInstance(wire));
+  }
+  return out;
+}
+
+function flattenFormsToInstances(forms) {
+  const out = [];
+  for (const key of Object.keys(forms)) {
+    if (!Array.isArray(forms[key])) continue;
+    const ft = FORM_TYPES.find((f) => formTypeKey(f.type) === key);
+    if (!ft) continue; // a form type removed from the registry after data was created
+    for (const inst of forms[key]) out.push(serializeInstance(ft.type, inst));
+  }
+  return out;
+}
+
+function documentToWire(lb) {
+  const { id, tailNumber, aircraftModel, documentTypeId, createdAt, updatedAt, ...forms } = lb;
+  return { id, tailNumber, aircraftModel, documentTypeId, createdAt, updatedAt, instances: flattenFormsToInstances(forms) };
+}
+
+function documentFromWire(doc) {
+  return {
+    id: doc.id, tailNumber: doc.tailNumber, aircraftModel: doc.aircraftModel,
+    documentTypeId: doc.documentTypeId, createdAt: doc.createdAt, updatedAt: doc.updatedAt,
+    ...groupInstancesByFormKey(doc.instances),
+  };
+}
+
+function defaultToWire(d) {
+  const { id, name, aircraftModel, documentTypeId, createdAt, forms } = d;
+  return { id, name, aircraftModel, documentTypeId, createdAt, instances: flattenFormsToInstances(forms || {}) };
+}
+
+function defaultFromWire(d) {
+  return {
+    id: d.id, name: d.name, aircraftModel: d.aircraftModel, documentTypeId: d.documentTypeId,
+    createdAt: d.createdAt, forms: groupInstancesByFormKey(d.instances),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Sync queue — replaces the old synchronous localStorage.setItem() calls.
+// The frontend still edits its in-memory state instantly (Alpine's own
+// $watch triggers a persist*() call on every change, unchanged); persist*()
+// now calls queueSync() instead of writing localStorage directly, which
+// debounces and PUTs the latest value to the server in the background. A
+// module-level (not Alpine-reactive) queue, since it only needs to track
+// in-flight network state, not drive re-renders directly — it reports status
+// back through a callback the Alpine root registers once in init().
+// ---------------------------------------------------------------------------
+const SYNC_DEBOUNCE_MS = 800;
+const syncTimers = {};
+const syncPayloads = {};
+let onSyncStatus = null;
+
+function queueSync(key, endpoint, payload) {
+  syncPayloads[key] = { endpoint, payload };
+  if (onSyncStatus) onSyncStatus("pending");
+  clearTimeout(syncTimers[key]);
+  syncTimers[key] = setTimeout(() => flushSync(key), SYNC_DEBOUNCE_MS);
+}
+
+async function flushSync(key) {
+  const entry = syncPayloads[key];
+  if (!entry) return;
+  clearTimeout(syncTimers[key]);
+  delete syncTimers[key];
+  if (onSyncStatus) onSyncStatus("saving");
+  try {
+    const res = await fetch(entry.endpoint, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(entry.payload),
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    delete syncPayloads[key];
+    if (onSyncStatus) onSyncStatus(Object.keys(syncTimers).length ? "pending" : "saved");
+  } catch (e) {
+    console.warn("Could not save " + key + " to the server", e);
+    if (onSyncStatus) onSyncStatus("error");
+  }
+}
+
+// Best-effort flush for a closing/hidden tab — a debounced write still
+// pending in setTimeout would otherwise be lost. `keepalive` lets the
+// request outlive the page unload (subject to the browser's ~64KB keepalive
+// body limit — best-effort, not guaranteed, same as the plan called for).
+function flushAllSyncsNow() {
+  for (const key of Object.keys(syncTimers)) clearTimeout(syncTimers[key]);
+  for (const key of Object.keys(syncPayloads)) {
+    const { endpoint, payload } = syncPayloads[key];
+    try {
+      fetch(endpoint, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      });
+    } catch (e) { /* best-effort */ }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1475,12 +1760,12 @@ function placeholderColumnSpec() {
 
 // ---------------------------------------------------------------------------
 // Field/form validation. Rules (required, type, min/maxLength) travel with
-// the schema itself — fetched from form-types.json alongside `sections`,
-// per-field via a `validation` object — the same "simulated database"
-// registry that already carries sections/defaultLayout/sampleData/
-// templateB64 (see "Form-type registry as data" in PDF-gen/CLAUDE.md). A
-// real Postgres-backed `form_types` table would carry this the same way
-// (a `field_map`-adjacent jsonb column), not as a separate mechanism.
+// the schema itself — loaded from the server's `form_types` table alongside
+// `sections`, per-field via a `validation` object — the same registry row
+// that already carries sections/defaultLayout/sampleData/templateB64 (see
+// "Form-type registry as data" / "Database backend..." in PDF-gen/CLAUDE.md).
+// A Postgres-backed `form_types` table would carry this the same way (a
+// `field_map`-adjacent jsonb column), not as a separate mechanism.
 // ---------------------------------------------------------------------------
 function isEmptyValue(v) {
   return v === undefined || v === null || String(v).trim() === "";
@@ -1526,6 +1811,21 @@ function headerFieldSpec(schema, key) {
 
 function columnSpec(section, key) {
   return (section.columns || []).find(c => c.key === key) || null;
+}
+
+// Same lookup, but across every table section a schema declares (primary
+// plus every extra table) — column keys are unique across a schema's
+// tables by convention (the same assumption the Form Type Editor's
+// findColBucket already relies on), so a flat search by key is enough.
+// Used at fill time to find a column's validation (type/decimals/
+// dateFormat/maxLength) without the fill engine needing to know which
+// table a given column belongs to.
+function columnSpecByKey(schema, key) {
+  for (const section of tableSectionsOf(schema)) {
+    const c = columnSpec(section, key);
+    if (c) return c;
+  }
+  return null;
 }
 
 // Full-instance validation, used by "Mark complete" — every header field
@@ -1623,11 +1923,46 @@ function emptyLogbook(tailNumber, forms, documentTypeId, aircraftModel, formType
   return lb;
 }
 
+// A fixed-count "extra" table's on-page position used to be one flat
+// {page, startY, spacing, rows} — a single physical page only. Real forms
+// routinely run a fixed-count table (a verification log, a remarks list)
+// from the front page onto the back, so this became a page1/page2 pair —
+// same shape the primary growable table already used — plus an explicit
+// `maxRows` (the table's total row count, kept in sync with the schema's
+// own `section.fixedRows` at Save time, see reconcileFormTypeTables)
+// distinct from how many of those rows print on each page. Normalizes old
+// flat-shape data (every table saved before this existed, in the database
+// as-is — not migrated) to the new shape at read time, same precedent as
+// the primary table's own page1/page2 self-heal just below.
+function normalizeExtraTable(t) {
+  const cols = t.cols || {};
+  if (t.page1 || t.page2) {
+    const page1 = { rows: 0, startY: 700, spacing: 20, ...(t.page1 || {}) };
+    const page2 = { rows: 0, startY: 700, spacing: 20, ...(t.page2 || {}) };
+    return {
+      rowsKey: t.rowsKey,
+      maxRows: t.maxRows != null ? t.maxRows : (page1.rows + page2.rows),
+      page1, page2, cols,
+    };
+  }
+  const legacyOnPage2 = t.page === 1;
+  const rows = t.rows || 0;
+  const startY = t.startY != null ? t.startY : 700;
+  const spacing = t.spacing || 20;
+  return {
+    rowsKey: t.rowsKey,
+    maxRows: rows,
+    page1: legacyOnPage2 ? { rows: 0, startY: 700, spacing: 20 } : { rows, startY, spacing },
+    page2: legacyOnPage2 ? { rows, startY, spacing } : { rows: 0, startY: 700, spacing: 20 },
+    cols,
+  };
+}
+
 // Merges a form type's default field layout with any saved per-field
 // overrides (Form Type Editor). Overrides are shallow per-field (a saved
 // header/col entry replaces only the properties it sets... in practice the
 // editor always writes a full spec object per field, but merging keeps a
-// partial hand-edited localStorage entry from crashing the fill engine).
+// partial hand-edited saved layout from crashing the fill engine).
 function getLayout(schema, savedLayouts) {
   const saved = (savedLayouts && savedLayouts[schema.type]) || {};
   const base = schema.defaultLayout;
@@ -1654,6 +1989,16 @@ function getLayout(schema, savedLayouts) {
     page1.startY = page1.startY || 700;
     page1.spacing = page1.spacing || 20;
   }
+  // The primary table's own total-rows-per-instance cap — same concept as
+  // an extra table's `maxRows` (see normalizeExtraTable), exposed here too
+  // so the Structure Builder/Form Type Editor can show and edit "front +
+  // back + total" uniformly for every table, not just the fixed-count ones.
+  // Defaults to page1.rows + page2.rows (the sum IS the cap, absent an
+  // explicit override) — this is also the number that decides when the
+  // primary table's data needs another physical copy of the whole instance.
+  const maxRowsSaved = saved.maxRows;
+  const maxRowsBase = base.maxRows;
+  const maxRows = maxRowsSaved != null ? maxRowsSaved : (maxRowsBase != null ? maxRowsBase : (page1.rows + page2.rows));
   // Overlays (user-added images/text boxes, see the Form Type Editor's
   // "+ Add image"/"+ Add text box") are whole user-authored objects, not
   // per-key style overrides like header/cols above — a save fully replaces
@@ -1662,20 +2007,28 @@ function getLayout(schema, savedLayouts) {
   // from defaultLayout.
   const overlays = saved.overlays !== undefined ? saved.overlays : (base.overlays || []);
   // Fixed-count "extra" tables (e.g. DA 2408-17's Verification log and
-  // Remarks list — see "Multi-table support" in PDF-gen/CLAUDE.md) live on
-  // one page with a single startY/spacing grid (no page1/page2 split, since
-  // they never overflow). Per-column positions merge the same way as the
-  // primary table's `cols`; startY/spacing/page merge at the table level so
+  // Remarks list — see "Multi-table support" in PDF-gen/CLAUDE.md) never
+  // overflow onto extra physical copies, but CAN still span front-to-back —
+  // each carries its own page1/page2 grid (normalized from either shape via
+  // normalizeExtraTable). Per-column positions merge the same way as the
+  // primary table's `cols`; page1/page2/maxRows merge at the table level so
   // an untouched extra table still renders exactly as its default.
-  const extraTables = (base.extraTables || []).map(baseTable => {
-    const savedTable = (saved.extraTables || []).find(t => t.rowsKey === baseTable.rowsKey) || {};
+  const extraTables = (base.extraTables || []).map(normalizeExtraTable).map(baseTable => {
+    const savedRaw = (saved.extraTables || []).find(t => t.rowsKey === baseTable.rowsKey);
+    const savedTable = savedRaw ? normalizeExtraTable(savedRaw) : null;
     const tableCols = {};
     for (const key of Object.keys(baseTable.cols)) {
-      tableCols[key] = { ...baseTable.cols[key], ...((savedTable.cols && savedTable.cols[key]) || {}) };
+      tableCols[key] = { ...baseTable.cols[key], ...((savedTable && savedTable.cols[key]) || {}) };
     }
-    return { ...baseTable, ...savedTable, cols: tableCols };
+    return {
+      rowsKey: baseTable.rowsKey,
+      maxRows: savedTable ? savedTable.maxRows : baseTable.maxRows,
+      page1: { ...baseTable.page1, ...(savedTable ? savedTable.page1 : {}) },
+      page2: { ...baseTable.page2, ...(savedTable ? savedTable.page2 : {}) },
+      cols: tableCols,
+    };
   });
-  return { header, cols, page1, page2, repeatingHeaderExclude: base.repeatingHeaderExclude || [], overlays, extraTables };
+  return { header, cols, page1, page2, maxRows, repeatingHeaderExclude: base.repeatingHeaderExclude || [], overlays, extraTables };
 }
 
 // ---------------------------------------------------------------------------
@@ -1743,8 +2096,9 @@ function pdfgenApp() {
     resizingPreview: false,
     FORM_TYPES,                // same array reference module-level loadFormTypes() pushes into
     formTypesLoaded: false,
-    formTypesError: false,
-    activeFormType: null,      // set once form-types.json resolves, e.g. '2408-18'
+    bootstrapError: false,     // /api/bootstrap failed — server unreachable, no form types or saved data loaded
+    saveStatus: "saved",       // "saved" | "pending" | "saving" | "error" — driven by the sync queue, see queueSync()
+    activeFormType: null,      // set once the form-type registry loads, e.g. '2408-18'
     activeInstanceId: null,    // id of the specific instance being edited
     dragIndex: null,
 
@@ -1760,9 +2114,9 @@ function pdfgenApp() {
 
     // Registry: aircraft models, document types, and which form types each
     // document type contains and in what order — all admin-maintainable via
-    // the app now (see "Admin mode" below), backed by localStorage instead
-    // of hardcoded arrays. Seeded once on first load (loadRegistry()) from
-    // the same fake values this POC used to hardcode.
+    // the app now (see "Admin mode" below), backed by the SQLite database
+    // (server/) instead of hardcoded arrays. Seeded once on first boot
+    // (server/db.js) from the same fake values this POC used to hardcode.
     aircraftModels: [],
     documentTypes: [],          // [{ id, name, models: string[] }]
     documentTypeForms: {},      // { [docTypeId]: string[] (ordered form-type keys) }
@@ -1793,9 +2147,6 @@ function pdfgenApp() {
     newDocTypeName: "",
     renamingDocTypeId: null,
     renameDocTypeDraft: "",
-
-    showEditFormTypeMetaModal: false,
-    editFormTypeDraft: null,   // { type, label, bannerNote }
 
     // "Assign & sort form types within a document type" — a separate modal
     // opened from the Document Types panel, working against a draft copy
@@ -1907,6 +2258,40 @@ function pdfgenApp() {
       return list;
     },
 
+    // Table columns grouped by their owning table, for the field list's
+    // per-table sub-groups (see "+ Add table" in the toolbar above). The
+    // primary (growable) table's group only appears once it actually has
+    // columns/a title — a fresh custom type with no primary table at all
+    // (the common case before any table exists) shows neither.
+    editorTableGroups() {
+      if (!this.editorDraft) return [];
+      const groups = [];
+      if (Object.keys(this.editorDraft.cols).length || this.editorLabels.table.rows) {
+        groups.push({
+          rowsKey: "rows",
+          title: this.editorLabels.table.rows || "Table",
+          columns: Object.keys(this.editorDraft.cols).map(key => ({ key, label: this.editorLabels.col[key] || key })),
+          removable: false,
+        });
+      }
+      for (const table of this.editorDraft.extraTables || []) {
+        groups.push({
+          rowsKey: table.rowsKey,
+          title: this.editorLabels.table[table.rowsKey] || table.rowsKey,
+          columns: Object.keys(table.cols).map(key => ({ key, label: this.editorLabels.col[key] || key })),
+          // "removable" here really means "this is an extra (non-primary)
+          // table" — add/remove-column and remove-table only work against
+          // editorDraft.extraTables (addEditorTableColumn/removeEditorTable
+          // below), not the primary table's own `cols`, regardless of
+          // which type owns it (built-in or custom — see "+ Add table"'s
+          // own scope note: a new table is always a fixed-row extra table,
+          // never the primary growable one).
+          removable: true,
+        });
+      }
+      return groups;
+    },
+
     // the currently-open logbook's instances of a given form type
     instancesOf(type) {
       return this.current ? (this.current[formTypeKey(type)] || []) : [];
@@ -1962,6 +2347,25 @@ function pdfgenApp() {
       const list = this.current[formTypeKey(this.activeFormType)] || [];
       const idx = list.findIndex(i => i.id === this.activeInstanceId);
       return idx === -1 ? "" : idx + 1;
+    },
+
+    // Front/back/total row capacity for one table section, straight off the
+    // active schema's real layout (getLayout) — not the schema/section
+    // definition alone, since a saved Form Type Editor override can change
+    // these without touching `sections`. Shown at the top-right of the
+    // table's own header in the document view (see "Database backend..."
+    // in PDF-gen/CLAUDE.md) so a user filling in a table can see, at a
+    // glance, when they're about to trigger a new physical copy.
+    tableCapacityLabel(section) {
+      if (!this.activeSchema) return "";
+      const layout = getLayout(this.activeSchema, this.fieldLayouts);
+      const isPrimary = section.rowsKey === "rows";
+      const table = isPrimary ? layout : (layout.extraTables || []).find(t => t.rowsKey === section.rowsKey);
+      if (!table) return "";
+      const front = table.page1.rows || 0;
+      const back = table.page2.rows || 0;
+      const total = table.maxRows != null ? table.maxRows : (front + back);
+      return "Front " + front + " · Back " + back + " · Total " + total + "/instance";
     },
 
     // ---- field/form validation (see validateFieldValue/validateInstance) ----
@@ -2025,9 +2429,9 @@ function pdfgenApp() {
     },
 
     // `overlayData` may be missing on an instance saved before this
-    // feature existed (old localStorage data) — guarded here rather than
-    // via a migration step, same precedent as `complete` in "Mark
-    // complete" (see PDF-gen/CLAUDE.md).
+    // feature existed — guarded here rather than via a migration step,
+    // same precedent as `complete` in "Mark complete" (see
+    // PDF-gen/CLAUDE.md).
     overlayValue(overlayId) {
       const data = this.activeInstance && this.activeInstance.overlayData;
       return (data && data[overlayId]) || {};
@@ -2057,9 +2461,23 @@ function pdfgenApp() {
     },
 
     async init() {
-      await this.loadFormTypes();
-      this.loadRegistry();
-      this.load();
+      let boot = null;
+      try {
+        const res = await fetch("/api/bootstrap");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        boot = await res.json();
+      } catch (e) {
+        console.error("Could not load app data from the server", e);
+        this.bootstrapError = true;
+      }
+      this.loadFormTypes(boot);
+      this.loadRegistry(boot);
+      this.load(boot);
+      onSyncStatus = (status) => { this.saveStatus = status; };
+      window.addEventListener("beforeunload", flushAllSyncsNow);
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") flushAllSyncsNow();
+      });
       this.$watch("logbooks", () => this.persistLogbooks(), { deep: true });
       this.$watch("defaults", () => this.persistDefaults(), { deep: true });
       this.$watch("fieldLayouts", () => this.persistFieldLayouts(), { deep: true });
@@ -2067,7 +2485,7 @@ function pdfgenApp() {
       this.$watch("documentTypes", () => this.persistDocumentTypes(), { deep: true });
       this.$watch("documentTypeForms", () => this.persistDocumentTypeForms(), { deep: true });
       this.$watch("formTypeOverrides", () => this.persistFormTypeOverrides(), { deep: true });
-      this.$watch("FORM_TYPES", () => this.persistCustomFormTypes(), { deep: true });
+      this.$watch("FORM_TYPES", () => { this.persistFormTypes(); this.persistCustomFormTypes(); }, { deep: true });
       // Switching aircraft models can strand the currently-picked document
       // type (it may not be enabled for the new model at all) — back to
       // "Pick Document" rather than silently keeping a selection the
@@ -2094,37 +2512,27 @@ function pdfgenApp() {
       });
     },
 
-    // Simulates fetching the form-type registry from a database — a real
-    // backend would serve this same JSON shape from a `form_types` table
-    // (see PDF-gen/CLAUDE.md's Stack section); form-types.json stands in
-    // for that here. Requires the page to be served over http(s) — unlike
-    // pdfgen-vanilla-image's <script src> tags, fetch() of a local file is
-    // blocked by the browser under file://.
-    async loadFormTypes() {
+    // Populates the built-in form-type registry from the server's
+    // /api/bootstrap response (`boot.formTypes` — a real `form_types` table
+    // now, see server/db.js). Failure is reported via bootstrapError
+    // (init() already caught the fetch itself), so there's nothing this
+    // function needs to catch on its own.
+    loadFormTypes(boot) {
       if (this.FORM_TYPES.length) return; // guard against a duplicate init() call re-populating this
-      try {
-        const res = await fetch(FORM_TYPES_URL);
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        // must push through the reactive `this.FORM_TYPES`, not the bare
-        // module-level FORM_TYPES — Alpine (like the Vue reactivity it's
-        // built on) only re-renders on mutations that go through its
-        // reactive proxy; mutating the raw backing array bypasses that,
-        // so the sidebar would never show the newly-loaded form types even
-        // though the underlying array technically had them.
-        this.FORM_TYPES.push(...data);
-        this.activeFormType = FORM_TYPES[0] ? FORM_TYPES[0].type : null;
-        this.formTypesLoaded = true;
-      } catch (e) {
-        console.error("Could not load form types from " + FORM_TYPES_URL, e);
-        this.formTypesError = true;
-      }
+      // must push through the reactive `this.FORM_TYPES`, not the bare
+      // module-level FORM_TYPES — Alpine (like the Vue reactivity it's
+      // built on) only re-renders on mutations that go through its
+      // reactive proxy; mutating the raw backing array bypasses that,
+      // so the sidebar would never show the newly-loaded form types even
+      // though the underlying array technically had them.
+      this.FORM_TYPES.push(...((boot && boot.formTypes) || []));
+      this.activeFormType = FORM_TYPES[0] ? FORM_TYPES[0].type : null;
+      this.formTypesLoaded = this.FORM_TYPES.length > 0;
     },
 
-    load() {
+    load(boot) {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        this.logbooks = raw ? JSON.parse(raw) : [];
+        this.logbooks = ((boot && boot.documents) || []).map(documentFromWire);
         // Old data (saved before document types were admin-maintained)
         // carried a display string on `documentType` instead of an id on
         // `documentTypeId` — same graceful-degradation precedent as
@@ -2135,78 +2543,62 @@ function pdfgenApp() {
         }
       } catch { this.logbooks = []; }
       try {
-        const raw = localStorage.getItem(DEFAULTS_KEY);
-        this.defaults = raw ? JSON.parse(raw) : [];
+        this.defaults = ((boot && boot.defaults) || []).map(defaultFromWire);
         for (const d of this.defaults) {
           if (!d.documentTypeId) d.documentTypeId = "logbook";
           if (!d.aircraftModel) d.aircraftModel = "UH-60R";
         }
       } catch { this.defaults = []; }
       try {
-        const raw = localStorage.getItem(LAYOUTS_KEY);
-        this.fieldLayouts = raw ? JSON.parse(raw) : {};
+        this.fieldLayouts = (boot && boot.fieldLayouts) || {};
       } catch { this.fieldLayouts = {}; }
     },
 
     persistLogbooks() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.logbooks)); }
-      catch (e) { console.warn("Could not save logbooks", e); }
+      queueSync("documents", "/api/documents", this.logbooks.map(documentToWire));
     },
 
     persistDefaults() {
-      try { localStorage.setItem(DEFAULTS_KEY, JSON.stringify(this.defaults)); }
-      catch (e) { console.warn("Could not save defaults", e); }
+      queueSync("defaults", "/api/defaults", this.defaults.map(defaultToWire));
     },
 
     persistFieldLayouts() {
-      try { localStorage.setItem(LAYOUTS_KEY, JSON.stringify(this.fieldLayouts)); }
-      catch (e) { console.warn("Could not save field layouts", e); }
+      queueSync("field-layouts", "/api/field-layouts", this.fieldLayouts);
     },
 
     // Seeds the admin-maintainable registry (aircraft models, document
     // types, which form types each contains and in what order, and any
-    // admin-created form types/metadata overrides) from localStorage, or
-    // from this POC's original hardcoded fake values on first-ever load.
+    // admin-created form types/metadata overrides) from the server's
+    // /api/bootstrap response (`boot`), or from this POC's original
+    // hardcoded fake values if the server couldn't be reached at all.
     // Must run after loadFormTypes() resolves — the "Logbook" document
     // type's seed form-type list is read straight off FORM_TYPES so it
     // matches today's real registry order exactly instead of a second,
     // possibly-drifting hardcoded list.
-    loadRegistry() {
-      try {
-        const raw = localStorage.getItem(AIRCRAFT_MODELS_KEY);
-        this.aircraftModels = raw ? JSON.parse(raw) : ["UH-60R", "UH-60M", "MH-60R", "MH-60M", "AH-64D", "AH-64E"];
-      } catch { this.aircraftModels = ["UH-60R"]; }
+    loadRegistry(boot) {
+      this.aircraftModels = (boot && boot.aircraftModels && boot.aircraftModels.length)
+        ? boot.aircraftModels : ["UH-60R", "UH-60M", "MH-60R", "MH-60M", "AH-64D", "AH-64E"];
 
-      try {
-        const raw = localStorage.getItem(DOCUMENT_TYPES_KEY);
-        this.documentTypes = raw ? JSON.parse(raw) : [
-          { id: "logbook", name: "Logbook", models: ["UH-60R"] },
-          { id: "sn-book", name: "SN Book", models: [] },
-          { id: "maintenance-record", name: "Maintenance Record", models: [] },
-          { id: "historical-record", name: "Historical Record", models: [] },
-        ];
-      } catch { this.documentTypes = [{ id: "logbook", name: "Logbook", models: ["UH-60R"] }]; }
+      this.documentTypes = (boot && boot.documentTypes && boot.documentTypes.length) ? boot.documentTypes : [
+        { id: "logbook", name: "Logbook", models: ["UH-60R"] },
+        { id: "sn-book", name: "SN Book", models: [] },
+        { id: "maintenance-record", name: "Maintenance Record", models: [] },
+        { id: "historical-record", name: "Historical Record", models: [] },
+      ];
 
       // Admin-created form types (schema builder — see confirmFormTypeBuilder)
-      // persist separately from the fetched form-types.json, which stays
-      // read-only/unwritten-to — no PDF template bytes to duplicate into
-      // localStorage for these, unlike the built-in types.
+      // persist to their own custom_form_types table, separate from the
+      // built-in form_types table (server/db.js), which stays
+      // read-only/unwritten-to from the app's side.
       try {
-        const raw = localStorage.getItem(CUSTOM_FORM_TYPES_KEY);
-        const custom = raw ? JSON.parse(raw) : [];
+        const custom = (boot && boot.customFormTypes) || [];
         for (const ft of custom) if (!this.FORM_TYPES.find(f => f.type === ft.type)) this.FORM_TYPES.push(ft);
       } catch (e) { console.warn("Could not load custom form types", e); }
 
-      try {
-        const raw = localStorage.getItem(DOC_TYPE_FORMS_KEY);
-        this.documentTypeForms = raw ? JSON.parse(raw) : {};
-      } catch { this.documentTypeForms = {}; }
+      this.documentTypeForms = (boot && boot.documentTypeForms) || {};
       if (!this.documentTypeForms.logbook) this.documentTypeForms.logbook = this.FORM_TYPES.map(f => f.type);
 
-      try {
-        const raw = localStorage.getItem(FORM_TYPE_OVERRIDES_KEY);
-        this.formTypeOverrides = raw ? JSON.parse(raw) : {};
-      } catch { this.formTypeOverrides = {}; }
+      this.formTypeOverrides = (boot && boot.formTypeOverrides) || {};
       for (const key of Object.keys(this.formTypeOverrides)) {
         const ft = this.FORM_TYPES.find(f => f.type === key);
         if (ft) Object.assign(ft, this.formTypeOverrides[key]);
@@ -2221,28 +2613,32 @@ function pdfgenApp() {
     },
 
     persistAircraftModels() {
-      try { localStorage.setItem(AIRCRAFT_MODELS_KEY, JSON.stringify(this.aircraftModels)); }
-      catch (e) { console.warn("Could not save aircraft models", e); }
+      queueSync("aircraft-models", "/api/registry/aircraft-models", this.aircraftModels);
     },
 
     persistDocumentTypes() {
-      try { localStorage.setItem(DOCUMENT_TYPES_KEY, JSON.stringify(this.documentTypes)); }
-      catch (e) { console.warn("Could not save document types", e); }
+      queueSync("document-types", "/api/registry/document-types", this.documentTypes);
     },
 
     persistDocumentTypeForms() {
-      try { localStorage.setItem(DOC_TYPE_FORMS_KEY, JSON.stringify(this.documentTypeForms)); }
-      catch (e) { console.warn("Could not save document-type/form-type assignments", e); }
+      queueSync("document-type-forms", "/api/registry/document-type-forms", this.documentTypeForms);
     },
 
     persistFormTypeOverrides() {
-      try { localStorage.setItem(FORM_TYPE_OVERRIDES_KEY, JSON.stringify(this.formTypeOverrides)); }
-      catch (e) { console.warn("Could not save form type overrides", e); }
+      queueSync("form-type-overrides", "/api/registry/form-type-overrides", this.formTypeOverrides);
     },
 
     persistCustomFormTypes() {
-      try { localStorage.setItem(CUSTOM_FORM_TYPES_KEY, JSON.stringify(this.FORM_TYPES.filter(f => f.custom))); }
-      catch (e) { console.warn("Could not save custom form types", e); }
+      queueSync("custom-form-types", "/api/registry/custom-form-types", this.FORM_TYPES.filter(f => f.custom));
+    },
+
+    // Built-in types can now also be structurally edited (Structure
+    // Builder, Form Type Editor "+ Add field"/"+ Add table") — this is the
+    // write side of that, syncing to the same form_types table server/db.js
+    // seeded once from form-types.json. Same deep FORM_TYPES watch as
+    // persistCustomFormTypes above, just the complementary filter.
+    persistFormTypes() {
+      queueSync("form-types", "/api/registry/form-types", this.FORM_TYPES.filter(f => !f.custom));
     },
 
     // Only documents matching the currently-selected aircraft model +
@@ -2360,7 +2756,7 @@ function pdfgenApp() {
       const instance = this.activeInstance;
       if (schema && instance && schema.sampleData) {
         this.snapshotBeforeChange();
-        const data = schema.sampleData; // plain data fetched from form-types.json, not a function
+        const data = schema.sampleData; // plain data loaded from the server, not a function
         Object.assign(instance.header, data.header);
         // Only tables sampleData actually supplies rows for get replaced —
         // a fixed-count table like a verification/signature log isn't
@@ -2409,7 +2805,16 @@ function pdfgenApp() {
       if (!this.current) return;
       this.snapshotBeforeChange();
       const ft = FORM_TYPES.find(f => f.type === type);
-      const list = this.current[formTypeKey(type)];
+      const key = formTypeKey(type);
+      // A form type assigned to this document type *after* an existing
+      // document was created never got this key seeded (emptyLogbookForms
+      // only initializes an array per form type at document-creation time)
+      // — "Forms in this document" still lists it (formTypesInCurrent()
+      // reads the document type's current assignment, not the document's
+      // own data), so "+" here needs to lazily create the array on first
+      // use rather than assume it already exists.
+      if (!this.current[key]) this.current[key] = [];
+      const list = this.current[key];
       const instance = emptyInstance(ft);
       list.push(instance);
       this.current.updatedAt = new Date().toISOString();
@@ -2418,7 +2823,7 @@ function pdfgenApp() {
 
     deleteFormInstance(type, instanceId) {
       if (!this.current) return;
-      const list = this.current[formTypeKey(type)];
+      const list = this.current[formTypeKey(type)] || [];
       if (list.length <= 1) {
         alert("A logbook needs at least one instance of each form type.");
         return;
@@ -2642,23 +3047,37 @@ function pdfgenApp() {
       if (!schema) return;
       this.editorFormType = type;
       this.editorPageIndex = 0;
-      this.editorLabels = { header: {}, col: {} };
-      // The section-title prefix disambiguates fields across a built-in
-      // type's several sections (e.g. DA 2408-17's "Verification — Sig 1").
-      // Skipped for custom types, which only ever have one generic "fields"
-      // section — prefixing there would add noise, and reconcileCustom-
-      // FormTypeFields (see confirmSaveEditor) round-trips this same map
-      // straight back into the schema's own field labels on Save, so a
-      // baked-in prefix would otherwise get permanently written back in.
+      this.editorLabels = { header: {}, col: {}, table: {} };
+      // Field type + type-specific options (max characters / decimal
+      // places / date output format) — same round-trip pattern as
+      // editorLabels: seeded from the schema's current `validation` here,
+      // edited in the properties panel, reconciled back into
+      // schema.sections on Save (see reconcileFormTypeFields/Tables and
+      // the new reconcilePrimaryTableColumns).
+      this.editorValidation = { header: {}, col: {} };
+      // No section-title prefix baked into editorLabels, for ANY type —
+      // every type's table columns are already visually grouped by table in
+      // the field list (see editorTableGroups), so a baked-in text prefix
+      // would be redundant on screen and, worse, permanently written back
+      // into the schema's own field/column labels next Save
+      // (reconcileFormTypeFields/Tables round-trip this same map back
+      // into schema.sections for every type now — see confirmSaveEditor).
+      // This used to be built-in-type-only text (e.g. DA 2408-17's
+      // "Verification — Sig 1"); removed once reconciliation itself became
+      // universal, to avoid re-baking a stale prefix into a built-in type's
+      // real labels the same way this project already fixed for tables
+      // (see history.md).
       for (const section of schema.sections) {
-        const prefix = (!schema.custom && section.title) ? section.title + " — " : "";
         if (section.kind === "fields") {
           for (const f of section.fields) {
-            this.editorLabels.header[f.key] = prefix + (f.label || f.key);
+            this.editorLabels.header[f.key] = f.label || f.key;
+            this.editorValidation.header[f.key] = { ...(f.validation || {}) };
           }
         } else if (section.kind === "table") {
+          this.editorLabels.table[section.rowsKey] = section.title || section.rowsKey;
           for (const c of section.columns) {
-            this.editorLabels.col[c.key] = prefix + c.label;
+            this.editorLabels.col[c.key] = c.label;
+            this.editorValidation.col[c.key] = { ...(c.validation || {}) };
           }
         }
       }
@@ -2674,24 +3093,97 @@ function pdfgenApp() {
       this.$nextTick(() => this.renderEditorPage());
     },
 
-    // Add/remove a header field box directly in the editor — scoped to
-    // custom (admin-created) form types only, since a built-in type's
-    // fields are structurally fixed (see "Upload PDF workflow" /
-    // reconcileCustomFormTypeFields below for how this feeds back into the
-    // schema's own `sections` on Save).
+    // Add/remove a header field box directly in the editor — works for any
+    // form type, built-in or custom (see reconcileFormTypeFields below
+    // for how this feeds back into the schema's own `sections` on Save,
+    // and confirmSaveEditor for why every type reconciles this way now).
     addEditorHeaderField() {
-      if (!this.editorDraft || !this.editorSchema || !this.editorSchema.custom) return;
+      if (!this.editorDraft || !this.editorSchema) return;
       const key = uniqueId("field", Object.keys(this.editorDraft.header));
       this.editorDraft.header[key] = placeholderFieldSpec(this.editorPageIndex);
       this.editorLabels.header[key] = "New field";
+      this.editorValidation.header[key] = {};
       this.selectEditorField("header", key);
     },
 
     removeEditorHeaderField(key) {
-      if (!this.editorDraft || !this.editorSchema || !this.editorSchema.custom) return;
+      if (!this.editorDraft || !this.editorSchema) return;
       delete this.editorDraft.header[key];
       delete this.editorLabels.header[key];
+      delete this.editorValidation.header[key];
       if (this.editorSelectedKind === "header" && this.editorSelectedKey === key) {
+        this.editorSelectedKind = null;
+        this.editorSelectedKey = null;
+      }
+    },
+
+    // Add/remove a whole table (or one of its columns) directly in the
+    // editor — works for any form type, same as the header field add/remove
+    // above. A table added here is always a fixed-row
+    // "extra" table (the shape DA 2408-17's Verification/Remarks lists
+    // already use, see "Multi-table support" in PDF-gen/CLAUDE.md), never
+    // the primary growable table — that stays special-cased throughout the
+    // fill engine (row-overflow onto extra physical copies), and the
+    // Structure Builder ("+ New form type" / "Edit") already handles
+    // starting one from nothing. `reconcileFormTypeTables` (see
+    // confirmSaveEditor) syncs these back into the schema's own `sections`
+    // on Save, same as reconcileFormTypeFields does for header keys.
+    addEditorTable() {
+      if (!this.editorDraft || !this.editorSchema) return;
+      const existingKeys = (this.editorDraft.extraTables || []).map(t => t.rowsKey);
+      const rowsKey = uniqueId("table", existingKeys);
+      // Title must be unique against every other table's title, not just
+      // rowsKey — the main document view's schema-section renderer keys its
+      // x-for on section.title (see tableCandidatesToLayout's comment for
+      // the real incident this caused: two same-titled tables crash Alpine's
+      // reactivity for the whole page, not just this form type).
+      const existingTitles = Object.values(this.editorLabels.table);
+      let title = "New table", n = 2;
+      while (existingTitles.includes(title)) title = "New table " + (n++);
+      const table = {
+        rowsKey, title, maxRows: 5,
+        page1: this.editorPageIndex === 0 ? { rows: 5, startY: 700, spacing: 20 } : { rows: 0, startY: 700, spacing: 20 },
+        page2: this.editorPageIndex === 1 ? { rows: 5, startY: 700, spacing: 20 } : { rows: 0, startY: 700, spacing: 20 },
+        cols: {},
+      };
+      if (!this.editorDraft.extraTables) this.editorDraft.extraTables = [];
+      this.editorDraft.extraTables.push(table);
+      this.editorLabels.table[rowsKey] = table.title;
+      this.addEditorTableColumn(rowsKey);
+    },
+
+    removeEditorTable(rowsKey) {
+      if (!this.editorDraft || !this.editorSchema) return;
+      if (!confirm('Remove this table and all its columns?')) return;
+      const table = (this.editorDraft.extraTables || []).find(t => t.rowsKey === rowsKey);
+      this.editorDraft.extraTables = (this.editorDraft.extraTables || []).filter(t => t.rowsKey !== rowsKey);
+      delete this.editorLabels.table[rowsKey];
+      if (table) for (const key of Object.keys(table.cols)) { delete this.editorLabels.col[key]; delete this.editorValidation.col[key]; }
+      if (this.editorSelectedKind === "col" && table && table.cols[this.editorSelectedKey]) {
+        this.editorSelectedKind = null;
+        this.editorSelectedKey = null;
+      }
+    },
+
+    addEditorTableColumn(rowsKey) {
+      if (!this.editorDraft || !this.editorSchema) return;
+      const table = (this.editorDraft.extraTables || []).find(t => t.rowsKey === rowsKey);
+      if (!table) return;
+      const key = uniqueId("col", Object.keys(this.editorDraft.cols).concat(Object.keys(table.cols)));
+      table.cols[key] = placeholderColumnSpec();
+      this.editorLabels.col[key] = "New column";
+      this.editorValidation.col[key] = {};
+      this.selectEditorField("col", key);
+    },
+
+    removeEditorTableColumn(rowsKey, key) {
+      if (!this.editorDraft || !this.editorSchema) return;
+      const table = (this.editorDraft.extraTables || []).find(t => t.rowsKey === rowsKey);
+      if (!table) return;
+      delete table.cols[key];
+      delete this.editorLabels.col[key];
+      delete this.editorValidation.col[key];
+      if (this.editorSelectedKind === "col" && this.editorSelectedKey === key) {
         this.editorSelectedKind = null;
         this.editorSelectedKey = null;
       }
@@ -2741,18 +3233,18 @@ function pdfgenApp() {
       for (const key of Object.keys(draft.header)) {
         const spec = draft.header[key];
         if (spec.page !== this.editorPageIndex) continue;
-        boxes.push({ kind: "header", key, label: this.editorLabels.header[key] || key, x: spec.x, y: spec.y, width: spec.width, fontSize: spec.fontSize });
+        boxes.push({ kind: "header", key, label: this.editorLabels.header[key] || key, x: spec.x, y: spec.y, width: spec.width, fontSize: spec.fontSize, fontFamily: spec.fontFamily, bold: spec.bold, italic: spec.italic });
       }
       const grid = this.editorPageIndex === 0 ? draft.page1 : draft.page2;
       for (const key of Object.keys(draft.cols)) {
         const spec = draft.cols[key];
-        boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: grid.startY + (spec.yOffset || 0), width: spec.width, fontSize: spec.fontSize });
+        boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: grid.startY + (spec.yOffset || 0), width: spec.width, fontSize: spec.fontSize, fontFamily: spec.fontFamily, bold: spec.bold, italic: spec.italic });
       }
       for (const table of draft.extraTables || []) {
-        if (table.page !== this.editorPageIndex) continue;
+        const tableGrid = this.editorPageIndex === 0 ? table.page1 : table.page2;
         for (const key of Object.keys(table.cols)) {
           const spec = table.cols[key];
-          boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: table.startY + (spec.yOffset || 0), width: spec.width, fontSize: spec.fontSize });
+          boxes.push({ kind: "col", key, label: this.editorLabels.col[key] || key, x: spec.x, y: tableGrid.startY + (spec.yOffset || 0), width: spec.width, fontSize: spec.fontSize, fontFamily: spec.fontFamily, bold: spec.bold, italic: spec.italic });
         }
       }
       for (const ov of draft.overlays || []) {
@@ -2761,6 +3253,7 @@ function pdfgenApp() {
           kind: "overlay", key: ov.id, overlayKind: ov.kind,
           label: ov.label || (ov.kind === "image" ? "Image" : "Text box"),
           x: ov.x, y: ov.y, width: ov.width, height: ov.height, fontSize: ov.fontSize,
+          fontFamily: ov.fontFamily, bold: ov.bold, italic: ov.italic,
         });
       }
       return boxes;
@@ -2773,6 +3266,17 @@ function pdfgenApp() {
     // overlay's (x, y) is pdf-lib drawImage's bottom-left corner, so its
     // on-canvas top is offset by its own full height; every other box
     // kind (text-based) keeps the original fontSize-derived offset.
+    // Maps a field's real fill-engine font (see the "Font" select's own
+    // options — Helvetica/TimesRoman/Courier, pdf-lib's StandardFonts names)
+    // to a CSS font stack, so the editor's on-canvas label reads in
+    // something close to the actual family it will print in, not just a
+    // generic UI font.
+    editorCssFontFamily(fontFamily) {
+      if (fontFamily === "TimesRoman") return "'Times New Roman', Times, serif";
+      if (fontFamily === "Courier") return "'Courier New', Courier, monospace";
+      return "Helvetica, Arial, sans-serif";
+    },
+
     editorBoxStyle(box) {
       const scale = this.editorScale;
       const isImage = box.kind === "overlay" && box.overlayKind === "image";
@@ -2783,7 +3287,12 @@ function pdfgenApp() {
       const top = (792 - box.y - topOffset) * scale;
       const width = (box.width || 40) * scale;
       const height = boxHeight * scale;
-      return `left:${left}px; top:${top}px; width:${width}px; height:${height}px; font-size:${Math.max(9, fontSize * scale * 0.85)}px;`;
+      const cssFontSize = Math.max(9, fontSize * scale * 0.85);
+      const fontFamily = this.editorCssFontFamily(box.fontFamily);
+      const fontWeight = box.bold ? "700" : "400";
+      const fontStyle = box.italic ? "italic" : "normal";
+      return `left:${left}px; top:${top}px; width:${width}px; height:${height}px; `
+        + `font-size:${cssFontSize}px; font-family:${fontFamily}; font-weight:${fontWeight}; font-style:${fontStyle};`;
     },
 
     selectEditorField(kind, key) {
@@ -2792,9 +3301,6 @@ function pdfgenApp() {
       if (kind === "header" && this.editorDraft) {
         const page = this.editorDraft.header[key].page;
         if (page !== this.editorPageIndex) this.switchEditorPage(page);
-      } else if (kind === "col" && this.editorDraft) {
-        const extra = this.findExtraTableForColKey(this.editorDraft, key);
-        if (extra && extra.page !== this.editorPageIndex) this.switchEditorPage(extra.page);
       } else if (kind === "overlay" && this.editorDraft) {
         const ov = this.overlayByKey(key);
         if (ov && ov.page !== this.editorPageIndex) this.switchEditorPage(ov.page);
@@ -2812,6 +3318,19 @@ function pdfgenApp() {
       return (bucket && bucket[this.editorSelectedKey]) || null;
     },
 
+    // The selected field's data-type spec (type/maxLength/decimals/
+    // dateFormat) — null for anything that isn't a real schema field
+    // (an overlay has no validation concept). Mutating the object this
+    // returns updates editorValidation.header/col in place, same pattern
+    // as editorSelectedSpec for position/style.
+    editorSelectedValidation() {
+      if (!this.editorSelectedKind || !this.editorSelectedKey) return null;
+      if (this.editorSelectedKind !== "header" && this.editorSelectedKind !== "col") return null;
+      const bucket = this.editorValidation[this.editorSelectedKind];
+      if (!bucket[this.editorSelectedKey]) bucket[this.editorSelectedKey] = {};
+      return bucket[this.editorSelectedKey];
+    },
+
     editorSelectedLabel() {
       if (!this.editorSelectedKind || !this.editorSelectedKey) return "";
       if (this.editorSelectedKind === "overlay") {
@@ -2821,17 +3340,42 @@ function pdfgenApp() {
       return this.editorLabels[this.editorSelectedKind][this.editorSelectedKey] || this.editorSelectedKey;
     },
 
-    // The row grid backing whichever 'col' box is selected — the primary
-    // table's page1/page2 (unchanged), or a fixed-count extra table's own
-    // startY/spacing/rows object directly (mutating it here mutates
-    // editorDraft.extraTables[i] in place, same as page1/page2).
+    // The whole table object backing whichever 'col' box is selected — its
+    // own extraTables entry for a fixed-count table, or editorDraft itself
+    // for the primary table (both carry page1/page2/maxRows in the same
+    // shape — see getLayout/normalizeExtraTable — so editorDraft doubles as
+    // "the primary table's own record" with no separate wrapper needed;
+    // mutating .page1.rows/.page2.rows/.maxRows here writes straight back
+    // into whichever one it is). Null when nothing 'col'-shaped is selected.
+    editorCurrentTable() {
+      if (!this.editorDraft || this.editorSelectedKind !== "col" || !this.editorSelectedKey) return null;
+      const extra = this.findExtraTableForColKey(this.editorDraft, this.editorSelectedKey);
+      if (extra) return extra;
+      if (this.editorDraft.cols[this.editorSelectedKey]) return this.editorDraft;
+      return null;
+    },
+
+    // Whether the selected column belongs to the primary (growable) table
+    // rather than a fixed-count extra one — drives which explanation the
+    // properties panel shows under "Total rows per instance".
+    editorSelectedIsPrimaryTable() {
+      return !!(this.editorDraft && this.editorSelectedKind === "col" && this.editorSelectedKey
+        && this.editorDraft.cols[this.editorSelectedKey] && !this.findExtraTableForColKey(this.editorDraft, this.editorSelectedKey));
+    },
+
+    // The row grid backing whichever 'col' box is selected, for the CURRENT
+    // page tab — the primary table's page1/page2, or a fixed-count extra
+    // table's own page1/page2 (mutating it here mutates
+    // editorDraft.extraTables[i].page1/page2 in place, same as the
+    // schema-level page1/page2). Each table carries its own page1/page2
+    // pair (see normalizeExtraTable) so its rows can split front-to-back,
+    // instead of being confined to whichever single page it was first
+    // placed on.
     editorCurrentGrid() {
       if (!this.editorDraft) return { startY: 0, spacing: 0, rows: 0 };
-      if (this.editorSelectedKind === "col" && this.editorSelectedKey) {
-        const extra = this.findExtraTableForColKey(this.editorDraft, this.editorSelectedKey);
-        if (extra) return extra;
-      }
-      return this.editorPageIndex === 0 ? this.editorDraft.page1 : this.editorDraft.page2;
+      const pageKey = this.editorPageIndex === 0 ? "page1" : "page2";
+      const table = this.editorCurrentTable();
+      return table ? table[pageKey] : this.editorDraft[pageKey];
     },
 
     startBoxDrag(e, box) {
@@ -2861,8 +3405,9 @@ function pdfgenApp() {
             // above that row's 12 check-number columns).
             spec.yOffset = Math.round((origYOffset - dy) * 10) / 10;
           } else {
+            const pageKey = this.editorPageIndex === 0 ? "page1" : "page2";
             const extra = this.findExtraTableForColKey(this.editorDraft, box.key);
-            const grid = extra || (this.editorPageIndex === 0 ? this.editorDraft.page1 : this.editorDraft.page2);
+            const grid = extra ? extra[pageKey] : this.editorDraft[pageKey];
             grid.startY = Math.round((origY - dy) * 10) / 10;
           }
         }
@@ -2998,16 +3543,15 @@ function pdfgenApp() {
       this.editorSelectedKey = null;
     },
 
-    // For a custom (admin-created) form type, the editor can add/remove
+    // For any form type (built-in or custom), the editor can add/remove
     // header fields directly (addEditorHeaderField/removeEditorHeaderField
     // above, plus whatever the "Upload PDF" extraction pre-populated) — this
     // syncs editorDraft.header's current key set, and any label edits, back
     // into the schema's own `sections` (used for data entry/validation) so
     // the two stay in sync. Only ever touches the schema's "fields" section
-    // (creating one if none exists yet); any "table" section a manual
-    // schema-builder type also has is left untouched, since table columns
-    // aren't addable/removable from this editor.
-    reconcileCustomFormTypeFields(schema) {
+    // (creating one if none exists yet); table sections are reconciled
+    // separately by reconcileFormTypeTables below.
+    reconcileFormTypeFields(schema) {
       const keys = Object.keys(this.editorDraft.header);
       let fieldsSection = schema.sections.find(s => s.kind === "fields");
       if (!fieldsSection) {
@@ -3015,31 +3559,91 @@ function pdfgenApp() {
         schema.sections.push(fieldsSection);
       }
       const existingByKey = new Map(fieldsSection.fields.map(f => [f.key, f]));
-      fieldsSection.fields = keys.map(key => {
+      // "page"/"pageOf" are the running "Page X of Y" stamp's layout-only
+      // keys (see buildCoordinateCopies) for every built-in type and most
+      // custom ones — always present in editorDraft.header (the stamp
+      // needs a position) but never real schema.sections fields to begin
+      // with. Only carry one of these two names through as a real field if
+      // it already WAS one (e.g. a type extracted from an uploaded PDF
+      // that happens to have a genuine "page" field of its own) — a real
+      // bug found by testing this exact path: without this guard, every
+      // Save here promoted both into real fields regardless, which then
+      // makes emptyInstance() seed form.header.page/.pageOf with real
+      // (empty-string) data — and buildCoordinateCopies only draws the
+      // automatic stamp when the key is ABSENT from form.header, so doing
+      // that silently disables the stamp for every instance created after
+      // the very next Save.
+      const realKeys = keys.filter(key => !(["page", "pageOf"].includes(key) && !existingByKey.has(key)));
+      fieldsSection.fields = realKeys.map(key => {
         const prior = existingByKey.get(key) || { key, textarea: false, validation: {} };
-        return { ...prior, key, label: this.editorLabels.header[key] || prior.label || key };
+        return { ...prior, key, label: this.editorLabels.header[key] || prior.label || key, validation: this.editorValidation.header[key] || prior.validation || {} };
       });
+    },
+
+    // Mirrors reconcileFormTypeFields above, but for tables added via
+    // addEditorTable/addEditorTableColumn: syncs editorDraft.extraTables'
+    // current rowsKey/column-key set, and any label edits, back into the
+    // schema's own "table" sections (creating/removing sections to match).
+    // Never touches the primary table section (rowsKey "rows") — that one
+    // isn't addable/removable from this editor (see addEditorTable).
+    reconcileFormTypeTables(schema) {
+      const draftTables = this.editorDraft.extraTables || [];
+      const existingTableSections = new Map(
+        schema.sections.filter(s => s.kind === "table" && s.rowsKey !== "rows").map(s => [s.rowsKey, s])
+      );
+      const newTableSections = draftTables.map(table => {
+        const prior = existingTableSections.get(table.rowsKey);
+        const existingColsByKey = new Map((prior ? prior.columns : []).map(c => [c.key, c]));
+        const columns = Object.keys(table.cols).map(key => {
+          const priorCol = existingColsByKey.get(key) || { key, validation: {} };
+          return { ...priorCol, key, label: this.editorLabels.col[key] || priorCol.label || key, validation: this.editorValidation.col[key] || priorCol.validation || {} };
+        });
+        return { kind: "table", title: this.editorLabels.table[table.rowsKey] || prior?.title || "Table", rowsKey: table.rowsKey, fixedRows: table.maxRows || 5, columns };
+      });
+      schema.sections = schema.sections.filter(s => !(s.kind === "table" && s.rowsKey !== "rows")).concat(newTableSections);
+    },
+
+    // The primary (growable) table's columns can't be added/removed from
+    // this editor (see addEditorTable's own note — a new table here is
+    // always a fixed-row extra one), so there's no key-set reconciliation
+    // to do for it the way reconcileFormTypeTables does for extras — just
+    // label/validation edits on whichever columns already exist, synced
+    // back the same way. Without this, a label or field-type change made
+    // here for a primary-table column had nothing writing it back into
+    // schema.sections at all (editorLabels/editorValidation would silently
+    // hold an edit the document view never picked up).
+    reconcilePrimaryTableColumns(schema) {
+      const primary = schema.sections.find(s => s.kind === "table" && s.rowsKey === "rows");
+      if (!primary) return;
+      primary.columns = primary.columns.map(c => ({
+        ...c,
+        label: this.editorLabels.col[c.key] || c.label,
+        validation: this.editorValidation.col[c.key] || c.validation || {},
+      }));
     },
 
     confirmSaveEditor() {
       if (!this.editorFormType) return;
       const schema = this.editorSchema;
-      if (schema && schema.custom) {
-        this.reconcileCustomFormTypeFields(schema);
+      if (schema) {
+        this.reconcileFormTypeFields(schema);
+        this.reconcileFormTypeTables(schema);
+        this.reconcilePrimaryTableColumns(schema);
         // getLayout() only ever merges keys that already exist in
         // schema.defaultLayout.header/.cols — a key added purely in
         // editorDraft (via "+ Add field") would otherwise silently vanish
         // the next time this editor opens (dropped by that merge), while
         // still lingering in `sections`/editorLabels, which is exactly the
         // header/col-list vs. editorDraft mismatch that crashed
-        // selectEditorField. A custom type has no separate "real PDF
-        // original" defaultLayout to protect the way a built-in type does,
-        // so it's correct for defaultLayout to just become whatever was
-        // last saved — no override layer needed for these types at all.
+        // selectEditorField. Every type's defaultLayout just becomes
+        // whatever was last saved now — no separate position-only override
+        // layer (fieldLayouts) needed for any type anymore. A built-in
+        // type's PRE-EXISTING fieldLayouts entry (from before structural
+        // editing existed) was already merged into editorDraft when this
+        // editor opened (getLayout() below), so nothing from it is lost —
+        // it's just "baked in" here instead of staying a separate override.
         schema.defaultLayout = this.cloneLayout(this.editorDraft);
         delete this.fieldLayouts[this.editorFormType];
-      } else {
-        this.fieldLayouts[this.editorFormType] = this.editorDraft;
       }
       if (this.activeFormType === this.editorFormType) this.clearPreview();
       this.closeEditorModal();
@@ -3249,18 +3853,20 @@ function pdfgenApp() {
           alert("Could not read this file as a PDF — see console for details.");
           return;
         }
-        const { kind, candidates, finalBytes } = result;
+        const { kind, headerCandidates, tableCandidates, finalBytes } = result;
 
         const label = (file.name || "New form type").replace(/\.pdf$/i, "").trim() || "New form type";
         const type = uniqueId(slugify(label), this.FORM_TYPES.map(f => f.type));
 
-        const sections = candidates.length
-          ? [{ kind: "fields", title: "Extracted fields", columns: 2, fields: candidates.map(c => ({ key: c.key, label: c.label, textarea: false, validation: {} })) }]
+        const sections = headerCandidates.length
+          ? [{ kind: "fields", title: "Extracted fields", columns: 2, fields: headerCandidates.map(c => ({ key: c.key, label: c.label, textarea: false, validation: {} })) }]
           : [];
         const header = {};
-        for (const c of candidates) {
+        for (const c of headerCandidates) {
           header[c.key] = { page: c.page, x: c.x, y: c.y, width: c.width, fontSize: c.fontSize, allowOverflow: false };
         }
+        const tableLayout = tableCandidatesToLayout(tableCandidates);
+        sections.push(...tableLayout.sections);
 
         this.FORM_TYPES.push({
           type, label, bannerNote: "",
@@ -3269,13 +3875,13 @@ function pdfgenApp() {
             header, cols: {},
             page1: { rows: 0, startY: 0, spacing: 0 },
             page2: { rows: 0, startY: 0, spacing: 0 },
-            repeatingHeaderExclude: [], overlays: [], extraTables: [],
+            repeatingHeaderExclude: [], overlays: [], extraTables: tableLayout.extraTables,
           },
           templateB64: bytesToB64(finalBytes),
           custom: true,
         });
 
-        this.announceExtraction(kind, candidates.length);
+        this.announceExtraction(kind, headerCandidates.length, tableCandidates.length);
         this.showAdminFormTypesModal = false;
         this.openEditorModal(type);
       } catch (e) {
@@ -3309,18 +3915,18 @@ function pdfgenApp() {
           alert("Could not read this file as a PDF — see console for details.");
           return;
         }
-        const { kind, candidates, finalBytes } = result;
+        const { kind, headerCandidates, tableCandidates, finalBytes } = result;
 
         ft.templateB64 = bytesToB64(finalBytes);
 
-        if (candidates.length) {
+        if (headerCandidates.length) {
           let section = ft.sections.find(s => s.kind === "fields" && s.title === "Extracted fields");
           if (!section) {
             section = { kind: "fields", title: "Extracted fields", columns: 2, fields: [] };
             ft.sections.push(section);
           }
           const usedKeys = ft.sections.filter(s => s.kind === "fields").flatMap(s => s.fields.map(f => f.key));
-          for (const c of candidates) {
+          for (const c of headerCandidates) {
             const key = uniqueId(c.key, usedKeys);
             usedKeys.push(key);
             section.fields.push({ key, label: c.label, textarea: false, validation: {} });
@@ -3328,13 +3934,28 @@ function pdfgenApp() {
           }
         }
 
-        // defaultLayout.header was just updated directly above — drop any
-        // stale saved override so getLayout() doesn't merge on top of it
-        // with now out-of-date assumptions (same reasoning as
-        // confirmSaveEditor/confirmFormTypeBuilder's own custom-type saves).
+        // Detected tables are appended as brand-new table sections/extraTables
+        // entries — additive, same treatment as header fields above. Existing
+        // rowsKeys/titles are passed in so a second upload can't collide with
+        // a table an earlier upload already added (tableCandidatesToLayout
+        // renumbers on collision — see its own comment for why a title
+        // collision specifically is dangerous, not just cosmetic).
+        if (tableCandidates.length) {
+          const existingRowsKeys = ft.sections.filter(s => s.kind === "table").map(s => s.rowsKey);
+          const existingTitles = ft.sections.filter(s => s.kind === "table").map(s => s.title);
+          const tableLayout = tableCandidatesToLayout(tableCandidates, existingRowsKeys, existingTitles);
+          ft.sections.push(...tableLayout.sections);
+          if (!ft.defaultLayout.extraTables) ft.defaultLayout.extraTables = [];
+          ft.defaultLayout.extraTables.push(...tableLayout.extraTables);
+        }
+
+        // defaultLayout was just updated directly above — drop any stale
+        // saved override so getLayout() doesn't merge on top of it with now
+        // out-of-date assumptions (same reasoning as confirmSaveEditor/
+        // confirmFormTypeBuilder's own custom-type saves).
         delete this.fieldLayouts[ft.type];
 
-        this.announceExtraction(kind, candidates.length);
+        this.announceExtraction(kind, headerCandidates.length, tableCandidates.length);
         this.showAdminFormTypesModal = false;
         this.openEditorModal(ft.type);
       } catch (e) {
@@ -3345,11 +3966,12 @@ function pdfgenApp() {
       }
     },
 
-    announceExtraction(kind, count) {
-      const plural = count === 1 ? "" : "s";
+    announceExtraction(kind, fieldCount, tableCount) {
+      const fieldPlural = fieldCount === 1 ? "" : "s";
+      const tableNote = tableCount ? " Also detected " + tableCount + " table" + (tableCount === 1 ? "" : "s") + " — review its row count and columns below." : "";
       const messages = {
-        acroform: count + " field" + plural + " extracted from the PDF's AcroForm.",
-        vector: count + " field candidate" + plural + " guessed from the page layout — review and adjust them below.",
+        acroform: fieldCount + " field" + fieldPlural + " extracted from the PDF's AcroForm." + tableNote,
+        vector: fieldCount + " field candidate" + fieldPlural + " guessed from the page layout — review and adjust them below." + tableNote,
         image: "No extractable text found (looks like a scanned/image PDF) — the page is shown for reference; add fields manually with \"+ Add field\".",
       };
       alert(messages[kind]);
@@ -3377,36 +3999,23 @@ function pdfgenApp() {
       if (idx !== -1) this.FORM_TYPES.splice(idx, 1);
     },
 
-    // Label/banner note are the only metadata editable on an *existing*
-    // form type (built-in or custom) — its fields/table shape is fixed
-    // once created, same as its PDF template (if any) is fixed once
-    // uploaded. Persisted separately from the type itself (formTypeOverrides)
-    // so a built-in type's edit survives without rewriting form-types.json.
-    // A small modal, not prompt() — same reasoning as startRenameAircraftModel
-    // above (Electron/VS Code webviews stub window.prompt() to always
-    // return null).
-    openEditFormTypeMeta(ft) {
-      this.editFormTypeDraft = { type: ft.type, label: ft.label, bannerNote: ft.bannerNote || "" };
-      this.showEditFormTypeMetaModal = true;
-    },
-
-    confirmEditFormTypeMeta() {
-      const ft = this.FORM_TYPES.find(f => f.type === this.editFormTypeDraft.type);
-      this.showEditFormTypeMetaModal = false;
-      if (!ft) return;
-      const label = this.editFormTypeDraft.label.trim();
-      ft.label = label || ft.label;
-      ft.bannerNote = this.editFormTypeDraft.bannerNote.trim();
-      this.formTypeOverrides[ft.type] = { label: ft.label, bannerNote: ft.bannerNote };
-    },
-
     // ---- manual schema builder: create a new form type, or edit the full
-    // structure (field groups + tables) of an existing custom one ----
+    // structure (field groups + tables) of ANY existing type, built-in or
+    // custom ----
     // Both flows share one modal/draft shape — `builderDraft.editingType`
     // is null when creating, or the existing type's key when editing —
     // and one confirm handler (confirmFormTypeBuilder) branches on that.
 
     openFormTypeBuilder() {
+      // Close the Form Types list modal first — it and this one are both
+      // full-screen `.modal-backdrop` overlays; leaving both mounted at
+      // once was a pre-existing bug here (reproducible even for this
+      // blank scaffold, unrelated to what's being edited) that threw an
+      // uncaught Alpine "_x_dataStack" error on open, discovered while
+      // testing built-in-type editing. "Upload PDF" (handleUploadFormTypePdf)
+      // already closed the list modal before opening its own next modal —
+      // this just brings these two entry points in line with that.
+      this.showAdminFormTypesModal = false;
       this.builderDraft = {
         editingType: null,
         label: "", bannerNote: "",
@@ -3416,12 +4025,31 @@ function pdfgenApp() {
       this.showFormTypeBuilder = true;
     },
 
-    // Splits an existing custom type's `sections` back into the builder's
-    // fieldSections/tableSections draft shape, keeping each field/column's
-    // real `key` (and a table section's real `rowsKey`) so confirmForm-
-    // TypeBuilder can tell "this row already existed" from "this is new"
-    // and only regenerate keys for genuinely new rows.
+    // Drives the builder's cap text — whether the type currently being
+    // edited (if any) already has a real PDF template, i.e. whether
+    // structural edits here can affect an already-rendered form/existing
+    // saved documents rather than just a shape-only type nothing depends on
+    // yet.
+    builderEditingHasTemplate() {
+      if (!this.builderDraft || !this.builderDraft.editingType) return false;
+      const ft = this.FORM_TYPES.find(f => f.type === this.builderDraft.editingType);
+      return !!(ft && this.hasTemplate(ft));
+    },
+
+    // Splits an existing type's (built-in or custom) `sections` back into
+    // the builder's fieldSections/tableSections draft shape, keeping each
+    // field/column's real `key` (and a table section's real `rowsKey`) so
+    // confirmFormTypeBuilder can tell "this row already existed" from
+    // "this is new" and only regenerate keys for genuinely new rows —
+    // which is also what keeps a built-in type's real, PDF-derived
+    // positions intact for every field/column that wasn't touched.
     openFormTypeBuilderForEdit(ft) {
+      // getLayout() normalizes both the primary table's page1/page2/maxRows
+      // and every extra table's shape (old flat {page,startY,spacing,rows}
+      // or the current page1/page2 pair) into one consistent shape here, so
+      // this reads real front/back/total numbers regardless of which shape
+      // this type's saved data happens to be in.
+      const layout = getLayout(ft, this.fieldLayouts);
       const fieldSections = [];
       const tableSections = [];
       for (const s of ft.sections) {
@@ -3436,8 +4064,17 @@ function pdfgenApp() {
             })),
           });
         } else if (s.kind === "table") {
+          const isPrimary = s.rowsKey === "rows";
+          const pos = isPrimary
+            ? { maxRows: layout.maxRows, page1: layout.page1, page2: layout.page2 }
+            : (layout.extraTables.find(t => t.rowsKey === s.rowsKey) || { maxRows: s.fixedRows || 5, page1: { rows: s.fixedRows || 5 }, page2: { rows: 0 } });
+          const maxRowsFront = pos.page1.rows || 0;
+          const maxRowsBack = pos.page2.rows || 0;
+          const maxRowsTotal = pos.maxRows != null ? pos.maxRows : (maxRowsFront + maxRowsBack);
           tableSections.push({
-            rowsKey: s.rowsKey, title: s.title || "", fixedRows: s.fixedRows || 5,
+            rowsKey: s.rowsKey, title: s.title || "",
+            placement: maxRowsFront > 0 && maxRowsBack > 0 ? "both" : (maxRowsBack > 0 ? "back" : "front"),
+            maxRowsFront, maxRowsBack, maxRowsTotal,
             columns: s.columns.map(c => ({
               key: c.key, label: c.label,
               type: (c.validation && c.validation.type) || "text",
@@ -3452,6 +4089,7 @@ function pdfgenApp() {
       // a schema's own `sections` array happened not to list it first.
       tableSections.sort((a, b) => (a.rowsKey === "rows" ? -1 : 0) - (b.rowsKey === "rows" ? -1 : 0));
 
+      this.showAdminFormTypesModal = false; // see openFormTypeBuilder's comment
       this.builderDraft = {
         editingType: ft.type,
         label: ft.label, bannerNote: ft.bannerNote || "",
@@ -3481,7 +4119,25 @@ function pdfgenApp() {
     // one with any columns* (see firstNonEmptyTableIndex), matching
     // confirmFormTypeBuilder's own rule at save time.
     addBuilderTableSection() {
-      this.builderDraft.tableSections.push({ title: "Items", fixedRows: 5, columns: [] });
+      this.builderDraft.tableSections.push({
+        title: "Items",
+        placement: "front", maxRowsFront: 20, maxRowsBack: 0, maxRowsTotal: 20,
+        columns: [],
+      });
+    },
+
+    // The "Table shows on" select is a friendlier front-end over the same
+    // front/back numbers the Form Type Editor's own Row Grid panel exposes
+    // (see "Database backend..." in PDF-gen/CLAUDE.md) — switching it just
+    // seeds a sensible front/back split from the table's current total;
+    // the two number fields stay independently editable afterward for an
+    // uneven split (e.g. 12 rows on the front, 8 on the back).
+    setBuilderTablePlacement(ts, placement) {
+      ts.placement = placement;
+      const total = ts.maxRowsTotal || 0;
+      if (placement === "front") { ts.maxRowsFront = total; ts.maxRowsBack = 0; }
+      else if (placement === "back") { ts.maxRowsFront = 0; ts.maxRowsBack = total; }
+      else { ts.maxRowsFront = Math.ceil(total / 2); ts.maxRowsBack = total - ts.maxRowsFront; }
     },
 
     removeBuilderTableSection(tIdx) {
@@ -3570,12 +4226,19 @@ function pdfgenApp() {
       const cols = {};
       const usedColKeys = [];
       const extraTables = [];
+      // The primary table's own page1/page2/maxRows (schema-level, not in
+      // extraTables) — set inside the loop below when idx === 0, or left at
+      // these no-table-yet defaults if this type has no table sections at all.
+      let primaryPage1 = (priorLayout && priorLayout.page1) || { rows: 0, startY: 0, spacing: 0 };
+      let primaryPage2 = (priorLayout && priorLayout.page2) || { rows: 0, startY: 0, spacing: 0 };
+      let primaryMaxRows = priorLayout && priorLayout.maxRows;
       nonEmptyTableSections.forEach((ts, idx) => {
         const isPrimary = idx === 0;
         const rowsKey = rowsKeys[idx];
-        const priorExtra = !isPrimary && priorLayout
+        const priorExtraRaw = !isPrimary && priorLayout
           ? (priorLayout.extraTables || []).find(t => t.rowsKey === rowsKey)
           : null;
+        const priorExtra = priorExtraRaw ? normalizeExtraTable(priorExtraRaw) : null;
         const priorCols = isPrimary ? (priorLayout && priorLayout.cols) : (priorExtra && priorExtra.cols);
         const extraCols = {};
         const columns = ts.columns.map(c => {
@@ -3587,26 +4250,55 @@ function pdfgenApp() {
           if (isPrimary) cols[key] = spec; else extraCols[key] = spec;
           return { key, label: c.label || key, validation };
         });
+        // Front/back/total row counts — same 3 properties for every table,
+        // primary or not (see "Table shows on front/back/both" + the 3
+        // "Max rows" fields in the builder UI just above). Real per-page
+        // startY/spacing aren't editable here (that stays the Form Type
+        // Editor's job — see its "Row grid" panel) so those carry over
+        // from whatever this table already had, independent of the row
+        // counts changing here.
+        const maxRowsFront = ts.maxRowsFront || 0;
+        const maxRowsBack = ts.maxRowsBack || 0;
+        const maxRowsTotal = ts.maxRowsTotal != null ? ts.maxRowsTotal : (maxRowsFront + maxRowsBack);
         sections.push({
           kind: "table", title: ts.title || "Items", rowsKey, columns,
-          ...(isPrimary ? {} : { fixedRows: ts.fixedRows || 5 }),
+          ...(isPrimary ? {} : { fixedRows: maxRowsTotal || 5 }),
         });
-        if (!isPrimary) {
+        if (isPrimary) {
+          primaryMaxRows = maxRowsTotal;
+          primaryPage1 = { rows: maxRowsFront, startY: primaryPage1.startY || 700, spacing: primaryPage1.spacing || 20 };
+          primaryPage2 = { rows: maxRowsBack, startY: primaryPage2.startY || 700, spacing: primaryPage2.spacing || 20 };
+        } else {
           extraTables.push({
             rowsKey,
-            page: (priorExtra && priorExtra.page) || 0,
-            startY: (priorExtra && priorExtra.startY) || 700,
-            spacing: (priorExtra && priorExtra.spacing) || 20,
-            rows: ts.fixedRows || 5,
+            maxRows: maxRowsTotal,
+            page1: { rows: maxRowsFront, startY: (priorExtra && priorExtra.page1.startY) || 700, spacing: (priorExtra && priorExtra.page1.spacing) || 20 },
+            page2: { rows: maxRowsBack, startY: (priorExtra && priorExtra.page2.startY) || 700, spacing: (priorExtra && priorExtra.page2.spacing) || 20 },
             cols: extraCols,
           });
         }
       });
 
+      // `page`/`pageOf` (the running "Page X of Y" stamp — see
+      // buildCoordinateCopies) are layout-only header keys: they were never
+      // real fields in `sections.fields`, so the field-sections loop above
+      // never repopulates them the way it does every other key — a type
+      // that had them would otherwise silently lose its page stamp on any
+      // edit here. Never triggered before this builder could edit built-in
+      // types (the only ones that ever carry these two keys); carried
+      // forward untouched, same as page1/page2/overlays/extraTables above,
+      // unless the admin's own field list now defines a REAL field using
+      // one of these names (then that wins — nothing to restore).
+      if (priorLayout) {
+        if (priorLayout.header.page && !header.page) header.page = priorLayout.header.page;
+        if (priorLayout.header.pageOf && !header.pageOf) header.pageOf = priorLayout.header.pageOf;
+      }
+
       const defaultLayout = {
         header, cols,
-        page1: (priorLayout && priorLayout.page1) || { rows: 0, startY: 0, spacing: 0 },
-        page2: (priorLayout && priorLayout.page2) || { rows: 0, startY: 0, spacing: 0 },
+        page1: primaryPage1,
+        page2: primaryPage2,
+        maxRows: primaryMaxRows,
         repeatingHeaderExclude: (priorLayout && priorLayout.repeatingHeaderExclude) || [],
         overlays: (priorLayout && priorLayout.overlays) || [],
         extraTables,
@@ -3707,11 +4399,22 @@ function findPageIndexForWidget(pages, widget) {
 // schema model doesn't have a field kind for them yet. Phase 1 also only
 // looks at each field's first widget (a field repeated across pages, e.g. a
 // running "page X of Y", is a rare enough case to add manually afterward).
+//
+// Table detection: a repeating row in the original form shows up as several
+// fields sharing the same base name with a trailing array index (e.g.
+// "Item[0]", "Item[1]", ...) — a real, reliable structural signal, not a
+// guess. Fields are grouped by (page, base name); any group of >=2 members
+// that all carry an index becomes one detected table COLUMN (its row count,
+// startY, and spacing derived from the indexed widgets' real Y positions,
+// same refit-to-{startY,spacing} technique already used elsewhere in this
+// project for DA 2408-20/18's coordinates). clusterColumnsIntoTables then
+// merges columns that share the same page/row-count/grid into one table.
+// Every group of exactly 1 (or with missing indices) stays a flat header
+// field, unchanged from before.
 function extractAcroFormCandidates(pdfDoc, form) {
   const { PDFTextField } = PDFLib;
   const pages = pdfDoc.getPages();
-  const usedKeys = [];
-  const candidates = [];
+  const fields = [];
   for (const field of form.getFields()) {
     if (!(field instanceof PDFTextField)) continue;
     const widgets = field.acroField.getWidgets();
@@ -3720,17 +4423,176 @@ function extractAcroFormCandidates(pdfDoc, form) {
     const rect = widget.getRectangle();
     if (!rect.width || !rect.height) continue; // degenerate/hidden widget
     const pageIndex = findPageIndexForWidget(pages, widget);
-    const rawName = field.getName().split(".").pop().replace(/\[\d+\]$/, "");
-    const label = humanizeFieldName(rawName);
-    const key = uniqueId(slugify(label), usedKeys);
-    usedKeys.push(key);
-    candidates.push({
-      key, label, page: pageIndex,
-      x: rect.x, y: rect.y, width: rect.width,
-      fontSize: Math.max(6, Math.round(rect.height * 0.7)),
+    // Strip the LiveCycle-style "[0]" instance suffix every field carries
+    // (constant, not a row signal — real repeating rows use a different
+    // convention, see below). The remaining name is either bare ("InspNo")
+    // — row 0 — or ends in "_N" ("InspNo_1", "InspNo_2", ...) — row N. This
+    // is the actual repeating-row convention real Acrobat/LiveCycle forms
+    // use (confirmed against this project's own reference PDFs); a field's
+    // real *array*-widget repetition (one field, multiple widgets) is a
+    // separate, rarer case this extractor doesn't attempt to detect as a
+    // table (per the existing "only looks at each field's first widget"
+    // scope note below).
+    const base = field.getName().split(".").pop().replace(/\[\d+\]$/, "");
+    const suffixMatch = /_(\d+)$/.exec(base);
+    // A widget's BOX height is not its text size — form cells are routinely
+    // far taller than the text meant to go in them (a real uploaded form's
+    // row cells measured ~37pt tall here, which an unclamped height*0.7 rule
+    // turned into a 26pt font: text overflowing every cell and running off
+    // the page). Clamp to a realistic form-fill range instead; the admin can
+    // still fine-tune any field in the Form Type Editor.
+    const fontSize = Math.min(12, Math.max(6, Math.round(rect.height * 0.6)));
+    fields.push({
+      rawName: suffixMatch ? base.slice(0, suffixMatch.index) : base,
+      index: suffixMatch ? Number(suffixMatch[1]) : 0,
+      page: pageIndex, x: rect.x, width: rect.width, fontSize,
+      // pdf-lib draws from the text BASELINE, while rect.y is the box's
+      // bottom edge — using it raw sits every value directly on the cell's
+      // bottom rule. Centre the text in the box instead (clamped, so a very
+      // tall cell doesn't float its text absurdly high).
+      y: rect.y + Math.max(2, Math.min(8, (rect.height - fontSize) / 2)),
     });
   }
-  return candidates;
+
+  const groups = new Map();
+  for (const f of fields) {
+    const groupKey = f.page + "|" + f.rawName;
+    if (!groups.has(groupKey)) groups.set(groupKey, []);
+    groups.get(groupKey).push(f);
+  }
+
+  const usedKeys = [];
+  const headerCandidates = [];
+  const columnCandidates = [];
+  for (const members of groups.values()) {
+    // A real repeating row is a *consecutive* 0,1,2,... run — requiring
+    // that (rather than just ">=2 members") rules out a coincidental
+    // "_N"-suffixed name that isn't actually a table column.
+    const indices = members.map(m => m.index).sort((a, b) => a - b);
+    const isConsecutiveRun = indices.every((idx, i) => idx === i);
+    if (members.length < 2 || !isConsecutiveRun) {
+      for (const m of members) {
+        const label = humanizeFieldName(m.rawName);
+        const key = uniqueId(slugify(label), usedKeys);
+        usedKeys.push(key);
+        headerCandidates.push({ key, label, page: m.page, x: m.x, y: m.y, width: m.width, fontSize: m.fontSize });
+      }
+      continue;
+    }
+    members.sort((a, b) => a.index - b.index);
+    const deltas = [];
+    for (let i = 1; i < members.length; i++) deltas.push(members[i - 1].y - members[i].y);
+    columnCandidates.push({
+      label: humanizeFieldName(members[0].rawName),
+      page: members[0].page,
+      x: members.reduce((s, m) => s + m.x, 0) / members.length,
+      width: members.reduce((s, m) => s + m.width, 0) / members.length,
+      fontSize: members[0].fontSize,
+      startY: members[0].y,
+      spacing: deltas.reduce((a, b) => a + b, 0) / deltas.length,
+      rows: members.length,
+    });
+  }
+
+  return { headerCandidates, tableCandidates: clusterColumnsIntoTables(columnCandidates) };
+}
+
+// Merges detected table COLUMNS (from either extraction path) into whole
+// tables: columns on the same page sharing the same row count and grid
+// (startY/spacing within a couple points — the same tolerance this project
+// already accepted when refitting DA 2408-20/18's real per-row Y values to
+// a uniform {startY,spacing} pair) belong to one real table. A column with
+// no matching partner still becomes a valid one-column table rather than
+// being discarded.
+// Turns detected tableCandidates (see clusterColumnsIntoTables / the vector
+// grid-detection pass above) into the schema.sections "table" entries +
+// defaultLayout.extraTables entries a form type actually needs — the exact
+// same shapes addEditorTable/confirmFormTypeBuilder produce, so a detected
+// table is indistinguishable from a hand-built one once it lands.
+// `existingRowsKeys`/`existingTitles` should list every rowsKey/title the
+// target schema's `sections` already has — required so an *additive*
+// upload (handleUploadPdfForExistingType) can't collide with a table a
+// previous upload already added. `title` collisions are the more
+// dangerous case: the main document view's schema-section renderer keys
+// its `x-for` on `section.title` (index.html's "Generic, schema-driven
+// form renderer"), and every detected table otherwise defaults to the
+// same generic "Table" label — two sections sharing a `:key` crashes
+// Alpine's reactivity for the *entire page*, not just this form type (a
+// real incident this exact bug caused — every field on every form type
+// went blank after uploading a PDF whose extraction produced two
+// same-titled tables). Titles are deduped here, at the one choke point
+// both extraction paths funnel through, rather than trying to make every
+// extractor generate unique titles on its own.
+function tableCandidatesToLayout(tableCandidates, existingRowsKeys, existingTitles) {
+  const usedRowsKeys = (existingRowsKeys || []).slice();
+  const usedTitles = (existingTitles || []).slice();
+  const sections = [];
+  const extraTables = [];
+  for (const t of tableCandidates) {
+    const rowsKey = usedRowsKeys.includes(t.rowsKey) ? uniqueId("table", usedRowsKeys) : t.rowsKey;
+    usedRowsKeys.push(rowsKey);
+    let title = t.title, n = 2;
+    while (usedTitles.includes(title)) title = t.title + " " + (n++);
+    usedTitles.push(title);
+    sections.push({
+      kind: "table", title, rowsKey, fixedRows: t.rows,
+      columns: t.columns.map(c => ({ key: c.key, label: c.label, validation: {} })),
+    });
+    const cols = {};
+    for (const c of t.columns) cols[c.key] = { x: c.x, width: c.width, fontSize: c.fontSize, allowOverflow: false };
+    // Detection only ever finds a table on one physical page — it has no way
+    // to know a table continues onto the other page, since nothing about a
+    // real table's *columns* signals that. Lands entirely on whichever page
+    // it was detected on; an admin re-splits it across page1/page2 in the
+    // Form Type Editor afterward if the real form needs that (see
+    // normalizeExtraTable / the editor's "Max rows" controls).
+    const onPage2 = t.page === 1;
+    extraTables.push({
+      rowsKey,
+      maxRows: t.rows,
+      page1: onPage2 ? { rows: 0, startY: 700, spacing: 20 } : { rows: t.rows, startY: t.startY, spacing: t.spacing },
+      page2: onPage2 ? { rows: t.rows, startY: t.startY, spacing: t.spacing } : { rows: 0, startY: 700, spacing: 20 },
+      cols,
+    });
+  }
+  return { sections, extraTables };
+}
+
+function clusterColumnsIntoTables(columnCandidates) {
+  const GRID_TOLERANCE = 2;
+  const used = new Array(columnCandidates.length).fill(false);
+  const tables = [];
+  const usedRowsKeys = [];
+  const usedColKeys = [];
+  for (let i = 0; i < columnCandidates.length; i++) {
+    if (used[i]) continue;
+    const base = columnCandidates[i];
+    const group = [base];
+    used[i] = true;
+    for (let j = i + 1; j < columnCandidates.length; j++) {
+      if (used[j]) continue;
+      const cand = columnCandidates[j];
+      if (cand.page !== base.page || cand.rows !== base.rows) continue;
+      if (Math.abs(cand.startY - base.startY) > GRID_TOLERANCE) continue;
+      if (Math.abs(cand.spacing - base.spacing) > GRID_TOLERANCE) continue;
+      group.push(cand);
+      used[j] = true;
+    }
+    group.sort((a, b) => a.x - b.x);
+    const rowsKey = uniqueId("table", usedRowsKeys);
+    usedRowsKeys.push(rowsKey);
+    const columns = group.map(c => {
+      const key = uniqueId(slugify(c.label) || "col", usedColKeys);
+      usedColKeys.push(key);
+      return { key, label: c.label, x: c.x, width: c.width, fontSize: c.fontSize };
+    });
+    tables.push({
+      title: columns.length === 1 ? columns[0].label : "Table",
+      rowsKey, page: base.page, startY: base.startY, spacing: base.spacing, rows: base.rows,
+      columns,
+    });
+  }
+  return tables;
 }
 
 // Flattened/exported PDFs have no fields at all, but (unlike a scan) still
@@ -3740,16 +4602,29 @@ function extractAcroFormCandidates(pdfDoc, form) {
 // needed. Heuristic, deliberately simple: cluster items into lines by y,
 // then any item ending in ":" is a label, and its field is the blank space
 // to its right on that same line, up to the next item (or a capped max
-// width). Misses labels stacked above their blank rather than beside it,
-// and won't detect table grids at all — both acceptable for a first pass,
-// since every candidate lands in the Form Type Editor for review anyway.
+// width). Misses labels stacked above their blank rather than beside it —
+// acceptable, since every candidate lands in the Form Type Editor for
+// review anyway.
+//
+// Table detection: over the lines NOT already claimed by a label ("...:")
+// (so a key/value block is never double-classified as a table), look for a
+// run of >=3 consecutive lines with the same item count whose item
+// x-positions line up column-by-column within a few points — a real grid,
+// not a coincidence. This is fuzzier than the AcroForm path's field-name
+// signal (no field names exist here at all) and can misfire on
+// coincidentally-aligned text; every result still lands in the Form Type
+// Editor for review before anything is saved.
 function extractVectorPdfCandidates(pages) {
   const LINE_TOLERANCE = 3;
   const GAP_AFTER_LABEL = 4;
   const MIN_FIELD_WIDTH = 40;
   const MAX_FIELD_WIDTH = 220;
+  const GRID_X_TOLERANCE = 5;
+  const MIN_GRID_ROWS = 3; // header row + >=2 data rows, to keep false positives down
   const usedKeys = [];
-  const candidates = [];
+  const usedRowsKeys = [];
+  const headerCandidates = [];
+  const tableCandidates = [];
 
   for (const { pageIndex, items } of pages) {
     const lines = [];
@@ -3764,8 +4639,12 @@ function extractVectorPdfCandidates(pages) {
       line.items.push({ str, x, y, width, height });
     }
     for (const line of lines) line.items.sort((a, b) => a.x - b.x);
+    lines.sort((a, b) => b.y - a.y); // top-to-bottom, needed for the grid run-detection below
 
-    for (const line of lines) {
+    const isLabelLine = lines.map(line => line.items.some(it => /:\s*$/.test(it.str)));
+
+    lines.forEach((line, idx) => {
+      if (!isLabelLine[idx]) return;
       for (let i = 0; i < line.items.length; i++) {
         const it = line.items[i];
         if (!/:\s*$/.test(it.str)) continue;
@@ -3779,15 +4658,51 @@ function extractVectorPdfCandidates(pages) {
         const width = Math.min(MAX_FIELD_WIDTH, available);
         const key = uniqueId(slugify(label), usedKeys);
         usedKeys.push(key);
-        candidates.push({
+        headerCandidates.push({
           key, label, page: pageIndex,
           x: startX, y: it.y, width,
-          fontSize: Math.max(7, Math.round(it.height * 0.75)),
+          fontSize: Math.min(12, Math.max(7, Math.round(it.height * 0.75))),
         });
       }
+    });
+
+    const gridLines = lines.filter((line, idx) => !isLabelLine[idx] && line.items.length >= 2);
+    let i = 0;
+    while (i < gridLines.length) {
+      let runEnd = i;
+      while (
+        runEnd + 1 < gridLines.length &&
+        gridLines[runEnd + 1].items.length === gridLines[i].items.length &&
+        gridLines[runEnd + 1].items.every((it, colIdx) => Math.abs(it.x - gridLines[i].items[colIdx].x) <= GRID_X_TOLERANCE)
+      ) runEnd++;
+      const runLength = runEnd - i + 1;
+      if (runLength >= MIN_GRID_ROWS) {
+        const headerRow = gridLines[i];
+        const dataRows = gridLines.slice(i + 1, runEnd + 1);
+        const deltas = [];
+        for (let r = 1; r < dataRows.length; r++) deltas.push(dataRows[r - 1].y - dataRows[r].y);
+        const rowsKey = uniqueId("table", usedRowsKeys);
+        usedRowsKeys.push(rowsKey);
+        const columns = headerRow.items.map((it, colIdx) => {
+          const label = it.str.trim();
+          const next = headerRow.items[colIdx + 1];
+          const width = Math.min(MAX_FIELD_WIDTH, next ? Math.max(MIN_FIELD_WIDTH, next.x - it.x - GAP_AFTER_LABEL) : MAX_FIELD_WIDTH);
+          const key = uniqueId(slugify(label) || "col", usedKeys);
+          usedKeys.push(key);
+          return { key, label, x: it.x, width, fontSize: Math.min(12, Math.max(7, Math.round(it.height * 0.75))) };
+        });
+        tableCandidates.push({
+          title: "Table", rowsKey, page: pageIndex,
+          startY: dataRows[0].y,
+          spacing: deltas.length ? deltas.reduce((a, b) => a + b, 0) / deltas.length : (headerRow.y - dataRows[0].y),
+          rows: dataRows.length,
+          columns,
+        });
+      }
+      i = runEnd + 1;
     }
   }
-  return candidates;
+  return { headerCandidates, tableCandidates };
 }
 
 // Classifies an uploaded PDF's bytes and extracts field candidates —
@@ -3801,14 +4716,14 @@ async function classifyAndExtractPdf(bytes) {
 
   const form = pdfDoc.getForm();
   if (form.getFields().length > 0) {
-    const candidates = extractAcroFormCandidates(pdfDoc, form);
+    const { headerCandidates, tableCandidates } = extractAcroFormCandidates(pdfDoc, form);
     // Flatten so the resulting template has zero live fields — this
     // folder's fill engine is coordinate-draw only (see "Fill engine" in
     // CLAUDE.md), so a leftover live AcroForm field would just be dead
     // weight sitting under the drawn text, not a second path.
     form.flatten();
     const finalBytes = await pdfDoc.save();
-    return { kind: "acroform", candidates, finalBytes };
+    return { kind: "acroform", headerCandidates, tableCandidates, finalBytes };
   }
 
   let totalItems = 0;
@@ -3822,9 +4737,10 @@ async function classifyAndExtractPdf(bytes) {
     pageItems.push({ pageIndex: i - 1, items: content.items });
   }
   if (totalItems > 0) {
-    return { kind: "vector", candidates: extractVectorPdfCandidates(pageItems), finalBytes: bytes };
+    const { headerCandidates, tableCandidates } = extractVectorPdfCandidates(pageItems);
+    return { kind: "vector", headerCandidates, tableCandidates, finalBytes: bytes };
   }
-  return { kind: "image", candidates: [], finalBytes: bytes };
+  return { kind: "image", headerCandidates: [], tableCandidates: [], finalBytes: bytes };
 }
 
 // Resolves a saved field style to the matching pdf-lib StandardFonts value.
@@ -3848,6 +4764,91 @@ function resolveStandardFont(style) {
 async function getEmbeddedFont(doc, fontCache, standardFontName) {
   if (!fontCache.has(standardFontName)) fontCache.set(standardFontName, await doc.embedFont(standardFontName));
   return fontCache.get(standardFontName);
+}
+
+// ---------------------------------------------------------------------------
+// Output formatting for text/number/date fields (Form Type Editor's "Field
+// type" controls — see PDF-gen/CLAUDE.md). Purely a fill-time/print concern:
+// the stored value itself is never rewritten, matching this project's
+// existing precedent for the native date input (§26 in history.md) — a
+// field always keeps whatever string the user actually typed; only what
+// gets DRAWN onto the PDF changes.
+// ---------------------------------------------------------------------------
+
+// Parses the same three lenient date shapes looksLikeDate() already accepts
+// (army-style "15 MAR 26", ISO, slash) into a real Date, so a configured
+// output format has something to reformat. Returns null for anything that
+// doesn't match one of those shapes — formatting is then skipped and the
+// raw value is drawn as-is, same as an unconfigured field always has.
+const MONTH_ABBR = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+function parseLenientDate(str) {
+  const s = String(str).trim();
+  let m;
+  if ((m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s))) return new Date(+m[1], +m[2] - 1, +m[3]);
+  if ((m = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/.exec(s))) {
+    let year = +m[3]; if (year < 100) year += 2000;
+    return new Date(year, +m[1] - 1, +m[2]);
+  }
+  if ((m = /^(\d{1,2})\s*([A-Za-z]{3,9})\s*(\d{2,4})$/.exec(s))) {
+    const monthIdx = MONTH_ABBR.indexOf(m[2].slice(0, 3).toUpperCase());
+    if (monthIdx === -1) return null;
+    let year = +m[3]; if (year < 100) year += 2000;
+    return new Date(year, monthIdx, +m[1]);
+  }
+  return null;
+}
+
+// Renders a parsed date against a small token vocabulary (M/D/YY/YYYY/MMM —
+// the presets the Form Type Editor's "Output format" select offers, plus
+// anything else built from the same tokens). A single regex pass with
+// longest-alternative-first ordering (YYYY before YY, MMM before MM before
+// M, DD before D) — NOT sequential chained .replace() calls — because a
+// month abbreviation can itself contain a letter a later token would also
+// match (e.g. "MAR" has a bare M, "DEC" has a bare D); a chained replace
+// would re-scan and corrupt text it had just substituted in an earlier
+// step (caught by a real test: "DD MMM YY" produced "05 3AR 26" — the
+// already-substituted "MAR"'s M got clobbered by the trailing bare-M
+// replacement pass). One pass, each character consumed exactly once,
+// can't recurse into its own output.
+function formatDateForOutput(date, format) {
+  const month = date.getMonth() + 1, day = date.getDate(), year = date.getFullYear();
+  const pad = (n) => String(n).padStart(2, "0");
+  return format.replace(/YYYY|YY|MMM|MM|DD|M|D/g, (token) => {
+    switch (token) {
+      case "YYYY": return String(year);
+      case "YY": return String(year).slice(-2);
+      case "MMM": return MONTH_ABBR[month - 1];
+      case "MM": return pad(month);
+      case "DD": return pad(day);
+      case "M": return String(month);
+      case "D": return String(day);
+    }
+  });
+}
+
+// The one place a field's stored value turns into what actually gets drawn.
+// `validation` is the schema-level spec (type/maxLength/decimals/
+// dateFormat) — absent for anything with no validation configured (an
+// overlay, a layout-only "page"/"pageOf" stamp), in which case the value is
+// drawn completely unchanged, same as before this existed.
+function formatValueForType(value, validation) {
+  if (value === undefined || value === null || value === "" || !validation) return value;
+  if (validation.type === "number" && validation.decimals != null) {
+    const n = Number(value);
+    if (!isNaN(n)) return n.toFixed(validation.decimals);
+  } else if (validation.type === "date" && validation.dateFormat && validation.dateFormat !== "asEntered") {
+    const parsed = parseLenientDate(value);
+    if (parsed) return formatDateForOutput(parsed, validation.dateFormat);
+  } else if (validation.type === "text" && validation.maxLength) {
+    // Defensive, not the primary guard — the data-entry input's own
+    // `:maxlength` already keeps this from happening in the normal case;
+    // this just makes sure the PDF never shows more than configured
+    // regardless of how the value got there (sample data, a saved
+    // Default, an import), matching this project's own AcroForm-path
+    // precedent for the same guarantee (history.md §6).
+    return String(value).slice(0, validation.maxLength);
+  }
+  return value;
 }
 
 // Draws one field's value at its configured coordinate onto the given page.
@@ -3914,19 +4915,34 @@ async function drawOverlays(doc, pages, fontCache, layout, form, copyIndex) {
 // Returns an array of loaded, filled, NOT-yet-merged PDFDocuments — one per
 // physical copy needed to fit all rows. Shared by every form type, driven
 // purely by a schema's `templateB64` + field layout — nothing form-type-
-// specific about this loop, so a schema fetched from form-types.json needs
-// no per-type wrapper the way pdfgen-vanilla-image's copies2408_XX() was.
-async function buildCoordinateCopies(templateB64, form, layout) {
+// specific about this loop, so a schema loaded from the server needs no
+// per-type wrapper the way pdfgen-vanilla-image's copies2408_XX() was.
+async function buildCoordinateCopies(schema, form, layout) {
   const { PDFDocument } = PDFLib;
-  const templateBytes = b64ToBytes(templateB64);
-  // A header-only form type (e.g. one created via "Upload PDF" or the
-  // manual schema builder without "Include a repeating row table") has no
-  // `rows` array at all and a 0-row-capacity page1/page2 — always exactly
-  // one physical copy in that case, since there's no table to overflow.
-  const rows = form.rows || [];
-  const page1 = layout.page1, page2 = layout.page2;
-  const rowsPerCopy = (page1.rows || 0) + (page2.rows || 0);
-  const totalCopies = rowsPerCopy > 0 ? Math.max(1, Math.ceil(rows.length / rowsPerCopy)) : 1;
+  const templateBytes = b64ToBytes(schema.templateB64);
+  // Every table this schema declares — the primary (growable) table, whose
+  // grid/columns live at the layout's own top level, plus every "extra"
+  // (normally fixed-count) table — is treated uniformly here: each has its
+  // own maxRows (the cap that decides when THAT table's data needs another
+  // physical copy of the whole instance, header included) and its own
+  // page1/page2 grid to split across. A table whose data never exceeds its
+  // own cap simply has nothing left to draw on copies past the first — no
+  // special-casing needed for a table that in practice never grows past
+  // what it was seeded with (a Verification log, a Remarks list): every
+  // copyIndex beyond 0 slices an empty chunk automatically. A header-only
+  // form type (e.g. one created via "Upload PDF"/the manual builder with no
+  // table at all) has no primary cols and no extraTables — always exactly
+  // one physical copy, since there's no table to overflow.
+  const allTables = [{ rowsKey: "rows", maxRows: layout.maxRows, page1: layout.page1, page2: layout.page2, cols: layout.cols }]
+    .concat(layout.extraTables || [])
+    .filter(t => Object.keys(t.cols).length);
+  const tableCap = (t) => t.maxRows != null ? t.maxRows : ((t.page1.rows || 0) + (t.page2.rows || 0));
+  const totalCopies = allTables.length
+    ? Math.max(1, ...allTables.map(t => {
+        const cap = tableCap(t);
+        return cap > 0 ? Math.ceil((form[t.rowsKey] || []).length / cap) : 1;
+      }))
+    : 1;
   const exclude = layout.repeatingHeaderExclude || [];
   const docs = [];
 
@@ -3941,45 +4957,46 @@ async function buildCoordinateCopies(templateB64, form, layout) {
     // ever overflow into multiple physical copies) has neither, and
     // drawStyledField(..., undefined) would crash reading properties off
     // an undefined spec.
-    if (layout.header.page) await drawStyledField(templateDoc, pages, fontCache, String(copyIndex + 1), layout.header.page);
-    if (layout.header.pageOf) await drawStyledField(templateDoc, pages, fontCache, String(totalCopies), layout.header.pageOf);
+    // ...and only when `page`/`pageOf` are layout-only keys. A custom type
+    // built from an uploaded PDF very often has a REAL extracted field
+    // called "page" (every DA form has a "PAGE" box), which lives in
+    // form.header as user-entered data — stamping the copy number into that
+    // same spec drew the page number directly on top of the user's own
+    // value. Every built-in type keeps these as layout-only keys, so their
+    // running stamp is unchanged.
+    if (layout.header.page && !("page" in form.header)) await drawStyledField(templateDoc, pages, fontCache, String(copyIndex + 1), layout.header.page);
+    if (layout.header.pageOf && !("pageOf" in form.header)) await drawStyledField(templateDoc, pages, fontCache, String(totalCopies), layout.header.pageOf);
     for (const key of Object.keys(form.header)) {
       if (exclude.includes(key) && copyIndex > 0) continue; // e.g. remarks: copy 1 only
-      if (layout.header[key]) await drawStyledField(templateDoc, pages, fontCache, form.header[key], layout.header[key]);
-    }
-
-    const start = copyIndex * rowsPerCopy;
-    const chunk = rows.slice(start, start + rowsPerCopy);
-    for (let i = 0; i < chunk.length; i++) {
-      const row = chunk[i];
-      const onPage1 = i < page1.rows;
-      const grid = onPage1 ? page1 : page2;
-      const rowIdx = onPage1 ? i : i - page1.rows;
-      const y = grid.startY - rowIdx * grid.spacing;
-      const pageIndex = onPage1 ? 0 : 1;
-      for (const key of Object.keys(layout.cols)) {
-        // yOffset (default 0) lets a column sit on a second physical line
-        // below the row's main baseline — e.g. DA 2408-17's 12 "check
-        // number" columns print one line under that row's Item/Nomenclature/
-        // Qty line, not beside them.
-        const spec = { ...layout.cols[key], page: pageIndex, y: y + (layout.cols[key].yOffset || 0) };
-        await drawStyledField(templateDoc, pages, fontCache, row[key], spec);
+      if (layout.header[key]) {
+        const validation = headerFieldSpec(schema, key)?.validation;
+        await drawStyledField(templateDoc, pages, fontCache, formatValueForType(form.header[key], validation), layout.header[key]);
       }
     }
 
-    // Fixed-count extra tables (Verification log, Remarks — never overflow,
-    // never repeat: they're document-level content, not per-copy like the
-    // header, so they're only drawn once, on the first physical copy).
-    if (copyIndex === 0) {
-      for (const table of layout.extraTables || []) {
-        const tableRows = form[table.rowsKey] || [];
-        for (let idx = 0; idx < tableRows.length; idx++) {
-          const row = tableRows[idx];
-          const y = table.startY - idx * table.spacing;
-          for (const key of Object.keys(table.cols)) {
-            const spec = { ...table.cols[key], page: table.page, y: y + (table.cols[key].yOffset || 0) };
-            await drawStyledField(templateDoc, pages, fontCache, row[key], spec);
-          }
+    for (const table of allTables) {
+      const cap = tableCap(table);
+      const allRows = form[table.rowsKey] || [];
+      // cap === 0 (never configured) falls back to the pre-existing
+      // "everything on copy 0 only" behavior rather than an empty window —
+      // matches how a schema with no real per-page capacity yet behaved
+      // before this table had any position at all.
+      const chunk = cap > 0 ? allRows.slice(copyIndex * cap, copyIndex * cap + cap) : (copyIndex === 0 ? allRows : []);
+      for (let i = 0; i < chunk.length; i++) {
+        const row = chunk[i];
+        const onPage1 = i < table.page1.rows;
+        const grid = onPage1 ? table.page1 : table.page2;
+        const rowIdx = onPage1 ? i : i - table.page1.rows;
+        const y = grid.startY - rowIdx * grid.spacing;
+        const pageIndex = onPage1 ? 0 : 1;
+        for (const key of Object.keys(table.cols)) {
+          // yOffset (default 0) lets a column sit on a second physical line
+          // below the row's main baseline — e.g. DA 2408-17's 12 "check
+          // number" columns print one line under that row's Item/Nomenclature/
+          // Qty line, not beside them.
+          const spec = { ...table.cols[key], page: pageIndex, y: y + (table.cols[key].yOffset || 0) };
+          const validation = columnSpecByKey(schema, key)?.validation;
+          await drawStyledField(templateDoc, pages, fontCache, formatValueForType(row[key], validation), spec);
         }
       }
     }
@@ -3998,7 +5015,7 @@ async function buildCoordinateCopies(templateB64, form, layout) {
 // the schema as a plain argument instead. `layout` defaults to the schema's
 // own `defaultLayout` (its fetched, un-overridden field positions/styling).
 function buildCopiesGeneric(schema, form, layout) {
-  return buildCoordinateCopies(schema.templateB64, form, layout || schema.defaultLayout);
+  return buildCoordinateCopies(schema, form, layout || schema.defaultLayout);
 }
 
 async function buildFilledPdfGeneric(schema, form, layout) {

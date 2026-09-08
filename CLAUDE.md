@@ -94,6 +94,13 @@ This project spans seven sibling folders under `DEVELOPMENT/`:
   accordingly) — see "Upload PDF workflow" and "Manual form-type
   structure builder" below — and everything it needed from the shared
   Form Type Editor/fill engine to support that is documented there too.
+- **`05-pdfgen-database/`** — forked from `04-pdfgen-vanilla/`, answering a
+  different kind of question again: not an engine or registry capability,
+  but whether the *persistence* layer can move off `localStorage` onto a
+  real server + database, per the "Stack" section's `localStorage`-as-
+  cache design — see "Database backend, and table authoring inside the
+  Form Type Editor" below for the Express/SQLite backend (`server/`) and
+  the two custom-form-type workflow gaps closed alongside it.
 - **`pdfgen-spring/`** — empty, reserved for the future Spring Boot
   backend.
 
@@ -1018,7 +1025,9 @@ deduped.
 Since extraction always misses some fields and invents some false ones,
 the Form Type Editor gained an add/remove capability for header fields
 ("+ Add field", a per-field ×) — scoped to `custom: true` types only; a
-built-in type's fields stay structurally fixed. Saving a custom type's
+built-in type's fields stay structurally fixed **in this folder**
+(`05-pdfgen-database` later removes this restriction — see "Database
+backend..." below). Saving a custom type's
 editor session writes `editorDraft` straight into `schema.defaultLayout`
 (replacing it wholesale) rather than layering it as an override the way
 a built-in type's `fieldLayouts` entry does — a custom type has no
@@ -1044,8 +1053,9 @@ A custom form type's fields/tables can also be authored directly, without
 a PDF at all (or alongside one — see above), via one builder shared by
 "+ New form type" (create) and a custom type's "Edit" (full structure,
 not just label/banner — a built-in type's "Edit" still only touches
-label/banner, since its structure is load-bearing against real PDF-
-derived positions):
+label/banner **in this folder**, since its structure is load-bearing
+against real PDF-derived positions; `05-pdfgen-database` later removes
+this restriction too — see "Database backend..." below):
 
 - **Unlimited field groups** — pure UI grouping; a schema's header keys
   stay flat regardless of how many groups they're split across.
@@ -1073,6 +1083,328 @@ already-existing type with the old broken `rows: 0` placeholder starts
 drawing its row data again the moment its layout is next read, with no
 manual re-save required.
 
+## Database backend, and table authoring inside the Form Type Editor (`05-pdfgen-database`)
+
+`05-pdfgen-database` is a fork of `04-pdfgen-vanilla` (see "Repository
+layout" above) that replaces `localStorage` with a real server + database
+— see `server/` (Express, `better-sqlite3`) and its own `db.js` for the
+schema. The frontend's persistence layer (`load()`/`loadRegistry()`/the
+8 `persist*()` functions in `index.html`) now syncs to `/api/*` endpoints
+via a small debounced `queueSync()` helper instead of `localStorage.setItem`
+— everything else (the schema-driven UI, fill engine, admin registry) is
+untouched. A "Saved to server / Saving… / Save failed" pill in the header
+reflects the sync queue's live state.
+
+**The built-in form types moved into the database too**, on request, after
+first shipping this fork with them left as a static `form-types.json` (837KB
+of schemas + base64 PDF bytes) — a deliberate scope decision at the time,
+since nothing in the app ever writes to that data. A `form_types` table
+(`server/db.js`) is seeded from `form-types.json` once, on first boot, if the
+table is empty; the file is never read again after that (by the server or by
+the browser — `index.html` no longer fetches it directly, `loadFormTypes()`
+now reads `boot.formTypes` off the same `/api/bootstrap` response as
+everything else). Still read-only from the app's own side, same as before —
+no `PUT` endpoint for this table; a built-in type's label/banner override
+still goes through `form_type_overrides`, and its structure still can't be
+edited (only a `custom: true` type's can). `form-types.json` itself is left
+in place on disk (harmless, just inert after the first boot) rather than
+deleted, in case it's ever needed to reseed a fresh database.
+
+This fork also closes two gaps in the custom-form-type workflow that only
+existed in `04-pdfgen-vanilla`:
+
+- **"+ Add table" in the Form Type Editor** — previously, adding a table to
+  a custom type required leaving the visual editor for the separate
+  Structure Builder modal. The editor's toolbar now has its own
+  `+ Add table` (custom types only, same `editorSchema.custom` guard as
+  `+ Add field`), plus a per-table `+ Add column` and a remove `×` on both
+  table and column, in the field list (now grouped by table —
+  `editorTableGroups()` — instead of one flat "Table columns" list). A
+  table added this way is always a fixed-row "extra" table (the shape DA
+  2408-17's Verification/Remarks lists use), never the primary growable
+  table — the Structure Builder still owns that case. `confirmSaveEditor`
+  reconciles these back into the schema's own `sections` via
+  `reconcileCustomFormTypeTables`, mirroring `reconcileCustomFormTypeFields`
+  for header keys — including the same "don't bake a disambiguation prefix
+  into the saved label" trap that function already existed to avoid: an
+  earlier version of this feature prefixed a multi-table custom type's
+  column labels with their table's title for on-screen disambiguation
+  (matching a precedent from `validateInstance`), but since a Save
+  round-trips `editorLabels` straight back into `schema.sections`, that
+  prefix was getting permanently baked into the stored label on every
+  edit. Fixed by not prefixing custom types at all (matching the header
+  field precedent) — the per-table grouping in the field list already
+  disambiguates on screen, so the prefix was redundant besides being
+  destructive.
+- **Automatic table detection on "Upload PDF"** — `classifyAndExtractPdf`
+  now returns `{ headerCandidates, tableCandidates, finalBytes }` instead
+  of one flat candidate list, for both extraction paths:
+  - **AcroForm** — reliable, confirmed against this project's own
+    `reference-acroform/A2408_18.pdf` and `A2408_17.pdf`: a real repeating
+    row shows up as multiple fields sharing a base name with a numeric
+    suffix (LiveCycle's own convention — `InspNo`, `InspNo_1`, `InspNo_2`,
+    ...; *not* the `[n]` widget-array index, which every field carries
+    unconditionally as a constant instance suffix and was a red herring
+    initially assumed to be the row signal). `extractAcroFormCandidates`
+    groups fields by (page, base name), requires a *consecutive* 0,1,2,...
+    run of that suffix to treat a group as a real column (ruling out a
+    coincidentally `_N`-suffixed unrelated field), derives `startY`/
+    `spacing` from the run's real Y positions, and `clusterColumnsIntoTables`
+    merges columns sharing the same page/row-count/grid into one table.
+    Verified end to end: uploading `A2408_18.pdf` correctly detects its
+    real 14-row front-page and 15-row back-page tables (matching "Multi-table
+    support" above's documented ground truth) instead of 29 flat fields.
+  - **Vector-text (flattened) PDFs** — fuzzier by nature (no field names
+    survive flattening at all): `extractVectorPdfCandidates` looks for a
+    run of ≥3 consecutive text lines (outside anything already claimed by
+    the existing label/blank extraction) whose item x-positions align
+    within a few points, treating the first as a column-header row. This
+    works and was verified against synthetic aligned text — but **finds
+    nothing on this project's own `reference-plain/` files**, because a
+    blank fillable template's data rows are empty ruled boxes (vector line
+    drawing, invisible to text-content extraction), not text — there is
+    nothing for a text-alignment heuristic to align against. It still
+    helps for a flattened PDF whose table cells *do* contain visible text
+    (e.g. sample/placeholder values). Detecting a purely blank grid would
+    need a materially different approach (parsing the PDF content stream's
+    line/rect drawing operators via `page.getOperatorList()`, not just
+    `getTextContent()`) — not attempted here.
+
+**Rendering rules these features had to learn the hard way** (see `history.md`
+§27 for the full incidents):
+
+- **A widget's box height is not its font size.** Form cells are routinely far
+  taller than their text; the AcroForm extractor clamps derived font sizes to
+  6–12pt and centres the baseline in the box, rather than trusting
+  `height * 0.7` and `rect.y` raw.
+- **`page`/`pageOf` are only the running "Page X of Y" stamp when they're
+  layout-only keys.** An uploaded form's *extracted* fields very often include
+  a real "PAGE" box; stamping into that spec overprints the user's own value.
+- **An `x-for` `:key` over `schema.sections` must be unique within a schema
+  AND different across schemas.** `section.title` isn't unique (auto-detected
+  tables share a default title) and a bare index isn't schema-specific (Alpine
+  then reuses one section kind's DOM node for another). It's keyed on
+  `activeFormType + ':' + index`. A duplicate key here breaks reactivity for
+  the *entire page*, not just the offending list — the same catastrophic
+  failure mode "Form-type registry as data" above documents for `FORM_TYPES`.
+
+**Built-in types (DA 2408-17/18/20) are now structurally editable the same
+way a custom type is** — "Edit" always opens the full Structure Builder
+(fields, tables, columns), and the Form Type Editor's `+ Add field`/
+`+ Add table`/remove controls work for any type. Delete and Upload/Replace
+PDF stay custom-only (a built-in type must not become deletable, and
+swapping its real template is a separate, riskier action than structural
+editing). Turned out to need almost no new code — `confirmFormTypeBuilder`'s
+edit path and `openFormTypeBuilderForEdit` were already fully generic, keyed
+by type, not a `.custom` flag; they already correctly preserved an existing
+field/column's real position and a built-in type's real page-capacity when
+only *some* fields change. The actual work was removing the `.custom` gates,
+adding a `PUT /api/registry/form-types` write endpoint (`form_types`
+mirrored `custom_form_types`'s read path but had no write one yet), and — the
+harder part — three real bugs the extension surfaced, none reachable while
+this only ever ran against custom types (see `history.md` §30):
+
+- **The Structure Builder's edit path silently dropped the "Page X of Y"
+  running-stamp keys.** It rebuilds `defaultLayout.header` purely from
+  whatever's in the builder's own field-group list — but `page`/`pageOf`
+  are layout-only keys that were never real `sections.fields` entries to
+  begin with (see the rendering rule above), so they simply weren't in that
+  rebuild. Every custom type never had these keys, so this never fired
+  before. Fixed by carrying them forward from the prior layout untouched,
+  same treatment as `page1`/`page2`/`overlays`.
+- **A pre-existing, unrelated Alpine crash**, exposed only because editing
+  a built-in type is the first thing that made this exact path (Form Types
+  list → "Edit"/"+ New form type") get exercised thoroughly: two full-screen
+  `.modal-backdrop` overlays were staying mounted simultaneously (the
+  Structure Builder never closed the Form Types list modal underneath it —
+  "Upload PDF" already did this correctly, "Edit"/"+ New form type" didn't).
+  Fixed for consistency, but wasn't the actual cause of the crash itself.
+- **The real cause**: a `<template x-if>` added for this feature's own
+  template-risk warning text wrapped bare text directly, with no element
+  child. Alpine's `x-if`/`x-for` need a `<template>`'s singular child to be
+  an *element* (`template.content.firstElementChild`); a bare text node
+  makes that lookup return `null`, and Alpine mounting onto that `null`
+  threw `Cannot set properties of null (setting '_x_dataStack')` — every
+  `<template x-if>`/`x-for` elsewhere in this file already wraps its content
+  in a real element for exactly this reason. Fixed by wrapping the new
+  warning text in `<span>`.
+
+## Unified table row-capacity model: front/back/total, for every table (`05-pdfgen-database`)
+
+Every table a schema declares — the primary (growable) table and any
+fixed-count "extra" table alike — now carries the same three properties,
+editable from both the admin **Structure Builder** and the visual **Form
+Type Editor**, because real forms routinely run a table from the front
+page onto the back: **max rows on the front page**, **max rows on the
+back page**, and **total rows per instance** (the cap that decides when a
+table's data needs another physical copy of the whole form, header
+repeated — see "Fill engine" below). This generalizes what "Database
+backend..." above already gave fixed-count tables alone (their own
+`page1`/`page2` split, added when the auto form analyser's detected
+tables needed manual fixing) to the *primary* table too, and unifies the
+fill engine so any table can overflow, not just the one designated primary.
+
+- **Schema shape**: `defaultLayout` gained a top-level `maxRows` (the
+  primary table's own total-rows-per-instance cap), alongside its existing
+  `page1`/`page2`. Defaults to `page1.rows + page2.rows` when unset — same
+  self-heal precedent as `page1`'s own 0-capacity default just above.
+  `normalizeExtraTable()` (unchanged) still normalizes an extra table's
+  `page1`/`page2`/`maxRows` the same way.
+- **Fill engine (`buildCoordinateCopies`) unified**: the primary table and
+  every extra table are now walked as one list (`allTables`), each
+  contributing to the document's physical-copy count via its own
+  `maxRows` — `Math.ceil(tableRows.length / table.maxRows)`, maxed across
+  every table. A table whose data never exceeds its own cap (every
+  fixed-count table in practice, since none has an "add row" control)
+  naturally has nothing to draw on copies past the first — no more
+  special-cased `copyIndex === 0` gate for extra tables; a table simply
+  slices an empty chunk once its rows are exhausted. This is a genuine
+  simplification, not just new capability: the same per-table
+  `page1`/`page2` splitting logic that extra tables already had now
+  literally *is* how the primary table's overflow works too, instead of
+  two parallel code paths.
+- **Admin Structure Builder** ("+ New form type"/"Edit"): a table's single
+  "Fixed rows" number was replaced with four controls, for *every* table
+  (primary or fixed) — **Table shows on** (Front page / Back page / Both
+  pages, a friendly selector that seeds a sensible front/back split — all-
+  front, all-back, or an even split respectively) plus the three raw
+  numbers themselves (front, back, total), independently fine-tunable
+  afterward. Real per-page `startY`/`spacing` positioning stays the Form
+  Type Editor's job, same division of labor as before (Structure Builder =
+  shape, Form Type Editor = position/style) — editing row counts here
+  never disturbs whatever position a table already had.
+- **Form Type Editor's Row Grid panel unified**: previously the primary
+  table's per-page row count was a read-only caption ("N rows on this
+  page, fixed by the physical form layout") while only fixed-count extra
+  tables got editable front/back/total fields (added when "Database
+  backend..." first gave extra tables a page1/page2 split). Since built-in
+  types are now fully structurally editable anyway (the "Built-in types...
+  structurally editable" section above), the primary table's row counts
+  are editable here too now, through the exact same three fields —
+  `editorCurrentTable()` resolves to whichever table a selected column
+  belongs to (an extra table's own record, or `editorDraft` itself for the
+  primary table, since both carry `page1`/`page2`/`maxRows` in the same
+  shape) so one code path, one panel, serves both.
+- **Document data-entry view**: each table section's header now shows its
+  own front/back/total counts at the top right (`tableCapacityLabel()`,
+  reading the active schema's real layout via `getLayout()`, not just the
+  schema definition — a saved Form Type Editor override changes what's
+  shown here without touching `sections`), so a user filling in a table
+  can see, at a glance, how close they are to triggering a new physical
+  copy.
+- **Scope decisions confirmed before building** (both matter for anyone
+  extending this further): exceeding "total rows per instance" generates
+  another **physical copy of the same Form instance** (header repeated,
+  "Page X of Y" increments) — not a brand-new separate instance in the
+  sidebar; and a column's **style** (font family/size/bold/italic/allow-
+  overflow) stays shared across its front-page and back-page printing —
+  only *position*/spacing differ per page, not appearance.
+
+## Form Type Editor: on-canvas labels reflect real position and style (`05-pdfgen-database`)
+
+A field/column's label used to float in a small fixed-style tag *above*
+its box (`.editor-box-label`, always 9px bold, editor-chrome colored) —
+readable, but telling you nothing about how the field will actually
+print. It now renders *inside* the box itself, in the field's own font
+family, size, weight, and italic setting (`editorBoxStyle()` maps the same
+`fontFamily`/`bold`/`italic` values the fill engine draws with to real
+CSS — `Helvetica`→a sans stack, `TimesRoman`→a serif stack, `Courier`→a
+monospace stack — clamped to a legible minimum size for the editor UI).
+Lets an admin see, directly on the rendered PDF background, both *where*
+a field sits and roughly *how* it will look, in one glance instead of two.
+
+## Form Type Editor: field type + output formatting (`05-pdfgen-database`)
+
+A header field or table column's data **type** (text/number/date) and its
+type-specific output options are now editable directly in the Form Type
+Editor's properties panel — previously this was only settable through the
+separate admin Structure Builder, and two of the three sub-options (max
+characters was invisible everywhere; decimal places and a date output
+format didn't exist at all) had no UI anywhere in the project.
+
+- **New properties on a field/column's `validation` spec**: `maxLength`
+  (text — already existed, just newly surfaced here), `decimals` (number
+  — new), `dateFormat` (date — new, one of a handful of presets: "As
+  entered" i.e. no reformatting, `M-D-YY`, `MM/DD/YYYY`, `YYYY-MM-DD`,
+  `DD MMM YY`). Purely a **fill-time/print** concern — the stored value
+  itself is never rewritten, same precedent as the native date input
+  (`looksLikeDate()`'s leniency is untouched): a field always keeps
+  whatever string the user actually typed; only what gets *drawn onto the
+  PDF* changes.
+- **`editorValidation`** (`{ header: {}, col: {} }`) is a new piece of
+  editor-session state mirroring `editorLabels` exactly — seeded from the
+  schema's current `validation` when the editor opens, edited via
+  `editorSelectedValidation()` in the properties panel, reconciled back
+  into `schema.sections` on Save by the same functions that already
+  reconcile labels (`reconcileFormTypeFields`, `reconcileFormTypeTables`)
+  plus a new **`reconcilePrimaryTableColumns`** — the primary (growable)
+  table's own columns had *no* reconciliation path back into
+  `schema.sections` at all before this (its key set can't change from
+  this editor, so nothing needed one), meaning a label or type edit on a
+  primary column would previously have been silently lost on Save.
+- **Fill engine**: `buildCoordinateCopies` now takes the `schema` itself
+  (not just its `templateB64`) so it can look up each field/column's
+  `validation` (`headerFieldSpec`/the new schema-wide `columnSpecByKey`)
+  and run the value through `formatValueForType()` before drawing —
+  `toFixed(decimals)` for a number, a parsed-and-reformatted date via
+  `parseLenientDate()`/`formatDateForOutput()` for a date with a real
+  output format configured, a defensive `slice(0, maxLength)` for text
+  (the data-entry input's own `:maxlength` is the primary guard; this
+  just guarantees the same cap regardless of how a value got there —
+  sample data, a saved Default, an import — matching this project's own
+  AcroForm-path precedent for the identical guarantee, history.md §6).
+
+**Two real bugs found by testing this, both fixed**:
+
+- **Date-format token collision.** `formatDateForOutput` originally chained
+  sequential `.replace()` calls (YYYY, then YY, then MMM, then MM, DD, M,
+  D) — but a month abbreviation can itself contain a letter a *later*
+  token in that chain would also match (`"MAR"` has a bare M, `"DEC"` has
+  a bare D), so a previously-substituted month name got corrupted by a
+  later pass: `"DD MMM YY"` produced `"05 3AR 26"`, not `"05 MAR 26"`.
+  Fixed with a single regex pass (`/YYYY|YY|MMM|MM|DD|M|D/g` with a
+  replacer callback, longest-alternative-first) — each character position
+  is consumed exactly once, so substituted text can never be re-scanned.
+- **`reconcileFormTypeFields` was promoting `page`/`pageOf` into real
+  schema fields on every Save, for every type.** These two are the
+  running "Page X of Y" stamp's layout-only keys (see "Fill engine" in
+  "Database backend..." above) — always present in `editorDraft.header`
+  (the stamp needs a position) but never meant to be real
+  `schema.sections` fields unless a type genuinely has one (e.g.
+  extracted from an uploaded PDF's real "PAGE" box). The reconcile
+  function blindly turned *every* `editorDraft.header` key into a real
+  field, which — caught only by actually saving through the visual editor
+  for a built-in type, not by re-reading the code — then makes
+  `emptyInstance()` seed `form.header.page`/`.pageOf` with real
+  (empty-string) data, and `buildCoordinateCopies` only draws the
+  automatic stamp when that key is *absent* from `form.header`. Net
+  effect: saving *any* field edit through this editor, for any type,
+  silently disabled the running page stamp for every instance created
+  afterward. Fixed by excluding `page`/`pageOf` from promotion unless one
+  already was a real field before this reconcile ran.
+
+## Bug: adding a form type to a document type after documents already exist (`05-pdfgen-database`)
+
+A form type's data lives on each document as one array per form type
+(`forms<Type>`, per "UI architecture" above), created once — by
+`emptyLogbookForms` — at the moment a document is first made, seeded only
+for whichever form types were assigned to its document type *at that
+time*. "Forms in this document" (the sidebar list) is driven by a
+document type's *current* assignment (`documentTypeForms`, via
+`formTypesFor`/`formTypesInCurrent()`), independent of what arrays a given
+document actually has — so assigning a form type to a document type
+*after* documents of that type already exist correctly makes the new type
+show up in every one of them, with its sidebar count sitting at "(0)" (`
+instancesOf()` already defended with `|| []`). But `addFormInstance` (the
+"+" button) assumed the array already existed and called `.push()`
+straight on it, crashing (`Cannot read properties of undefined
+(reading 'push')`) the moment anyone tried to actually create the first
+instance of that newly-assigned type on a pre-existing document. Fixed by
+having `addFormInstance` lazily create the array on first use if missing
+(`deleteFormInstance` got the same defensive fallback, though it isn't
+reachable in practice — deleting requires an instance to already exist,
+which requires `addFormInstance` to have succeeded first).
+
 ## Non-goals (for now)
 
 - OCR-based field detection for a scanned/photographed PDF with no real
@@ -1081,9 +1413,13 @@ manual re-save required.
   a flattened/vector PDF's real text layer), both deterministic and
   AI-free, but a genuine scan still just opens the placement UI manually,
   against the real page as a visual reference.
-- Automatic table/repeating-row detection during PDF upload — every
-  extracted candidate is a one-off header field; a real table still needs
-  the manual structure builder's "+ Add table."
+- Automatic table/repeating-row detection during PDF upload, in
+  `04-pdfgen-vanilla` — every extracted candidate is still a one-off
+  header field there; a real table still needs the manual structure
+  builder's "+ Add table." (`05-pdfgen-database` no longer has this
+  limitation — see "Database backend, and table authoring inside the Form
+  Type Editor" above, though its vector-text detection has its own real
+  limitation described there.)
 - Round-trip import from a filled flat PDF — there are no fields left to
   read back after drawing text, so the app's own data model is the source
   of truth, not the PDF.
