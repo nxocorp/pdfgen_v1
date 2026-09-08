@@ -7,7 +7,7 @@ formalized into a file (e.g. a draft Postgres schema).
 
 ## Repository layout
 
-This project spans eight sibling folders under `DEVELOPMENT/`:
+This project spans nine sibling folders under `DEVELOPMENT/`:
 
 - **`PDF-gen/`** (this folder) — design docs, the visual mockup source
   (`mockup/`), and the reference PDF sets (`reference-acroform/`,
@@ -108,6 +108,14 @@ This project spans eight sibling folders under `DEVELOPMENT/`:
   clean seed (no leftover dev/test data from `05`'s own active
   development). `05-pdfgen-database/` keeps developing independently past
   this point — the two are not required to stay in sync.
+- **`07-pdfgen-dbnormal/`** — forked from `05-pdfgen-database/` (on its own
+  git branch, `07-pdfgen-dbnormal`), answering a production-scaling
+  question raised directly by the user: with 15+ form types per document
+  type, up to 10 instances each, and potentially thousands of data rows
+  per instance over an aircraft's service life, does the document-level
+  JSON blob storage `05`/`06` both use hold up? See "Row-level
+  normalization" below for the `form_instance_rows` table this fork adds
+  and the real, measured write-amplification fix that came with it.
 - **`pdfgen-spring/`** — empty, reserved for the future Spring Boot
   backend.
 
@@ -190,6 +198,75 @@ folders are independent from this point on, and a fix made in one isn't
 automatically expected to be ported to the other unless it's a real bug
 in shared logic (in which case, check both, same as the five-vanilla-
 tracks note above already advises for that folder family).
+
+## Row-level normalization (`07-pdfgen-dbnormal`)
+
+`05-pdfgen-database`/`06-pdfgen_v1.0.0` store a form instance's entire
+data — header **and every table row** — as one JSON blob
+(`form_instances.data_json`). Asked directly whether this holds up in
+production at real scale (15+ form types per document type, up to 10
+instances each, potentially thousands of rows per instance accumulated
+over an aircraft's service life): no, for two separate reasons, only one
+of which is the obvious one.
+
+- **Storage shape** — rows are the unbounded-growth dimension (a header
+  is a handful of fixed fields; a table can grow for years), so blobbing
+  them together means adding one row re-serializes and rewrites
+  everything already there.
+- **The write path — the one that actually bites first.** `server.js`'s
+  `/api/documents` handler deleted and reinserted **every document's
+  every instance's every row**, on **every single save**, regardless of
+  which one field on which one row actually changed (`persistLogbooks()`
+  sends the whole `logbooks` array on every debounced edit, matching the
+  cache-plus-flush-queue design in "Stack" above — but the server then
+  wrote all of it back out unconditionally). At real scale this is the
+  dominant cost, not blob size.
+
+**Fix, entirely server-side — nothing in `index.html`'s data model, wire
+format, or persistence calls changed:**
+
+- **New table**: `form_instance_rows` (`id`, `instance_id`, `rows_key` —
+  which of a schema's tables this row belongs to, since a schema can
+  declare more than one, see "Multi-table support" — `row_index`,
+  `data_json`), one real SQL row per data row instead of an array entry
+  inside a growing blob. `form_instances.data_json` shrinks to just
+  `{ header, overlayData }`.
+- **Read path** (`readDocuments`) reassembles the exact same
+  `{ header, overlayData, rows, verifRows, ... }` shape the client has
+  always sent/expected (`serializeInstance`/`deserializeInstance` in
+  `index.html`) by merging the small blob with rows fetched from the new
+  table, grouped by `rows_key` — this is *why* the client needs zero
+  changes.
+- **Write path** (`replaceDocuments`) — real diffing, not blanket
+  delete-then-reinsert, at every level:
+  - `documents`/`form_instances`: upsert-by-id, delete only whatever
+    id is genuinely missing from the incoming set (still a full-list
+    comparison each save, but cheap — these two tables stay small even
+    at real scale; a document/instance *count* in the hundreds is not
+    the problem, unbounded *row* growth per instance is).
+  - `form_instance_rows` (`syncInstanceRows`): a real content diff per
+    row — new rows are inserted, a row whose position or content
+    actually changed is updated, and a byte-identical row is **skipped
+    entirely, zero SQL executed for it**. Verified directly (temporary
+    write-count instrumentation, removed after confirming): editing one
+    field on one row of a 10-row instance produced exactly
+    `updated=1, skipped=9` — not a 10-row rewrite — while two sibling
+    instances in the same document, untouched, produced `skipped=3` and
+    `skipped=1` with zero writes.
+- **Defaults are deliberately NOT normalized this way** — `defaults`/
+  `default_instances` keep the original single-blob-per-instance shape.
+  A default is a snapshot saved once and rarely re-saved; it was never
+  the thing growing unbounded, so the extra complexity wouldn't pay for
+  itself there.
+
+**Verified**: a full round trip through the real app — created an
+instance, added rows, full **page reload** (forcing a fresh
+`/api/bootstrap` fetch and `documentFromWire` reconstruction from the
+now-normalized tables), confirmed every row came back in the correct
+order with the correct values, then ran the actual coordinate fill engine
+against the reloaded instance and confirmed the produced PDF's text layer
+contained the right values — the storage change is invisible from the
+fill engine's side, exactly as intended.
 
 ## Design mockup
 

@@ -1973,3 +1973,100 @@ document that fact.
   tracks") declaring `06-pdfgen_v1.0.0/` the official release and stating
   plainly that `05-pdfgen-database/` keeps developing independently past
   this point — the two are not required to stay in sync going forward.
+
+## 36. A production-scale architecture question, answered and then implemented (`07-pdfgen-dbnormal`)
+
+Asked directly, as architect: with a realistic production shape — 15+
+form types per document type, up to 10 instances each, potentially
+thousands of rows per instance accumulated over an aircraft's real
+service life — is the document-level JSON blob storage (`05`/`06`'s
+`form_instances.data_json`, one blob per instance holding header *and*
+every table row) going to be a performance problem?
+
+Answer given: yes, for two separate reasons, and pointed out that the
+**write path** was actually the more urgent one — `server.js`'s
+`/api/documents` handler deleted and reinserted every document's every
+instance's every row on *every* save, not because of blob size but
+because of literal delete-then-reinsert-everything semantics regardless
+of what changed (its own code comment said as much: "datasets here are
+POC-scale, so this is simpler and safer than diffing" — true when it was
+written, not at the scale being asked about now). Recommended splitting
+rows into their own table and fixing the write path to be per-row, not
+per-document — a server-only change, since the client's in-memory model
+and `/api/*` wire format don't need to know how the server stores things
+underneath.
+
+**Then asked to actually build it.** First question: which folder? Asked
+before touching anything, since `06-pdfgen_v1.0.0` had just been
+documented this same session as a frozen release snapshot — the user's
+answer was neither of the two offered (`05` or `06`), but a fresh
+`07-pdfgen-dbnormal`, created on its own git branch (`git checkout -b
+07-pdfgen-dbnormal`) and forked from `05-pdfgen-database` (the active dev
+line), matching this project's own precedent of one folder per
+architectural question.
+
+**Implementation** (full design in `CLAUDE.md`'s "Row-level
+normalization"): a new `form_instance_rows` table (one real row per data
+row, keyed by `instance_id` + `rows_key` — a schema can have more than
+one table, see "Multi-table support" — + `row_index`), `form_instances
+.data_json` shrunk to just `{ header, overlayData }`. `readDocuments()`
+reassembles the exact `{ header, overlayData, rows, verifRows, ... }`
+shape the client already sends/expects by merging the small blob with
+grouped rows from the new table — this is what let `index.html` stay
+completely untouched. The write path (`replaceDocuments`) became real
+upserts: documents/instances by id (delete only what's missing from the
+incoming set), and — the actual point of this exercise —
+`syncInstanceRows()` diffs each row's *content*, not just its presence:
+new rows insert, changed rows update, byte-identical rows are skipped
+with zero SQL executed. Defaults were deliberately left as single blobs
+— a snapshot saved once, not the thing that grows, so normalizing them
+wouldn't have paid for itself.
+
+**Two real bugs hit while building this, both fixed**:
+
+1. A stray backtick inside a SQL comment (`` `id` is the row's own... ``)
+   sitting inside a JS template-literal string silently closed that
+   string early, breaking `db.js`'s syntax. Caught immediately by
+   `node --check` before ever trying to boot the server.
+2. **A genuine anomaly, not fully explained**: `05-pdfgen-database`'s own
+   `server/node_modules` (and its database files) had disappeared from
+   disk by the time this session touched it, despite nothing in this
+   conversation's history intentionally deleting it — confirmed
+   `06-pdfgen_v1.0.0`'s own copy, made earlier in an *different* session,
+   still had its `node_modules` intact, which rules out a single
+   project-wide cause and points at something specific to `05`'s folder
+   between sessions (not conclusively identified — flagged to the user
+   rather than guessed at). Practically harmless (`package.json`/
+   `package-lock.json` were untouched, so `npm install` restores it
+   exactly), and `07`'s own fresh copy was missing it for the same
+   reason (it was forked from `05` after the loss already happened) —
+   fixed by running `npm install` in `07/server` before any further
+   testing.
+
+**Verification, staged**:
+
+- Direct raw-SQLite inspection after creating a 5-row instance confirmed
+  `form_instance_rows` held 5 distinct, correctly-ordered, correctly-
+  valued rows (a first test script mis-read the wrong column name and
+  wrongly looked like a bug — corrected by reading the raw table
+  directly rather than trusting the test's own assumptions).
+- **The actual performance claim, proven, not just argued**: temporary
+  write-count instrumentation added to `syncInstanceRows` (removed
+  immediately after), a 10-row instance created, then exactly one row's
+  one field edited and saved — server log showed `inserted=10` on
+  creation, then `updated=1, skipped=9` on the edit, with two sibling
+  instances in the same document showing `skipped=3`/`skipped=1` and
+  zero writes. This is the concrete evidence the fix does what it was
+  built to do.
+- **Full round trip through the real app**: created rows, forced a full
+  page reload (fresh `/api/bootstrap` fetch, exercising
+  `documentFromWire`'s reconstruction from the now-normalized tables
+  cold, not from in-memory state), confirmed every row came back in
+  order with correct values, then ran the real coordinate fill engine
+  against the reloaded instance and confirmed the produced PDF's text
+  layer contained the right values — the storage change is invisible
+  from the fill engine's side, exactly as designed.
+
+`CLAUDE.md` gained a new "Row-level normalization" section and a
+`07-pdfgen-dbnormal` bullet in "Repository layout" (folder count bumped
+to nine).
