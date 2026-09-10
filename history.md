@@ -2070,3 +2070,418 @@ wouldn't have paid for itself.
 `CLAUDE.md` gained a new "Row-level normalization" section and a
 `07-pdfgen-dbnormal` bullet in "Repository layout" (folder count bumped
 to nine).
+
+## 37. Local dev setup: `better-sqlite3` behind the corporate proxy, and VS Code tasks/debug configs (`07-pdfgen-dbnormal`)
+
+*(Backfilled entry — reconstructed after the fact from commit `ffcd10c`,
+its diff, and the `CLAUDE.md`/`server/README.md` sections it added,
+rather than written live at the time. §36 and §39 were written during
+their own sessions; this one and §38 were not.)*
+
+**The install failure.** A plain `npm install` inside
+`07-pdfgen-dbnormal/server` dies partway through, on `better-sqlite3`
+specifically, with the pure-JS dependencies (express, etc.) having
+installed fine:
+
+```
+npm ERR! command ...cmd.exe /d /s /c prebuild-install || node-gyp rebuild --release
+npm ERR! gyp ERR! stack FetchError: request to
+https://nodejs.org/download/release/v18.17.1/node-v18.17.1-headers.tar.gz
+failed, reason: read ECONNRESET
+```
+
+**Root cause, and why the obvious reading is wrong.** This looks like a
+`better-sqlite3` version/compatibility problem and isn't one. It's a
+*native* module, so its install step runs `prebuild-install` (fetch a
+precompiled binary from GitHub releases) and falls back to `node-gyp
+rebuild` (fetch Node headers straight from `nodejs.org`) when that fails.
+Both are **separate child processes**, and both honor only the
+`HTTPS_PROXY`/`HTTP_PROXY` **environment variables** — neither reads
+npm's own `.npmrc` `proxy`/`https-proxy` settings. That asymmetry is the
+whole bug: npm itself *does* read `.npmrc`, so registry traffic routes
+through the Nexus mirror correctly, while the direct-to-`nodejs.org` and
+direct-to-GitHub calls bypass the proxy configuration entirely and get
+reset by the firewall.
+
+**Fix** — export them as real environment variables so the child
+processes inherit them, rather than configuring npm:
+
+```powershell
+$env:HTTPS_PROXY = "http://proxy-zsgov.external.lmco.com:80/"
+$env:HTTP_PROXY  = "http://proxy-zsgov.external.lmco.com:80/"
+$env:NODE_EXTRA_CA_CERTS = "C:\Utilities\Combined_pem.pem"
+npm install
+```
+
+Written up in a new `07-pdfgen-dbnormal/server/README.md` (both
+PowerShell and bash forms, plus how to make it permanent via Windows user
+environment variables or a PowerShell profile) and summarized in
+`CLAUDE.md` under "Local dev setup". **This generalizes well beyond this
+one package** — any native npm module on this network fails the same way
+for the same reason, and the identical "real env vars, not tool config"
+rule is what §39's container section later leans on.
+
+**Tooling added in the same commit**: `.vscode/tasks.json` with three
+`07: ...` tasks (Delete SQLite DB / Reseed SQLite DB / Start Server) and
+`.vscode/launch.json` with launch + attach debug configurations for the
+server. `.gitignore` also picked up `.npmrc`, which can carry a live
+registry auth token and must not be committed.
+
+## 38. Two failure modes in those VS Code tasks, and workflow logging on both sides of the wire (`07-pdfgen-dbnormal`)
+
+*(Backfilled entry — reconstructed from commit `9e6d9df` and its diff.
+The logging half of this commit was never documented in `CLAUDE.md`; the
+VS Code half was.)*
+
+### The tasks from §37 didn't actually run
+
+**Failure mode one — wrong shell.** All three `"type": "shell"` tasks run
+their `command` under whatever shell VS Code's task runner defaults to on
+this machine, which is **`cmd.exe`** — even though the user's own
+interactive terminal is PowerShell. `Remove-Item -Force -ErrorAction
+SilentlyContinue` is PowerShell-only syntax, so the delete task failed
+immediately with `'Remove-Item' is not recognized as an internal or
+external command`. Fixed by giving all three tasks an explicit
+`options.shell` override:
+
+```json
+"shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+```
+
+Chosen over rewriting the commands in `cmd.exe`-compatible syntax —
+keeps the PowerShell cmdlets working and stays consistent with the rest
+of this project's Windows-first tooling.
+
+**Failure mode two — a real OS file lock, not a shell problem, and not
+fixed by the above.** SQLite's WAL mode holds `pdfgen.sqlite`, `-wal` and
+`-shm` open for the lifetime of any live connection. If a prior "07:
+Launch Server (Debug)" session or "07: Start Server" task is still
+running when "07: Delete SQLite DB" fires, `Remove-Item` fails with `The
+process cannot access the file... because it is being used by another
+process`. Confirmed directly rather than assumed: a leftover
+debug-session `node.exe` (spawned by VS Code's `js-debug` bootloader) was
+still holding all three files open, and killing that process let the
+delete succeed immediately. **Stop the server before running "07: Delete
+Database and Reseed."** Worth automating later via a `preLaunchTask` or
+task dependency that stops any running server first — not done.
+
+### Workflow logging, client and server
+
+The larger and previously undocumented half of this commit: **every
+user-facing action, and the sync traffic it triggers, now writes one
+timestamped, fixed-width-column line to the console** — so a whole
+data-entry workflow can be traced without opening the network tab or
+setting breakpoints.
+
+- **Same function, twice, deliberately.** `logAction(category, action,
+  details)` exists in both `index.html` and `server/server.js` with the
+  same signature, the same `padEnd`-based column widths (`{ category: 10,
+  action: 34 }`), and the same category taxonomy — so the browser console
+  and the server console line up as one readable table. The only
+  difference is coloring: the browser uses `console.log`'s `%c` CSS
+  directives, the server uses ANSI escapes, because Node's console
+  doesn't support `%c`.
+- **Categories** (client): `DOC` (document lifecycle), `FORM` (instance
+  lifecycle), `ROW` (table row edits), `UNDO`, `EXPORT`, `DEFAULT`,
+  `AUTOFILL`, `EDITOR`, `ADMIN` (registry CRUD), `SYNC`, `APP`. The
+  server logs `REQUEST`/`RESPONSE`/`SYNC`.
+- **The sync path is traced end to end**, which is the point — a single
+  edit produces `SYNC queue-logbooks` → `SYNC Queued sync` → `SYNC
+  Syncing to server` on the client, the matching `REQUEST PUT
+  /api/documents` / `RESPONSE 200 ok` / `SYNC Documents saved` on the
+  server, and `SYNC Sync succeeded` back on the client. A failure logs
+  `SYNC Sync FAILED` with the error alongside the existing
+  `console.warn`, rather than replacing it.
+- **`validateInstance`'s refusals are logged too** — a blocked "Mark
+  complete" writes `FORM Mark-complete BLOCKED` with the problem count
+  and the first failing field, so the modal's contents are recoverable
+  from the log after it's dismissed.
+- **A direct callback to §36**: that section recorded temporary
+  write-count instrumentation added to `syncInstanceRows` to *prove* the
+  row-diffing claim, "removed immediately after." This commit brings it
+  back **permanently**, as a `SYNC Row sync diff` line reporting
+  `inserted=/updated=/skipped=/deleted=` per instance, emitted only when
+  at least one of the four is nonzero. The one-off experiment that
+  validated the design became a standing observability feature — which
+  also means the `updated=1, skipped=9` behavior §36 measured is now
+  visible on every save rather than needing to be re-instrumented to
+  check.
+
+## 39. Spring Boot + PostgreSQL migration plan (`08-pdfgen-spring`) — design only, no code
+
+A design-and-architecture session, deliberately kept to documents: with
+the app at roughly 80% complete, management asked for it to be converted
+to a Spring Boot application on PostgreSQL, frontend either left as
+vanilla HTML or migrated to Angular. The ask was for a **step-by-step
+migration outline for every functionality the app currently has**, using
+Spring Boot industry standards — with an explicit instruction up front:
+*"show me the plan, don't write any files yet."* Nothing was written
+until the very end of the session, after four rounds of scope
+correction.
+
+**Four clarifying questions, and the answers that shaped everything
+after**:
+
+- **Fill engine** — not one or the other: *"I would like 2 versions, the
+  client side rendering and the server side rendering so that I can do
+  A/B testing."* Both engines ship.
+- **Frontend** — keep vanilla now, Angular later, as a separate phase.
+- **API** — redesign as proper REST resources, not a port of the current
+  nine whole-collection `PUT`s.
+- **Cross-cutting scope** — *all four* offered: auth and roles via Spring
+  Security, cross-document uniqueness validation, a real (not simulated)
+  automated-data-entry integration, and audit trail + optimistic locking.
+
+**Grounding the plan in the real code first.** Before proposing
+anything, `07-pdfgen-dbnormal`'s `server/db.js` (160 lines, 12 tables)
+and `server/server.js` (442 lines, 10 endpoints — 1 `GET` + 9 `PUT`)
+were read in full, and `index.html` (5,158 lines) was inventoried by
+grep rather than read cover to cover — producing the ~30 top-level
+functions and ~200 Alpine methods that the eventual 22-area migration
+matrix is built from. Two counts were gotten wrong in the first draft
+and corrected before the document was written (11 tables → **12**, 9
+endpoints → **10**). One number went into the plan as-is because it is
+the plan's own starting condition: the current app has **zero automated
+test coverage**.
+
+### The research detour that invalidated the first draft
+
+The user then pointed at `C:\ARCHIVE\Logcards-V2\logcards-ng` — *"the
+actual repository for the application this project is meant to
+replace"* — and asked for the strategy to be validated against it. It
+invalidated most of the first draft, which is the genuinely useful part
+of this entry, because the discarded choices are exactly the defaults
+anyone would reach for again:
+
+| First draft assumed | House standard actually is |
+| --- | --- |
+| Maven | **Gradle**, multi-module |
+| Java 21 | **Java 17** |
+| Docker Compose for local dev | **No containers at all**; AWS Secrets Manager |
+| Generic OAuth2/OIDC | **`com.lmco.rms.cf:authentication-sdk` 3.7.0** (OIDC JWT + AD LDAP) |
+| springdoc-openapi + generated client | **Spring HATEOAS**, zero OpenAPI |
+| Testcontainers | **H2** for tests |
+
+The real stack: Spring 5.3.28, Spring Security 5.8.0, Spring Data
+2.7.13, Hibernate 5.5.7, `javax.servlet` 4.0.1, Gradle 7.5.1, Flyway
+8.5.13, Hibernate Envers, JasperReports 6.21.5, Angular 16 + Angular
+Material — built as a **WAR on Tomcat 9**, deployed to EC2 in
+`us-gov-west-1` GovCloud through GitLab CI → AWS CodeDeploy, gated by
+SonarQube and Fortify SCA, with all dependencies pulled through
+`proxy-zsgov.external.lmco.com:80`.
+
+Three findings from that reading are load-bearing:
+
+1. **LogCards is Spring 5 / Tomcat 9 / `javax`, not Spring Boot at all.**
+   Spring Boot 3 requires `jakarta` and Tomcat 10.1+; the two namespaces
+   cannot coexist. This became **the single blocking decision in the
+   plan** (ADR-004) — Boot 3.3 executable JAR (recommended) vs. Boot 2.7
+   WAR — and it turns entirely on whether `authentication-sdk` 3.7.0
+   supports Spring Security 6. Not answerable from the repository;
+   escalated as an open decision with an owner rather than guessed.
+2. **No PDFBox, iText, or FOP anywhere in LogCards** — confirmed by
+   direct search. A negative result worth recording: the server-side
+   fill engine is genuinely net-new work, nothing to borrow. LogCards'
+   JasperReports solves a different problem entirely.
+3. **LogCards is already on PostgreSQL** (`PostgreSQL95Dialect`,
+   `org.postgresql.Driver`; its `ojdbc8` dependency is vestigial),
+   which deleted an assumed migration risk. It also already has house
+   patterns for two of the four cross-cutting asks —
+   `dup_check_id`/`sn_duplication_ref` for cross-document uniqueness,
+   and Envers for audit.
+
+**Reported, not touched**: `application-local.properties` in
+`logcards-ng` contains a **plaintext Flyway database password committed
+to source control**, in a Fortify-scanned repository. Flagged to the
+user without reproducing the value.
+
+### The scope lock — the most important message of the session
+
+After that research, the plan had drifted toward framing the effort as
+replacing LogCards wholesale, and the estimate was flagged as possibly
+"off by an order of magnitude." The user corrected it flatly:
+
+> *"we are using logcards-ng as reference for architecture and features
+> / we will not be migrating anything that is currently on the
+> logcards-ng app to the new app / we are just reimplementing the
+> current 07 app implementation as a springboot app with postgres
+> database and LM authentication"*
+
+So: LogCards is read **only** to learn house Spring conventions. No
+data, no code, no features come out of it. The thing being built is
+`07-pdfgen-dbnormal`, reimplemented. Its existing patterns for
+uniqueness and audit are *reimplemented*, not reused. This is why the
+final document's stack is a hybrid — house Gradle/Java 17/Flyway/Envers/
+auth-SDK conventions wrapped around this app's own data model, rather
+than either a greenfield Boot app or a LogCards clone.
+
+### Final instructions and the document
+
+Last message settled the remaining choices: **JSONB is fine** (so the
+form-type schemas and field layouts stay JSONB via
+`@JdbcTypeCode(SqlTypes.JSON)` rather than being normalized into
+LogCards' `fd_form_def`/`fd_section_def`/`fd_field_def` shape — a
+conscious, documented deviation); **one document**, not a plan plus
+appendix; and a side note requested specifically: *"I want a docker or
+podman container that has all the development, testing and deployment
+dependencies for this new app."*
+
+That container section (§10 of the document) is a deviation from
+LogCards' no-containers standard, and it was justified against pain this
+project has already recorded rather than against preference — the LM CA
+chain has to land in three separate trust stores, and the proxy has to
+be exported as **real environment variables** rather than tool config,
+which is the exact root cause of the `better-sqlite3` `ECONNRESET`
+install failure already documented in `CLAUDE.md` ("Local dev setup"):
+child processes honor `HTTPS_PROXY`/`HTTP_PROXY` but never npm's
+`.npmrc`. It also covers Podman rootless socket configuration for
+Testcontainers and a multi-stage layered-jar runtime image, and flags
+that the approved base-image registry and container-vs-JAR deployment
+both still need approval, since the existing pipeline ships a WAR to
+EC2.
+
+Written to `08-pdfgen-spring/08-pdfgen-spring-opus.md` (~74KB): scope;
+what's adopted from LogCards vs. the six conscious deviations; six ADRs;
+target stack and Gradle module layout; the 12 current tables mapped to
+Postgres (UUID PKs behind a transitional `client_ref`, template bytes
+extracted to a `form_type_template` BYTEA with a sha256 ETag,
+`models_json` promoted to a join table, `form_types` +
+`custom_form_types` merged behind a `custom` discriminator, Envers +
+`@Version` with `If-Match`/`ETag`, RFC 7807 `ProblemDetail`); the full
+REST resource map; the LM security config; both fill engines plus a
+golden-file parity harness comparing them three ways (text layer, 150
+DPI raster diff, structural) with a written **sunset criterion** so the
+A/B doesn't quietly become permanent; the container strategy; a phase
+plan (0–13); a testing strategy; a **22-subsection functionality
+migration matrix** (each with Current → Target → Endpoints/data → Tests
+→ Acceptance); the frontend path; 9 ranked risks; 8 open decisions with
+owners; and two appendices (endpoint mapping, source material).
+
+**Two structural decisions were carried over from `07` deliberately
+unchanged**: `form_instance_row`'s shape and `syncInstanceRows`'
+content-diffing write semantics (§36 measured that, so it survives the
+rewrite intact), and Defaults staying un-normalized for the same reason
+they always were.
+
+A sibling plan, `08-pdfgen-spring-sonnet.md` (~29KB), was written
+separately and is kept alongside rather than merged — two independent
+takes on the same brief.
+
+**A naming note**: both files were originally created with typo'd names
+(`08-pdfget-spring-opus.md` and `08-pdfgen-sprint-sonnet.md`) — the
+literal spellings given in the request. Flagged back and renamed by the
+user to `08-pdfgen-spring-opus.md` / `08-pdfgen-spring-sonnet.md`.
+
+`CLAUDE.md` gained a "Spring Boot + PostgreSQL migration plan" section
+and an `08-pdfgen-spring/` bullet in "Repository layout" (folder count
+bumped to ten); the existing `pdfgen-spring/` bullet was reworded to
+make clear it's reserved for the eventual *code*, while
+`08-pdfgen-spring/` holds the plan for it.
+
+## 40. Sonnet-session sibling: `08-pdfgen-spring-sonnet.md`
+
+Ran in parallel with the session §39 documents ("the other AI"),
+independently working the same brief — reimplement `07-pdfgen-dbnormal`
+as Spring Boot + PostgreSQL, a step-by-step migration outline for every
+current functionality, using Spring Boot industry standards, with the
+same standing instruction: *"show me the plan, don't write any files
+yet."* This entry covers what this session did on its own; see §39 for
+shared background (the scope lock, the plaintext-Flyway-password report)
+that isn't repeated here.
+
+**First pass, before any cross-session input.** Three clarifying
+questions up front — frontend (vanilla vs. Angular), where the PDF fill
+engine should live after migration, and migration strategy (big-bang vs.
+incremental). Answered: keep the vanilla Alpine.js UI, ship **both** fill
+engines (client `pdf-lib.js` and a new server-side engine), explicitly
+for A/B testing, and an incremental/strangler-fig migration alongside
+the existing Express server. A text-only outline was presented first —
+no file yet, per the standing instruction.
+
+**Mid-session, the user relayed the parallel opus session's own resolved
+answers** ("the other ai flag the following items") — fill engine: both,
+confirmed; frontend: vanilla now, Angular later, phased; API: redesign
+as proper REST resources, not a port of the current whole-array `PUT`s;
+cross-cutting scope: all four (auth/roles, cross-document uniqueness,
+real automated-data-entry integration, audit/optimistic-locking) in
+scope. These matched this session's own independently-reasoned direction
+almost exactly — adopted with no course-correction needed.
+
+**Its own `logcards-ng` research pass.** Rather than reuse the other
+session's findings secondhand, this session spawned its own agent against
+`C:\ARCHIVE\Logcards-V2\logcards-ng` with a 7-question brief (auth
+mechanism, module architecture, database/migrations, REST conventions,
+Angular integration, what `logcards-solumina-service` actually does,
+build/deploy). It landed on essentially the same facts §39's research
+detour did — `com.lmco.rms.cf.authentication.sdk` federated to
+PingFederate OIDC + AD/LDAP group roles (`LOGCARDS.*` prefix), Gradle
+multi-module with a `<context>-domain` (pure JPA entities) /
+`<context>-service` (dao/service/config) pairing convention, Postgres +
+Hibernate with `hbm2ddl.auto=validate` plus Flyway, a HATEOAS/RPC-
+flavored API rather than clean REST (the one place this plan deliberately
+diverges from house convention, per the user's own REST-resources
+instruction), Angular 16.2 + Angular Material with `oidc-client`, and
+WAR-on-Tomcat-9 via GitLab CI → AWS CodeDeploy into GovCloud. One finding
+this session's agent surfaced that's a useful precedent for the
+still-undefined "automated data entry" phase: `logcards-solumina-service`
+integrates with Solumina (an external MES) through an isolated service
+module, an external-DTO-to-internal-domain mapping/filter stage, and a
+Quartz-scheduled Spring Batch pull — a shape worth copying once/if
+pdfgen's own automated-entry source is ever identified, even though
+nothing is wired to a real endpoint yet.
+
+Two more targeted clarifying questions followed before finalizing: what
+Spring Security should authenticate against (answered: validate against
+`logcards-ng` directly rather than pick generically — hence the agent
+survey above), and whether a real external API already exists for
+automated data entry (answered: still undefined, build the generic
+plumbing only).
+
+**The document.** Written to `08-pdfgen-spring/08-pdfgen-sprint-sonnet.md`
+(typo'd per the user's own literal spelling in the request — see §39's
+naming note; later renamed by the user to `08-pdfgen-spring-sonnet.md`
+alongside the opus file's equivalent fix). Ten sections: a
+decisions-locked-in table; a module map (`pdfgen-common`,
+`pdfgen-registry-domain`/`-service`, `pdfgen-documents-domain`/`-service`,
+`pdfgen-fillengine-service` — the **server** engine only, since the
+client engine stays browser JS and was never a Java module —
+`pdfgen-automation-service`, `pdfgen-web`) mirroring LogCards' real
+domain/service pairing rather than a generic controller/service/
+repository split; an 8-phase strangler-fig rollout (Phase 0 scaffolding
+plus the AD-group/PingFederate registration flagged as an external
+blocking dependency, through Phase 8 Express retirement, with Phase 7
+Angular deferred and deliberately unscheduled); a full
+`07-pdfgen-dbnormal` table → Postgres mapping (schema `pdfgen`,
+`REG_`/`DOC_`-prefixed tables mirroring LogCards' `FD_`/`DC_`
+convention); a REST resource table replacing the ten current
+whole-array endpoints, flagging explicitly that moving
+`form_instance_rows`' diff-sync logic from server-side (today) to a
+per-row REST contract is a real frontend rework, not just a URL swap; a
+functionality-by-functionality migration map; a testing strategy
+(Testcontainers, contract tests, a diff-sync parity test reproducing the
+`updated=1, skipped=9` behavior as an automated check instead of a
+one-time manual one, fill-engine A/B parity tests); a DevOps section; and
+a risk register (WAR-vs-JAR, the Flyway naming-prefix convention, ID
+strategy, ITAR/GovCloud dependency review, and an explicit note that no
+existing audit-trail/optimistic-locking pattern was found in
+`logcards-ng`, so that part of the design is genuinely new, not a port).
+
+**Side-note addendum, after the document was written.** The user asked,
+in this session specifically, for a Docker or Podman container "that has
+all the development, testing and deployment dependencies" for the 08
+app. Added as a new §9 ("Development, Test & Build Container"), pushing
+the former risk-register section to §10 and fixing every internal `§9`
+cross-reference that had pointed at it. Content: an open Docker-vs-Podman
+decision deferred to whatever `logcards-ng`'s own CI runner already
+standardizes on (flagging that a GovCloud/defense-contractor shop may
+specifically mandate Podman); what the image bundles (Java 17, Gradle,
+Postgres *client* tools only — not the server, kept as a separate Compose
+service — Flyway CLI, Node.js/npm pre-staged for the later Angular phase,
+and the corporate proxy/CA trust config this project has already been
+burned by once, in the `better-sqlite3` `ECONNRESET` incident recorded
+under "Local dev setup"); a Compose layout; and an explicit callout that
+running Testcontainers-based tests *inside* this same dev container is a
+nested-container problem (needs a socket-mount or rootless-nesting
+decision), not something that works for free. Explicitly scoped as
+dev/build/test only — production packaging/deploy stays the
+WAR-on-Tomcat-9 path, unchanged.
