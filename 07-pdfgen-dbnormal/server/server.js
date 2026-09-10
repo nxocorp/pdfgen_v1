@@ -5,6 +5,22 @@ const db = require("./db");
 const app = express();
 app.use(express.json({ limit: "50mb" })); // custom form types / signature overlays carry base64 bytes
 
+// ---------------------------------------------------------------------------
+// Workflow logging — every API request that mutates or bootstraps data logs
+// one aligned-column, timestamped line, mirroring the frontend's logAction()
+// in index.html (same category taxonomy, same padEnd-based column alignment,
+// ANSI colors here instead of %c CSS since Node's console doesn't support %c).
+// ---------------------------------------------------------------------------
+const LOG_COL = { category: 10, action: 34 };
+const ANSI = { gray: "\x1b[90m", blue: "\x1b[34m", green: "\x1b[32m", reset: "\x1b[0m" };
+function logAction(category, action, details) {
+  const ts = new Date().toISOString();
+  const cat = String(category).toUpperCase().padEnd(LOG_COL.category);
+  const act = String(action).padEnd(LOG_COL.action);
+  const det = details == null || details === "" ? "" : (typeof details === "string" ? details : JSON.stringify(details));
+  console.log(`${ANSI.gray}${ts}${ANSI.reset}  ${ANSI.blue}${cat}${ANSI.reset}${ANSI.green}${act}${ANSI.reset}${det}`);
+}
+
 const ROOT = path.join(__dirname, "..");
 app.use(express.static(ROOT));
 
@@ -118,8 +134,10 @@ function readFormTypeOverrides() {
 }
 
 app.get("/api/bootstrap", (req, res) => {
-  res.json({
-    documents: readDocuments(),
+  logAction("REQUEST", "GET /api/bootstrap", "");
+  const documents = readDocuments();
+  const boot = {
+    documents,
     defaults: readDefaults(),
     fieldLayouts: readFieldLayouts(),
     aircraftModels: readAircraftModels(),
@@ -128,7 +146,10 @@ app.get("/api/bootstrap", (req, res) => {
     formTypes: readFormTypes(),
     customFormTypes: readCustomFormTypes(),
     formTypeOverrides: readFormTypeOverrides(),
-  });
+  };
+  logAction("RESPONSE", "GET /api/bootstrap", "200 ok");
+  res.json(boot);
+  logAction("SYNC", "Bootstrap served", documents.length + " document(s)");
 });
 
 // ---------------------------------------------------------------------------
@@ -205,6 +226,7 @@ const deleteInstanceRowById = db.prepare("DELETE FROM form_instance_rows WHERE i
 function syncInstanceRows(instanceId, rowsByKey) {
   const existing = new Map(listRowsForInstance.all(instanceId).map((r) => [r.id, r]));
   const incomingIds = new Set();
+  let inserted = 0, updated = 0, skipped = 0;
   for (const rowsKey of Object.keys(rowsByKey)) {
     (rowsByKey[rowsKey] || []).forEach((row, index) => {
       incomingIds.add(row.id);
@@ -212,12 +234,20 @@ function syncInstanceRows(instanceId, rowsByKey) {
       const prior = existing.get(row.id);
       if (!prior) {
         insertInstanceRow.run(row.id, instanceId, rowsKey, index, json);
+        inserted++;
       } else if (prior.rows_key !== rowsKey || prior.row_index !== index || prior.data_json !== json) {
         updateInstanceRow.run(rowsKey, index, json, row.id);
+        updated++;
+      } else {
+        skipped++;
       }
     });
   }
-  for (const id of existing.keys()) if (!incomingIds.has(id)) deleteInstanceRowById.run(id);
+  let deleted = 0;
+  for (const id of existing.keys()) if (!incomingIds.has(id)) { deleteInstanceRowById.run(id); deleted++; }
+  if (inserted || updated || deleted || skipped) {
+    logAction("SYNC", "Row sync diff", instanceId + ": inserted=" + inserted + ", updated=" + updated + ", skipped=" + skipped + ", deleted=" + deleted);
+  }
 }
 
 const replaceDocuments = db.transaction((documents) => {
@@ -249,8 +279,12 @@ const replaceDocuments = db.transaction((documents) => {
 });
 
 app.put("/api/documents", (req, res) => {
-  replaceDocuments(req.body || []);
+  const documents = req.body || [];
+  logAction("REQUEST", "PUT /api/documents", documents.length + " document(s)");
+  replaceDocuments(documents);
+  logAction("RESPONSE", "PUT /api/documents", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Documents saved", documents.length + " document(s)");
 });
 
 const insertDefault = db.prepare(
@@ -271,8 +305,12 @@ const replaceDefaults = db.transaction((defaults) => {
 });
 
 app.put("/api/defaults", (req, res) => {
-  replaceDefaults(req.body || []);
+  const defaults = req.body || [];
+  logAction("REQUEST", "PUT /api/defaults", defaults.length + " default(s)");
+  replaceDefaults(defaults);
+  logAction("RESPONSE", "PUT /api/defaults", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Defaults saved", defaults.length + " default(s)");
 });
 
 const insertFieldLayout = db.prepare("INSERT INTO field_layouts (form_type, layout_json) VALUES (?, ?)");
@@ -284,8 +322,12 @@ const replaceFieldLayouts = db.transaction((layouts) => {
 });
 
 app.put("/api/field-layouts", (req, res) => {
-  replaceFieldLayouts(req.body || {});
+  const layouts = req.body || {};
+  logAction("REQUEST", "PUT /api/field-layouts", Object.keys(layouts).length + " form type(s)");
+  replaceFieldLayouts(layouts);
+  logAction("RESPONSE", "PUT /api/field-layouts", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Field layouts saved", Object.keys(layouts).length + " form type(s)");
 });
 
 const insertAircraftModel = db.prepare("INSERT INTO aircraft_models (name, position) VALUES (?, ?)");
@@ -295,8 +337,12 @@ const replaceAircraftModels = db.transaction((models) => {
 });
 
 app.put("/api/registry/aircraft-models", (req, res) => {
-  replaceAircraftModels(req.body || []);
+  const models = req.body || [];
+  logAction("REQUEST", "PUT /api/registry/aircraft-models", models.length + " model(s)");
+  replaceAircraftModels(models);
+  logAction("RESPONSE", "PUT /api/registry/aircraft-models", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Aircraft models saved", models.length + " model(s)");
 });
 
 const insertDocumentType = db.prepare(
@@ -308,8 +354,12 @@ const replaceDocumentTypes = db.transaction((types) => {
 });
 
 app.put("/api/registry/document-types", (req, res) => {
-  replaceDocumentTypes(req.body || []);
+  const types = req.body || [];
+  logAction("REQUEST", "PUT /api/registry/document-types", types.length + " type(s)");
+  replaceDocumentTypes(types);
+  logAction("RESPONSE", "PUT /api/registry/document-types", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Document types saved", types.length + " type(s)");
 });
 
 const insertDocTypeForm = db.prepare(
@@ -323,8 +373,12 @@ const replaceDocumentTypeForms = db.transaction((map) => {
 });
 
 app.put("/api/registry/document-type-forms", (req, res) => {
-  replaceDocumentTypeForms(req.body || {});
+  const map = req.body || {};
+  logAction("REQUEST", "PUT /api/registry/document-type-forms", Object.keys(map).length + " document type(s)");
+  replaceDocumentTypeForms(map);
+  logAction("RESPONSE", "PUT /api/registry/document-type-forms", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Document-type form assignments saved", Object.keys(map).length + " document type(s)");
 });
 
 const insertCustomFormType = db.prepare("INSERT INTO custom_form_types (type, schema_json) VALUES (?, ?)");
@@ -334,8 +388,12 @@ const replaceCustomFormTypes = db.transaction((types) => {
 });
 
 app.put("/api/registry/custom-form-types", (req, res) => {
-  replaceCustomFormTypes(req.body || []);
+  const types = req.body || [];
+  logAction("REQUEST", "PUT /api/registry/custom-form-types", types.length + " type(s)");
+  replaceCustomFormTypes(types);
+  logAction("RESPONSE", "PUT /api/registry/custom-form-types", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Custom form types saved", types.length + " type(s)");
 });
 
 // Built-in types (DA 2408-17/18/20) — now also structurally editable (the
@@ -351,8 +409,12 @@ const replaceFormTypes = db.transaction((types) => {
 });
 
 app.put("/api/registry/form-types", (req, res) => {
-  replaceFormTypes(req.body || []);
+  const types = req.body || [];
+  logAction("REQUEST", "PUT /api/registry/form-types", types.length + " type(s)");
+  replaceFormTypes(types);
+  logAction("RESPONSE", "PUT /api/registry/form-types", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Form types saved", types.length + " type(s)");
 });
 
 const insertFormTypeOverride = db.prepare(
@@ -366,8 +428,12 @@ const replaceFormTypeOverrides = db.transaction((overrides) => {
 });
 
 app.put("/api/registry/form-type-overrides", (req, res) => {
-  replaceFormTypeOverrides(req.body || {});
+  const overrides = req.body || {};
+  logAction("REQUEST", "PUT /api/registry/form-type-overrides", Object.keys(overrides).length + " override(s)");
+  replaceFormTypeOverrides(overrides);
+  logAction("RESPONSE", "PUT /api/registry/form-type-overrides", "200 ok");
   res.json({ ok: true });
+  logAction("SYNC", "Form-type overrides saved", Object.keys(overrides).length + " override(s)");
 });
 
 const PORT = process.env.PORT || 3000;

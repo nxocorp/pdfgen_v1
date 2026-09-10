@@ -1551,6 +1551,34 @@
 
 <script>
 // ---------------------------------------------------------------------------
+// Workflow logging — every user-facing action (and the sync traffic it
+// triggers) writes one aligned-column, timestamped line to the browser
+// console, so the full data-entry workflow can be traced/debugged without
+// opening the network tab or setting breakpoints. Columns are fixed-width
+// (padEnd), which lines up like a table in a monospace console font.
+// Categories: DOC (document/logbook lifecycle), FORM (form instance
+// lifecycle), ROW (table row edits), UNDO (undo/redo), EXPORT
+// (preview/export/open PDF), DEFAULT (save/apply/delete default), AUTOFILL
+// (simulated automated data entry), EDITOR (Form Type Editor saves), ADMIN
+// (registry CRUD — models/doc types/form types), SYNC (server persistence),
+// APP (boot/init).
+// ---------------------------------------------------------------------------
+const LOG_COL = { category: 10, action: 34 };
+function logAction(category, action, details) {
+  const ts = new Date().toISOString();
+  const cat = String(category).toUpperCase().padEnd(LOG_COL.category);
+  const act = String(action).padEnd(LOG_COL.action);
+  const det = details == null || details === "" ? "" : (typeof details === "string" ? details : JSON.stringify(details));
+  console.log(
+    "%c%s  %c%s%c%s%c%s",
+    "color:#888888;font-weight:normal", ts,
+    "color:#0a84ff;font-weight:bold", cat,
+    "color:#1a7f37;font-weight:bold", act,
+    "color:#333333;font-weight:normal", det
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Form-type registry. Unlike pdfgen-vanilla-multi/-image (which hardcode
 // each form type as a schema object exported by its own js/form-XXXX.js),
 // here the registry starts empty and is populated from the server's
@@ -1668,6 +1696,7 @@ let onSyncStatus = null;
 function queueSync(key, endpoint, payload) {
   syncPayloads[key] = { endpoint, payload };
   if (onSyncStatus) onSyncStatus("pending");
+  logAction("SYNC", "Queued sync: " + key, endpoint);
   clearTimeout(syncTimers[key]);
   syncTimers[key] = setTimeout(() => flushSync(key), SYNC_DEBOUNCE_MS);
 }
@@ -1678,6 +1707,7 @@ async function flushSync(key) {
   clearTimeout(syncTimers[key]);
   delete syncTimers[key];
   if (onSyncStatus) onSyncStatus("saving");
+  logAction("SYNC", "Syncing to server: " + key, entry.endpoint);
   try {
     const res = await fetch(entry.endpoint, {
       method: "PUT",
@@ -1687,9 +1717,11 @@ async function flushSync(key) {
     if (!res.ok) throw new Error("HTTP " + res.status);
     delete syncPayloads[key];
     if (onSyncStatus) onSyncStatus(Object.keys(syncTimers).length ? "pending" : "saved");
+    logAction("SYNC", "Sync succeeded: " + key, entry.endpoint);
   } catch (e) {
     console.warn("Could not save " + key + " to the server", e);
     if (onSyncStatus) onSyncStatus("error");
+    logAction("SYNC", "Sync FAILED: " + key, String(e));
   }
 }
 
@@ -2327,9 +2359,11 @@ function pdfgenApp() {
 
     commitRename(inst) {
       if (this.renamingInstanceId !== inst.id) return; // already committed/cancelled (blur firing after Enter)
+      const oldName = inst.name;
       inst.name = this.renameDraft.trim();
       this.renamingInstanceId = null;
       if (this.current) this.current.updatedAt = new Date().toISOString();
+      logAction("FORM", "Renamed instance", (oldName || "(unnamed)") + " -> " + (inst.name || "(unnamed)"));
     },
 
     cancelRename() {
@@ -2400,17 +2434,20 @@ function pdfgenApp() {
         this.snapshotBeforeChange();
         instance.complete = false;
         this.current.updatedAt = new Date().toISOString();
+        logAction("FORM", "Marked incomplete", this.activeFormType);
         return;
       }
       const problems = validateInstance(this.activeSchema, instance);
       if (problems.length) {
         this.validationProblems = problems;
         this.showValidationModal = true;
+        logAction("FORM", "Mark-complete BLOCKED", problems.length + " problem(s), first: " + problems[0].label + ": " + problems[0].message);
         return;
       }
       this.snapshotBeforeChange();
       instance.complete = true;
       this.current.updatedAt = new Date().toISOString();
+      logAction("FORM", "Marked complete", this.activeFormType);
     },
 
     layoutFor(type) {
@@ -2461,6 +2498,7 @@ function pdfgenApp() {
     },
 
     async init() {
+      logAction("APP", "App init started", "");
       let boot = null;
       try {
         const res = await fetch("/api/bootstrap");
@@ -2469,10 +2507,12 @@ function pdfgenApp() {
       } catch (e) {
         console.error("Could not load app data from the server", e);
         this.bootstrapError = true;
+        logAction("APP", "Bootstrap FAILED", e.message);
       }
       this.loadFormTypes(boot);
       this.loadRegistry(boot);
       this.load(boot);
+      if (boot) logAction("APP", "Bootstrap loaded", (boot.documents ? boot.documents.length : 0) + " document(s), " + (boot.formTypes ? boot.formTypes.length : 0) + " form type(s)");
       onSyncStatus = (status) => { this.saveStatus = status; };
       window.addEventListener("beforeunload", flushAllSyncsNow);
       document.addEventListener("visibilitychange", () => {
@@ -2555,14 +2595,17 @@ function pdfgenApp() {
     },
 
     persistLogbooks() {
+      logAction("SYNC", "queue-logbooks", this.logbooks.length + " document(s)");
       queueSync("documents", "/api/documents", this.logbooks.map(documentToWire));
     },
 
     persistDefaults() {
+      logAction("SYNC", "queue-defaults", this.defaults.length + " default(s)");
       queueSync("defaults", "/api/defaults", this.defaults.map(defaultToWire));
     },
 
     persistFieldLayouts() {
+      logAction("SYNC", "queue-field-layouts", Object.keys(this.fieldLayouts).length + " form type(s)");
       queueSync("field-layouts", "/api/field-layouts", this.fieldLayouts);
     },
 
@@ -2613,22 +2656,27 @@ function pdfgenApp() {
     },
 
     persistAircraftModels() {
+      logAction("SYNC", "queue-aircraft-models", this.aircraftModels.length + " model(s)");
       queueSync("aircraft-models", "/api/registry/aircraft-models", this.aircraftModels);
     },
 
     persistDocumentTypes() {
+      logAction("SYNC", "queue-document-types", this.documentTypes.length + " type(s)");
       queueSync("document-types", "/api/registry/document-types", this.documentTypes);
     },
 
     persistDocumentTypeForms() {
+      logAction("SYNC", "queue-document-type-forms", Object.keys(this.documentTypeForms).length + " doc type(s)");
       queueSync("document-type-forms", "/api/registry/document-type-forms", this.documentTypeForms);
     },
 
     persistFormTypeOverrides() {
+      logAction("SYNC", "queue-form-type-overrides", Object.keys(this.formTypeOverrides).length + " override(s)");
       queueSync("form-type-overrides", "/api/registry/form-type-overrides", this.formTypeOverrides);
     },
 
     persistCustomFormTypes() {
+      logAction("SYNC", "queue-custom-form-types", this.FORM_TYPES.filter(f => f.custom).length + " type(s)");
       queueSync("custom-form-types", "/api/registry/custom-form-types", this.FORM_TYPES.filter(f => f.custom));
     },
 
@@ -2638,6 +2686,7 @@ function pdfgenApp() {
     // seeded once from form-types.json. Same deep FORM_TYPES watch as
     // persistCustomFormTypes above, just the complementary filter.
     persistFormTypes() {
+      logAction("SYNC", "queue-form-types", this.FORM_TYPES.filter(f => !f.custom).length + " type(s)");
       queueSync("form-types", "/api/registry/form-types", this.FORM_TYPES.filter(f => !f.custom));
     },
 
@@ -2702,10 +2751,12 @@ function pdfgenApp() {
       } else {
         const d = this.defaults.find(x => x.id === this.newSource);
         forms = d ? cloneLogbookForms(d.forms, types) : emptyLogbookForms(types);
+        if (d) logAction("DEFAULT", "Applied default", d.name);
       }
       const lb = emptyLogbook(tail, forms, docTypeId, this.selectedModel, types);
       this.logbooks.push(lb);
       this.showNewModal = false;
+      logAction("DOC", "Created document", lb.tailNumber + " (" + lb.id + ")");
       this.openLogbook(lb.id);
     },
 
@@ -2728,6 +2779,7 @@ function pdfgenApp() {
         forms: cloneLogbookForms(this.current, this.formTypesFor(this.current.documentTypeId)),
       });
       this.showSaveDefaultModal = false;
+      logAction("DEFAULT", "Saved default", name);
     },
 
     // ---- automate form entry modal ----
@@ -2741,10 +2793,12 @@ function pdfgenApp() {
       ];
       this.automateDone = false;
       this.showAutomateModal = true;
+      logAction("AUTOFILL", "Automate-entry modal opened", this.activeFormType);
       this.runAutomateWorkflow();
     },
 
     async runAutomateWorkflow() {
+      logAction("AUTOFILL", "Auto-fill started", this.activeFormType);
       const delays = [650, 550, 500, 450];
       for (let i = 0; i < this.automateSteps.length; i++) {
         this.automateSteps[i].status = "active";
@@ -2769,6 +2823,7 @@ function pdfgenApp() {
         this.current.updatedAt = new Date().toISOString();
       }
       this.automateDone = true;
+      logAction("AUTOFILL", "Auto-fill completed", this.activeFormType);
     },
 
     closeAutomateModal() {
@@ -2777,8 +2832,10 @@ function pdfgenApp() {
 
     deleteDefault(id) {
       if (!confirm("Delete this default? This cannot be undone.")) return;
+      const d = this.defaults.find(x => x.id === id);
       this.defaults = this.defaults.filter(d => d.id !== id);
       if (this.newSource === id) this.newSource = "blank";
+      logAction("DEFAULT", "Deleted default", d ? d.name : id);
     },
 
     // ---- logbook selection ----
@@ -2790,11 +2847,13 @@ function pdfgenApp() {
       this.activeInstanceId = (lb && this.activeFormType) ? ((lb[formTypeKey(this.activeFormType)] || [])[0]?.id ?? null) : null;
       this.previewPanelOpen = false;
       this.clearPreview();
+      if (lb) logAction("DOC", "Opened document", lb.tailNumber + " (" + lb.id + ")");
     },
 
     // ---- form instance selection (sidebar "Forms in this document") ----
     openFormInstance(type, instanceId) {
       if (this.activeFormType === type && this.activeInstanceId === instanceId) return;
+      logAction("FORM", "Opened form instance", type + " (" + instanceId + ")");
       this.activeFormType = type;
       this.activeInstanceId = instanceId;
       this.previewPanelOpen = false;
@@ -2818,6 +2877,7 @@ function pdfgenApp() {
       const instance = emptyInstance(ft);
       list.push(instance);
       this.current.updatedAt = new Date().toISOString();
+      logAction("FORM", "Added form instance", type + " (now " + list.length + ")");
       this.openFormInstance(type, instance.id);
     },
 
@@ -2834,6 +2894,7 @@ function pdfgenApp() {
       if (idx === -1) return;
       list.splice(idx, 1);
       this.current.updatedAt = new Date().toISOString();
+      logAction("FORM", "Deleted form instance", type + " (" + instanceId + ")");
       if (this.activeFormType === type && this.activeInstanceId === instanceId) {
         this.openFormInstance(type, list[0].id);
       }
@@ -2841,6 +2902,7 @@ function pdfgenApp() {
 
     deleteLogbook(id) {
       if (!confirm("Delete this logbook? This cannot be undone.")) return;
+      const lb = this.logbooks.find(l => l.id === id);
       this.logbooks = this.logbooks.filter(l => l.id !== id);
       delete this.undoStacks[id];
       delete this.redoStacks[id];
@@ -2849,6 +2911,7 @@ function pdfgenApp() {
         this.previewPanelOpen = false;
         this.clearPreview();
       }
+      logAction("DOC", "Deleted document", (lb ? lb.tailNumber : "") + " (" + id + ")");
     },
 
     // ---- undo/redo, scoped to the currently open logbook ----
@@ -2859,6 +2922,7 @@ function pdfgenApp() {
       stack.push(JSON.parse(JSON.stringify(this.current)));
       if (stack.length > 100) stack.shift();
       this.redoStacks[id] = [];
+      logAction("UNDO", "Snapshot saved", id);
     },
 
     canUndo() {
@@ -2877,6 +2941,7 @@ function pdfgenApp() {
       const prev = this.undoStacks[id].pop();
       (this.redoStacks[id] || (this.redoStacks[id] = [])).push(JSON.parse(JSON.stringify(this.current)));
       this.applyRestoredLogbook(prev);
+      logAction("UNDO", "Undo", id);
     },
 
     redo() {
@@ -2885,6 +2950,7 @@ function pdfgenApp() {
       const next = this.redoStacks[id].pop();
       (this.undoStacks[id] || (this.undoStacks[id] = [])).push(JSON.parse(JSON.stringify(this.current)));
       this.applyRestoredLogbook(next);
+      logAction("UNDO", "Redo", id);
     },
 
     applyRestoredLogbook(snapshot) {
@@ -2917,6 +2983,7 @@ function pdfgenApp() {
       // rendered row/drag target, which can't exist yet in that same case.
       (form[section.rowsKey] || (form[section.rowsKey] = [])).push(emptyRowFor(section));
       this.current.updatedAt = new Date().toISOString();
+      logAction("ROW", "Added row", section.rowsKey + " (now " + form[section.rowsKey].length + ")");
     },
 
     removeRow(section, idx) {
@@ -2927,6 +2994,7 @@ function pdfgenApp() {
       rows.splice(idx, 1);
       if (rows.length === 0) rows.push(emptyRowFor(section));
       this.current.updatedAt = new Date().toISOString();
+      logAction("ROW", "Removed row", section.rowsKey + " #" + idx);
     },
 
     duplicateRow(section, idx) {
@@ -2937,6 +3005,7 @@ function pdfgenApp() {
       const copy = { ...rows[idx], id: uid() };
       rows.splice(idx + 1, 0, copy);
       this.current.updatedAt = new Date().toISOString();
+      logAction("ROW", "Duplicated row", section.rowsKey + " #" + idx);
     },
 
     dragStart(idx) {
@@ -2949,10 +3018,12 @@ function pdfgenApp() {
       if (!form || form.complete || section.fixedRows) { this.dragIndex = null; return; }
       this.snapshotBeforeChange();
       const rows = form[section.rowsKey];
+      const fromIdx = this.dragIndex;
       const [moved] = rows.splice(this.dragIndex, 1);
       rows.splice(targetIdx, 0, moved);
       this.dragIndex = null;
       this.current.updatedAt = new Date().toISOString();
+      logAction("ROW", "Reordered row", section.rowsKey + " " + fromIdx + " -> " + targetIdx);
     },
 
     async regeneratePreview() {
@@ -2962,14 +3033,17 @@ function pdfgenApp() {
         return;
       }
       this.generating = true;
+      logAction("EXPORT", "Generating preview", this.activeFormType);
       try {
         const bytes = await buildFilledPdfGeneric(this.activeSchema, this.activeInstance, this.layoutFor(this.activeFormType));
         lastPreviewBytes = bytes;
         await renderPreviewPages(this.$refs.previewPages, bytes);
         this.previewGenerated = true;
+        logAction("EXPORT", "Generated preview", this.activeFormType);
       } catch (e) {
         console.error(e);
         alert("Could not generate the PDF preview — see console for details.");
+        logAction("EXPORT", "Preview FAILED", this.activeFormType + ": " + e.message);
       } finally {
         this.generating = false;
       }
@@ -2978,6 +3052,7 @@ function pdfgenApp() {
     openPreviewPdf() {
       if (!lastPreviewBytes) return;
       openBytesInNewWindow(lastPreviewBytes);
+      logAction("EXPORT", "Opened PDF in new tab", this.activeFormType);
     },
 
     // drag-to-resize the preview panel from its left edge — dragging left
@@ -3020,6 +3095,7 @@ function pdfgenApp() {
         alert("No form type in this document has a PDF template yet — nothing to export.");
         return;
       }
+      logAction("EXPORT", "Export All started", this.current.tailNumber);
       this.previewPanelOpen = true;
       this.generating = true;
       try {
@@ -3028,9 +3104,12 @@ function pdfgenApp() {
         await renderPreviewPages(this.$refs.previewPages, bytes);
         this.previewGenerated = true;
         this.openPreviewPdf();
+        const instanceCount = types.reduce((sum, ft) => sum + (this.current[formTypeKey(ft.type)] || []).length, 0);
+        logAction("EXPORT", "Export All completed", instanceCount + " instance(s) merged");
       } catch (e) {
         console.error(e);
         alert("Could not generate the combined PDF — see console for details.");
+        logAction("EXPORT", "Export All FAILED", this.current.tailNumber + ": " + e.message);
       } finally {
         this.generating = false;
       }
@@ -3646,6 +3725,7 @@ function pdfgenApp() {
         delete this.fieldLayouts[this.editorFormType];
       }
       if (this.activeFormType === this.editorFormType) this.clearPreview();
+      logAction("EDITOR", "Saved form type layout", this.editorFormType);
       this.closeEditorModal();
     },
 
@@ -3678,6 +3758,7 @@ function pdfgenApp() {
       if (!name || this.aircraftModels.includes(name)) return;
       this.aircraftModels.push(name);
       this.newModelName = "";
+      logAction("ADMIN", "Added aircraft model", name);
     },
 
     // Inline rename (not a native prompt() dialog — Electron-based
@@ -3716,6 +3797,7 @@ function pdfgenApp() {
       for (const lb of this.logbooks) if (lb.aircraftModel === oldName) lb.aircraftModel = name;
       for (const d of this.defaults) if (d.aircraftModel === oldName) d.aircraftModel = name;
       if (this.selectedModel === oldName) this.selectedModel = name;
+      logAction("ADMIN", "Renamed aircraft model", oldName + " -> " + name);
     },
 
     canDeleteAircraftModel(name) {
@@ -3732,6 +3814,7 @@ function pdfgenApp() {
       if (!confirm('Delete aircraft model "' + name + '"?')) return;
       this.aircraftModels = this.aircraftModels.filter(m => m !== name);
       if (this.selectedModel === name) this.selectedModel = this.aircraftModels[0] || "";
+      logAction("ADMIN", "Deleted aircraft model", name);
     },
 
     // ================= Admin: document types =================
@@ -3748,6 +3831,7 @@ function pdfgenApp() {
       this.documentTypes.push({ id, name, models: [] });
       this.documentTypeForms[id] = [];
       this.newDocTypeName = "";
+      logAction("ADMIN", "Added document type", name);
     },
 
     // Inline rename, same reasoning as startRenameAircraftModel above.
@@ -3763,14 +3847,17 @@ function pdfgenApp() {
 
     commitRenameDocumentType(dt) {
       if (this.renamingDocTypeId !== dt.id) return;
+      const oldName = dt.name;
       const name = this.renameDocTypeDraft.trim();
       this.renamingDocTypeId = null;
       if (name) dt.name = name;
+      if (name && name !== oldName) logAction("ADMIN", "Renamed document type", oldName + " -> " + name);
     },
 
     toggleDocTypeModel(dt, model) {
       const i = dt.models.indexOf(model);
       if (i === -1) dt.models.push(model); else dt.models.splice(i, 1);
+      logAction("ADMIN", "Toggled model for document type", dt.name + ": " + model + (i === -1 ? " added" : " removed"));
     },
 
     canDeleteDocumentType(dt) {
@@ -3786,6 +3873,7 @@ function pdfgenApp() {
       this.documentTypes = this.documentTypes.filter(d => d.id !== dt.id);
       delete this.documentTypeForms[dt.id];
       if (this.selectedDocType === dt.id) this.selectedDocType = this.documentTypes[0] ? this.documentTypes[0].id : null;
+      logAction("ADMIN", "Deleted document type", dt.name);
     },
 
     // ================= Admin: assign & sort form types =================
@@ -3823,6 +3911,7 @@ function pdfgenApp() {
       if (!this.adminAssignDocTypeId) return;
       this.documentTypeForms[this.adminAssignDocTypeId] = this.assignDraft.slice();
       this.showAdminAssignModal = false;
+      logAction("ADMIN", "Saved form-type assignment", this.assignDocType ? this.assignDocType.name : this.adminAssignDocTypeId);
     },
 
     // ================= Admin: form types =================
@@ -3840,6 +3929,7 @@ function pdfgenApp() {
     // visual reference for the third.
     async handleUploadFormTypePdf(file) {
       if (!file) return;
+      logAction("ADMIN", "Upload PDF (new type) started", file.name || "");
       this.uploadingFormType = true;
       try {
         const buf = await file.arrayBuffer();
@@ -3902,6 +3992,7 @@ function pdfgenApp() {
     // prior upload — nothing existing gets removed or repositioned.
     async handleUploadPdfForExistingType(ft, file) {
       if (!file || !ft || !ft.custom) return;
+      logAction("ADMIN", "Upload PDF (existing type) started", ft.type + ": " + (file.name || ""));
       this.uploadingFormType = true;
       try {
         const buf = await file.arrayBuffer();
@@ -3974,6 +4065,7 @@ function pdfgenApp() {
         vector: fieldCount + " field candidate" + fieldPlural + " guessed from the page layout — review and adjust them below." + tableNote,
         image: "No extractable text found (looks like a scanned/image PDF) — the page is shown for reference; add fields manually with \"+ Add field\".",
       };
+      logAction("ADMIN", "PDF extracted", kind + ", " + fieldCount + " fields, " + tableCount + " tables");
       alert(messages[kind]);
     },
 
@@ -3997,6 +4089,7 @@ function pdfgenApp() {
       if (!confirm('Delete form type "' + ft.label + '"? This cannot be undone.')) return;
       const idx = this.FORM_TYPES.findIndex(f => f.type === ft.type);
       if (idx !== -1) this.FORM_TYPES.splice(idx, 1);
+      logAction("ADMIN", "Deleted form type", ft.type + " (" + ft.label + ")");
     },
 
     // ---- manual schema builder: create a new form type, or edit the full
@@ -4312,8 +4405,10 @@ function pdfgenApp() {
         schema.defaultLayout = defaultLayout;
         delete this.fieldLayouts[type]; // defaultLayout now fully reflects current state, no override layer needed
         this.formTypeOverrides[type] = { label, bannerNote };
+        logAction("EDITOR", "Edited form type structure", type + " (" + label + ")");
       } else {
         this.FORM_TYPES.push({ type, label, bannerNote, sections, defaultLayout, custom: true });
+        logAction("EDITOR", "Created form type", type + " (" + label + ")");
       }
       this.showFormTypeBuilder = false;
     },

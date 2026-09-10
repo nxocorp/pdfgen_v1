@@ -6,7 +6,11 @@
       "type": "shell",
       "command": "Remove-Item -Force -ErrorAction SilentlyContinue -Path 'pdfgen.sqlite','pdfgen.sqlite-wal','pdfgen.sqlite-shm'",
       "options": {
-        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server"
+        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server",
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-Command"]
+        }
       },
       "presentation": {
         "reveal": "always",
@@ -19,7 +23,11 @@
       "type": "shell",
       "command": "node -e \"require('./db.js'); console.log('Database reseeded.');\"",
       "options": {
-        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server"
+        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server",
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-Command"]
+        }
       },
       "presentation": {
         "reveal": "always",
@@ -46,7 +54,11 @@
       "type": "shell",
       "command": "npm start",
       "options": {
-        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server"
+        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server",
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-Command"]
+        }
       },
       "isBackground": true,
       "presentation": {

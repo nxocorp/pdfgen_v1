@@ -1548,6 +1548,37 @@ entirely and get reset by the firewall. Fix: export `HTTPS_PROXY`/
 running `npm install` so the child processes inherit them too — see
 `07-pdfgen-dbnormal/server/README.md` for the exact commands.
 
+## VS Code tasks: shell mismatch, and a stale debug session holding the DB open (`07-pdfgen-dbnormal`)
+
+`.vscode/tasks.json`'s three `07: ...` `"type": "shell"` tasks (Delete
+SQLite DB / Reseed SQLite DB / Start Server) run their `command` under
+whatever shell VS Code's task runner defaults to on this machine, which is
+**`cmd.exe`**, not PowerShell — even though the user's own interactive
+terminal is PowerShell. `Remove-Item -Force -ErrorAction SilentlyContinue`
+is PowerShell-only syntax; under `cmd.exe` it fails immediately with
+`'Remove-Item' is not recognized as an internal or external command`. Fixed
+by giving all three tasks an explicit `options.shell` override:
+```json
+"shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+```
+rather than rewriting the command in `cmd.exe`-compatible syntax — keeps
+the same PowerShell cmdlets working and stays consistent with the rest of
+this project's Windows-first tooling.
+
+**A second, unrelated failure mode surfaces even after that fix**: SQLite's
+WAL mode keeps `pdfgen.sqlite`/`-wal`/`-shm` open for the lifetime of any
+live connection, so if a prior "07: Launch Server (Debug)" session (or a
+"07: Start Server" task) is still running when "07: Delete SQLite DB"
+fires, `Remove-Item` fails with `The process cannot access the file...
+because it is being used by another process` — a real OS-level file lock,
+not a shell problem, and not fixed by the shell override above. Confirmed
+directly: a leftover debug-session `node.exe` (spawned by VS Code's
+`js-debug` bootloader) was still holding all three files open; killing
+that process let the delete succeed immediately. **Stop the server (debug
+session or "07: Start Server" task) before running "07: Delete Database
+and Reseed."** Worth automating later (e.g. a `preLaunchTask`/task
+dependency that stops any running server first), not done yet.
+
 ## Non-goals (for now)
 
 - OCR-based field detection for a scanned/photographed PDF with no real
