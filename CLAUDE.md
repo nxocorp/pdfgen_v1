@@ -1529,6 +1529,25 @@ having `addFormInstance` lazily create the array on first use if missing
 reachable in practice — deleting requires an instance to already exist,
 which requires `addFormInstance` to have succeeded first).
 
+## Local dev setup: `npm install` fails on `better-sqlite3` on the corporate network (`05-pdfgen-database`, `07-pdfgen-dbnormal`)
+
+`npm install` inside either folder's `server/` can fail partway through
+with `better-sqlite3`'s postinstall throwing `ECONNRESET` while fetching
+`node-v...-headers.tar.gz` from `nodejs.org`. Not a `better-sqlite3`
+version/compatibility problem — it's a native module, so its install step
+runs `prebuild-install` (fetches a precompiled binary from GitHub
+releases) and falls back to `node-gyp rebuild` (fetches Node headers
+straight from `nodejs.org`) if that fails; both are separate child
+processes that only honor the `HTTPS_PROXY`/`HTTP_PROXY` **environment
+variables**, not npm's own `.npmrc` `proxy`/`https-proxy` settings. Plain
+`npm install` for pure-JS deps (express, etc.) works fine because npm
+itself does read `.npmrc` and routes those through the Nexus registry
+mirror; the direct-to-`nodejs.org`/GitHub calls bypass that proxy config
+entirely and get reset by the firewall. Fix: export `HTTPS_PROXY`/
+`HTTP_PROXY`/`NODE_EXTRA_CA_CERTS` as real environment variables before
+running `npm install` so the child processes inherit them too — see
+`07-pdfgen-dbnormal/server/README.md` for the exact commands.
+
 ## Non-goals (for now)
 
 - OCR-based field detection for a scanned/photographed PDF with no real

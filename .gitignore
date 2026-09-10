@@ -9,3 +9,8 @@ node_modules/
 # Ad-hoc data-repair backups made directly against a live database
 # (see history.md for when/why these get created)
 *.backup.json
+
+# Local npm proxy/auth config for the corporate network — contains a live
+# Nexus auth token, never commit this (see CLAUDE.md's "Local dev setup"
+# note for the proxy env-var alternative that doesn't require a secret file)
+.npmrc

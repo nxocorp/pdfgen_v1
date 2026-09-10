@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "07: Launch Server (Debug)",
+      "program": "${workspaceFolder}/07-pdfgen-dbnormal/server/server.js",
+      "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server",
+      "console": "integratedTerminal",
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": ["${workspaceFolder}/07-pdfgen-dbnormal/server/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "07: Attach to Server",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

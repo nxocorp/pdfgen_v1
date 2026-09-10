@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "07: Delete SQLite DB",
+      "type": "shell",
+      "command": "Remove-Item -Force -ErrorAction SilentlyContinue -Path 'pdfgen.sqlite','pdfgen.sqlite-wal','pdfgen.sqlite-shm'",
+      "options": {
+        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "07: Reseed SQLite DB",
+      "type": "shell",
+      "command": "node -e \"require('./db.js'); console.log('Database reseeded.');\"",
+      "options": {
+        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "07: Delete Database and Reseed",
+      "dependsOn": ["07: Delete SQLite DB", "07: Reseed SQLite DB"],
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "07: Start Server",
+      "type": "shell",
+      "command": "npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/07-pdfgen-dbnormal/server"
+      },
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^never matches$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^> node server\\.js",
+          "endsPattern": "listening on http"
+        }
+      }
+    }
+  ]
+}
