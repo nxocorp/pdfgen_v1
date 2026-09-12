@@ -1,0 +1,560 @@
+<div id="pdfgen-anatomy">
+  <style>
+    #pdfgen-anatomy {
+      --pg-background: var(--background, #f8fafc);
+      --pg-foreground: var(--foreground, #172033);
+      --pg-card: var(--card, #ffffff);
+      --pg-card-foreground: var(--card-foreground, #172033);
+      --pg-muted: var(--muted, #eef2f7);
+      --pg-muted-foreground: var(--muted-foreground, #5d6778);
+      --pg-primary: var(--primary, #2356d8);
+      --pg-primary-foreground: var(--primary-foreground, #ffffff);
+      --pg-border: var(--border, #cfd7e3);
+      --pg-input: var(--input, #cfd7e3);
+      --pg-accent: var(--accent, #e8eefc);
+      --pg-series-1: var(--viz-series-1, #2f6fed);
+      --pg-series-2: var(--viz-series-2, #2f6fed);
+      --pg-series-3: var(--viz-series-3, #168a65);
+      --pg-series-4: var(--viz-series-4, #946200);
+      color: var(--pg-foreground);
+      width: 100%;
+      box-sizing: border-box;
+      font: 400 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--pg-background);
+      padding: 18px;
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+    #pdfgen-anatomy *,
+    #pdfgen-anatomy *::before,
+    #pdfgen-anatomy *::after {
+      box-sizing: border-box;
+    }
+    #pdfgen-anatomy h2 {
+      color: var(--pg-foreground);
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+    #pdfgen-anatomy .text-muted {
+      color: var(--pg-muted-foreground);
+    }
+    #pdfgen-anatomy .text-small {
+      font-size: 12px;
+    }
+    #pdfgen-anatomy .form-label {
+      display: grid;
+      gap: 6px;
+      color: var(--pg-foreground);
+      font-weight: 500;
+    }
+    #pdfgen-anatomy .form-select {
+      appearance: none;
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--pg-input);
+      border-radius: 8px;
+      color: var(--pg-foreground);
+      background:
+        linear-gradient(45deg, transparent 50%, var(--pg-muted-foreground) 50%) calc(100% - 17px) 52% / 6px 6px no-repeat,
+        linear-gradient(135deg, var(--pg-muted-foreground) 50%, transparent 50%) calc(100% - 12px) 52% / 6px 6px no-repeat,
+        var(--pg-card);
+      padding: 8px 34px 8px 10px;
+      font: inherit;
+    }
+    #pdfgen-anatomy .btn {
+      min-height: 38px;
+      border: 1px solid var(--pg-border);
+      border-radius: 8px;
+      color: var(--pg-foreground);
+      background: var(--pg-card);
+      padding: 8px 13px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #pdfgen-anatomy .btn:hover:not(:disabled) {
+      background: var(--pg-accent);
+    }
+    #pdfgen-anatomy .btn-primary {
+      border-color: var(--pg-primary);
+      background: var(--pg-primary);
+      color: var(--pg-primary-foreground);
+    }
+    #pdfgen-anatomy .btn-primary:hover:not(:disabled) {
+      background: var(--pg-primary);
+      opacity: 0.92;
+    }
+    #pdfgen-anatomy .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+    #pdfgen-anatomy .card {
+      background: var(--pg-card);
+      color: var(--pg-card-foreground);
+      border: 1px solid var(--pg-border);
+      border-radius: 8px;
+    }
+    #pdfgen-anatomy .anatomy-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    #pdfgen-anatomy .anatomy-header h2,
+    #pdfgen-anatomy .anatomy-header p {
+      margin: 0;
+    }
+    #pdfgen-anatomy .scenario-field {
+      min-width: 230px;
+    }
+    #pdfgen-anatomy .system-layout {
+      display: grid;
+      grid-template-columns: minmax(145px, 0.8fr) minmax(360px, 2.4fr) minmax(145px, 0.8fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    #pdfgen-anatomy .rail {
+      display: grid;
+      gap: 18px;
+      align-content: center;
+    }
+    #pdfgen-anatomy .cross-cut {
+      padding: 14px 4px;
+      border-top: 2px solid var(--pg-border);
+      border-bottom: 2px solid var(--pg-border);
+      transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    #pdfgen-anatomy .cross-cut strong,
+    #pdfgen-anatomy .organ strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    #pdfgen-anatomy .cross-cut.active {
+      color: var(--pg-primary-foreground);
+      background: var(--pg-primary);
+      border-color: transparent;
+      padding-inline: 10px;
+    }
+    #pdfgen-anatomy .cross-cut.visited:not(.active) {
+      background: rgba(47, 111, 237, 0.14);
+      background: color-mix(in srgb, var(--pg-series-1) 14%, transparent);
+      border-color: var(--pg-series-1);
+      padding-inline: 10px;
+    }
+    #pdfgen-anatomy .main-flow {
+      min-width: 0;
+    }
+    #pdfgen-anatomy .actor,
+    #pdfgen-anatomy .storage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+    }
+    #pdfgen-anatomy .runtime {
+      padding: 16px;
+      margin: 12px 0;
+    }
+    #pdfgen-anatomy .runtime-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    #pdfgen-anatomy .pipeline {
+      display: grid;
+      gap: 0;
+    }
+    #pdfgen-anatomy .organ {
+      padding: 12px 14px;
+      background: rgba(47, 111, 237, 0.10);
+      background: color-mix(in srgb, var(--pg-series-2) 10%, transparent);
+      border-left: 4px solid var(--pg-border);
+      transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+    #pdfgen-anatomy .organ.active {
+      color: var(--pg-primary-foreground);
+      background: var(--pg-primary);
+      border-color: var(--pg-primary);
+      transform: translateX(4px);
+    }
+    #pdfgen-anatomy .organ.visited:not(.active) {
+      background: rgba(47, 111, 237, 0.14);
+      background: color-mix(in srgb, var(--pg-series-1) 14%, transparent);
+      border-color: var(--pg-series-1);
+    }
+    #pdfgen-anatomy .organ.browser-organ {
+      background: rgba(22, 138, 101, 0.12);
+      background: color-mix(in srgb, var(--pg-series-3) 12%, transparent);
+    }
+    #pdfgen-anatomy .organ.database-organ {
+      background: rgba(148, 98, 0, 0.12);
+      background: color-mix(in srgb, var(--pg-series-4) 12%, transparent);
+    }
+    #pdfgen-anatomy .organ.browser-organ.active,
+    #pdfgen-anatomy .organ.database-organ.active {
+      background: var(--pg-primary);
+    }
+    #pdfgen-anatomy .connector {
+      color: var(--pg-muted-foreground);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      min-height: 28px;
+    }
+    #pdfgen-anatomy .connector::before,
+    #pdfgen-anatomy .connector::after {
+      content: "";
+      height: 1px;
+      background: var(--pg-border);
+    }
+    #pdfgen-anatomy .connector.active {
+      color: var(--pg-foreground);
+      font-weight: 500;
+    }
+    #pdfgen-anatomy .connector.active::before,
+    #pdfgen-anatomy .connector.active::after {
+      background: var(--pg-series-1);
+      height: 2px;
+    }
+    #pdfgen-anatomy .module-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 9px;
+    }
+    #pdfgen-anatomy .module-strip span {
+      text-align: center;
+      padding: 5px 3px;
+      color: var(--pg-muted-foreground);
+      border-bottom: 2px solid var(--pg-border);
+    }
+    #pdfgen-anatomy .module-strip span.module-active {
+      color: currentColor;
+      border-color: currentColor;
+      font-weight: 500;
+    }
+    #pdfgen-anatomy .outside-label {
+      color: var(--pg-muted-foreground);
+      text-align: center;
+      white-space: nowrap;
+    }
+    #pdfgen-anatomy .step-area {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+    #pdfgen-anatomy .step-detail {
+      min-width: 0;
+      text-align: center;
+    }
+    #pdfgen-anatomy .step-detail strong {
+      font-weight: 500;
+    }
+    #pdfgen-anatomy .legend {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      color: var(--pg-muted-foreground);
+    }
+    #pdfgen-anatomy .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+      background: rgba(47, 111, 237, 0.14);
+      background: color-mix(in srgb, var(--pg-series-1) 14%, transparent);
+    }
+    #pdfgen-anatomy .legend span:last-child::before {
+      background: var(--pg-primary);
+    }
+    @media (max-width: 760px) {
+      #pdfgen-anatomy .system-layout {
+        grid-template-columns: 1fr;
+      }
+      #pdfgen-anatomy .rail {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        order: 2;
+      }
+      #pdfgen-anatomy .main-flow {
+        order: 1;
+      }
+      #pdfgen-anatomy .module-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 440px) {
+      #pdfgen-anatomy .actor,
+      #pdfgen-anatomy .storage {
+        grid-template-columns: 1fr;
+      }
+      #pdfgen-anatomy .outside-label {
+        white-space: normal;
+      }
+      #pdfgen-anatomy .step-area {
+        grid-template-columns: 1fr 1fr;
+      }
+      #pdfgen-anatomy .step-detail {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+      #pdfgen-anatomy .step-area button:last-child {
+        grid-column: 2;
+      }
+    }
+  </style>
+
+  <div class="anatomy-header">
+    <div>
+      <h2>PDF-gen: inside the running application</h2>
+      <p class="text-muted">Follow one business action through the whole body.</p>
+    </div>
+    <label class="form-label scenario-field">Follow this action
+      <select id="anatomy-scenario" class="form-select">
+        <option value="edit">Edit and save a form row</option>
+        <option value="open">Open an existing document</option>
+        <option value="admin">Publish a form-type revision</option>
+        <option value="failure">Handle a database failure</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="system-layout">
+    <aside class="rail" aria-label="Controls that protect and configure the application">
+      <div class="cross-cut" data-part="security">
+        <strong>Security · immune system</strong>
+        Identifies the caller, checks permission, and limits which records they may touch.
+      </div>
+      <div class="cross-cut" data-part="configuration">
+        <strong>Configuration · body settings</strong>
+        Supplies environment-specific database, identity, limits, and feature settings.
+      </div>
+    </aside>
+
+    <main class="main-flow" aria-label="Main request and data flow">
+      <div class="actor">
+        <div class="organ" data-part="user">
+          <strong>User · intent</strong>
+          Starts a business action such as opening, editing, importing, or administering.
+        </div>
+        <div class="outside-label">⇄</div>
+        <div class="organ browser-organ" data-part="browser">
+          <strong>Browser · hands and eyes</strong>
+          Renders forms, gathers input, previews PDFs, performs OCR, and sends API requests.
+        </div>
+      </div>
+
+      <div class="connector" data-link="network">HTTPS · JSON · ETag</div>
+
+      <section class="runtime card" aria-label="Spring Boot application process">
+        <div class="runtime-label">
+          <strong>Spring Boot process</strong>
+          <span class="text-muted">One deployable modular monolith</span>
+        </div>
+        <div class="pipeline">
+          <div class="organ" data-part="api">
+            <strong>API · front door and translator</strong>
+            Converts HTTP into typed commands and converts results or errors back into HTTP.
+          </div>
+
+          <div class="connector" data-link="command">typed command or query</div>
+
+          <div class="organ" data-part="application">
+            <strong>Application service · conductor</strong>
+            Runs one use case, coordinates authorization and repositories, and owns the transaction.
+            <div class="module-strip" aria-label="Business modules">
+              <span data-module="document">Document</span>
+              <span data-module="formtype">Form type</span>
+              <span data-module="registry">Registry</span>
+              <span data-module="defaults">Defaults</span>
+              <span data-module="settings">Settings</span>
+            </div>
+          </div>
+
+          <div class="connector" data-link="rule">business operation</div>
+
+          <div class="organ" data-part="domain">
+            <strong>Domain · rulebook</strong>
+            Decides what is valid: ownership, archive state, completion, revisions, and row rules.
+          </div>
+
+          <div class="connector" data-link="repository">repository request</div>
+
+          <div class="organ" data-part="persistence">
+            <strong>Persistence · translator to durable memory</strong>
+            Executes scoped SQL, maps rows to objects, and performs atomic version checks.
+          </div>
+        </div>
+      </section>
+
+      <div class="connector" data-link="sql">SQL · transaction · constraints</div>
+
+      <div class="storage">
+        <div class="organ database-organ" data-part="database">
+          <strong>PostgreSQL · durable memory</strong>
+          Stores documents, form revisions, rows, settings, versions, and audit evidence.
+        </div>
+        <div class="outside-label">+</div>
+        <div class="organ database-organ" data-part="artifacts">
+          <strong>Templates/artifacts · document memory</strong>
+          Stores versioned PDF templates and, when needed, generated or archived files.
+        </div>
+      </div>
+    </main>
+
+    <aside class="rail" aria-label="Controls that sense behavior and communicate failures">
+      <div class="cross-cut" data-part="observability">
+        <strong>Observability · nervous system</strong>
+        Measures health and performance; audit events record who changed important business state.
+      </div>
+      <div class="cross-cut" data-part="problem">
+        <strong>Problem handling · common pain language</strong>
+        Turns validation, conflict, authorization, and outage failures into safe, consistent responses.
+      </div>
+    </aside>
+  </div>
+
+  <div class="step-area">
+    <button type="button" class="btn" id="anatomy-previous">Previous</button>
+    <div class="step-detail" aria-live="polite">
+      <strong id="anatomy-step-count"></strong>
+      <span id="anatomy-step-text"></span>
+    </div>
+    <button type="button" class="btn btn-primary" id="anatomy-next">Next</button>
+  </div>
+
+  <div class="legend text-small" aria-label="Highlight legend">
+    <span>Already involved</span>
+    <span>Current responsibility</span>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('pdfgen-anatomy');
+      const select = root.querySelector('#anatomy-scenario');
+      const previous = root.querySelector('#anatomy-previous');
+      const next = root.querySelector('#anatomy-next');
+      const count = root.querySelector('#anatomy-step-count');
+      const detail = root.querySelector('#anatomy-step-text');
+
+      const scenarios = {
+        edit: {
+          module: 'document',
+          steps: [
+            ['user', 'The user changes a value in one form row.'],
+            ['browser', 'The browser updates the screen immediately and queues a versioned autosave request.'],
+            ['security', 'The request carries identity; security proves who the caller is and their permitted scope.'],
+            ['api', 'The row API validates the URL, JSON shape, field types, and If-Match version.'],
+            ['application', 'The document use case checks permission and begins one transaction.'],
+            ['domain', 'The rulebook rejects an archived document, a locked instance, or invalid row data.'],
+            ['persistence', 'The repository issues parent-scoped SQL with the expected document version.'],
+            ['database', 'PostgreSQL changes the row and advances the version atomically, or changes nothing.'],
+            ['observability', 'Metrics record timing/outcome and an audit event records the business change.'],
+            ['browser', 'The API returns the new version; only now does the browser display Saved.']
+          ]
+        },
+        open: {
+          module: 'document',
+          steps: [
+            ['user', 'The user selects a document from a paginated list.'],
+            ['browser', 'The browser requests only that document instead of downloading the whole database.'],
+            ['security', 'Security validates identity and confirms that this caller may read this record.'],
+            ['api', 'The document API translates the identifier into a typed GetDocument query.'],
+            ['application', 'The query service applies the authorized scope and asks for one aggregate view.'],
+            ['persistence', 'The reader loads one document, its instances, and its rows in bounded queries.'],
+            ['database', 'PostgreSQL returns durable state and the current optimistic-lock version.'],
+            ['observability', 'Telemetry records latency, errors, and database behavior without logging sensitive fields.'],
+            ['browser', 'The browser renders the document and loads a PDF template only when preview is requested.']
+          ]
+        },
+        admin: {
+          module: 'formtype',
+          steps: [
+            ['user', 'An administrator submits a new form schema or PDF template revision.'],
+            ['browser', 'The editor sends structured schema metadata and binary template content.'],
+            ['security', 'Security requires the specific form-type administration permission.'],
+            ['api', 'The form-type API validates media type, payload limits, identifiers, and revision metadata.'],
+            ['application', 'The form-type use case coordinates schema validation, template storage, and activation policy.'],
+            ['domain', 'The rulebook validates unique fields, layout references, compatibility, and immutable revision rules.'],
+            ['persistence', 'Repositories store a new revision rather than overwriting history.'],
+            ['database', 'PostgreSQL records revision metadata, checksum, status, author, and audit relationship.'],
+            ['artifacts', 'The exact PDF template bytes are retained under that immutable revision.'],
+            ['observability', 'An administrative audit event records who published which revision and when.']
+          ]
+        },
+        failure: {
+          module: 'document',
+          steps: [
+            ['user', 'The user saves a change while the database is unavailable.'],
+            ['browser', 'The browser keeps the pending change and shows Saving rather than claiming success.'],
+            ['api', 'The API receives the request normally and creates a correlation identifier.'],
+            ['application', 'The use case starts, but its repository call cannot complete.'],
+            ['persistence', 'The repository translates the database exception into a dependency failure.'],
+            ['problem', 'Problem handling returns a safe, stable, retryable service-unavailable response.'],
+            ['observability', 'Health, error-rate, and latency signals trigger an owned alert linked to a runbook.'],
+            ['browser', 'The client schedules bounded backoff, preserves the edit, and accurately says Retry scheduled.'],
+            ['configuration', 'Configured retry ceilings, timeouts, and dependency settings prevent an endless failure storm.'],
+            ['database', 'After recovery, the retry succeeds only if its idempotency key and document version are still valid.']
+          ]
+        }
+      };
+
+      let stepIndex = 0;
+
+      function render() {
+        const scenario = scenarios[select.value];
+        const current = scenario.steps[stepIndex];
+        const visitedParts = new Set(scenario.steps.slice(0, stepIndex).map(step => step[0]));
+
+        root.querySelectorAll('[data-part]').forEach(element => {
+          const part = element.dataset.part;
+          element.classList.toggle('active', part === current[0]);
+          element.classList.toggle('visited', visitedParts.has(part) && part !== current[0]);
+        });
+
+        root.querySelectorAll('[data-module]').forEach(element => {
+          element.classList.toggle('module-active', element.dataset.module === scenario.module);
+        });
+
+        const mainOrder = ['user', 'browser', 'api', 'application', 'domain', 'persistence', 'database', 'artifacts'];
+        const currentMain = mainOrder.indexOf(current[0]);
+        root.querySelectorAll('[data-link]').forEach((element, index) => {
+          element.classList.toggle('active', currentMain > 0 && index < currentMain);
+        });
+
+        count.textContent = `Step ${stepIndex + 1} of ${scenario.steps.length} · `;
+        detail.textContent = current[1];
+        previous.disabled = stepIndex === 0;
+        next.disabled = stepIndex === scenario.steps.length - 1;
+        next.textContent = stepIndex === scenario.steps.length - 1 ? 'Complete' : 'Next';
+      }
+
+      select.addEventListener('change', () => {
+        stepIndex = 0;
+        render();
+      });
+      previous.addEventListener('click', () => {
+        if (stepIndex > 0) stepIndex -= 1;
+        render();
+      });
+      next.addEventListener('click', () => {
+        const total = scenarios[select.value].steps.length;
+        if (stepIndex < total - 1) stepIndex += 1;
+        render();
+      });
+
+      render();
+    })();
+  </script>
+</div>
